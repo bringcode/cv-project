@@ -8,10 +8,10 @@ cap = cv.VideoCapture('imgs/first.h264')
 if not cap.isOpened():
 	sys.exit('카메라 연결 실패')
 
-hue_yellow = 55
+hue_yellow = 20
 distribution = 10
 
-lower_yellow = (hue_yellow-distribution, 150, 100)
+lower_yellow = (hue_yellow-distribution, 100, 100)
 upper_yellow = (hue_yellow+distribution, 255, 255)
 
 while True:
@@ -21,7 +21,7 @@ while True:
 
     img_mask = cv.inRange(img_hsv, lower_yellow, upper_yellow)
 
-    kernel = cv.getStructuringElement(cv.MORPH_RECT, (5,5))
+    kernel = cv.getStructuringElement(cv.MORPH_RECT, (7,7))
     img_mask = cv.morphologyEx(img_mask, cv.MORPH_DILATE, kernel, iterations=3)
     img_mask_color = cv.cvtColor(img_mask, cv.COLOR_GRAY2BGR)
 
