@@ -7,6 +7,7 @@ hue_yellow = 10
 distribution = 10
 isContinueVideo = True
 
+# q를 누르면 동영상이 꺼지고, n을 누르면 hue_yellow값에 10을 더한다.
 while hue_yellow <= 240 and isContinueVideo:
     cap = cv.VideoCapture('imgs/first.h264')
     
