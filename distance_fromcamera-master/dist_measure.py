@@ -51,8 +51,8 @@ while True:
 
 
     #predefined mask for green colour detection
-    lower = np.array([37, 51, 24])
-    upper = np.array([83, 104, 131])
+    lower = np.array([10, 100, 100])
+    upper = np.array([-10, 255, 255])
     mask = cv2.inRange(hsv_img, lower, upper)
      
 
