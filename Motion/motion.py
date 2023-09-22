@@ -101,6 +101,12 @@ class Motion:
             self.TX_data_py2(dir_list[dir])
             time.sleep(sleep)
 
+
+    def walk_30:
+        
+
+    def walk_10:
+
     # 머리 각도 (121~140)
     def set_head(self, dir, angle=0):
         """
