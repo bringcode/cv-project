@@ -93,7 +93,7 @@ class Motion:
         """ parameter :
         dir : {FORWARD, BACKWARD}
         """
-        dir_list = {'FORWARD': 101, "BACKWARD": 111}
+        dir_list = {"FORWARD": 101, "BACKWARD": 111}
         if short:
             dir_list[dir] += 1
 
@@ -102,10 +102,19 @@ class Motion:
             time.sleep(sleep)
 
 
-    def walk_30:
-        
+    # 10cm, 30cm씩 앞으로 가기 -> 둘의 구분은 Controller에서의 상황 인식에 따라.
+    def walk_cm(self, dir, loop=1, sleep=0.1, short=True):
+        """
+        기본 걸음은 쓱싹쓱싹.. 만약 장애물 나오면 그게 우선시되게끔 해야 함.
+        """
+        dir_list = {"FORWARD": 101}
+        if short:
+            dir_list[dir] += 1
 
-    def walk_10:
+        for _ in range(loop):
+            self.TX_data_py2(dir_list[dir])  
+            time.sleep(sleep)
+
 
     # 머리 각도 (121~140)
     def set_head(self, dir, angle=0):
