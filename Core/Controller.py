@@ -1,11 +1,13 @@
 import Motion.motion
 import Sensor.dict_measure_draft
+import time
 
 
 class Controller:
     # 10cm 앞으로 이동
     def walk_10cm():
-        minus_10cm = Sensor.dict_measure_draft.dist - 10   # 처음 거리에서 30cm 빼기
+        minus_10cm = Sensor.dict_measure_draft.dist - 10   # 처음 거리에서 10cm 빼기
+        # time으로 몇초 이동하는지 확인하기
         if Sensor.dict_measure_draft.dist != minus_10cm:   # dist: 현재 인식되는 거리
             Motion.motion.walk_cm("FORWARD")
 
