@@ -26,15 +26,20 @@ class Controller:
 
         # 공 인식
         while True:
-            if Sensor.dist_measure_draft.name == "ball":
+            if Sensor.dist_measure_draft.name == 'ball':
                 break
             else:
-                Robo._motion.set_head("LEFT")  # 혹은 "RIGHT"
+                head_turn = 10   # 초기 회전
+                Robo._motion.set_head("LEFT", head_turn)
+                time.sleep(1)
+                Robo._motion.set_head("RIGHT", head_turn)
+                time.sleep(1)
+                head_turn += 10   # 10도씩 더 회전하게끔..
         
         # 공 쪽까지 걸어가기
         while True:
-            if Sensor.dist_measure_draft.dist > 목표_거리:
-                self.walk_10cm()  # 혹은 walk_30cm()
+            if Sensor.dist_measure_draft.dist <= 목표_거리:
+                self.walk()
             else:
                 break
 
@@ -43,16 +48,25 @@ class Controller:
             if Sensor.dist_measure_draft.name == "flag":
                 break
             else:
-                Robo._motion.set_head("LEFT")
+                head_turn = 10   # 초기 회전
+                Robo._motion.set_head("LEFT", head_turn)
+                time.sleep(1)
+                Robo._motion.set_head("RIGHT", head_turn)
+                time.sleep(1)
+                head_turn += 10   # 10도씩 더 회전하게끔..
 
         # 공이랑 일직선이 되게끔 각도 바꾸기
         while True:
-            # 만약 머리 각도를 바꾸다가 공이랑 깃발이 일직선에 있을 경우 멈추기..
-            if Robo._motion.set_head():
-                if 'ball' != 'flag':
-                    Robo._motion.turn("LEFT", 회전각도)
-            else:
+            # 공이랑 깃발이 일직선이 아니면 계속 턴하면서 찾기
+            if 'ball' == 'flag':   # 일직선이 되면 멈추고 공 차기
                 break
+            else:
+                body_turn = 10
+                Robo._motion.turn("LEFT", body_turn)
+                time.sleep(1)
+                Robo._motion.turn("RIGHT", body_turn)
+                time.sleep(1)
+                body_turn += 10
 
         # 공 치기
         

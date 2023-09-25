@@ -13,6 +13,7 @@ pixels = 30
 width = 4
 
 
+name = ''
 #find the distance from then camera
 def get_dist(rectange_params,image, name):
     #find no of pixels covered
@@ -25,13 +26,14 @@ def get_dist(rectange_params,image, name):
     if name == 'flag':
         image = cv2.putText(image, 'flag Distance from Camera in CM :', org, font,  
         1, color, 2, cv2.LINE_AA)
+        name = 'flag'
     else: 
         image = cv2.putText(image, 'ball Distance from Camera in CM :', org, font,  
         1, color, 2, cv2.LINE_AA)
+        name = 'ball'
 
     image = cv2.putText(image, str(dist), (110,50), font,  
     fontScale, color, 1, cv2.LINE_AA)
-
 
     return image
 
