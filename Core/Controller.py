@@ -15,5 +15,5 @@ class Controller:
     # 30cm 앞으로 이동
     def walk_30cm():
         minus_30cm = Sensor.dist_measure_draft.dist - 30   # 처음 거리에서 30cm 빼기
-        if Sensor.dist_measure_draft.dist != minus_30cm:   # dist: 현재 인식되는 거리
+        if Sensor.dist_measure_draft.dist != minus_30cm:
             Motion.motion.walk_cm("FORWARD")
