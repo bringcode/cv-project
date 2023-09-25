@@ -209,6 +209,11 @@ class Motion:
         """
         area_list = {'BLACK': 205, 'STAIR': 206}
         self.TX_data_py2(area_list[area])
+
+
+    # 공 치기
+    def hit_the_ball(self):
+        pass
     ############################################################
 
 
