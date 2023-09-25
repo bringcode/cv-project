@@ -1,4 +1,4 @@
-# Main code
+# -*- coding: utf-8 -*-
 from Core.Controller import Controller
 
 def main():

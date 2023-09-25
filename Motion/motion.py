@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import serial
 import time
 from threading import Thread, Lock
