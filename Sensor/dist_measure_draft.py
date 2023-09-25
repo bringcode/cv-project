@@ -37,8 +37,17 @@ def get_dist(rectange_params,image, name):
 
     return image
 
+W_View_size = 640
+H_View_size = int(W_View_size / 1.777)
+
+FPS = 90
+
 #Extract Frames 
 cap = cv2.VideoCapture(0)
+
+cap.set(3, W_View_size)
+cap.set(4, H_View_size)
+cap.set(5, FPS)
 
 
 #basic constants for opencv Functs
