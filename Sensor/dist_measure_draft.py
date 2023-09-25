@@ -1,3 +1,6 @@
+# 공, 깃발, 홀컵 인식
+# 거리 계산 + 색 인식
+
 import cv2, sys
 import numpy as np
 import platform
