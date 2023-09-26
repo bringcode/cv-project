@@ -68,7 +68,7 @@ class mkyolo():
             weights= './runs/train/direction_detect_yolov5/weights/best.pt',  # model path or triton URL,
 
             # source에 예측할 이미지 경로 =============================
-            source= '/Users/eun/2023_ESWCONTEST_ROBOT/Sensor/yolo_model/imgs/arrow_model.jpeg',  # file/dir/URL/glob/screen/0(webcam)
+            source= '/home/pi/robot/Sensor/yolo_model/imgs/arrow_model.jpeg',  # file/dir/URL/glob/screen/0(webcam)
             data=ROOT / 'data/coco128.yaml',  # dataset.yaml path
 
             # 예측할 이미지를 어떤 크기로 변형할 것인지 ==========================
