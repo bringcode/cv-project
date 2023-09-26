@@ -57,11 +57,13 @@ from utils.torch_utils import select_device, smart_inference_mode
 
 @smart_inference_mode()
 class mkyolo():
-    def __init__(self, img):
-        self.img = img
-
+    def __init__(self):
+        pass
     def run(
             self,
+
+            # 예측할 이미지 ========================
+            img,
             # weights에 모델의 가중치 경로 설정 =========================
             weights= './yolo_model/runs/train/direction_detect_yolov5/weights/best.pt',  # model path or triton URL,
 
@@ -128,7 +130,7 @@ class mkyolo():
             dataset = LoadScreenshots(source, img_size=imgsz, stride=stride, auto=pt)
         else:
             # 이 부분이 예측할 데이터를 전처리하는 코드 =====================================
-            dataset = LoadImages(source, self.img, img_size=imgsz, stride=stride, auto=pt, vid_stride=vid_stride)
+            dataset = LoadImages(source, img, img_size=imgsz, stride=stride, auto=pt, vid_stride=vid_stride)
         vid_path, vid_writer = [None] * bs, [None] * bs
 
         # Run inference
@@ -192,6 +194,8 @@ class mkyolo():
                         s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                     # Write results
+                    # label을 담는 리스트 정의 ============================================
+                    labels = []
                     for *xyxy, conf, cls in reversed(det):
                         c = int(cls)  # integer class
                         label = names[c] if hide_conf else f'{names[c]}'
@@ -211,7 +215,8 @@ class mkyolo():
                             c = int(cls)  # integer class
 
                             # label: 화살표 방향을 포함한 label 저장 =========================================================
-                            print(label)
+                            # labels: 복수 개의 label을 담고 있음 =================================
+                            labels.append(label)
                             label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                             annotator.box_label(xyxy, label, color=colors(c, True))
 
@@ -226,13 +231,16 @@ class mkyolo():
                             height = xyxy[3] - xyxy[1]
                             center = ((width//2) + xyxy[0], (height//2) + xyxy[0])
                             cv2.circle(im0, center, 3, (255,255,0), cv2.FILLED, cv2.LINE_AA)
+                    print(labels)
 
 
         # 결과 이미지 출력
         cv2.imshow('dst', im0)
         cv2.waitKey()
 
-img = cv2.imread('/Users/woojin/Desktop/project/robot-project/imgs/test2.png')
+# 모델 객체 생성
+model = mkyolo()
 
-model = mkyolo(img)
-model.run()
+# 예측하고 싶은 이미지 변수 넣기
+img = cv2.imread('/Users/woojin/Desktop/project/robot-project/imgs/test_3.png')
+model.run(img)
