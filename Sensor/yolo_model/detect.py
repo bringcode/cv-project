@@ -65,10 +65,10 @@ class mkyolo():
             # 예측할 이미지 ========================
             img,
             # weights에 모델의 가중치 경로 설정 =========================
-            weights= './yolo_model/runs/train/direction_detect_yolov5/weights/best.pt',  # model path or triton URL,
+            weights= './runs/train/direction_detect_yolov5/weights/best.pt',  # model path or triton URL,
 
             # source에 예측할 이미지 경로 =============================
-            source= '/Users/woojin/Desktop/project/robot-project/imgs/arrow.png',  # file/dir/URL/glob/screen/0(webcam)
+            source= '/Users/eun/2023_ESWCONTEST_ROBOT/Sensor/yolo_model/imgs/arrow_model.jpeg',  # file/dir/URL/glob/screen/0(webcam)
             data=ROOT / 'data/coco128.yaml',  # dataset.yaml path
 
             # 예측할 이미지를 어떤 크기로 변형할 것인지 ==========================
@@ -242,5 +242,5 @@ class mkyolo():
 model = mkyolo()
 
 # 예측하고 싶은 이미지 변수 넣기
-img = cv2.imread('/Users/woojin/Desktop/project/robot-project/imgs/test_3.png')
+img = cv2.imread('/Users/eun/2023_ESWCONTEST_ROBOT/Sensor/yolo_model/imgs/arrow_model.jpeg')
 model.run(img)
