@@ -242,5 +242,5 @@ class mkyolo():
 model = mkyolo()
 
 # 예측하고 싶은 이미지 변수 넣기
-img = cv2.imread('~/robot/Sensor/yolo_model/imgs/arrow_model.jpeg')
+img = cv2.imread('home/robot/Sensor/yolo_model/imgs/arrow_model.jpeg')
 model.run(img)
