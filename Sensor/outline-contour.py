@@ -23,7 +23,7 @@ def detect_yellow_corners(image, hsv):
     return image
 
   
-cap = cv2.VideoCapture("first.h264")
+cap = cv2.VideoCapture(0)
 
 scale_percent = 65
 
