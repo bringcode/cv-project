@@ -3,22 +3,28 @@ import numpy as np
 import cv2
 
 
-#거리 구할 때 필요한 변수 값들 dist구하는데 사용됨
+#Define object specific variables  
 dist = 0
 focal = 450
 pixels = 30
-width = 8
+width = 4
 
 
-#거리 구하는코드(따로 변경 필요 x)
+#find the distance from then camera
 def get_dist(rectange_params,image, name):
     #find no of pixels covered
     pixels = rectange_params[1][0]
     print(pixels)
     #calculate distance
-    dist =(int) ((width*focal)/pixels)
+    dist = int((width*focal)/pixels)
     
-
+    #Wrtie n the image
+    if name == 'flag':
+        image = cv2.putText(image, 'flag Distance from Camera in CM :', org, font,  
+        1, color, 2, cv2.LINE_AA)
+    else: 
+        image = cv2.putText(image, 'ball Distance from Camera in CM :', org, font,  
+        1, color, 2, cv2.LINE_AA)
 
     image = cv2.putText(image, str(dist), (110,50), font,  
     fontScale, color, 1, cv2.LINE_AA)
@@ -26,13 +32,21 @@ def get_dist(rectange_params,image, name):
 
     return image
 
-#영상 불러오기 ()안 바꾸면  영상 바뀜
-cap = cv2.VideoCapture('flagg.mp4')
+#Extract Frames 
+cap = cv2.VideoCapture('flag.mp4')
 
 
-#필터링 기술이나 거리 화면 폰트 관련 변수들
-kernel = np.ones((5,5),'uint8')
+#basic constants for opencv Functs
+kernel = np.ones((3,3),'uint8')
+font = cv2.FONT_HERSHEY_SIMPLEX 
+org = (0,20)  
+fontScale = 0.6 
+color = (0, 0, 255) 
+thickness = 2
 
+
+cv2.namedWindow('Object Dist Measure ',cv2.WINDOW_NORMAL)
+cv2.resizeWindow('Object Dist Measure ', 700,600)
 
 
 #loop to capture video frames
@@ -41,71 +55,71 @@ while True:
 
     hsv_img = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
 
-# 색 영역값 파악
+
+    #predefined mask for green colour detection
     lower = np.array([28, 180, 109])
-    upper = np.array([255, 255, 255])
-    mask = cv2.inRange(hsv_img, lower, upper)
+    upper = np.array([180, 255, 255])
+    lower2 = np.array([170, 50, 0])
+    upper2 = np.array([255, 255, 255])
 
+    
 
-    lower_flag = np.array([20, 68, 130])
-    upper_flag = np.array([66, 255, 255])
+    mask1 = cv2.inRange(hsv_img, lower, upper)
+    mask2 = cv2.inRange(hsv_img, lower2, upper2)
+
+    mask = mask1+mask2
+
+    lower_flag = np.array([10, 150, 100])
+    upper_flag = np.array([20, 255, 255])
     mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
 
 
-    #필터링 CLOSE , DILATE 사용 iteration도 로봇화면 보고 수정 필요
-    d_img = cv2.morphologyEx(mask, cv2.MORPH_DILATE, kernel,iterations = 3)
-    f_img = cv2.morphologyEx(mask_flag, cv2.MORPH_CLOSE, kernel,iterations = 11)
+    #Remove Extra garbage from image
+    d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel,iterations = 5)
+    f_img = cv2.morphologyEx(mask_flag, cv2.MORPH_OPEN, kernel,iterations = 5)
 
 
-    #영역찾기 코드
-   # 빨강 영역 구하기
-    cont, hei = cv2.findContours(d_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    cont = sorted(cont, key=cv2.contourArea, reverse=True)[:1]
-
-    red_boxes = []  # List to store red box coordinates
+    #find the histogram
+    cont,hei = cv2.findContours(d_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    cont = sorted(cont, key = cv2.contourArea, reverse = True)[:1]
 
     for cnt in cont:
-        if 100 < cv2.contourArea(cnt) < 306000:
+        #check for contour area
+        if (cv2.contourArea(cnt)>100 and cv2.contourArea(cnt)<306000):
+
+            #Draw a rectange on the contour
             rect = cv2.minAreaRect(cnt)
-            box = cv2.boxPoints(rect)
+            box = cv2.boxPoints(rect) 
             box = np.int0(box)
-            red_boxes.append(box)  # Store red box coordinates
-            cv2.drawContours(img, [box], -1, (0, 0, 255), 3)
+            print('points :', box)
+            cv2.drawContours(img,[box], -1,(255,0,0),3)
+            
+            img = get_dist(rect,img, 'ball')
 
-# 노랑영역 구하기
-    cont2, hei2 = cv2.findContours(f_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    cont2 = sorted(cont2, key=cv2.contourArea, reverse=True)[:1]
-
-    yellow_boxes = []  # 노랑 영역좌표값 배열
+    # 새로운거
+    cont2,hei2 = cv2.findContours(f_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    cont2 = sorted(cont2, key = cv2.contourArea, reverse = True)[:1]
 
     for cnt in cont2:
-        if 100 < cv2.contourArea(cnt) < 306000:
+        #check for contour area
+        if (cv2.contourArea(cnt)>100 and cv2.contourArea(cnt)<306000):
+
+            #Draw a rectange on the contour
             rect = cv2.minAreaRect(cnt)
-            box = cv2.boxPoints(rect)
+            box = cv2.boxPoints(rect) 
             box = np.int0(box)
-            yellow_boxes.append(box)  # Store yellow box coordinates
-            cv2.drawContours(img, [box], -1, (0, 255, 255), 3)
+            print('points :', box)
+            cv2.drawContours(img,[box], -1,(255,0,0),3)
+            
+            img = get_dist(rect,img, 'flag')
 
-# 노랑 영역속에 빨강영역이 포함되는지 확인하는 코드
-    for red_box in red_boxes:
-        for yellow_box in yellow_boxes:
-            is_inside = True
-            for point in red_box:
-                x, y = point
-                if x < yellow_box[0][0] and x > yellow_box[2][0] and y < yellow_box[0][1] and y > yellow_box[2][1]:
-                    is_inside = False
-                    break
-            if is_inside:
-                print('goal')
-            else:
-                print('no goal')
 
-    resized_img_1 = cv2.resize(img, dsize=(800,500), interpolation=cv2.INTER_LINEAR)
-
-    cv2.imshow('Object Dist Measure ', resized_img_1)
+    cv2.imshow('Object Dist Measure ', img)
 
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
+
 
 cv2.destroyAllWindows()
