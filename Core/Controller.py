@@ -21,6 +21,41 @@ class Controller:
         if Sensor.dist_measure_draft.dist != minus_30cm:   # dist: 현재 인식되는 거리
             Robo._motion.motion.walk_cm("FORWARD")
 
+    def location(self):
+        time.sleep(1)
+        self.ball = Sensor.findball.ball 
+        self.dir = 90
+
+        # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
+        self.robo._motion.set_head("DOWN",self.dir)
+        
+        # 수정 필요 while로 고치기 
+
+        for i in range(3):
+            if self.ball == False:
+                self.dir -= 10
+            else:
+                print("Find Ball Start Left")
+                self.dir = 90
+        self.robo._motion.set_head("UPDOWN_CENTER")
+
+        # 로봇이 가운데로 생각하고 시작하는 부분
+        self.dir = 50
+        self.robo._motion.set_head("DOWN",self.dir)
+        if self.ball == False:
+            self.robo._motion.set_head("RIGHT",10)
+            if self.ball == False:
+                self.robo._motion.set_head("LEFT",10)
+                if self.ball == False:
+                    print("Not Found")
+                else:
+                    print("start center and ball left")
+            else:
+                print("start center and ball right") 
+        else:
+            print("start center and ball center")
+
+
     def walk_to_ball_and_flag(self):
         Robo._motion.basic()  # 초기 자세로 설정
 
