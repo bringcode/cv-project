@@ -15,7 +15,7 @@ def get_dist(rectange_params,image, name):
     pixels = rectange_params[1][0]
     print(pixels)
     #calculate distance
-    dist = (width*focal)/pixels
+    dist = int((width*focal)/pixels)
     
     #Wrtie n the image
     if name == 'flag':
@@ -32,7 +32,7 @@ def get_dist(rectange_params,image, name):
     return image
 
 #Extract Frames 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('flag.mp4')
 
 
 #basic constants for opencv Functs
@@ -56,10 +56,17 @@ while True:
 
 
     #predefined mask for green colour detection
-    lower = np.array([170, 100, 100])
+    lower = np.array([28, 180, 109])
     upper = np.array([180, 255, 255])
-    mask = cv2.inRange(hsv_img, lower, upper)
+    lower2 = np.array([170, 50, 0])
+    upper2 = np.array([255, 255, 255])
 
+    
+
+    mask1 = cv2.inRange(hsv_img, lower, upper)
+    mask2 = cv2.inRange(hsv_img, lower2, upper2)
+
+    mask = mask1+mask2
 
     lower_flag = np.array([10, 150, 100])
     upper_flag = np.array([20, 255, 255])
