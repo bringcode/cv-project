@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 
 # Open the video file (change the filename as needed)
-cap = cv2.VideoCapture('flagg.mp4')
+cap = cv2.VideoCapture(0)
 
 # Filter and font-related variables
 kernel = np.ones((5, 5), 'uint8')
