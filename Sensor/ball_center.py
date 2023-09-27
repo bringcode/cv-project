@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import numpy as np
 import cv2
 
@@ -28,7 +26,7 @@ def get_dist(rectange_params,image, name, isMiddle):
 
         image = cv2.putText(image, 'flag Middle : {}'.format(isMiddle), org, font,  
         1, color, 2, cv2.LINE_AA)
-    elif name == 'ball':
+    else:
         image = cv2.putText(image, 'ball Distance from Camera in CM :', org, font,  
         1, color, 2, cv2.LINE_AA)
 
@@ -38,7 +36,7 @@ def get_dist(rectange_params,image, name, isMiddle):
     image = cv2.putText(image, str(dist), (110,50), font,  
     fontScale, color, 1, cv2.LINE_AA)
 
-    return image, name
+    return image
 
 # box 좌표의 x축 최댓값과 최솟값을 return하는 함수
 def getMaxMin(box):
