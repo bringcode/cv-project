@@ -1772,6 +1772,7 @@ GOSUB_RX_EXIT2:
     '******************************************	
     '**********************************************
 
+
 머리왼쪽30도:
     SPEED 머리이동속도
     SERVO 11,70
@@ -2527,9 +2528,105 @@ KEY32: ' F
     '***************
 
 KEY10:
-	ETX 4800,150
+	ETX  4800,10
 	보행횟수= 10
 	GOTO 공으로다가가기
 	GOTO RX_EXIT
 	'***************
+	
+	
+	'**************************************
+	'**************************************
+		
+KEY131:
+	ETX  4800,131
+	GOTO 머리왼쪽90도
+	GOTO RX_EXIT	
+
+KEY132:
+	ETX  4800,132
+	GOTO 머리왼쪽60도
+	GOTO RX_EXIT
+
+KEY133:
+	ETX  4800,133
+	GOTO 머리왼쪽45도
+	GOTO RX_EXIT
+
+KEY134:
+	ETX  4800,134
+	GOTO 머리왼쪽30도
+	GOTO RX_EXIT
+	
+KEY135:
+	ETX  4800,135
+	GOTO 머리좌우중앙
+	GOTO RX_EXIT
+	
+KEY136:
+	ETX  4800,136
+	GOTO 머리오른쪽 30도
+	GOTO RX_EXIT
+	
+KEY137:
+	ETX  4800,137
+	GOTO 머리오른쪽 45도
+	GOTO RX_EXIT
+	
+KEY138:
+	ETX  4800,138
+	GOTO 머리오른쪽 60도
+	GOTO RX_EXIT
+	
+KEY139:
+	ETX  4800,139
+	GOTO 머리오른쪽 90도
+	GOTO RX_EXIT
+	
+KEY140:
+	ETX  4800,140
+	GOTO 머리상하정면
+	GOTO RX_EXIT
+	
+KEY141:
+	ETX  4800,141
+	GOTO 왼쪽턴10_골프
+	GOTO RX_EXIT
+
+KEY142:
+	ETX  4800,142
+	GOTO 왼쪽턴20_골프
+	GOTO RX_EXIT
+	
+KEY143:
+	ETX  4800,143
+	GOTO 왼쪽턴45_골프
+	GOTO RX_EXIT
+	
+KEY144:
+	ETX  4800,144
+	GOTO 왼쪽턴60_골프
+	GOTO RX_EXIT
+	
+KEY145:
+	ETX  4800,145
+	GOTO 오른쪽턴10_골프
+	GOTO RX_EXIT
+	
+KEY146:
+	ETX  4800,146
+	GOTO 오른쪽턴20_골프
+	GOTO RX_EXIT
+	
+KEY147:
+	ETX  4800,147
+	GOTO 오른쪽턴45_골프
+	GOTO RX_EXIT
+	
+KEY148:
+	ETX  4800,148
+	GOTO 오른쪽턴60_골프
+	GOTO RX_EXIT
+	
+	
 	
