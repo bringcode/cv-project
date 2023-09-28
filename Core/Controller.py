@@ -27,33 +27,31 @@ class Controller:
         self.dir = 90
 
         # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
-        self.robo._motion.set_head("DOWN",self.dir)
+        self.robo._motion.set_head("DOWN", self.dir)
         
-        # 수정 필요 while로 고치기 
-
-        for i in range(3):
-            if self.ball == False:
-                self.dir -= 10
-            else:
-                print("Find Ball Start Left")
-                self.dir = 90
-        self.robo._motion.set_head("UPDOWN_CENTER")
+        # 고개 각도를 90도에서 50도로 변경하면서 공을 찾습니다.
+        for _ in range(4):
+            if self.ball:
+                break
+            self.dir -= 10
+            self.robo._motion.set_head("DOWN", self.dir)
 
         # 로봇이 가운데로 생각하고 시작하는 부분
         self.dir = 50
-        self.robo._motion.set_head("DOWN",self.dir)
-        if self.ball == False:
-            self.robo._motion.set_head("RIGHT",10)
-            if self.ball == False:
-                self.robo._motion.set_head("LEFT",10)
-                if self.ball == False:
-                    print("Not Found")
-                else:
-                    print("start center and ball left")
-            else:
-                print("start center and ball right") 
+        self.robo._motion.set_head("DOWN", self.dir)
+        
+        if not self.ball:
+            # 오른쪽으로 시선 이동
+            self.robo._motion.set_head("RIGHT", 10)
+            if not self.ball:
+                # 왼쪽으로 시선 이동
+                self.robo._motion.set_head("LEFT", 20)
+
+        if self.ball:
+            print("공을 찾았습니다.")
         else:
-            print("start center and ball center")
+            print("공을 찾지 못했습니다.")
+
 
 
     def walk_to_ball_and_flag(self):
