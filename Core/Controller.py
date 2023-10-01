@@ -102,5 +102,51 @@ class Controller:
                 body_turn += 10
 
         # 공 치기
+
+    #####################################
+    # 공을 치는 코드
+    def is_hole(self):
+        time.sleep(1)
+        self.hole = Sensor.findhole
+        self.danger = Sensor.outline-contour 
+        # right: 오른쪽 (오른쪽 아웃라인이 보이는 경우) 
+        # left: 왼쪽 (왼쪽 아웃라인이 보이는 경우)
+        # center: 가운데(왼쪽 오른쪽 다 보이는 경우 or 왼쪽 오른쪽 아웃라인이 안 보이는 경우 )
+
+
+        # 조건
+        if self.hole == True:
+            print("hole이 보입니다.")
+            
+            if self.danger == Right:
+                print("위험 지역이 오른쪽에 있습니다.")
+
+
+            elif self.danger == left:
+                print("위험 지역이 오른쪽에 있습니다.")
+            
+            elif self.danger == center:
+                print("위험 지역이 가운데 있습니다.")
+
+            else:
+                print("위험 지역이 보이지 않습니다.")            
+
+
+        else:
+            print("hole이 보이지 않습니다.")
+
+            if self.danger == Right:
+                print("위험 지역이 오른쪽에 있습니다.")
+
+            elif self.danger == left:
+                print("위험 지역이 오른쪽에 있습니다.")
+            
+            elif self.danger == center:
+                print("위험 지역이 가운데 있습니다.")
+
+            else:
+                print("위험 지역이 보이지 않습니다.")
+
+
         
         Robo._motion.basic()  # 초기 자세로 설정
