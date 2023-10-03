@@ -147,6 +147,21 @@ class Controller:
             else:
                 print("위험 지역이 보이지 않습니다.")
 
+    #####################################
+    # 홀인 했는지 확인하는 코드
+    def check_holein(self):
+        time.sleep(1)
+        self.hole = Sensor.findhole.holedist
+        self.ball = Sensor.findball.ball
+
+
+    # hole까지 걷기
+        #while holedist > [특정값]:
+    #       self.robo._motion.walk()
+
+        #if ball위치 == 홀위치:
+            #print("홀인했습니다.")
+    
 
         
-        Robo._motion.basic()  # 초기 자세로 설정
+    Robo._motion.basic()  # 초기 자세로 설정
