@@ -3,18 +3,10 @@ import time
 import cv2
 import numpy as np
 from datetime import datetime
-import os
-
-# 저장 경로
-output_directory = "/home/pi/Desktop/record"
-
-# 저장 경로가 없으면 생성
-if not os.path.exists(output_directory):
-    os.makedirs(output_directory)
 
 # 녹화 설정
 camera = picamera.PiCamera()
-camera.resolution = (800, 600)  # 해상도 설정
+camera.resolution = (800, 600)
 camera.framerate = 30
 
 # 화면 미리보기 시작
@@ -35,7 +27,7 @@ try:
         if key == "q":
             if not is_recording:
                 timestamp = get_current_time()
-                output_file = f"{output_directory}/{timestamp}_녹화된파일.h264"
+                output_file = f"/home/pi/Desktop/record/{timestamp}_녹화된파일.h264"
                 print(f"{timestamp}에 녹화를 시작합니다.")
                 camera.start_recording(output_file)
                 is_recording = True
