@@ -1,24 +1,39 @@
-import cv2
+import picamera
+import time
 
-# 비디오 캡처 객체 초기화
-cap = cv2.VideoCapture(0)  # 0은 라즈베리 파이의 내장 카메라를 가리킵니다.
+# 녹화 설정
+camera = picamera.PiCamera()
+camera.resolution = (800, 600)  # 해상도 설정 (원하는 해상도로 변경 가능)
+camera.framerate = 30            # 프레임 속도 설정 (원하는 속도로 변경 가능)
 
-# 비디오 녹화 설정
-fourcc = cv2.VideoWriter_fourcc(*'XVID')  # 녹화 코덱 설정 (XVID는 일반적인 비디오 코덱)
-out = cv2.VideoWriter('녹화된파일.h264', fourcc, 20.0, (640, 480))  # 파일 이름 및 설정 변경 가능
+# 바탕화면에 저장할 파일 경로
+output_file = "/home/pi/Desktop/20231006.h264"
 
-while True:
-    ret, frame = cap.read()  # 비디오 프레임 읽기
-    if not ret:
-        break
+# 화면 미리보기 시작
+camera.start_preview()
 
-    out.write(frame)  # 프레임을 녹화 파일에 쓰기
+# 녹화 플래그 초기화
+is_recording = False
 
-    cv2.imshow('Recording', frame)  # 화면에 비디오 미리보기 표시
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+try:
+    while True:
+        key = input("q를 눌러 녹화를 시작 또는 중지하세요: ")
+        if key == "q":
+            if not is_recording:
+                print("녹화를 시작합니다.")
+                # 녹화 시작
+                camera.start_recording(output_file)
+                is_recording = True
+            else:
+                print("녹화를 중지합니다.")
+                # 녹화 중지
+                camera.stop_recording()
+                is_recording = False
+            time.sleep(1)  # 다음 키 입력까지 대기
+except KeyboardInterrupt:
+    # 사용자가 Ctrl+C를 누르면 녹화를 중지하고 종료합니다.
+    if is_recording:
+        camera.stop_recording()
+    camera.stop_preview()
+    camera.close()
 
-# 녹화 종료
-cap.release()
-out.release()
-cv2.destroyAllWindows()
