@@ -26,7 +26,7 @@ try:
         if key == "q":
             if not is_recording:
                 timestamp = get_current_time()  # 현재 시간 정보 가져오기
-                output_file = f"/home/pi/Desktop/{timestamp}_녹화된파일.h264"  # 파일명에 시간 추가
+                output_file = f"/home/pi/Desktop/record/{timestamp}_녹화된파일.h264"  # 파일명에 시간 추가
                 print(f"{timestamp}에 녹화를 시작합니다.")
                 # 녹화 시작
                 camera.start_recording(output_file)
