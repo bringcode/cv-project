@@ -29,7 +29,7 @@ Usage - formats:
                                  yolov5s_edgetpu.tflite     # TensorFlow Edge TPU
                                  yolov5s_paddle_model       # PaddlePaddle
 """
-
+# -*- coding: utf-8 -*-
 import argparse
 import csv
 import os
