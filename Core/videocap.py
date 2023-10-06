@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
 import picamera
 import time
 import cv2
 import numpy as np
+from datetime import datetime  # datetime 모듈 추가
 
 # 녹화 설정
 camera = picamera.PiCamera()
-camera.resolution = (1280, 720)  # 해상도 설정 (원하는 해상도로 변경 가능)
+camera.resolution = (800, 600)  # 해상도 설정 (원하는 해상도로 변경 가능)
 camera.framerate = 30            # 프레임 속도 설정 (원하는 속도로 변경 가능)
-
-# 바탕화면에 저장할 파일 경로
-output_file = "/home/pi/Desktop/녹화된파일.h264"
 
 # 화면 미리보기 시작
 camera.start_preview()
@@ -18,12 +15,19 @@ camera.start_preview()
 # 녹화 플래그 초기화
 is_recording = False
 
+def get_current_time():
+    now = datetime.now()
+    timestamp = now.strftime("%Y%m%d_%H%M%S")  # 년월일_시분초 형식의 시간 정보 생성
+    return timestamp
+
 try:
     while True:
         key = input("q를 눌러 녹화를 시작 또는 중지하세요: ")
         if key == "q":
             if not is_recording:
-                print("녹화를 시작합니다.")
+                timestamp = get_current_time()  # 현재 시간 정보 가져오기
+                output_file = f"/home/pi/Desktop/{timestamp}_녹화된파일.h264"  # 파일명에 시간 추가
+                print(f"{timestamp}에 녹화를 시작합니다.")
                 # 녹화 시작
                 camera.start_recording(output_file)
                 is_recording = True
@@ -33,18 +37,10 @@ try:
                 camera.stop_recording()
                 is_recording = False
             time.sleep(1)  # 다음 키 입력까지 대기
-        
-        # 녹화 중에 실시간 화면 보여주기
-        if is_recording:
-            frame = camera.capture_continuous(np.zeros((1280, 720, 3), dtype=np.uint8), format="bgr", use_video_port=True)
-            frame = next(frame)
-            cv2.imshow("실시간 녹화 화면", frame)
-            cv2.waitKey(1)
+
 except KeyboardInterrupt:
     # 사용자가 Ctrl+C를 누르면 녹화를 중지하고 종료합니다.
     if is_recording:
         camera.stop_recording()
     camera.stop_preview()
     camera.close()
-    cv2.destroyAllWindows()
-
