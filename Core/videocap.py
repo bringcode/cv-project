@@ -2,6 +2,7 @@
 import picamera
 import time
 import cv2
+import numpy as np
 
 # 녹화 설정
 camera = picamera.PiCamera()
