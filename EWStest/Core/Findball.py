@@ -13,7 +13,7 @@ class Act(Enum):
     FIND_ARROW = auto() # 화살표 찾기
     EXIT = auto()  # 공통
 
-class Findballfirst:
+class Findball:
     act: Act = Act.START
     robo: Robo = Robo()
     head_angle: int = 70
