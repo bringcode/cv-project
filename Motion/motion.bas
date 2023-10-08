@@ -1960,54 +1960,63 @@ GOSUB_RX_EXIT2:
 전방하향:
 	SPEED 머리이동속도
 	angle_y = angle_y - 5
-	IF angle_y < 10:
+	IF angle_y < 10 THEN
 		MUSIC "C"
 		angle_y = 10
 		SERVO 16, angle_y
 		SERVO 11, angle_x
-	ELSE:
+	ELSE
 		SERVO 16, angle_y
 		SERVO 11, angle_x
+		
+	ENDIF
 	GOTO RX_EXIT
 	'******************************************
 전방상향:
 	SPEED 머리이동속도
 	angle_y = angle_y + 5
-	IF angel_y > 110:
+	IF angle_y > 110 THEN
 		MUSIC "C"
-		angel_y = 110
-		SERVO 16, angle_y
-		SERVO 11, amgle_x
-	ELSE:
+		angle_y = 110
 		SERVO 16, angle_y
 		SERVO 11, angle_x
+		
+	ELSE
+		SERVO 16, angle_y
+		SERVO 11, angle_x
+		
+	ENDIF
 	GOTO RX_EXIT
 	'******************************************
 우향:
 	SPEED 머리이동속도
 	angle_x = angle_x + 5
-	IF angle_x > 190:
+	IF angle_x > 190 THEN
 		MUSIC "C"	
 		angle_x = 190
 		SERVO 16, angle_y
 		SERVO 11, angle_x
-	ELSE:
+	ELSE
 		SERVO 16, angle_y
 		SERVO 11, angle_x
+		
+	ENDIF
 	GOTO RX_EXIT
 	'******************************************	
 좌향:
 	SPEED 머리이동속도
 	angle_x = angle_x - 5
-	IF angle_x < 10:
+	IF angle_x < 10 THEN
 		MUSIC "C"
-		angele_x = 10
+		angle_x = 10
 		SERVO 16, angle_y
 		SERVO 11, angle_x
 	
-	ELSE:	
+	ELSE
 		SERVO 16, angle_y
 		SERVO 11, angle_x
+	
+	ENDIF
 	GOTO RX_EXIT
 
 
@@ -2662,244 +2671,4 @@ KEY10:
 	
 	'**************************************
 	'**************************************
-	
-	' **************************** 여기부터 모션 코드 시작 *********************
-
-KEY100:
-    ETX  4800,100
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-
-    '********** walk - BACKWARD*************
-KEY101:
-    ETX  4800,101
-    보행횟수 = 1
-    GOSUB 횟수_전진종종걸음
-    GOTO RX_EXIT
-KEY102:
-    ETX  4800,102
-    보행횟수 = 1
-    GOSUB 횟수_좁은보폭
-    GOTO RX_EXIT
-
-'##################################################
-' KEY103:
-'##################################################
-
-    '***************
-
-KEY104:
-    ETX  4800,104
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY105:
-    ETX  4800,105
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY106:
-    ETX  4800,106
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY107:
-    ETX  4800,107
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY108:
-    ETX  4800,108
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY109:
-    ETX 4800,109
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY110:
-    ETX 4800,110
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-
-    '********** walk - FORWARD*************
-KEY111:
-    ETX 4800,111 
-    보행횟수 = 1 
-    GOSUB 횟수_후 
-    GOTO RX_EXIT 
-KEY112:
-    ETX 4800,112 
-    보행횟수 = 1 
-    GOSUB 횟수_뒤로좁은보폭
-    GOTO RX_EXIT 
-KEY113: 
-    ETX  4800,113 
-    보행횟수 = 1 
-    GOSUB 횟수_후진종종걸음
-    GOTO RX_EXIT
-    '***************
-
-KEY114:
-    ETX  4800,114
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY115:
-    ETX  4800,115
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY116:
-    ETX 4800, 116
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY117:
-    ETX 4800, 117
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY118:
-    ETX 4800, 118
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY119:
-    ETX 4800, 119
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-KEY120:
-    ETX  4800,120
-    GOSUB 고개중앙기본자세
-    GOTO RX_EXIT
-
-    '**************** set_head ********************
-KEY121:
-    ETX  4800,120
-    GOSUB 전방하향20도
-    GOTO RX_EXIT
-KEY122:
-    ETX 4800, 122
-    GOSUB 전방하향30도
-    GOTO RX_EXIT
-KEY123:
-    ETX 4800, 123
-    GOSUB 전방하향40도
-    GOTO RX_EXIT
-KEY124:
-    ETX 4800, 124
-    GOSUB 전방하향45도
-    GOTO RX_EXIT
-KEY125:
-    ETX 4800, 125
-    GOSUB 전방하향60도
-    GOTO RX_EXIT
-KEY126:
-    ETX 4800, 126
-    GOSUB 전방하향70도
-    GOTO RX_EXIT
-KEY127:
-    ETX 4800, 127
-    GOSUB 전방하향80도
-    GOTO RX_EXIT
-KEY128:
-    ETX 4800, 128
-    GOSUB 전방하향90도
-    GOTO RX_EXIT
-KEY129:
-    ETX 4800, 129
-    GOSUB 전방하향100도
-    GOTO RX_EXIT
-KEY130:
-    ETX 4800, 130
-    GOSUB 전방하향110도
-    GOTO RX_EXIT
-
-	
-	
-	
-	'머리 좌우 회전 동작		
-KEY131:
-	ETX  4800,131
-	GOTO 머리왼쪽90도
-	GOTO RX_EXIT	
-
-KEY132:
-	ETX  4800,132
-	GOTO 머리왼쪽60도
-	GOTO RX_EXIT
-
-KEY133:
-	ETX  4800,133
-	GOTO 머리왼쪽45도
-	GOTO RX_EXIT
-
-KEY134:
-	ETX  4800,134
-	GOTO 머리왼쪽30도
-	GOTO RX_EXIT
-	
-KEY135:
-	ETX  4800,135
-	GOTO 머리좌우중앙
-	GOTO RX_EXIT
-	
-KEY136:
-	ETX  4800,136
-	GOTO 머리오른쪽 30도
-	GOTO RX_EXIT
-	
-KEY137:
-	ETX  4800,137
-	GOTO 머리오른쪽 45도
-	GOTO RX_EXIT
-	
-KEY138:
-	ETX  4800,138
-	GOTO 머리오른쪽 60도
-	GOTO RX_EXIT
-	
-KEY139:
-	ETX  4800,139
-	GOTO 머리오른쪽 90도
-	GOTO RX_EXIT
-	
-KEY140:
-	ETX  4800,140
-	GOTO 머리상하정면
-	GOTO RX_EXIT
-	
-	
-	'좌우 턴 동작
-KEY141:
-	ETX  4800,141
-	GOTO 왼쪽턴10_골프
-	GOTO RX_EXIT
-
-KEY142:
-	ETX  4800,142
-	GOTO 왼쪽턴20_골프
-	GOTO RX_EXIT
-	
-KEY143:
-	ETX  4800,143
-	GOTO 왼쪽턴45_골프
-	GOTO RX_EXIT
-	
-KEY144:
-	ETX  4800,144
-	GOTO 왼쪽턴60_골프
-	GOTO RX_EXIT
-	
-KEY145:
-	ETX  4800,145
-	GOTO 오른쪽턴10_골프
-	GOTO RX_EXIT
-	
-KEY146:
-	ETX  4800,146
-	GOTO 오른쪽턴20_골프
-	GOTO RX_EXIT
-	
-KEY147:
-	ETX  4800,147
-	GOTO 오른쪽턴45_골프
-	GOTO RX_EXIT
-	
-KEY148:
-	ETX  4800,148
-	GOTO 오른쪽턴60_골프
-	GOTO RX_EXIT
-	
 	
