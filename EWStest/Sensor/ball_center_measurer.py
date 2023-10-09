@@ -53,11 +53,15 @@ class BallCenterMeasurer:
         r_dist = self.img_width - max_x
         error_range = 80
 
-        return abs(r_dist - l_dist) < error_range
+        is_Middle = abs(r_dist - l_dist) < error_range
 
-        # if is_Middle == 'True':
-        #     return 'middle'
-        # else:
+        if is_Middle == True:
+            return 'middle'
+        else:
+            if r_dist > l_dist:
+                return 'left'
+            else:
+                return 'right'
 
 
     def process(self):
