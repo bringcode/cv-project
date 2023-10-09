@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
-from EWStest.Core.SearchFirst import SearchFirst
-from EWStest.Core.SearchBall import SearchBall
-from EWStest.Core.Putting import Putting
-from EWStest.Core.Check import Check
-from EWStest.Sensor.search_ball import FindBall
+from Core.SearchFirst import SearchFirst
+from Core.SearchBall import SearchBall
+from Core.Putting import Putting
+from Core.Check import Check
+from Sensor.search_ball import FindBall
 from Setting import cur
 import time
 

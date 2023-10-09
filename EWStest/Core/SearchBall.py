@@ -3,9 +3,9 @@ from enum import Enum, auto
 from Core.Robo import Robo
 from Setting import cur
 import time
-from EWStest.Sensor.ball_center_measurer import BallCenterMeasurer
-# from EWStest.Sensor.dist_measure import 
-import EWStest.Motion.Motion
+from Sensor.ball_center_measurer import BallCenterMeasurer
+# from Sensor.dist_measure import 
+import Motion.Motion
 
 
 class Act(Enum):
@@ -125,10 +125,10 @@ class SearchBall:
 
         
         # 공이 정확하게 공이랑 일직선으로 되어 있는지 판단하는 부분 (일단 값을 10으로 넣긴 했는데 정확한 값을 찾아야 할 듯)
-        if EWStest.Sensor.ball_center_measurer.ball_isMiddle == "right": # 오른쪽
+        if Sensor.ball_center_measurer.ball_isMiddle == "right": # 오른쪽
             self.robo._motion.turn("RIGHT", 10)    
 
-        elif EWStest.Sensor.ball_center_measurer.ball_isMiddle == "middle": #가운데
+        elif Sensor.ball_center_measurer.ball_isMiddle == "middle": #가운데
             pass
 
         else: # 왼쪽 
