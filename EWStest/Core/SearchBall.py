@@ -3,6 +3,9 @@ from enum import Enum, auto
 from Core.Robo import Robo
 from Setting import cur
 import time
+import Sensor.ball_center_measurer
+import Sensor.dist_measure
+import Motion.Motion
 
 
 class Act(Enum):
@@ -24,21 +27,54 @@ class SearchBall:
     def init_robo(self, robo: Robo):
         self.robo = robo
 
+
     @classmethod # 공 찾는 코드
-    def is_okay_ball(self):
-        if self.ball == False:
+    def is_okay_ball(self):   # 공이 이미 시야에 있다는 전제 하
+        if 홀컵:
+            # 1. (홀컵, 공) 홀컵이랑 공이 이미 일직선
+            while 1:
+                self.walk("FORWARD", 1, 0.1, True)
+                if Sensor.dist_measure.distReal == 일정거리:   # 공이랑 일정 거리가 되면 자리에서 멈추고, 홀컵으로 목표 설정
+                    self.find_hole()
+                    break
 
-            # 치고나서 90도 돌고 찾기 시작하는 코드인데, 밑에 있는게 90도로 돌지 아직 모름.
-            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
-            time.sleep(2.5)
-            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
-            time.sleep(2.5)
+            # 2. (홀컵, 공) 홀컵이랑 공이 일직선이 아니면 공이랑 일직선에 서서 공 쪽으로 가게끔
+            while 1:
+                if self.isMiddle == 'middle':  # 공이 가운데면
+                    self.walk("FORWARD", 1, 0.1, True)  # 그쪽으로 걸어가기
+                    if Sensor.dist_measure.distReal == 일정거리:   # 공이랑 일정 거리가 되면 자리에서 멈추고, 홀컵으로 목표 설정
+                        self.find_hole()
+                        break
+                elif self.isMiddle == 'right':  # 공이 오른쪽에 있으면
+                    Robo._motion.motion.set_head("RIGHT", 10)   # 공이 센터에 오게끔 오른쪽으로 10도씩 고개 돌리기 -> 공이 시야 가운데에 오면 그에 맞춰 몸 돌리기
+                else:   # 공이 왼쪽에 있으면
+                    Robo._motion.motion.set_head("LEFT", 10)   # 공이 센터에 오게끔 왼쪽으로 10도씩 고개 돌리기 -> 공이 시야 가운데에 오면 그에 맞춰 몸 돌리기
 
-            # 치고 나서 공에 가까이 가고
-            # if 홀컵이 보이면 공이랑 홀컵이랑 일직선으로 스고
-                # if 화살표가 보이면 화살표로
-                # elif 아웃라인으로 판단해서 치고
-            # else 찾아야 한다는 값을 내보내고
+        # 3. (공) 홀컵이 안 보일 때
+        elif 홀컵 == False:
+            if self.arrow:
+                # 화살표가 가리키는 쪽으로 치기
+                pass
+            elif self.contour:
+                # 컨투어 라인 안으로 치기
+                pass
+
+        # 4. 공도 안 보일 때
+        else:
+            self.find_turn()
+
+
+    @classmethod   # 홀컵으로 목표 설정
+    def find_hole(self):
+        while 1:
+            if 어떤 기준을 만족하면..홀컵 찾기를 끝내지..:
+                self.is_okay_ball()   # 1번으로 가서 공을 치게끔
+                break
+            elif 오른쪽에 홀컵 존재:   # 홀컵이 가운데보다 오른쪽에 있으면
+                Robo._motion.motion.walk_side("LEFT")   # 왼쪽으로 옆이동
+            else:   # 홀컵이 가운데보다 왼쪽에 있으면
+                Robo._motion.motion.walk_side("RIGHT")   # 오른쪽으로 옆이동
+            
 
     @classmethod
     def find_turn(self):
