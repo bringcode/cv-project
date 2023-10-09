@@ -35,10 +35,11 @@ class Controller:
     _find: Findball = Findball()
     _check: Missionchecking = Missionchecking()
     _putt: Missionputting = Missionputting()
-
+    
     # 처음 공이 어디에 있는지 확인하는 코드
     @classmethod
     def check_ball_first(self):
+        act = self.act
         time.sleep(1)
 
         # 처음에는 공이 안 보임

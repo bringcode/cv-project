@@ -13,7 +13,7 @@ class Act(Enum):
     EXIT = auto()  # 공통
 
 
-class Missionputting:
+class Putting:
     act: Act = Act.START
     robo: Robo = Robo()
    

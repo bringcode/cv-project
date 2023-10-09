@@ -14,7 +14,7 @@ class Act(Enum):
     EXIT = auto()  # 공통
 
 
-class Missionchecking:
+class Check:
     act: Act = Act.START
     robo: Robo = Robo()
     
