@@ -5,6 +5,7 @@ from EWStest.Core.SearchFirst import SearchFirst
 from EWStest.Core.SearchBall import SearchBall
 from EWStest.Core.Putting import Putting
 from EWStest.Core.Check import Check
+from EWStest.Sensor.search_ball import FindBall
 from Setting import cur
 import time
 
@@ -27,7 +28,7 @@ class Controller:
     count_putting: int = 0 # 퍼팅 횟수
     check_holein: int = 0 # 홀인 판단 횟수
     area: str = "" # 현재 맵
-
+    ball: bool
 
 
     # Misson.py
@@ -42,6 +43,39 @@ class Controller:
         act = self.act
         time.sleep(1)
 
+        ball = FindBall()
+        self.ball = ball.process()
+
+        dir = 90
+
+        # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
+        self.robo._motion.set_head("DOWN", dir)
+        time.sleep(1)
+
+        # 고개 각도를 90도에서 50도로 변경하면서 공을 찾습니다.
+        for _ in range(3):
+            if self.ball == True:
+                print("공을 찾았습니다.")
+                break
+            dir -= 10
+            self.robo._motion.set_head("DOWN", dir)
+            time.sleep(1.5)
+
+        # 로봇이 가운데로 생각하고 시작하는 부분
+        dir = 50
+        self.robo._motion.set_head("DOWN", dir)
+
+        if not self.ball == True:
+            # 오른쪽으로 시선 이동
+            self.robo._motion.set_head("RIGHT", 45)
+            if not self.ball == True:
+                # 왼쪽으로 시선 이동
+                self.robo._motion.set_head("LEFT", 45)
+
+        if self.ball == True:
+            print("공을 찾았습니다.")
+        else:
+            print("공을 찾지 못했습니다.")
         # 처음에는 공이 안 보임
         # 로봇이 왼쪽에 있다고 생각
         # 10도 내리면 왼쪽 기준으로 가장 먼 쪽을 봄

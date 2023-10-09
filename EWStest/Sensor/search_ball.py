@@ -4,7 +4,7 @@
 import numpy as np
 import cv2
 
-class findBall():
+class FindBall():
     def __init__(self, img_width=640, img_height=480, width=4, focal=450):
         self.kernel = np.ones((3, 3), 'uint8')
         # self.font = cv2.FONT_HERSHEY_SIMPLEX
