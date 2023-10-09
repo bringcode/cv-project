@@ -63,5 +63,5 @@ class FindBall():
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    findBall = findBall()
+    findBall = FindBall()
     findBall.process()
