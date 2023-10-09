@@ -269,7 +269,7 @@ Arm_motor_mode3:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  90,
-    MOVE G6C,100,  35,  90, 190
+    MOVE G6C,100,  35,  90, 190, 106 ' 106 = 정면 보는 값 
     WAIT
     mode = 0
     RETURN
@@ -2182,7 +2182,7 @@ Number_Play: '  BUTTON_NO = 숫자대입
     적외선거리값 = AD(적외선AD포트)
 
     IF 적외선거리값 > 50 THEN '50 = 적외선거리값 = 25cm
-        MUSIC "C"
+        'MUSIC "C"
         DELAY 200
     ENDIF
 
@@ -2446,10 +2446,10 @@ KEY9:
     GOTO RX_EXIT
     '***************
 'KEY10: '0
-    'ETX  4800,10 
-    '보행횟수=1 
-    'GOTO 전진종종걸음_골프
-    'GOTO RX_EXIT 
+    ETX  4800,10 
+    보행횟수=1 
+    GOTO 전진종종걸음_골프
+    GOTO RX_EXIT 
     '***************
 KEY11: ' ▲
     ETX  4800,11
@@ -2663,7 +2663,7 @@ KEY32: ' F
 
 KEY10:
 	ETX  4800,10
-	보행횟수= 10
+	보행횟수= 1
 	GOTO 공으로다가가기
 	GOTO RX_EXIT
 	'***************
