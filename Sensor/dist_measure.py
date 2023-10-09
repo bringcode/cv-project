@@ -30,7 +30,7 @@ def get_dist(rectange_params,image, name):
 
 W_View_size = 800
 H_View_size = 600
-FPS = 20
+FPS = 60
 #Extract Frames 
 cap = cv2.VideoCapture(0)
 
