@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
-from Core.Findballfirst import Findballfirst
-from Core.Findball import Findball
-from Core.Missionputting import Missionputting
-from Core.Missionchecking import Missionchecking
+from EWStest.Core.SearchFirst import Findballfirst
+from EWStest.Core.SearchBall import Findball
+from EWStest.Core.Putting import Missionputting
+from EWStest.Core.Check import Missionchecking
 from Setting import cur
 import time
 
@@ -12,8 +12,8 @@ class Act(Enum):
     START = auto() # 시작
     SEARCH_FIRST = auto() # T샷 시작
     SEARCH_BALL = auto() # 공 찾기
-    SEARCH_FLAG = auto() # 깃발 찾기
-    SEARCH_ARROW = auto() # 화살표 찾기
+    # SEARCH_FLAG = auto() # 깃발 찾기
+    # SEARCH_ARROW = auto() # 화살표 찾기
     PUTTING = auto() # 공 퍼팅
     CHECK = auto() # 홀인 확인
     EXIT = auto() # 종료
@@ -27,7 +27,7 @@ class Controller:
     count_putting: int = 0 # 퍼팅 횟수
     check_holein: int = 0 # 홀인 판단 횟수
     area: str = "" # 현재 맵
-
+    
 
 
     # Misson.py
