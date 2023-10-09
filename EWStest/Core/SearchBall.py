@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
-from Setting import cur
+#from Setting import cur
 import time
 from Sensor.ball_center_measurer import BallCenterMeasurer
 # from Sensor.dist_measure import 
