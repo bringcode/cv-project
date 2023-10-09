@@ -27,7 +27,7 @@ class Controller:
     count_putting: int = 0 # 퍼팅 횟수
     check_holein: int = 0 # 홀인 판단 횟수
     area: str = "" # 현재 맵
-    
+
 
 
     # Misson.py
@@ -40,6 +40,17 @@ class Controller:
     @classmethod
     def check_ball_first(self):
         time.sleep(1)
+
+        # 처음에는 공이 안 보임
+        # 로봇이 왼쪽에 있다고 생각
+        # 10도 내리면 왼쪽 기준으로 가장 먼 쪽을 봄
+        # 다시 10도 내리면 가운데
+        # 다시 10도 내리면 왼쪽
+
+        # 이때 로봇이 공을 인식 못하면 로봇이 가운데 있다고 생각
+        # 이제 10도를 더 내려서 가운데 확인
+        # 오른쪽 확인
+        # 왼쪽 확인
         
         # 이 부분에 첫 공을 찾는 부분을 넣어야하는게 맞는지?
 
