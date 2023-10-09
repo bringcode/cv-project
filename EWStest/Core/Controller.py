@@ -6,7 +6,7 @@ from Core.SearchBall import SearchBall
 from Core.Putting import Putting
 from Core.Check import Check
 from Sensor.search_ball import FindBall
-from Setting import cur
+#from Setting import cur
 import time
 
 class Act(Enum):
