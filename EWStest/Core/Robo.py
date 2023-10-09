@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from Sensor.ImageProcessor import ImageProccessor
+# from Sensor.ImageProcessor import ImageProccessor
 from Motion.Motion import Motion
 from Setting import Setting
+from Sensor.ball_center_measurer import BallCenterMeasurer
 
 
 print('code: Robo.py - ## Debug')
@@ -14,7 +15,7 @@ class Robo:
     alphabet_color: str
     box_pos: int = 4
     feet_down = 'LEFT_DOWN'
-    _image_processor = ImageProccessor(video="")  # Image Processor
+    # _image_processor = ImageProccessor(video="")  # Image Processor
 
     def __init__(self, vpath=''):
         # self._image_processor = ImageProccessor(video=vpath) # Image Processor
