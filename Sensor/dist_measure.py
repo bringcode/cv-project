@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-
 import numpy as np
 import cv2
 
 
 #Define object specific variables  
-dist = 0
-focal = 450
-pixels = 30
+distRobot = 0
+distReal = 0
+focal = 400
+pixels = 0
 width = 4
-
+heightBall = 4
+heightRobot = 10
 
 #find the distance from then camera
 def get_dist(rectange_params,image, name):
@@ -16,24 +17,18 @@ def get_dist(rectange_params,image, name):
     pixels = rectange_params[1][0]
     print(pixels)
     #calculate distance
-    dist = int((width*focal)/pixels)
-    
-    #Wrtie n the image
-    if name == 'flag':
-        image = cv2.putText(image, 'flag Distance from Camera in CM :', org, font,  
-        1, color, 2, cv2.LINE_AA)
-    else: 
-        image = cv2.putText(image, 'ball Distance from Camera in CM :', org, font,  
-        1, color, 2, cv2.LINE_AA)
+    distRobot = int((width*focal)/(pixels))
+    distReal = (int((distRobot**2+heightRobot**2)**(1/2))-10)*2
 
-    image = cv2.putText(image, str(dist), (110,50), font,  
-    fontScale, color, 1, cv2.LINE_AA)
+    image = cv2.putText(image, 'ball Distance from Camera in CM :', org, font, 1, color, 2, cv2.LINE_AA)
+
+    image = cv2.putText(image, str(distReal), (110,50), font, fontScale, color, 1, cv2.LINE_AA)
 
 
     return image
 
 #Extract Frames 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('fflag3.mp4')
 
 
 #basic constants for opencv Functs
@@ -57,27 +52,15 @@ while True:
 
 
     #predefined mask for green colour detection
-    lower = np.array([28, 180, 109])
-    upper = np.array([180, 255, 255])
-    lower2 = np.array([170, 50, 0])
-    upper2 = np.array([255, 255, 255])
+    lower = np.array([137, 0, 0])
+    upper = np.array([255, 255, 255])
 
     
 
-    mask1 = cv2.inRange(hsv_img, lower, upper)
-    mask2 = cv2.inRange(hsv_img, lower2, upper2)
-
-    mask = mask1+mask2
-
-    lower_flag = np.array([10, 150, 100])
-    upper_flag = np.array([20, 255, 255])
-    mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
-
+    mask = cv2.inRange(hsv_img, lower, upper)
 
     #Remove Extra garbage from image
-    d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel,iterations = 5)
-    f_img = cv2.morphologyEx(mask_flag, cv2.MORPH_OPEN, kernel,iterations = 5)
-
+    d_img = cv2.morphologyEx(mask, cv2.MORPH_DILATE, kernel,iterations = 1)
 
     #find the histogram
     cont,hei = cv2.findContours(d_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
@@ -96,22 +79,6 @@ while True:
             
             img = get_dist(rect,img, 'ball')
 
-    # 새로운거
-    cont2,hei2 = cv2.findContours(f_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-    cont2 = sorted(cont2, key = cv2.contourArea, reverse = True)[:1]
-
-    for cnt in cont2:
-        #check for contour area
-        if (cv2.contourArea(cnt)>100 and cv2.contourArea(cnt)<306000):
-
-            #Draw a rectange on the contour
-            rect = cv2.minAreaRect(cnt)
-            box = cv2.boxPoints(rect) 
-            box = np.int0(box)
-            print('points :', box)
-            cv2.drawContours(img,[box], -1,(255,0,0),3)
-            
-            img = get_dist(rect,img, 'flag')
 
 
     cv2.imshow('Object Dist Measure ', img)
