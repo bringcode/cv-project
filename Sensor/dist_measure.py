@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 import cv2
 
@@ -28,7 +29,7 @@ def get_dist(rectange_params,image, name):
     return image
 
 #Extract Frames 
-cap = cv2.VideoCapture('fflag3.mp4')
+cap = cv2.VideoCapture(0)
 
 
 #basic constants for opencv Functs
