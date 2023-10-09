@@ -42,16 +42,42 @@ class SearchBall:
 
     @classmethod
     def find_turn(self):
+
+        # 180도 돈다고 가정 하고 나중에 수정
+        for i in range(3):
+            self.robo._motion.turn("RIGHT", 60)
+            time.sleep(2.5)
+
+        # 고개 우측 90도 회전 후 왼쪽으로 천천히 각도 변경하면서 찾기
+        self.robo._motion.head_angle("RIGHT", 90) # 로봇 머리 각도 우로 90도 회전
+        time.sleep(1)
+
+        real_turn = []
+        self.count = 0
+
         while self.ball != True:
+            self.robo._motion.head_angle("LEFT", 10) # 로봇 머리 각도 좌로 10도씩 회전
+            count += 1
 
-            # 180도 돈다고 가정 하고 나중에 수정
-            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
-            time.sleep(2.5)
-            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
-            time.sleep(2.5)
-            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
-            time.sleep(2.5)
-            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
-            time.sleep(2.5)
-            print()
+        self.angle = 10 * count
 
+
+        angles = [60, 20, 10]  # 가능한 회전 각도 리스트 (큰 값부터 순서대로)
+        index = 0
+
+        if self.angle > 90:
+            which_turn = 'LEFT'
+        else:
+            which_turn = 'RIGHT'
+
+        self.angle = abs(90-self.angle)
+
+        while self.angle > 0:
+            if self.angle < angles[index]:
+                index += 1
+                continue
+            else:    
+                self.robo._motion.turn(which_turn, angles[index])
+                self.angle -= angles[index]
+
+        print("공을 찾고 공 방향으로 돌았습니다.")
