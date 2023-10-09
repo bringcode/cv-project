@@ -1,3 +1,5 @@
+# 공이 있는지 없는지 판별하는 코드 (is_ball)
+
 # -*- coding: utf-8 -*-
 import numpy as np
 import cv2

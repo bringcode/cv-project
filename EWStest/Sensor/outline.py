@@ -1,3 +1,6 @@
+# 맵의 끝선을 검출
+
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
 
