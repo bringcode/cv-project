@@ -109,5 +109,19 @@ class Controller:
         time.sleep(1)
 
 
+    @classmethod
+    def go_robo(self):
+        act = self.act
+        robo: Robo = Robo()
+
+        if act == act.START:
+            print("ACT: ", act)  # Debug
+            # print("current area: ", cur.AREA, "(Setting.py Hard Coding for Debuging)")
+            # time.sleep(0.5)
+            self.act = act.SEARCH_FIRST
+
+        elif act == act.SEARCH_FIRST:
+            print("ACT: ", act ) # Debug
+
     
     
