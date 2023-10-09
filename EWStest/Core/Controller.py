@@ -53,6 +53,10 @@ class Controller:
     def check_ball_location(self):
         time.sleep(1)
 
+        # 각도, 거리, 왼쪽 or 오른쪽 칠 수 있는 곳
+        
+                
+
     # 홀인 했는지 안 했는지
     @classmethod
     def check_ball_in(self):

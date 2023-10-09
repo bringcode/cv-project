@@ -34,4 +34,8 @@ class Findball:
             self.robo._motion.grab_turn(Robo.dis_arrow, 60)
             time.sleep(2.5)
 
-            
+            # 치고 나서 공에 가까이 가고
+            # if 홀컵이 보이면 공이랑 홀컵이랑 일직선으로 스고
+            # elif 화살표가 보이면 화살표로
+            # elif 아웃라인으로 판단해서 치고
+            # else return False
