@@ -10,7 +10,7 @@ from Setting import cur
 import time
 
 class Act(Enum):
-    START = auto() # 시작
+    START = auto() # 시작 - 아무도 동작도 안 함
     SEARCH_FIRST = auto() # T샷 시작
     SEARCH_BALL = auto() # 공 찾기
     # SEARCH_FLAG = auto() # 깃발 찾기
@@ -122,6 +122,9 @@ class Controller:
 
         elif act == act.SEARCH_FIRST:
             print("ACT: ", act ) # Debug
+            self.check_ball_first()
 
+        else:
+            print("아직 구현 안 했어요!")
     
-    
+        return False
