@@ -36,6 +36,22 @@ class SearchBall:
 
             # 치고 나서 공에 가까이 가고
             # if 홀컵이 보이면 공이랑 홀컵이랑 일직선으로 스고
-            # elif 화살표가 보이면 화살표로
-            # elif 아웃라인으로 판단해서 치고
-            # else return False
+                # if 화살표가 보이면 화살표로
+                # elif 아웃라인으로 판단해서 치고
+            # else 찾아야 한다는 값을 내보내고
+
+    @classmethod
+    def find_turn(self):
+        while self.ball != True:
+
+            # 180도 돈다고 가정 하고 나중에 수정
+            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
+            time.sleep(2.5)
+            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
+            time.sleep(2.5)
+            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
+            time.sleep(2.5)
+            self.robo._motion.grab_turn(Robo.dis_arrow, 60)
+            time.sleep(2.5)
+            print()
+
