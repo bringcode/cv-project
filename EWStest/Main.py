@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Main code
-from EWStest.Core.Controller import Controller
+from Core.Controller import Controller
 
 def main():
     while not Controller.go_robo():
