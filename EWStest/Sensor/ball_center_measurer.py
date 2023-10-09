@@ -120,8 +120,8 @@ class BallCenterMeasurer:
                     cv2.drawContours(img,[ball_box], -1,(255,0,0),3)
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
-                    isMiddle = self.judgeMiddle(max_x, min_x)
-                    img = self.get_dist(rect,img, 'ball', isMiddle)
+                    ball_isMiddle = self.judgeMiddle(max_x, min_x)
+                    img = self.get_dist(rect,img, 'ball', ball_isMiddle)
 
             cont2,hei2 = cv2.findContours(f_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
             cont2 = sorted(cont2, key = cv2.contourArea, reverse = True)[:1]
@@ -137,9 +137,9 @@ class BallCenterMeasurer:
                     cv2.drawContours(img,[box], -1,(255,0,0),3)
 
                     f_max_x, f_min_x, f_max_y, f_min_y = self.getMaxMin(box)
-                    isMiddle = self.judgeMiddle(f_max_x, f_min_x, )
+                    flag_isMiddle = self.judgeMiddle(f_max_x, f_min_x, )
                     
-                    img = self.get_dist(rect,img, 'flag', isMiddle)
+                    img = self.get_dist(rect,img, 'flag', flag_isMiddle)
                         
                         
             if ball_box is not None and all(f_max_x > x > f_min_x and f_max_y > y > f_min_y for x, y in ball_box):
