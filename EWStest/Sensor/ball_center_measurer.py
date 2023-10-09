@@ -26,12 +26,11 @@ class BallCenterMeasurer:
         dist = (self.width * self.focal) / pixels
 
         if name == 'flag':
-            title = 'flag Distance from Camera in CM :'
+            image = cv2.putText(image, 'flag is_Middle : {}'.format(isMiddle), self.org, self.font, 1, self.color, 2, cv2.LINE_AA)
         else:
-            title = 'ball Distance from Camera in CM :'
-        image = cv2.putText(image, title, self.org, self.font, 1, self.color, 2, cv2.LINE_AA)
-        image = cv2.putText(image, 'Middle : {}'.format(isMiddle), self.org, self.font, 1, self.color, 2, cv2.LINE_AA)
-        image = cv2.putText(image, str(dist), (110, 50), self.font, self.fontScale, self.color, 1, cv2.LINE_AA)
+            image = cv2.putText(image, 'ball is_Middle : {}'.format(isMiddle), self.org, self.font, 1, self.color, 2, cv2.LINE_AA)
+        # image = cv2.putText(image, title, self.org, self.font, 1, self.color, 2, cv2.LINE_AA)
+        # image = cv2.putText(image, str(dist), (110, 50), self.font, self.fontScale, self.color, 1, cv2.LINE_AA)
 
         return image
 
@@ -54,7 +53,12 @@ class BallCenterMeasurer:
         r_dist = self.img_width - max_x
         error_range = 80
 
-        return abs(l_dist - r_dist) < error_range
+        return abs(r_dist - l_dist) < error_range
+
+        # if is_Middle == 'True':
+        #     return 'middle'
+        # else:
+
 
     def process(self):
         cap = cv2.VideoCapture(0)
@@ -106,12 +110,11 @@ class BallCenterMeasurer:
                     rect = cv2.minAreaRect(cnt)
                     ball_box = cv2.boxPoints(rect)
                     ball_box = np.int0(ball_box)
-                    print('points :', ball_box)
+                    # print('points :', ball_box)
                     cv2.drawContours(img,[ball_box], -1,(255,0,0),3)
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
                     isMiddle = self.judgeMiddle(max_x, min_x)
-                    
                     img = self.get_dist(rect,img, 'ball', isMiddle)
 
             cont2,hei2 = cv2.findContours(f_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
@@ -145,5 +148,5 @@ class BallCenterMeasurer:
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    distance_measurer = BallCenterMeasurer()
+    distance_measurer = BallCenterMeasurer(img_width=1280, img_height=720)
     distance_measurer.process()
