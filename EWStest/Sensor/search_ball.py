@@ -13,8 +13,8 @@ class FindBall():
 
     def process(self):
         cap = cv2.VideoCapture(0)
-        cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('Object Dist Measure ', 700, 600)
+        # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
+        # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
         while True:
             ret, img = cap.read()
@@ -53,14 +53,8 @@ class FindBall():
                     is_ball = True
             
             print(is_ball)
-
-            cv2.imshow('dst', img)
-
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            break
         return is_ball
-
-        cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     findBall = FindBall()
