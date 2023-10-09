@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
-from EWStest.Core.SearchFirst import Findballfirst
-from EWStest.Core.SearchBall import Findball
-from EWStest.Core.Putting import Missionputting
-from EWStest.Core.Check import Missionchecking
+from EWStest.Core.SearchFirst import SearchFirst
+from EWStest.Core.SearchBall import SearchBall
+from EWStest.Core.Putting import Putting
+from EWStest.Core.Check import Check
 from Setting import cur
 import time
 
@@ -31,10 +31,10 @@ class Controller:
 
 
     # Misson.py
-    _first: Findballfirst = Findballfirst()
-    _find: Findball = Findball()
-    _check: Missionchecking = Missionchecking()
-    _putt: Missionputting = Missionputting()
+    _first: SearchFirst = SearchFirst()
+    _find: SearchBall = SearchBall()
+    _check: Check = Check()
+    _putt: Putting = Putting()
     
     # 처음 공이 어디에 있는지 확인하는 코드
     @classmethod
