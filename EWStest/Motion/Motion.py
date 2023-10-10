@@ -197,17 +197,17 @@ class Motion:
         dir_list = {"LEFT": 161, "RIGHT": 169}
         self.TX_data_py2(dir_list[dir])
 
-    # 위험지역 인식 (205~206)
-    def notice_area(self, area):
-        """
-        area: {BLACK, STAIR} - 위험 지역 정보
-        """
+    # # 위험지역 인식 (205~206)
+    # def notice_area(self, area):
+    #     """
+    #     area: {BLACK, STAIR} - 위험 지역 정보
+    #     """
 
-        """parameter :
-        area : {BLACK, STAIR}
-        """
-        area_list = {'BLACK': 205, 'STAIR': 206}
-        self.TX_data_py2(area_list[area])
+    #     """parameter :
+    #     area : {BLACK, STAIR}
+    #     """
+    #     area_list = {'BLACK': 205, 'STAIR': 206}
+    #     self.TX_data_py2(area_list[area])
 
 
     # 공 치기
