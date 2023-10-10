@@ -48,6 +48,15 @@ class Motion:
         time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
+            
+            if ser.isOpen():
+                print("시리얼 포트가 열려 있습니다.")
+            else:
+                print("시리얼 포트가 닫혀 있습니다.")
+
+            settings_dict = ser.getSettingsDict()
+            print(f"시리얼 포트 설정: {settings_dict}")
+
             print(1)
             print(result) # ord(result) 에러로 인한 출력 
             RX = ord(result)
@@ -69,8 +78,8 @@ class Motion:
                 result = ser.read(1)
                 print(2)
                 print(result)
-                
-                RX = result
+
+                RX = ord(result)
                 # -----  remocon 16 Code  Exit ------
                 if RX == 16:
                     self.receiving_exit = 0
