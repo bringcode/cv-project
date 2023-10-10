@@ -19,6 +19,7 @@ class Motion:
         # ---------local Serial Port : ttyS0 --------
         # ---------USB Serial Port : ttyAMA0 --------
         self.serial_port = serial.Serial('/dev/ttyS0', BPS, timeout=0.01)   # 시리얼 포트 객체 생성
+        ser.open()
         self.serial_port.flush()  # serial cls
         self.serial_t = Thread(target=self.Receiving, args=(self.serial_port,))   # 시리얼 통신을 위한 스레드 객체 생성
         self.serial_t.daemon = True
@@ -48,15 +49,6 @@ class Motion:
         time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
-            
-            if ser.isOpen():
-                print("시리얼 포트가 열려 있습니다.")
-            else:
-                print("시리얼 포트가 닫혀 있습니다.")
-
-            settings_dict = ser.getSettingsDict()
-            print(f"시리얼 포트 설정: {settings_dict}")
-
             print(1)
             print(result) # ord(result) 에러로 인한 출력 
             RX = ord(result)
