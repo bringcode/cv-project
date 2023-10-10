@@ -102,15 +102,15 @@ class Motion:
             time.sleep(sleep)
 
 
-    def walk_30(self, sleep=0.1, short=False):
+    # def walk_30(self, sleep=0.1, short=False):
 
-        dir_list = {}
+    #     dir_list = {}
         
         
         
 
-    def walk_10(self, sleep=0.1, short=False):
-        dir_list = {}
+    # def walk_10(self, sleep=0.1, short=False):
+    #     dir_list = {}
 
     # 머리 각도 (121~140)
     def set_head(self, dir, angle=0):
