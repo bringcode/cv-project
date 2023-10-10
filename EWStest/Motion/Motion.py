@@ -62,7 +62,10 @@ class Motion:
             if self.receiving_exit == 0:
                 break
             time.sleep(self.threading_Time)
+            time.sleep(1)
+
             while ser.inWaiting() > 0:
+                time.sleep(1)
                 result = ser.read(1)
                 RX = ord(result)
                 # -----  remocon 16 Code  Exit ------
