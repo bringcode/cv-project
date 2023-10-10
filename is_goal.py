@@ -1,15 +1,14 @@
 import numpy as np
 import cv2
 
-
 #Define object specific variables  
 dist = 0
 focal = 450
 pixels = 30
 width = 4
 
-img_width = 1280
-img_height = 720
+img_width = 640
+img_height = 480
 middle = img_width // 2
 
 #find the distance from then camera
@@ -20,7 +19,7 @@ def get_dist(rectange_params,image, name, isMiddle):
     #calculate distance
     dist = (width*focal)/pixels
     
-    #Wrtie n the image
+    #Write n the image
     if name == 'flag':
         image = cv2.putText(image, 'flag Distance from Camera in CM :', org, font,  
         1, color, 2, cv2.LINE_AA)
@@ -34,7 +33,7 @@ def get_dist(rectange_params,image, name, isMiddle):
         image = cv2.putText(image, 'flag Middle : {}'.format(isMiddle), (0,40), font,  
         1, color, 2, cv2.LINE_AA)
 
-    image = cv2.putText(image, str(dist), (110,50), font,
+    image = cv2.putText(image, str(dist), (110,50), font,  
     fontScale, color, 1, cv2.LINE_AA)
 
     return image
@@ -50,15 +49,27 @@ def getMaxMin(box):
             max_x = x
     return max_x, min_x
 
+
 # max_x, min_x를 입력받으면 해당 물체가 중간에 있는지 return하는 함수
 def judgeMiddle(max_x, min_x):
-    length = max_x - min_x
-    error_range = length // (3/2)
-    if max_x <= middle + error_range and min_x >= middle - error_range:
+
+    l_dist = min_x
+    r_dist = img_width - max_x
+    error_range = 80
+    
+    if abs(l_dist - r_dist) < error_range:
         return True
     else:
         return False
-
+      
+      
+def is_inside(flag_box, ball_box):
+    for point in ball_box:
+        if cv2.pointPolygonTest(flag_box, (point[0], point[1]), False) < 0:
+            return False
+    return True
+  
+      
 #Extract Frames 
 cap = cv2.VideoCapture(0)
 
@@ -68,26 +79,42 @@ kernel = np.ones((3,3),'uint8')
 font = cv2.FONT_HERSHEY_SIMPLEX 
 org = (0,20)  
 fontScale = 0.6 
-color = (0, 0, 255)
+color = (0, 0, 255) 
 thickness = 2
 
 
-cv2.namedWindow('Object Dist Measure ',cv2.WINDOW_NORMAL)
+cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
 cv2.resizeWindow('Object Dist Measure ', 700,600)
-
 
 #loop to capture video frames
 while True:
     ret, img = cap.read()
-    print(img.shape)
-
+    # print(img.shape)
+    
     hsv_img = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
 
-
-    #predefined mask for green colour detection
-    lower = np.array([170, 100, 100])
+    #window version
+    lower = np.array([170, 99, 100])
     upper = np.array([180, 255, 255])
     mask = cv2.inRange(hsv_img, lower, upper)
+    lower1 = np.array([1, 99, 100])
+    upper1 = np.array([5, 255, 255])
+    mask += cv2.inRange(hsv_img, lower1, upper1)
+
+    # lower_flag = np.array([35, 130, 150])
+    # upper_flag = np.array([45, 255, 255])
+    # mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
+
+
+    #Remove Extra garbage from image
+    # d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel,iterations = 5)
+    # f_img = cv2.morphologyEx(mask_flag, cv2.MORPH_OPEN, kernel,iterations = 5)
+
+    #mac version
+    #predefined mask for color detection
+    # lower = np.array([170, 100, 100])
+    # upper = np.array([180, 255, 255])
+    # mask = cv2.inRange(hsv_img, lower, upper)
 
 
     lower_flag = np.array([10, 150, 100])
@@ -116,11 +143,10 @@ while True:
             cv2.drawContours(img,[box], -1,(255,0,0),3)
 
             max_x, min_x = getMaxMin(box)
-            isMiddle = judgeMiddle(max_x, min_x, )
+            isMiddle = judgeMiddle(max_x, min_x)
             
             img = get_dist(rect,img, 'ball', isMiddle)
 
-    # 새로운거
     cont2,hei2 = cv2.findContours(f_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     cont2 = sorted(cont2, key = cv2.contourArea, reverse = True)[:1]
 
@@ -139,6 +165,12 @@ while True:
             isMiddle = judgeMiddle(max_x, min_x, )
             
             img = get_dist(rect,img, 'flag', isMiddle)
+        
+        max_x, min_x = getMaxMin(box)
+        isMiddle = judgeMiddle(max_x, min_x)
+            
+        img = get_dist(rect, img, 'flag', isMiddle)
+        
 
 
     cv2.imshow('Object Dist Measure ', img)
