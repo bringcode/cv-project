@@ -19,7 +19,7 @@ class Motion:
         # ---------local Serial Port : ttyS0 --------
         # ---------USB Serial Port : ttyAMA0 --------
         self.serial_port = serial.Serial('/dev/ttyS0', BPS, timeout=0.01)   # 시리얼 포트 객체 생성
-        ser.open()
+        self.serial_port.open
         self.serial_port.flush()  # serial cls
         self.serial_t = Thread(target=self.Receiving, args=(self.serial_port,))   # 시리얼 통신을 위한 스레드 객체 생성
         self.serial_t.daemon = True
