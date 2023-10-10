@@ -48,7 +48,8 @@ class Motion:
         time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
-            RX = ord(result)
+            print(result) # ord(result) 에러로 인한 출력 
+            RX = ord(result + '1')
             return RX
         else:
             return 0
@@ -65,6 +66,7 @@ class Motion:
             while ser.inWaiting() > 0:
                 time.sleep(0.5)
                 result = ser.read(1)
+                print(result + '2')
                 RX = ord(result)
                 # -----  remocon 16 Code  Exit ------
                 if RX == 16:
