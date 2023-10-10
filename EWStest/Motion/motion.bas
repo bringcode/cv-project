@@ -2857,35 +2857,35 @@ KEY140:
     '****************** turn ******************
 KEY141:
     ETX 4800, 141
-    GOTO 왼쪽턴10
+    GOTO 왼쪽턴10_골프
     GOTO RX_EXIT
 KEY142:
     ETX 4800, 142
-    GOTO 왼쪽턴20
+    GOTO 왼쪽턴20_골프
     GOTO RX_EXIT
 KEY143:
     ETX 4800, 143
-    GOTO 왼쪽턴45
+    GOTO 왼쪽턴45_골프
     GOTO RX_EXIT
 KEY144:
     ETX 4800, 144
-    GOTO 왼쪽턴60
+    GOTO 왼쪽턴60_골프
     GOTO RX_EXIT
 KEY145:
     ETX 4800, 145
-    GOTO 오른쪽턴10
+    GOTO 오른쪽턴10_골프
     GOTO RX_EXIT
 KEY146:
     ETX 4800, 146
-    GOTO 오른쪽턴20
+    GOTO 오른쪽턴20_골프
     GOTO RX_EXIT
 KEY147:
     ETX 4800, 147
-    GOTO 오른쪽턴45
+    GOTO 오른쪽턴45_골프
     GOTO RX_EXIT
 KEY148:
     ETX 4800, 148
-    GOTO 오른쪽턴60
+    GOTO 오른쪽턴60_골프
     GOTO RX_EXIT
 KEY149:
     ETX 4800, 149
