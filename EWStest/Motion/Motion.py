@@ -69,7 +69,8 @@ class Motion:
                 result = ser.read(1)
                 print(2)
                 print(result)
-                RX = ord(result)
+                
+                RX = result
                 # -----  remocon 16 Code  Exit ------
                 if RX == 16:
                     self.receiving_exit = 0
