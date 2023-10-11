@@ -37,8 +37,10 @@ while True:
     objects = []  # 물체의 정보를 저장할 리스트
 
     for contour in contours:
-        # 컨투어를 근사화합니다.
+        # 근사정확도 지수(외곽선 길이에 비례하게 설정)
         epsilon = 0.03 * cv2.arcLength(contour, True)
+
+        # 컨투어 근사화
         approx = cv2.approxPolyDP(contour, epsilon, True)
 
         # 꼭짓점 수 계산
@@ -79,6 +81,7 @@ while True:
         merged_vertices = []  # 합쳐진 꼭짓점을 저장할 리스트
         merged = set()  # 이미 합쳐진 꼭짓점을 추적하기 위한 집합
 
+        # i: 꼭짓점의 index, vertex1: 꼭짓점의 좌표
         for i, vertex1 in enumerate(vertices):
             if i not in merged:
                 # 이미 합쳐진 꼭짓점이 아닌 경우
@@ -94,17 +97,10 @@ while True:
 
                 # 합쳐진 꼭짓점을 계산하여 저장
                 merged_vertices.extend(merge_points(merged_point))
+            print(merged_vertices[0])
 
         # 합쳐진 꼭짓점 수를 텍스트로 표시
         cv2.putText(frame, f'Merged Vertices: {len(merged_vertices)}', (obj['x'], obj['y'] + 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-        # 서로 접해 있는 꼭짓점들 중 y값이 300 픽셀 이내로 접해 있는지 확인
-        for i, vertex1 in enumerate(merged_vertices):
-            for j, vertex2 in enumerate(merged_vertices):
-                if i != j and abs(vertex1[1] - vertex2[1]) <= 300:
-                    # y값이 300 픽셀 이내로 접해 있다면, 두 점을 동일한 점으로 간주
-                    merged_vertices[i] = merge_points([vertex1, vertex2])[0]
-                    merged_vertices[j] = merged_vertices[i]  # 두 점을 같은 점으로 설정
 
     # 결과를 표시합니다.
     cv2.imshow('Video', frame)
