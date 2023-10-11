@@ -18,7 +18,7 @@ class Motion:
             # BPS: 시리얼 통신 속도 (보드레이트)
         # ---------local Serial Port : ttyS0 --------
         # ---------USB Serial Port : ttyAMA0 --------
-        self.serial_port = serial.Serial('/dev/ttyS0', BPS, timeout=0.1)   # 시리얼 포트 객체 생성
+        self.serial_port = serial.Serial('/dev/ttyS0', BPS, timeout=1)   # 시리얼 포트 객체 생성
         self.serial_port.flush()  # serial cls
         self.serial_t = Thread(target=self.Receiving, args=(self.serial_port,))   # 시리얼 통신을 위한 스레드 객체 생성
         self.serial_t.daemon = True
@@ -41,15 +41,13 @@ class Motion:
             self.serial_port.write(serial.to_bytes([one_byte]))  # python3
         finally:
             self.lock.release()
-            #time.sleep(0.02)
+            time.sleep(0.02)
 
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
-        #time.sleep(0.02)
+        time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
-            print(1)
-            print(result) # ord(result) 에러로 인한 출력 
             RX = ord(result)
             return RX
         else:
