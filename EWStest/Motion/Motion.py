@@ -18,7 +18,7 @@ class Motion:
             # BPS: 시리얼 통신 속도 (보드레이트)
         # ---------local Serial Port : ttyS0 --------
         # ---------USB Serial Port : ttyAMA0 --------
-        self.serial_port = serial.Serial('/dev/ttyS0', BPS, timeout=0.01)   # 시리얼 포트 객체 생성
+        self.serial_port = serial.Serial('/dev/ttyS0', BPS, timeout=0.1)   # 시리얼 포트 객체 생성
         self.serial_port.flush()  # serial cls
         self.serial_t = Thread(target=self.Receiving, args=(self.serial_port,))   # 시리얼 통신을 위한 스레드 객체 생성
         self.serial_t.daemon = True
@@ -56,16 +56,16 @@ class Motion:
             return 0
 
     def Receiving(self, ser):
-        #time.sleep(1)
+        time.sleep(0.1)
         self.receiving_exit = 1
         while True:
             if self.receiving_exit == 0:
                 break
             time.sleep(self.threading_Time)
-            #time.sleep(1)
+            time.sleep(0.1)
 
             while ser.inWaiting() > 0:
-                #time.sleep(1)
+                time.sleep(0.1)
                 result = ser.read(1)
                 RX = ord(result)
                 # -----  remocon 16 Code  Exit ------
