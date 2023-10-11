@@ -14,7 +14,7 @@ def merge_points(points):
     return [merged_point]
 
 # 비디오 캡처를 초기화합니다.
-cap = cv2.VideoCapture('imgs/YYY.h264')  # 비디오 파일 경로 설정
+cap = cv2.VideoCapture('imgs/.h264')  # 비디오 파일 경로 설정
 
 while True:
     # 프레임을 읽어옵니다.
@@ -69,6 +69,7 @@ while True:
             cv2.drawContours(frame, [obj['contour']], 0, (0, 255, 0), 2)
         else:
             text = 'Arrow'
+            cv2.drawContours(frame, [obj['contour']], 0, (0, 0, 255), 2)
             
         cv2.putText(frame, text, (obj['x'], obj['y'] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
@@ -97,7 +98,6 @@ while True:
 
                 # 합쳐진 꼭짓점을 계산하여 저장
                 merged_vertices.extend(merge_points(merged_point))
-            print(merged_vertices[0])
 
         # 합쳐진 꼭짓점 수를 텍스트로 표시
         cv2.putText(frame, f'Merged Vertices: {len(merged_vertices)}', (obj['x'], obj['y'] + 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
