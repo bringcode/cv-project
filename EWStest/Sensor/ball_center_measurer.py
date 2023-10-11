@@ -67,7 +67,7 @@ class BallCenterMeasurer:
 
 
     def process(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
         cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Object Dist Measure ', 700, 600)
 

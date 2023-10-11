@@ -7,7 +7,7 @@ import numpy as np
 class OutlineDetection:
 
     def __init__(self, video_path, scale_percent=65):
-        self.cap = cv2.VideoCapture(video_path)
+        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         self.scale_percent = scale_percent
 
     @staticmethod
