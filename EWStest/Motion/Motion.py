@@ -41,11 +41,11 @@ class Motion:
             self.serial_port.write(serial.to_bytes([one_byte]))  # python3
         finally:
             self.lock.release()
-            time.sleep(0.02)
+            #time.sleep(0.02)
 
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
-        time.sleep(0.02)
+        #time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
             print(1)
@@ -56,16 +56,16 @@ class Motion:
             return 0
 
     def Receiving(self, ser):
-        time.sleep(1)
+        #time.sleep(1)
         self.receiving_exit = 1
         while True:
             if self.receiving_exit == 0:
                 break
             time.sleep(self.threading_Time)
-            time.sleep(1)
+            #time.sleep(1)
 
             while ser.inWaiting() > 0:
-                time.sleep(1)
+                #time.sleep(1)
                 result = ser.read(1)
                 RX = ord(result)
                 # -----  remocon 16 Code  Exit ------
