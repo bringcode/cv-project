@@ -48,8 +48,13 @@ class Motion:
         time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
-            RX = ord(result)
-            return RX
+            if result:
+                print(1)
+                print(result)
+                RX = ord(result)
+                return RX
+            else:
+                print("Received empty data")
         else:
             return 0
 
