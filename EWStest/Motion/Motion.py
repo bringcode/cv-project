@@ -59,14 +59,13 @@ class Motion:
             return 0
 
     def Receiving(self, ser):
-        time.sleep(0.1)
+        #time.sleep(0.1)
         self.receiving_exit = 1
         while True:
             if self.receiving_exit == 0:
                 break
             time.sleep(self.threading_Time)
-            time.sleep(0.1)
-
+            #time.sleep(0.1)
             while ser.inWaiting() > 0:
                 time.sleep(0.1)
                 result = ser.read(1)
