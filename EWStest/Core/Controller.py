@@ -13,8 +13,9 @@ class Act(Enum):
     START = auto() # 시작 - 아무도 동작도 안 함
     SEARCH_FIRST = auto() # T샷 시작
     SEARCH_BALL = auto() # 공 찾기
-    # SEARCH_FLAG = auto() # 깃발 찾기
-    # SEARCH_ARROW = auto() # 화살표 찾기
+    SEARCH_FLAG = auto() # 깃발 찾기
+    SEARCH_ARROW = auto() # 화살표 찾기
+    SEARCH_BUNKER = auto() # 벙커 찾기
     PUTTING = auto() # 공 퍼팅
     CHECK = auto() # 홀인 확인
     EXIT = auto() # 종료
@@ -89,9 +90,12 @@ class Controller:
         
         # 이 부분에 첫 공을 찾는 부분을 넣어야하는게 맞는지?
 
-    # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤) (발견 못하면 나갔다고 판단)
+    # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤)
     @classmethod
     def check_ball_out(self):
+        # 위험 지역에 공이 있으면 공이 나간 걸로 판단 -> 위험 지역을 판별할 cv 생각해야 함
+        
+            
         time.sleep(1)
 
     # 퍼팅 후 공 위치가 위험한지 안 위험한지
@@ -99,8 +103,13 @@ class Controller:
     def check_ball_location(self):
         time.sleep(1)
 
-        # 각도, 거리, 왼쪽 or 오른쪽 칠 수 있는 곳
-        
+        # 고려해야 할 점: 아웃라인을 넘어서 로봇이 서지 않게 해야 함.
+
+        # 홀컵이 있을 때
+        # if 홀컵의 오른쪽이면 공의 왼쪽에서 칠 수 있게 -> 홀컵을 인식하고, 홀컵 기준 오른쪽에서 왼쪽 방향으로 치기
+        # elif 홀컵의 왼쪽이면 공의 오른쪽에서 칠 수 있게 -> 홀컵을 인식하고, 홀컵 기준 왼쪽에서 오른쪽 방향으로 치기
+        # elif 홀선과 일직선이면 홀컵 쪽으로 치기
+        # else 판단 불가 False        
                 
 
     # 홀인 했는지 안 했는지

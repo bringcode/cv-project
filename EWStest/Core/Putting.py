@@ -23,8 +23,9 @@ class Putting:
 
     @classmethod
     def is_okay_grab_milkbox(self):
-        print("여기부터 시작")
+        pass
 
-        # if 오른쪽이면 왼쪾에서 칠 수 있게
-        # elif 왼쪽이면 오른쪽에서 칠 수 있게
-        # else 판단 불가 False
+    # 우선순위를 홀컵, 화살표 순으로 설정
+    # if 홀컵이 있다면 Controller의 check_ball_location에서 정보를 받아서 치기
+    # elif 홀컵이 없고 화살표가 있으면, 화살표가 가르키는 쪽으로 치기 (여기서 구현)
+    # else 홀컵이나 화살표가 다 없으면, 아웃라인을 기준으로 양쪽을 확인하고 치기
