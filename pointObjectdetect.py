@@ -14,7 +14,8 @@ def merge_points(points):
     return [merged_point]
 
 # 비디오 캡처를 초기화합니다.
-cap = cv2.VideoCapture('imgs/.h264')  # 비디오 파일 경로 설정
+cap = cv2.VideoCapture('imgs/flagONLY.h264')  # 비디오 파일 경로 설정
+# cap = cv2.VideoCapture('imgs/arrowONLY.h264')  # 비디오 파일 경로 설정
 
 while True:
     # 프레임을 읽어옵니다.
@@ -29,7 +30,7 @@ while True:
     mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
     kernel = np.ones((3,3), 'uint8')
 
-    mask = cv2.morphologyEx(mask, cv2.MORPH_ERODE, kernel, iterations=1)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=3)
     
     # 노란색 물체의 컨투어를 찾습니다.
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -38,7 +39,7 @@ while True:
 
     for contour in contours:
         # 근사정확도 지수(외곽선 길이에 비례하게 설정)
-        epsilon = 0.03 * cv2.arcLength(contour, True)
+        epsilon = 0.06 * cv2.arcLength(contour, True)
 
         # 컨투어 근사화
         approx = cv2.approxPolyDP(contour, epsilon, True)
@@ -47,7 +48,7 @@ while True:
         vertices = len(approx)
         
         # 꼭짓점 수가 3개 이상이고 10개 이하이며, 넓이가 1000 이상인 경우만 표시
-        if 3 <= vertices <= 10 and cv2.contourArea(contour) >= 500:
+        if 3 <= vertices and cv2.contourArea(contour) >= 500:
             # 컨투어를 그리기 위한 직사각형을 생성합니다.
             x, y, w, h = cv2.boundingRect(approx)
             
@@ -75,32 +76,6 @@ while True:
 
         # 각 객체의 꼭짓점 수를 텍스트로 표시
         cv2.putText(frame, f'Vertices: {obj["vertices"]}', (obj['x'], obj['y'] + 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-    # 물체의 꼭짓점을 비교하고 거리가 30 픽셀 이내인 점들을 하나로 합칩니다.
-    for obj in objects:
-        vertices = obj['contour'].reshape(-1, 2)
-        merged_vertices = []  # 합쳐진 꼭짓점을 저장할 리스트
-        merged = set()  # 이미 합쳐진 꼭짓점을 추적하기 위한 집합
-
-        # i: 꼭짓점의 index, vertex1: 꼭짓점의 좌표
-        for i, vertex1 in enumerate(vertices):
-            if i not in merged:
-                # 이미 합쳐진 꼭짓점이 아닌 경우
-                merged_point = [vertex1]  # 초기에 현재 꼭짓점 자체를 추가
-
-                for j, vertex2 in enumerate(vertices):
-                    if j not in merged and i != j:
-                        distance = calculate_distance(vertex1, vertex2)
-                        if distance <= 30:
-                            # 거리가 30 픽셀 이내인 경우, 합칩니다.
-                            merged_point.append(vertex2)
-                            merged.add(j)  # 합쳐진 꼭짓점으로 표시
-
-                # 합쳐진 꼭짓점을 계산하여 저장
-                merged_vertices.extend(merge_points(merged_point))
-
-        # 합쳐진 꼭짓점 수를 텍스트로 표시
-        cv2.putText(frame, f'Merged Vertices: {len(merged_vertices)}', (obj['x'], obj['y'] + 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     # 결과를 표시합니다.
     cv2.imshow('Video', frame)
