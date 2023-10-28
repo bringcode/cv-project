@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # from Sensor.ImageProcessor import ImageProccessor
-from EWStest.Motion.Motion import Motion
-from EWStest.Setting import Setting
-from EWStest.Sensor.ball_center_measurer import BallCenterMeasurer
+from Motion.Motion import Motion
+from Setting import Setting
+from Sensor.ball_center_measurer import BallCenterMeasurer
 
 
 print('code: Robo.py - ## Debug')
