@@ -9,7 +9,7 @@ class Motion:
         self.serial_use = 1   # 시리얼 통신 사용 여부 (1:사용, 0:미사용)
         self.serial_port = None   # 시리얼 포트 객체
         self.Read_RX = 0   # 읽기 버퍼 (효율적으로 처리하기 위한 중간 저장 공간)
-        self.receiving_gexit = 1   # 수신 종료 여부
+        self.receiving_exit = 1   # 수신 종료 여부
         self.threading_Time = 0.01   # 스레드 간 간격 설정 (초)
         self.sleep_time = sleep_time   
         self.lock = False   # 스레드 간 동기화를 위한 Lock 객체
