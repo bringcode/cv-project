@@ -44,7 +44,7 @@ class Motion:
             time.sleep(0.02)
     
     def TX_data_py3(self, one_byte):
-        self.lock = True
+        self.lock.acquire()
         self.serial_port.write(serial.to_bytes([one_byte]))
         time.sleep(0.1)
 
