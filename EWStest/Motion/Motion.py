@@ -9,10 +9,10 @@ class Motion:
         self.serial_use = 1   # 시리얼 통신 사용 여부 (1:사용, 0:미사용)
         self.serial_port = None   # 시리얼 포트 객체
         self.Read_RX = 0   # 읽기 버퍼 (효율적으로 처리하기 위한 중간 저장 공간)
-        self.receiving_exit = 1   # 수신 종료 여부
+        self.receiving_gexit = 1   # 수신 종료 여부
         self.threading_Time = 0.01   # 스레드 간 간격 설정 (초)
         self.sleep_time = sleep_time   
-        self.lock = Lock()   # 스레드 간 동기화를 위한 Lock 객체
+        self.lock = False   # 스레드 간 동기화를 위한 Lock 객체
         self.distance = 0   # 거리 데이터
         BPS = 4800  # 4800,9600,14400, 19200,28800, 57600, 115200
             # BPS: 시리얼 통신 속도 (보드레이트)
@@ -36,15 +36,12 @@ class Motion:
 
     def TX_data_py2(self, one_byte):  # one_byte= 0~255
         # 1바이트 데이터를 시리얼 포트로 전송
-        try:
-            self.lock.acquire()
-            self.serial_port.write(serial.to_bytes([one_byte]))  # python3
-        finally:
-            self.lock.release()
-            time.sleep(0.02)
+        self.lock = True
+        self.serial_port.write(serial.to_bytes([one_byte]))  # python3
+        time.sleep(0.1)
     
     def TX_data_py3(self, one_byte):
-        self.lock.acquire()
+        self.lock = True
         self.serial_port.write(serial.to_bytes([one_byte]))
         time.sleep(0.1)
 
@@ -53,13 +50,8 @@ class Motion:
         time.sleep(0.02)
         if self.serial_port.inWaiting() > 0:
             result = self.serial_port.read(1)
-            if result:
-                print(1)
-                print(result)
-                RX = ord(result)
-                return RX
-            else:
-                print("Received empty data")
+            RX = ord(result)
+            return RX
         else:
             return 0
 
@@ -76,16 +68,15 @@ class Motion:
                 result = ser.read(1)
                 RX = ord(result)
                 # -----  remocon 16 Code  Exit ------
+                if RX == 38:
+                    self.lock = False
+                else:
+                    self.distance = RX
                 if RX == 16:
                     self.receiving_exit = 0
                     break
-                elif RX == 38:
-                    try:
-                        self.lock.release()
-                    except:
-                        continue
-                elif RX != 38:
-                    self.distance = RX
+            if self.receiving_exit == 0:
+                break
 ############################################################
     # 기본자세 (100) -> 로봇을 기본 자세로 설정
     def basic(self):
