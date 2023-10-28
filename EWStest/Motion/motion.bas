@@ -2782,35 +2782,35 @@ KEY122:
     GOTO 전방하향30도
     GOTO RX_EXIT
 KEY123:
-    ETX  4800,120
+    ETX  4800,123
     GOTO 전방하향40도
     GOTO RX_EXIT
 KEY124:
-    ETX  4800,120
+    ETX  4800,124
     GOTO 전방하향45도
     GOTO RX_EXIT
 KEY125:
-    ETX  4800,120
+    ETX  4800,125
     GOTO 전방하향60도
     GOTO RX_EXIT
 KEY126:
-    ETX  4800,120
+    ETX  4800,126
     GOTO 전방하향70도
     GOTO RX_EXIT
 KEY127:
-    ETX  4800,120
+    ETX  4800,127
     GOTO 전방하향80도
     GOTO RX_EXIT
 KEY128:
-    ETX  4800,120
+    ETX  4800,128
     GOTO 전방하향90도
     GOTO RX_EXIT
 KEY129:
-    ETX  4800,120
+    ETX  4800,129
     GOTO 전방하향100도
     GOTO RX_EXIT
 KEY130:
-    ETX  4800,120
+    ETX  4800,130
     GOTO 전방하향110도
     GOTO RX_EXIT
 	'******************
