@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
-from Core.Robo import Robo
+from EWStest.Core.Robo import Robo
 import time
 
 

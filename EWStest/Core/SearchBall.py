@@ -3,9 +3,9 @@ from enum import Enum, auto
 from Core.Robo import Robo
 #from Setting import cur
 import time
-from Sensor.ball_center_measurer import BallCenterMeasurer
+from EWStest.Sensor.ball_center_measurer import BallCenterMeasurer
 # from Sensor.dist_measure import 
-import Motion.Motion
+import EWStest.Motion.Motion
 
 
 class Act(Enum):
