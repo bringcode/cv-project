@@ -42,6 +42,11 @@ class Motion:
         finally:
             self.lock.release()
             time.sleep(0.02)
+    
+    def TX_data_py3(self, one_byte):
+        self.lock = True
+        self.serial_port.write(serial.to_bytes([one_byte]))
+        time.sleep(0.1)
 
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
@@ -152,9 +157,9 @@ class Motion:
         }
 
         if dir in center_list:
-            self.TX_data_py2(center_list[dir])
+            self.TX_data_py3(center_list[dir])
         else:
-            self.TX_data_py2(dir_list[dir][angle])
+            self.TX_data_py3(dir_list[dir][angle])
         time.sleep(0.3)
 
     # 돌기 (141~160)
