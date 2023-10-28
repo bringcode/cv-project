@@ -79,12 +79,12 @@ class Motion:
                 if RX == 16:
                     self.receiving_exit = 0
                     break
-                elif RX == 200:
+                elif RX == 38:
                     try:
                         self.lock.release()
                     except:
                         continue
-                elif RX != 200:
+                elif RX != 38:
                     self.distance = RX
 ############################################################
     # 기본자세 (100) -> 로봇을 기본 자세로 설정
