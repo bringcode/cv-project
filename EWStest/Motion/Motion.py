@@ -94,7 +94,7 @@ class Motion:
         """ parameter :
         dir : {FORWARD, BACKWARD}
         """
-        dir_list = {'FORWARD': 101, "BACKWARD": 111}
+        dir_list = {'FORWARD': 101, "BACKWARD": 111} # motion.bas 수정 해야할 듯?
         if short:
             dir_list[dir] += 1
 

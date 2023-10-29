@@ -2365,7 +2365,7 @@ MAIN_2:
     IF A > 100 AND A < 110 THEN
         BUTTON_NO = A - 100
         GOSUB Number_Play
-        GOSUB SOUND_PLAY_CHK
+        GOSUB SOUND_PLAY_CHK  '신지 누나는 이 부분 주석 함.
         GOSUB GOSUB_RX_EXIT
 
 
