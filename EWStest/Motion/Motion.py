@@ -66,15 +66,18 @@ class Motion:
             while ser.inWaiting() > 0:
                 time.sleep(0.1)
                 result = ser.read(1)
-                RX = ord(result)
-                # -----  remocon 16 Code  Exit ------
-                if RX == 38:
-                    self.lock = False
-                else:
-                    self.distance = RX
-                if RX == 16:
-                    self.receiving_exit = 0
-                    break
+                aa = len(result)
+                if aa > 0:
+                    RX = ord(result)
+
+                    # -----  remocon 16 Code  Exit ------
+                    if RX == 38:
+                        self.lock = False
+                    else:
+                        self.distance = RX
+                    if RX == 16:
+                        self.receiving_exit = 0
+                        break
             if self.receiving_exit == 0:
                 break
 ############################################################
