@@ -43,7 +43,7 @@ class Controller:
     @classmethod
     def check_ball_first(self):
         act = self.act
-        time.sleep(1)
+        time.sleep(3)
 
         ball = FindBall()
         self.ball = ball.process()
@@ -52,11 +52,11 @@ class Controller:
 
         # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
         self.robo._motion.set_head("DOWN", dir)
-        time.sleep(1)
+        time.sleep(3)
 
         # 고개 각도를 90도에서 50도로 변경하면서 공을 찾습니다.
         for _ in range(3):
-            print('1')
+            print(self.ball)
             if self.ball == True:
                 print("공을 찾았습니다.")
                 break
@@ -65,17 +65,18 @@ class Controller:
             time.sleep(3)
 
         # 로봇이 가운데로 생각하고 시작하는 부분
-        dir = 50
-        self.robo._motion.set_head("DOWN", dir)
+        # dir = 50
+        # self.robo._motion.set_head("DOWN", dir)
 
         if not self.ball == True:
+            time.sleep(3)
             # 오른쪽으로 시선 이동
             self.robo._motion.set_head("RIGHT", 45)
-            time.sleep(1.5)
+            time.sleep(3)
             if not self.ball == True:
                 # 왼쪽으로 시선 이동
                 self.robo._motion.set_head("LEFT", 45)
-                time.sleep(1.5)
+                time.sleep(3)
 
         if self.ball == True:
             print("공을 찾았습니다.")
