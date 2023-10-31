@@ -69,9 +69,11 @@ class Controller:
         if not self.ball == True:
             # 오른쪽으로 시선 이동
             self.robo._motion.set_head("RIGHT", 45)
+            time.sleep(1.5)
             if not self.ball == True:
                 # 왼쪽으로 시선 이동
                 self.robo._motion.set_head("LEFT", 45)
+                time.sleep(1.5)
 
         if self.ball == True:
             print("공을 찾았습니다.")
