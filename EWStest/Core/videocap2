@@ -1,15 +1,17 @@
-import picamera
+from picamera import PiCamera
 import time
-from datetime import datetime
+import cv2
+import numpy as np
+from datetime import datetime  # datetime 모듈 추가
 
 # 녹화 설정
-camera = picamera.PiCamera()
+camera = PiCamera()
 camera.resolution = (800, 600)  # 해상도 설정 (원하는 해상도로 변경 가능)
-camera.framerate = 10            # 프레임 속도 설정 (원하는 속도로 변경 가능)
+camera.framerate = 30            # 프레임 속도 설정 (원하는 속도로 변경 가능)
 
 # 화면 미리보기 시작
-camera.start_preview(fullscreen=False, window=(100, 100, 640, 480))
-camera.preview_alpha = 0  # 미리보기 화면을 투명하게 설정하여 화면 표시
+# camera.start_preview()
+camera.start_preview(fullscreen=False, window=(100,100,640,480))
 
 # 녹화 플래그 초기화
 is_recording = False
@@ -27,7 +29,6 @@ try:
                 timestamp = get_current_time()  # 현재 시간 정보 가져오기
                 output_file = f"/home/pi/Desktop/record/{timestamp}_녹화된파일.h264"  # 파일명에 시간 추가
                 print(f"{timestamp}에 녹화를 시작합니다.")
-                time.sleep(2)  # 미리보기를 위한 딜레이 추가
                 # 녹화 시작
                 camera.start_recording(output_file)
                 is_recording = True
