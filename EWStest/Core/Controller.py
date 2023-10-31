@@ -98,10 +98,12 @@ class Controller:
     def center_ball(self):
         print("Debug in center_ball")
         time.sleep(1)
-        center = BallCenterMeasurer()
-
+        center = None
         # ball_center_measure 에서 return 값: L / C / R
         while center != 'C':
+            cmeasurer = BallCenterMeasurer()
+            center = cmeasurer.process()
+            print(center)
 
             if center == 'L':
                 time.sleep(0.5)

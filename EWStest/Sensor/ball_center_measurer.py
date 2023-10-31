@@ -77,12 +77,12 @@ class BallCenterMeasurer:
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
             
             #window version
-            lower = np.array([170, 99, 100])
-            upper = np.array([180, 255, 255])
-            mask = cv2.inRange(hsv_img, lower, upper)
-            lower1 = np.array([1, 99, 100])
-            upper1 = np.array([5, 255, 255])
-            mask += cv2.inRange(hsv_img, lower1, upper1)
+            # lower = np.array([170, 99, 100])
+            # upper = np.array([180, 255, 255])
+            # mask = cv2.inRange(hsv_img, lower, upper)
+            # lower1 = np.array([1, 99, 100])
+            # upper1 = np.array([5, 255, 255])
+            # mask += cv2.inRange(hsv_img, lower1, upper1)
 
             # lower_flag = np.array([35, 130, 150])
             # upper_flag = np.array([45, 255, 255])
@@ -92,6 +92,12 @@ class BallCenterMeasurer:
             # lower = np.array([170, 100, 100])
             # upper = np.array([180, 255, 255])
             # mask = cv2.inRange(hsv_img, lower, upper)
+            
+            # robot version
+            lower = np.array([137, 0, 0])
+            upper = np.array([255, 255, 255])
+            mask = cv2.inRange(hsv_img, lower, upper)
+            
 
 
             lower_flag = np.array([10, 150, 100])
@@ -143,17 +149,18 @@ class BallCenterMeasurer:
                         
                         
             if ball_box is not None and all(f_max_x > x > f_min_x and f_max_y > y > f_min_y for x, y in ball_box):
-                    cv2.circle(img, (100,200), 20, cv2.FILLED, cv2.LINE_AA)
-                    return ball_isMiddle
+                cv2.circle(img, (100,200), 20, cv2.FILLED, cv2.LINE_AA)
+            
+            return ball_isMiddle
 
 
-            # cv2.imshow('Object Dist Measure ', img)
+        #     cv2.imshow('Object Dist Measure ', img)
 
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
+        #     if cv2.waitKey(1) & 0xFF == ord('q'):
+        #         break
 
         # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    distance_measurer = BallCenterMeasurer(img_width=1280, img_height=720)
-    distance_measurer.process()
+    distance_measurer = BallCenterMeasurer()
+    print(distance_measurer.process())
