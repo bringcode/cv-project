@@ -6,6 +6,7 @@ from Core.SearchBall import SearchBall
 from Core.Putting import Putting
 from Core.Check import Check
 from Sensor.search_ball import FindBall
+from Sensor.ball_center_measurer import BallCenterMeasurer
 #from Setting import cur
 import time
 
@@ -96,10 +97,17 @@ class Controller:
     def center_ball(self):
         print("Debug in center_ball")
         time.sleep(1)
+        center = BallCenterMeasurer()
 
-        # ball_center_measure 에서 return 값은 어떻게 온다를 주석 처리 해야함.
-        
-
+        # ball_center_measure 에서 return 값: L / C / R
+        if center == 'L':
+            print("공이 왼쪽에 있습니다.")
+        elif center == 'C':
+            print("공이 가운데 있습니다.")
+        elif center == 'R':
+            print("공이 오른쪽에 있습니다.")
+        else:
+            print("원하는 값이 반환되지 않았습니다.")
 
     # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤)
     @classmethod
