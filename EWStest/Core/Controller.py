@@ -61,7 +61,7 @@ class Controller:
                 break
             dir -= 10
             self.robo._motion.set_head("DOWN", dir)
-            time.sleep(1.5)
+            time.sleep(3)
 
         # 로봇이 가운데로 생각하고 시작하는 부분
         dir = 50
