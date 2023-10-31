@@ -58,12 +58,12 @@ class BallCenterMeasurer:
         is_Middle = abs(r_dist - l_dist) < error_range
 
         if is_Middle == True:
-            return 'middle'
+            return 'C'
         else:
             if r_dist > l_dist:
-                return 'left'
+                return 'L'
             else:
-                return 'right'
+                return 'R'
 
 
     def process(self):
@@ -144,14 +144,15 @@ class BallCenterMeasurer:
                         
             if ball_box is not None and all(f_max_x > x > f_min_x and f_max_y > y > f_min_y for x, y in ball_box):
                     cv2.circle(img, (100,200), 20, cv2.FILLED, cv2.LINE_AA)
+                    return ball_isMiddle
 
 
-            cv2.imshow('Object Dist Measure ', img)
+            # cv2.imshow('Object Dist Measure ', img)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            # if cv2.waitKey(1) & 0xFF == ord('q'):
+            #     break
 
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     distance_measurer = BallCenterMeasurer(img_width=1280, img_height=720)
