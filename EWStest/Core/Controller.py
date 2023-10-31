@@ -92,6 +92,15 @@ class Controller:
         
         # 이 부분에 첫 공을 찾는 부분을 넣어야하는게 맞는지?
 
+    @classmethod
+    def center_ball(self):
+        print("Debug in center_ball")
+        time.sleep(1)
+
+        # ball_center_measure 에서 return 값은 어떻게 온다를 주석 처리 해야함.
+        
+
+
     # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤)
     @classmethod
     def check_ball_out(self):
