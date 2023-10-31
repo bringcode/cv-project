@@ -10,7 +10,8 @@ camera.resolution = (800, 600)  # 해상도 설정 (원하는 해상도로 변�
 camera.framerate = 30            # 프레임 속도 설정 (원하는 속도로 변경 가능)
 
 # 화면 미리보기 시작
-camera.start_preview()
+# camera.start_preview()
+camera.start_preview(fullscreen=False, window=(100,100,640,480))
 
 # 녹화 플래그 초기화
 is_recording = False
