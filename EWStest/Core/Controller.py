@@ -135,8 +135,29 @@ class Controller:
             print("ACT: ", act ) # Debug
             self.check_ball_first()
 
+        elif act == act.SEARCH_BALL:
+            print("Act:", act)
+
+        elif act == act.SEARCH_FLAG:
+            print("Act:", act)
+
+        elif act == act.SEARCH_ARROW:
+            print("Act:", act)
+
+        elif act == act.SEARCH_BUNKER:
+            print("Act:", act)
+
+        elif act == act.PUTTING:
+            print("Act:", act)
+
+        elif act == act.CHECK:
+            print("Act:", act)
+
+        elif act == act.EXIT:
+            print("Act:", act)
+
         else:
-            print("아직 구현 안 했어요!")
+            print("이쪽으로 빠지면 문제가 있는거임.")
     
         return False
     
