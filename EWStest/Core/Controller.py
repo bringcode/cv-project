@@ -101,14 +101,22 @@ class Controller:
 
         # ball_center_measure 에서 return 값: L / C / R
         while center != 'C':
-            
+
             if center == 'L':
+                time.sleep(0.5)
                 print("공이 왼쪽에 있습니다.")
+            
             elif center == 'C':
+                time.sleep(0.5)
                 print("공이 가운데 있습니다.")
+                break
+
             elif center == 'R':
+                time.sleep(0.5)
                 print("공이 오른쪽에 있습니다.")
+            
             else:
+                time.sleep(0.5)
                 print("원하는 값이 반환되지 않았습니다.")
 
     # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤)
