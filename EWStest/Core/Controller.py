@@ -100,14 +100,16 @@ class Controller:
         center = BallCenterMeasurer()
 
         # ball_center_measure 에서 return 값: L / C / R
-        if center == 'L':
-            print("공이 왼쪽에 있습니다.")
-        elif center == 'C':
-            print("공이 가운데 있습니다.")
-        elif center == 'R':
-            print("공이 오른쪽에 있습니다.")
-        else:
-            print("원하는 값이 반환되지 않았습니다.")
+        while center != 'C':
+            
+            if center == 'L':
+                print("공이 왼쪽에 있습니다.")
+            elif center == 'C':
+                print("공이 가운데 있습니다.")
+            elif center == 'R':
+                print("공이 오른쪽에 있습니다.")
+            else:
+                print("원하는 값이 반환되지 않았습니다.")
 
     # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤)
     @classmethod
