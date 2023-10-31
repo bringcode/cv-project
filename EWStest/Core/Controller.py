@@ -56,6 +56,7 @@ class Controller:
 
         # 고개 각도를 90도에서 50도로 변경하면서 공을 찾습니다.
         for _ in range(3):
+            print('1')
             if self.ball == True:
                 print("공을 찾았습니다.")
                 break

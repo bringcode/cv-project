@@ -34,7 +34,7 @@ class Motion:
 
         return decorated
 
-    def TX_data_py2(self, one_byte):  # one_byte= 0~255
+    def TX_data_py3(self, one_byte):  # one_byte= 0~255
         # 1바이트 데이터를 시리얼 포트로 전송
         self.lock = True
         self.serial_port.write(serial.to_bytes([one_byte]))  # python3
@@ -83,7 +83,7 @@ class Motion:
 ############################################################
     # 기본자세 (100) -> 로봇을 기본 자세로 설정
     def basic(self):
-        self.TX_data_py2(100)
+        self.TX_data_py3(100)
 
     # 걷기 (101~120)
     def walk(self, dir, loop=1, sleep=0.1, short=False):
@@ -102,7 +102,7 @@ class Motion:
             dir_list[dir] += 1
 
         for _ in range(loop):
-            self.TX_data_py2(dir_list[dir])
+            self.TX_data_py3(dir_list[dir])
             time.sleep(sleep)
 
 
@@ -185,7 +185,7 @@ class Motion:
                 dir_list[dir][angle] += 6
 
         for _ in range(loop):
-            self.TX_data_py2(dir_list[dir][angle])
+            self.TX_data_py3(dir_list[dir][angle])
             time.sleep(sleep)
 
     # 옆으로 이동 (161~170)
@@ -198,7 +198,7 @@ class Motion:
         dir : {LEFT, RIGHT}
         """
         dir_list = {"LEFT": 161, "RIGHT": 169}
-        self.TX_data_py2(dir_list[dir])
+        self.TX_data_py3(dir_list[dir])
 
     # # 위험지역 인식 (205~206)
     # def notice_area(self, area):
