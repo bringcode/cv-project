@@ -150,28 +150,46 @@ class Controller:
 
         elif act == act.SEARCH_FIRST:
             print("ACT: ", act ) # Debug
+            time.sleep(0.5)
+
             self.check_ball_first()
+            self.act = act.SEARCH_BALL
 
         elif act == act.SEARCH_BALL:
-            print("Act:", act)
+            print("Act:", act) # Debug
+            time.sleep(0.5)
+
+            self.center_ball()
+            self.act = act.SEARCH_FLAG
 
         elif act == act.SEARCH_FLAG:
-            print("Act:", act)
+            print("Act:", act) # Debug
+
+            self.act = act.SEARCH_ARROW
 
         elif act == act.SEARCH_ARROW:
-            print("Act:", act)
+            print("Act:", act) # Debug
+
+            self.act = act.SEARCH_BUNKER
 
         elif act == act.SEARCH_BUNKER:
-            print("Act:", act)
+            print("Act:", act) # Debug
+
+            
+            self.act = act.PUTTING
 
         elif act == act.PUTTING:
-            print("Act:", act)
+            print("Act:", act) # Debug
+
+            self.act = act.CHECK
 
         elif act == act.CHECK:
-            print("Act:", act)
+            print("Act:", act) # Debug
+
+            self.act = act.EXIT
 
         elif act == act.EXIT:
-            print("Act:", act)
+            print("Act:", act) # Debug
 
         else:
             print("이쪽으로 빠지면 문제가 있는거임.")
