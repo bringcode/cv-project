@@ -198,9 +198,9 @@ class Controller:
         act = self.act
         robo: Robo = Robo()
 
+        self.center_ball()
+        time.sleep(10)
         
-
-
         if act == act.START:
             print("ACT: ", act)  # Debug
             # print("current area: ", cur.AREA, "(Setting.py Hard Coding for Debuging)")
