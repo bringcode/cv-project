@@ -148,6 +148,8 @@ class Controller:
             if center == 'L':
                 time.sleep(0.5)
                 print("공이 왼쪽에 있습니다.")
+                self.robo._motion.walk_side("LEFT")
+                time.sleep(0.5)
             
             elif center == 'C':
                 time.sleep(0.5)
@@ -157,6 +159,7 @@ class Controller:
             elif center == 'R':
                 time.sleep(0.5)
                 print("공이 오른쪽에 있습니다.")
+                self.robo._motion.walk_side("RIGHT")
             
             else:
                 time.sleep(0.5)
@@ -194,6 +197,9 @@ class Controller:
     def go_robo(self):
         act = self.act
         robo: Robo = Robo()
+
+        
+
 
         if act == act.START:
             print("ACT: ", act)  # Debug
