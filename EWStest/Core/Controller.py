@@ -6,7 +6,7 @@ from Core.SearchBall import SearchBall
 from Core.Putting import Putting
 from Core.Check import Check
 from Sensor.search_ball import FindBall
-from Sensor.ball_center_measurer import BallCenterMeasurer
+from Sensor.ball_ball_feature_measurer import BallCenterMeasurer
 #from Setting import cur
 import time
 
@@ -135,28 +135,28 @@ class Controller:
         # 이 부분에 첫 공을 찾는 부분을 넣어야하는게 맞는지?
 
     @classmethod
-    def center_ball(self):
-        print("Debug in center_ball")
+    def ball_feature_ball(self):
+        print("Debug in ball_feature_ball")
         time.sleep(1)
-        center = None
-        # ball_center_measure 에서 return 값: L / C / R
-        while center != 'C':
+        ball_feature = None  # [공의 가운데 여부, 공의 x중심좌표, 공의 y중심좌표]
+        # ball_ball_feature_measure 에서 return 값: L / C / R
+        while ball_feature[0] != 'C':
             cmeasurer = BallCenterMeasurer()
-            center = cmeasurer.process()
-            print(center)
+            ball_feature[0] = cmeasurer.process()
+            print(ball_feature[0])
 
-            if center == 'L':
+            if ball_feature[0] == 'L':
                 time.sleep(0.5)
                 print("공이 왼쪽에 있습니다.")
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(0.5)
             
-            elif center == 'C':
+            elif ball_feature[0] == 'C':
                 time.sleep(0.5)
                 print("공이 가운데 있습니다.")
                 break
 
-            elif center == 'R':
+            elif ball_feature[0] == 'R':
                 time.sleep(0.5)
                 print("공이 오른쪽에 있습니다.")
                 self.robo._motion.walk_side("RIGHT")
@@ -198,7 +198,7 @@ class Controller:
         act = self.act
         robo: Robo = Robo()
 
-        self.center_ball()
+        self.ball_feature_ball()
         time.sleep(10)
         
         if act == act.START:
@@ -218,7 +218,7 @@ class Controller:
             print("Act:", act) # Debug
             time.sleep(0.5)
 
-            self.center_ball()
+            self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
 
         elif act == act.SEARCH_FLAG:
