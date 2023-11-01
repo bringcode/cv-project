@@ -44,44 +44,83 @@ class Controller:
     def check_ball_first(self):
         act = self.act
         time.sleep(3)
+        dir = 100
 
-        ball = FindBall()
-        self.ball = ball.process()
+        ballFunction = FindBall() # Search_ball 함수 
+        is_ball_find = ballFunction.process() # process 가져옴 True / False로 반환됨.
 
-        dir = 90
-
-        # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
-        self.robo._motion.set_head("DOWN", dir)
-        time.sleep(3)
-
-        # 고개 각도를 90도에서 50도로 변경하면서 공을 찾습니다.
-        for _ in range(3):
-            print(self.ball)
-            if self.ball == True:
+        for i in range (3):
+            if is_ball_find == False:
+                dir -= 10
+                self.robo._motion.set_head("DOWN", dir)
+                is_ball_find = ballFunction.process()
+                time.sleep(3)
+            elif is_ball_find == True:
                 print("공을 찾았습니다.")
                 break
-            dir -= 10
-            self.robo._motion.set_head("DOWN", dir)
-            time.sleep(3)
+            else:
+                print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
+                print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
+
+        if is_ball_find != True:        
+            self.robo._motion.set_head("RIGHT", 45)
+            time.sleep(2)
+            is_ball_find = ballFunction.process()
+            if is_ball_find == True:
+                print("Center: 공을 오른쪽에서 찾았습니다.")
+            elif is_ball_find == False:
+                print("가운데 오른쪽 X")
+                self.robo._motion.set_head("LEFT", 45)
+                time.sleep(2)
+                is_ball_find = ballFunction.process()
+                if is_ball_find == True:
+                    print("Center: 공을 왼쪽에서 찾았습니다.")
+                elif is_ball_find == False:
+                    self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                    is_ball_find = ballFunction.process()
+                    time.sleep(2)
+                    if is_ball_find == True:
+                        print("Center: 공을 가운데에서 찾았습니다.")
+                    elif is_ball_find == False:
+                        print("공을 처음 시작할 때 어디서도 찾지 못했습니다.")
+                    else:
+                        print("True False가 반환되지 않았습니다.")
+                            
+                        
+                       
+
+            
+
+        # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
+
+        # 고개 각도를 90도에서 50도로 변경하면서 공을 찾습니다.
+        # for _ in range(3):
+        #     print(self.ball)
+        #     if self.ball == True:
+        #         print("공을 찾았습니다.")
+        #         break
+        #     dir -= 10
+        #     self.robo._motion.set_head("DOWN", dir)
+        #     time.sleep(3)
 
         # 로봇이 가운데로 생각하고 시작하는 부분
         # dir = 50
         # self.robo._motion.set_head("DOWN", dir)
 
-        if not self.ball == True:
-            time.sleep(3)
-            # 오른쪽으로 시선 이동
-            self.robo._motion.set_head("RIGHT", 45)
-            time.sleep(3)
-            if not self.ball == True:
-                # 왼쪽으로 시선 이동
-                self.robo._motion.set_head("LEFT", 45)
-                time.sleep(3)
+        # if not self.ball == True:
+        #     time.sleep(3)
+        #     # 오른쪽으로 시선 이동
+        #     self.robo._motion.set_head("RIGHT", 45)
+        #     time.sleep(3)
+        #     if not self.ball == True:
+        #         # 왼쪽으로 시선 이동
+        #         self.robo._motion.set_head("LEFT", 45)
+        #         time.sleep(3)
 
-        if self.ball == True:
-            print("공을 찾았습니다.")
-        else:
-            print("공을 찾지 못했습니다.")
+        # if self.ball == True:
+        #     print("공을 찾았습니다.")
+        # else:
+        #     print("공을 찾지 못했습니다.")
         # 처음에는 공이 안 보임
         # 로봇이 왼쪽에 있다고 생각
         # 10도 내리면 왼쪽 기준으로 가장 먼 쪽을 봄
