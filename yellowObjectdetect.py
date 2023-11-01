@@ -1,63 +1,80 @@
-import cv2
 import numpy as np
+import cv2
 
-# 라즈베리 파이 카메라 초기화
-cap = cv2.VideoCapture('arr.mp4')
+your_area_threshold = 300  # 사용자 정의 임계값, 필요에 따라 값을 조정
 
-# HSV 색상 범위 설정
-lower_yellow = np.array([11, 34, 196])
-upper_yellow = np.array([41, 255, 255])
+cap = cv2.VideoCapture('YYY.h264')  # 비디오 파일 경로를 설정하십시오.
+
+# 초록 영역 박스의 정보를 저장할 리스트
+green_boxes = []
 
 while True:
-    # 카메라에서 프레임 읽기
     ret, frame = cap.read()
-
     if not ret:
         break
 
-    # BGR 이미지를 HSV 이미지로 변환
+    # 영상을 HSV 색 공간으로 변환
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # 노란색 마스크 생성
-    yellow_mask = cv2.inRange(hsv_frame, lower_yellow, upper_yellow)
+    # 녹색 범위 정의
+    low_green = np.array([57, 95, 61])
+    high_green = np.array([89, 255, 255])
 
-    # 마스크에서 노이즈 제거 (모폴로지 연산)
-    kernel = np.ones((5, 5), np.uint8)
-    yellow_mask = cv2.morphologyEx(yellow_mask, cv2.MORPH_OPEN, kernel)
-    yellow_mask = cv2.morphologyEx(yellow_mask, cv2.MORPH_CLOSE, kernel)
+    # 녹색 범위에 해당하는 부분을 추출
+    green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
-    # 컨투어 찾기
-    contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # 추출된 녹색 부분을 원본 프레임에 표시
+    result_frame = cv2.bitwise_and(frame, frame, mask=green_mask)
 
-    for contour in contours:
-        # 노란색 픽셀이 포함된 박스 좌표 구하기
-        x, y, w, h = cv2.boundingRect(contour)
+    # 녹색 영역의 윤곽선 찾기
+    contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        # 박스 중점 좌표 구하기
-        center_x = x + w // 2
-        center_y = y + h // 2
+    # 초록 영역 박스 정보 업데이트
+    green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
-        # 중점 좌표의 색상 확인 (노란색 여부)
-        center_color = hsv_frame[center_y, center_x]
-        is_yellow = (center_color[0] >= lower_yellow[0] and center_color[0] <= upper_yellow[0] and
-                     center_color[1] >= lower_yellow[1] and center_color[1] <= upper_yellow[1] and
-                     center_color[2] >= lower_yellow[2] and center_color[2] <= upper_yellow[2])
+    # 노랑색 범위 정의
+    low_yellow = np.array([0, 57, 187])
+    high_yellow = np.array([45, 234, 255])
 
-        # 노란색 픽셀을 기준으로 화살표 또는 깃발로 판단
-        if is_yellow:
-            cv2.putText(frame, "Arrow", (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-        else:
-            cv2.putText(frame, "Flag", (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    # 노랑색 범위에 해당하는 부분을 추출
+    yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
-    # 화면에 표시
-    cv2.imshow('Frame', frame)
+    # 초록 박스 내부에 있는 노랑 영역만 남기고 나머지 부분 제거
+    for green_box in green_boxes:
+        x, y, w, h = green_box
+        yellow_roi = yellow_mask[y:y + h, x:x + w]
 
-    # 'q' 키를 누르면 종료
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+        # 초록 상자 내부의 노랑색 영역 처리
+        _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
+
+        for i in range(1, len(stats)):
+            x_blob, y_blob, w_blob, h_blob, area_blob = stats[i]
+            if area_blob > your_area_threshold:
+                cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
+
+                # Convert the yellow region into a binary image for contour detection
+                yellow_binary = np.zeros_like(yellow_roi)
+                yellow_binary[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob] = yellow_roi[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob]
+
+                # Find contours in the binary image
+                yellow_contours, _ = cv2.findContours(yellow_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+                for contour in yellow_contours:
+                    # Approximate the contour to find the vertices
+                    epsilon = 0.04 * cv2.arcLength(contour, True)
+                    approx = cv2.approxPolyDP(contour, epsilon, True)
+                    num_vertices = len(approx)
+
+                    # Display the shape as ARROW or FLAG based on the number of vertices
+                    shape_text = "ARROW" if 6<= num_vertices <= 8 else "FLAG"
+                    cv2.putText(frame, f'Shape: {shape_text}', (x + x_blob, y + y_blob - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+    # 원본 영상을 표시
+    cv2.imshow('Green and Yellow Frame', frame)
+
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord('q'):
         break
 
-# 카메라 해제 및 창 닫기
 cap.release()
 cv2.destroyAllWindows()
