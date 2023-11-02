@@ -128,6 +128,7 @@ class BallCenterMeasurer:
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
                     ball_y_isMiddle = self.judgeMiddle(max_y, min_y)
+                    print(ball_y_isMiddle)
 
                     # cv2.imshow('Object Dist Measure ', img)
                     # if cv2.waitKey(1) & 0xFF == ord('q'):
