@@ -96,10 +96,14 @@ class BallCenterMeasurer:
             # mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
 
             #mac version
-            lower = np.array([170, 100, 100])
-            upper = np.array([180, 255, 255])
+            # lower = np.array([170, 100, 100])
+            # upper = np.array([180, 255, 255])
+            # mask = cv2.inRange(hsv_img, lower, upper)
+            
+            #robot version
+            lower = np.array([137, 0, 0])
+            upper = np.array([255, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
-
 
             # lower_flag = np.array([10, 150, 100])
             # upper_flag = np.array([35, 255, 255])
@@ -136,6 +140,7 @@ class BallCenterMeasurer:
                     # cv2.destroyAllWindows()
                     
                     return [ball_x_isMiddle, ball_x, ball_y]
+            return ['N', 'N', 'N']
 
 
 

@@ -6,7 +6,7 @@ from Core.SearchBall import SearchBall
 from Core.Putting import Putting
 from Core.Check import Check
 from Sensor.search_ball import FindBall
-from Sensor.ball_ball_feature_measurer import BallCenterMeasurer
+from Sensor.ball_center_measurer import BallCenterMeasurer
 #from Setting import cur
 import time
 
@@ -138,18 +138,18 @@ class Controller:
     def ball_feature_ball(self):
         print("Debug in ball_feature_ball")
         time.sleep(1)
-        ball_feature = None  # [공의 가운데 여부, 공의 x중심좌표, 공의 y중심좌표]
+        ball_feature = ['None','None','None']  # [공의 가운데 여부, 공의 x중심좌표, 공의 y중심좌표]
         # ball_ball_feature_measure 에서 return 값: L / C / R
         while ball_feature[0] != 'C':
             cmeasurer = BallCenterMeasurer()
-            ball_feature[0] = cmeasurer.process()
+            ball_feature = cmeasurer.process()
             print(ball_feature[0])
 
             if ball_feature[0] == 'L':
                 time.sleep(0.5)
                 print("공이 왼쪽에 있습니다.")
                 self.robo._motion.walk_side("LEFT")
-                time.sleep(0.5)
+                time.sleep(1)
             
             elif ball_feature[0] == 'C':
                 time.sleep(0.5)
@@ -160,7 +160,7 @@ class Controller:
                 time.sleep(0.5)
                 print("공이 오른쪽에 있습니다.")
                 self.robo._motion.walk_side("RIGHT")
-            
+                time.sleep(1)
             else:
                 time.sleep(0.5)
                 print("원하는 값이 반환되지 않았습니다.")
@@ -198,6 +198,8 @@ class Controller:
         act = self.act
         robo: Robo = Robo()
 
+        self.robo._motion.set_head("DOWN", 45)
+        time.sleep(1)
         self.ball_feature_ball()
         time.sleep(10)
         
