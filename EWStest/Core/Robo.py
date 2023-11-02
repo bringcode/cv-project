@@ -2,7 +2,7 @@
 # from Sensor.ImageProcessor import ImageProccessor
 from Motion.Motion import Motion
 from Setting import Setting
-from EWStest.Sensor.ball_x_center import BallCenterMeasurer
+from EWStest.Sensor.ball_y_center import BallCenterMeasurer
 
 
 print('code: Robo.py - ## Debug')

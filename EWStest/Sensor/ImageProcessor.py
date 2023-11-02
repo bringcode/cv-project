@@ -17,13 +17,13 @@ print('code: ImageProcessor.py - ## Debug')
 
 
 if __name__ == "__main__":
-    from EWStest.Sensor.ball_x_center import BallCenterMeasurer
+    from EWStest.Sensor.ball_y_center import BallCenterMeasurer
     from outline import OutlineDetection
 
     
 
 else:
-    from EWStest.Sensor.ball_x_center import BallCenterMeasurer
+    from EWStest.Sensor.ball_y_center import BallCenterMeasurer
     from outline import OutlineDetection
     
 

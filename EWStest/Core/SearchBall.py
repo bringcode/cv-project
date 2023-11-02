@@ -3,7 +3,7 @@ from enum import Enum, auto
 from Core.Robo import Robo
 #from Setting import cur
 import time
-from EWStest.Sensor.ball_x_center import BallCenterMeasurer
+from EWStest.Sensor.ball_y_center import BallCenterMeasurer
 # from Sensor.dist_measure import 
 import Motion.Motion
 
