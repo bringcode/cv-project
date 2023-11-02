@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
-#from Setting import cur
+
+# from Setting import cur
 import time
-from EWStest.Sensor.ball_y_center import BallCenterMeasurer
-# from Sensor.dist_measure import 
+from Sensor.ball_y_center import BallCenterMeasurer
+
+# from Sensor.dist_measure import
 import Motion.Motion
 
 
 class Act(Enum):
     START = auto()  # 공통
-    FIND_BALL = auto() # 공 찾기
-    FIND_OUTLIEN = auto() # 아웃라인 찾기
-    FIND_FLAG = auto() # 깃발 찾기
-    FIND_ARROW = auto() # 화살표 찾기
+    FIND_BALL = auto()  # 공 찾기
+    FIND_OUTLIEN = auto()  # 아웃라인 찾기
+    FIND_FLAG = auto()  # 깃발 찾기
+    FIND_ARROW = auto()  # 화살표 찾기
     EXIT = auto()  # 공통
+
 
 class SearchBall:
     act: Act = Act.START
@@ -22,11 +25,8 @@ class SearchBall:
     head_angle: int = 70
     ball: bool
 
-    
-
     def init_robo(self, robo: Robo):
         self.robo = robo
-
 
     # @classmethod # 공 찾는 코드
     # def is_okay_ball(self):   # 공이 이미 시야에 있다는 전제 하
@@ -63,7 +63,6 @@ class SearchBall:
     #     else:
     #         self.find_turn()
 
-
     # @classmethod   # 홀컵으로 목표 설정
     # def find_hole(self):
     #     while 1:
@@ -74,7 +73,6 @@ class SearchBall:
     #             Robo._motion.motion.walk_side("LEFT")   # 왼쪽으로 옆이동
     #         else:   # 홀컵이 가운데보다 왼쪽에 있으면
     #             Robo._motion.motion.walk_side("RIGHT")   # 오른쪽으로 옆이동
-            
 
     # @classmethod
     # def find_turn(self):
@@ -97,7 +95,6 @@ class SearchBall:
 
     #     self.angle = 10 * count
 
-
     #     angles = [60, 20, 10]  # 가능한 회전 각도 리스트 (큰 값부터 순서대로)
     #     index = 0
 
@@ -112,24 +109,22 @@ class SearchBall:
     #         if self.angle < angles[index]:
     #             index += 1
     #             continue
-    #         else:    
+    #         else:
     #             self.robo._motion.turn(which_turn, angles[index])
     #             self.angle -= angles[index]
 
     #     print("공을 찾고 공 방향으로 돌았습니다.")
 
-
     #     # ball_center_measurer.ball_isMiddle의 값을 얻기 위해 실행을 해줘야 함.
     #     distance_measurer = BallCenterMeasurer()
     #     distance_measurer.process()
 
-        
     #     # 공이 정확하게 공이랑 일직선으로 되어 있는지 판단하는 부분 (일단 값을 10으로 넣긴 했는데 정확한 값을 찾아야 할 듯)
     #     if Sensor.ball_center_measurer.ball_isMiddle == "right": # 오른쪽
-    #         self.robo._motion.turn("RIGHT", 10)    
+    #         self.robo._motion.turn("RIGHT", 10)
 
     #     elif Sensor.ball_center_measurer.ball_isMiddle == "middle": #가운데
     #         pass
 
-    #     else: # 왼쪽 
+    #     else: # 왼쪽
     #         self.robo._motion.turn("LEFT", 10)
