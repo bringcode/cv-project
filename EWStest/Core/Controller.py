@@ -6,7 +6,7 @@ from Core.SearchBall import SearchBall
 from Core.Putting import Putting
 from Core.Check import Check
 from Sensor.search_ball import FindBall
-from Sensor.ball_center_measurer import BallCenterMeasurer
+from Sensor.ball_x_center import BallCenterMeasurer
 #from Setting import cur
 import time
 
