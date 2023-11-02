@@ -201,8 +201,10 @@ class Controller:
         self.robo._motion.set_head("DOWN", 45)
         time.sleep(1)
         self.ball_feature_ball()
-        time.sleep(10)
+        time.sleep(2)
         
+        self.act = act.START
+
         if act == act.START:
             print("ACT: ", act)  # Debug
             # print("current area: ", cur.AREA, "(Setting.py Hard Coding for Debuging)")
