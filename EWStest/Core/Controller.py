@@ -149,7 +149,7 @@ class Controller:
                 time.sleep(0.5)
                 print("공이 왼쪽에 있습니다.")
                 self.robo._motion.walk_side("LEFT")
-                time.sleep(1)
+                time.sleep(2)
             
             elif ball_feature[0] == 'C':
                 time.sleep(0.5)
@@ -160,7 +160,7 @@ class Controller:
                 time.sleep(0.5)
                 print("공이 오른쪽에 있습니다.")
                 self.robo._motion.walk_side("RIGHT")
-                time.sleep(1)
+                time.sleep(2)
             else:
                 time.sleep(0.5)
                 print("원하는 값이 반환되지 않았습니다.")
