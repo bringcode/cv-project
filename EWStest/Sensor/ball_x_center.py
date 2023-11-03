@@ -101,7 +101,7 @@ class BallxCenterMeasurer:
             # mask = cv2.inRange(hsv_img, lower, upper)
 
             # robot version
-            lower = np.array([80, 100, 100])
+            lower = np.array([0, 100, 100])
             upper = np.array([120, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
 
