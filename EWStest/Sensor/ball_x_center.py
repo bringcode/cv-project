@@ -72,7 +72,7 @@ class BallxCenterMeasurer:
 
 
     def process(self):
-        cap = cv2.VideoCapture(0, cv2.CAP_V4L) # 인자로 있었는데 몰루? -> cv2.CAP_V4L
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L) # 인자로 있었는데 몰루? -> cv2.CAP_V4L 요건 로봇에서만 넣어야 함
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
@@ -121,7 +121,7 @@ class BallxCenterMeasurer:
             print('돌아가고있어')
             
             for cnt in cont:
-                if (cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
+                if (cv2.contourArea(cnt)>10 and cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
 
                     rect = cv2.minAreaRect(cnt)
                     ball_box = cv2.boxPoints(rect)

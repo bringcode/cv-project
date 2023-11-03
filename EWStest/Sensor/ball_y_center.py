@@ -74,7 +74,7 @@ class BallyCenterMeasurer:
                 return "U"
 
     def process(self):
-        cap = cv2.VideoCapture(0)  # 인자로 있었는데 몰루? -> cv2.CAP_V4L
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L)  # 인자로 있었는데 몰루? -> cv2.CAP_V4L
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
