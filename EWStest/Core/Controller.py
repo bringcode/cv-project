@@ -134,8 +134,11 @@ class Controller:
     @classmethod
     def ball_feature_ball(self):
         print("Debug in ball_feature_ball")
-        time.sleep(1)
-        ball_feature = ["None", "None", "None"]  # [공의 가운데 여부, 공의 x중심좌표, 공의 y중심좌표]
+        ball_feature = ["None", "None", "None"]
+        print("너 여기 왔니?")
+        print(ball_feature[0])
+        
+        # [공의 가운데 여부, 공의 x중심좌표, 공의 y중심좌표]
         # ball_ball_feature_measure 에서 return 값: L / C / R
         while ball_feature[0] != "C":
             cmeasurer = BallxCenterMeasurer()
