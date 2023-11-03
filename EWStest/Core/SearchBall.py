@@ -4,7 +4,7 @@ from Core.Robo import Robo
 
 # from Setting import cur
 import time
-from Sensor.ball_y_center import BallCenterMeasurer
+from Sensor.ball_y_center import BallyCenterMeasurer
 
 # from Sensor.dist_measure import
 import Motion.Motion
