@@ -175,15 +175,125 @@ class Controller:
     # 퍼팅 후 공 위치가 위험한지 안 위험한지
     @classmethod
     def check_ball_location(self):
+        print("Debug check_ball_location in Controller")
         time.sleep(1)
 
-        # 고려해야 할 점: 아웃라인을 넘어서 로봇이 서지 않게 해야 함.
+        short_left_location = 0
+        short_right_location = 0
+        short_forward_location = 0
+        long_forward_location = 0
+        long_left_location = 0
+        long_left_location = 0
 
-        # 홀컵이 있을 때
-        # if 홀컵의 오른쪽이면 공의 왼쪽에서 칠 수 있게 -> 홀컵을 인식하고, 홀컵 기준 오른쪽에서 왼쪽 방향으로 치기
-        # elif 홀컵의 왼쪽이면 공의 오른쪽에서 칠 수 있게 -> 홀컵을 인식하고, 홀컵 기준 왼쪽에서 오른쪽 방향으로 치기
-        # elif 홀선과 일직선이면 홀컵 쪽으로 치기
-        # else 판단 불가 False
+
+        exist_ball_Function = FindBall()
+        exist_ball = exist_ball_Function.process()
+        print(exist_ball)
+
+        if exist_ball == True:
+            print("공이 화면에 보입니다.")
+            print("공이 안 쳐진듯..")
+
+
+        elif exist_ball == False:
+            print("공을 찾지 못했습니다.")
+            short_forward_location = 1
+            if short_forward_location == 1:
+                
+                self.robo._motion.turn("LEFT",45)
+                time.sleep(1)
+                self.robo._motion.turn("LEFT",45)
+                time.sleep(1)
+                self.robo._motion.set_head("DOWN", 45)
+                time.sleep(1)
+                
+                exist_ball = exist_ball_Function.process()
+                print(exist_ball)
+                
+                if exist_ball == True:
+                    print("공을 short_forward_location에서 찾았습니다.")
+                
+                else:
+                    short_left_location = 1
+
+            if short_left_location == 1:
+                print("짧은 왼쪽에 있다고 생각")
+
+                self.robo._motion.set_head("LEFT", 45)
+                time.sleep(1)
+
+                exist_ball = exist_ball_Function.process()
+                print(exist_ball)
+
+                if exist_ball == True:
+                    print("공을 short_left_location에서 찾았습니다.")
+
+                else:
+                    short_right_location = 1
+
+            if short_right_location == 1:
+                print("짧은 오른쪽에 있다고 생각")
+
+                self.robo._motion.set_head("RIGHT", 45)
+                time.sleep(1)
+
+                exist_ball = exist_ball_Function.process()
+                print(exist_ball)
+
+                if exist_ball == True:
+                    print("공을 short_right_location에서 찾았습니다.")
+
+                else:
+                    long_right_location = 1
+
+            if long_right_location == 1:
+                print("긴 오른쪽에 있다고 생각")
+
+                self.robo._motion.set_head("DOWN", 80)
+                time.sleep(1)
+
+                exist_ball = exist_ball_Function.process()
+                print(exist_ball)
+
+                if exist_ball == True:
+                    print("공을 long_right_location에서 찾았습니다.")
+
+                else:
+                    long_forward_location = 1
+
+            if long_forward_location == 1:
+                print("긴 가운데에 있다고 생각")
+
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                time.sleep(1)
+
+                exist_ball = exist_ball_Function.process()
+                print(exist_ball)
+
+                if exist_ball == True:
+                    print("공을 long_forward_location에서 찾았습니다.")
+
+                else:
+                    long_left_location = 1
+
+            if long_left_location == 1:
+                print("긴 왼쪽에 있다고 생각")
+
+                self.robo._motion.set_head("LEFT",45)
+                time.sleep(1)
+
+                exist_ball = exist_ball_Function.process()
+                print(exist_ball)
+
+                if exist_ball == True:
+                    print("공을 long_left_location에서 찾았습니다.")
+
+                else:
+                    print("어라 어딨지..?")
+
+        else:
+            print("원하는 값이 반환되지 않았습니다.")
+
 
     # 홀인 했는지 안 했는지
     @classmethod
@@ -218,7 +328,7 @@ class Controller:
         elif act == act.SEARCH_BALL:
             print("Act:", act)  # Debug
             time.sleep(0.5)
-
+ 
             self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
 
