@@ -118,9 +118,10 @@ class BallxCenterMeasurer:
 
             max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
             ball_box = None
+            print('돌아가고있어')
             
             for cnt in cont:
-                if (cv2.contourArea(cnt)>100 and cv2.contourArea(cnt)<306000):
+                if (cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
 
                     rect = cv2.minAreaRect(cnt)
                     ball_box = cv2.boxPoints(rect)
@@ -135,9 +136,10 @@ class BallxCenterMeasurer:
 
                     cv2.imshow('Object Dist Measure ', img)
                     if cv2.waitKey(1) & 0xFF == ord('q'):
+                        cv2.destroyAllWindows()
                         break
 
-                    cv2.destroyAllWindows()
+                        
                     
                     return [ball_x_isMiddle, ball_x, ball_y]
 
