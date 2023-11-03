@@ -16,5 +16,5 @@ class DistMeasurer:
 
 if __name__ == "__main__":
     dist = DistMeasurer()
-    angle = 30
+    angle = 60
     print(dist.display_distance(angle))
