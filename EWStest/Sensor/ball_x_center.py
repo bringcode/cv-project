@@ -101,8 +101,6 @@ class BallxCenterMeasurer:
             # mask = cv2.inRange(hsv_img, lower, upper)
 
             # robot version
-            # lower = np.array([36, 38, 73])
-            # upper = np.array([170, 97, 255])
             lower = np.array([137, 0, 0])
             upper = np.array([255, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
@@ -128,7 +126,7 @@ class BallxCenterMeasurer:
                     rect = cv2.minAreaRect(cnt)
                     ball_box = cv2.boxPoints(rect)
                     ball_box = np.int0(ball_box)
-                    print('points :', ball_box)
+                    # print('points :', ball_box)
                     cv2.drawContours(img,[ball_box], -1,(255,0,0),3)
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
@@ -136,14 +134,14 @@ class BallxCenterMeasurer:
                     ball_x = round((max_x + min_x)/2, 2)
                     ball_y = round((max_y + min_y / 2), 2)
 
-            cv2.imshow('Object Dist Measure ', img)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                cv2.destroyAllWindows()
-                break
+            # cv2.imshow('Object Dist Measure ', img)
+            # if cv2.waitKey(1) & 0xFF == ord('q'):
+            #     cv2.destroyAllWindows()
+            #     break
 
                         
                     
-                    # return [ball_x_isMiddle, ball_x, ball_y]
+                    return [ball_x_isMiddle, ball_x, ball_y]
 
 
 
