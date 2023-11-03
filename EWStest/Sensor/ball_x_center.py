@@ -4,7 +4,7 @@
 import numpy as np
 import cv2
 
-class BallCenterMeasurer:
+class BallxCenterMeasurer:
 
     def __init__(self, img_width=800, img_height=600, width=4, focal=450):
         self.dist = 0

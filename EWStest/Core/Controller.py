@@ -6,7 +6,8 @@ from Core.SearchBall import SearchBall
 from Core.Putting import Putting
 from Core.Check import Check
 from Sensor.search_ball import FindBall
-from Sensor.ball_y_center import BallCenterMeasurer
+from Sensor.ball_y_center import BallyCenterMeasurer
+from Sensor.ball_x_center import BallxCenterMeasurer
 
 # from Setting import cur
 import time
@@ -138,7 +139,7 @@ class Controller:
         print("pass jun", ball_feature[0])
         # ball_ball_feature_measure 에서 return 값: L / C / R
         while ball_feature[0] != "C":
-            cmeasurer = BallCenterMeasurer()
+            cmeasurer = BallxCenterMeasurer()
             ball_feature = cmeasurer.process()
             print(ball_feature[0])
 

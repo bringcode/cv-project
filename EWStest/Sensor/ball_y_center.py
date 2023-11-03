@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 
-class BallCenterMeasurer:
+class BallyCenterMeasurer:
     def __init__(self, img_width=800, img_height=600, width=4, focal=450):
         self.dist = 0
         self.focal = focal
@@ -69,9 +69,9 @@ class BallCenterMeasurer:
             return "C"
         else:
             if up_dist > down_dist:
-                return "down"
+                return "D"
             else:
-                return "up"
+                return "U"
 
     def process(self):
         cap = cv2.VideoCapture(0)  # 인자로 있었는데 몰루? -> cv2.CAP_V4L
