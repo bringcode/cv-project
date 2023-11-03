@@ -155,5 +155,5 @@ class BallxCenterMeasurer:
         # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    distance_measurer = BallCenterMeasurer(img_width=1280, img_height=720)
+    distance_measurer = BallxCenterMeasurer(img_width=1280, img_height=720)
     distance_measurer.process()
