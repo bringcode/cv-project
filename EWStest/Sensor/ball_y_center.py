@@ -99,8 +99,12 @@ class BallyCenterMeasurer:
             # mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
 
             # mac version
-            lower = np.array([170, 100, 100])
-            upper = np.array([180, 255, 255])
+            # lower = np.array([170, 100, 100])
+            # upper = np.array([180, 255, 255])
+
+            # robot version
+            lower = np.array([137, 0, 0])
+            upper = np.array([255, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
 
             # lower_flag = np.array([10, 150, 100])
@@ -140,5 +144,5 @@ class BallyCenterMeasurer:
 
 
 if __name__ == "__main__":
-    distance_measurer = BallyCenterMeasurer(img_width=1280, img_height=720)
+    distance_measurer = BallyCenterMeasurer()
     print(distance_measurer.process())
