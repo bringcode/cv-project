@@ -78,8 +78,6 @@ while True:
             box = cv2.boxPoints(rect) 
             box = np.int0(box)
             print('points :', box)
-            time.sleep(1)
-            print("dist_measure")
             cv2.drawContours(img,[box], -1,(255,0,0),3)
             
             img = get_dist(rect,img, 'ball')
