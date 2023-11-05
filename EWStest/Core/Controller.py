@@ -10,6 +10,7 @@ from Sensor.ball_y_center import BallyCenterMeasurer
 from Sensor.ball_x_center import BallxCenterMeasurer
 from Sensor.tan_dist_measure import DistMeasurer
 from Sensor.t_put_judge import BallCenterMeasurer
+from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer
 
 # from Setting import cur
 import time
@@ -94,7 +95,14 @@ class Controller:
                 elif cnt == 1:
                     self.L_center = 1
                 elif cnt == 2:
-                    self.L_left = 1
+                    dir = 0
+                    self.robo._motion.set_head("DOWN", dir_list[dir])
+                    is_ball_find = ballFunction.process()
+                    print(is_ball_find)
+                    if is_ball_find == True:
+                        Center = 1
+                    else:
+                        self.L_left = 1
                 break
            
             else:
@@ -105,39 +113,47 @@ class Controller:
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
-        if is_ball_find != True:
-            self.robo._motion.set_head("RIGHT", 45)
-            time.sleep(2)
+        if Center == 1:
             is_ball_find = ballFunction.process()
-            
-            if is_ball_find == True:
-                print("Center: 공을 오른쪽에서 찾았습니다.")
+
+            tputcenter = Tputting_x_BallCenterMeasurer()
+            centerprocess = tputcenter.process()
+            time.sleep(1)
+
+
+            if is_ball_find == True and centerprocess == True:
+                print("Center: 공을 가운데에서 찾았습니다.")
             
                 if cnt == 3:
-                    self.C_right = 1
+                    self.C_center = 1
 
             elif is_ball_find == False:
-                print("가운데 오른쪽 X")
+                print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 45)
                 time.sleep(2)
                 is_ball_find = ballFunction.process()
+                time.sleep(1)
+                centerprocess = tputcenter.process()
+                time.sleep(1)
                 cnt += 1
 
-                if is_ball_find == True:
+                if is_ball_find == True and centerprocess == True:
                     print("Center: 공을 왼쪽에서 찾았습니다.")
                     if cnt == 4:
                         self.C_left = 1
 
                 elif is_ball_find == False:
                     print("가운데 왼쪽 X")
-                    self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                    self.robo._motion.set_head("RIGHT", 45)
                     is_ball_find = ballFunction.process()
                     time.sleep(2)
+                    centerprocess = tputcenter.process()
+                    time.sleep(1)
 
-                    if is_ball_find == True:
-                        print("Center: 공을 가운데에서 찾았습니다.")
+                    if is_ball_find == True and centerprocess == True:
+                        print("Center: 공을 오른쪽에서 찾았습니다.")
                         if cnt == 5:
-                            self.C_center = 1
+                            self.C_right = 1
 
                     elif is_ball_find == False:
                         print("가운데 가운데 X")
