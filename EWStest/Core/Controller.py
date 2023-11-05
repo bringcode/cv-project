@@ -43,6 +43,8 @@ class Controller:
     C_center: int = 0
     C_left: int = 0
 
+    canPutting: float = 0.0
+
     # Misson.py
     _first: SearchFirst = SearchFirst()
     _find: SearchBall = SearchBall()
@@ -354,6 +356,8 @@ class Controller:
         C_right = self.C_right
         C_center = self.C_center
         C_left = self.C_left
+
+        canPutting = self.canPutting
         
         
         
@@ -376,13 +380,49 @@ class Controller:
                 self.robo._motion.walk("FORWARD",3)
                 time.sleep(1)
 
+                self.ball_feature_ball()
+                time.sleep(1)
+                                
+                dist_Process = DistMeasurer()
+                angle = 0
+                dist = dist_Process.display_distance(angle)
+                time.sleep(1)
+
+                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하는거 모션에 넣어줘야 함.")
+
             elif self.L_center == 1:
                 self.robo._motion.walk("FORWARD",2)
                 time.sleep(1)
 
+                self.ball_feature_ball()
+                time.sleep(1)
+                               
+                dist_Process = DistMeasurer()
+                angle = 0
+                dist = dist_Process.display_distance(angle)
+                time.sleep(1)
+
+                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하는거 모션에 넣어줘야 함.")
+
             elif self.L_left == 1:
                 self.robo._motion.walk("FORWARD",1)
                 time.sleep(1)
+
+                self.ball_feature_ball()
+                time.sleep(1)
+                                
+                dist_Process = DistMeasurer()
+                angle = 0
+                dist = dist_Process.display_distance(angle)
+                time.sleep(1)
+
+                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하는거 모션에 넣어줘야 함.")
 
             elif self.C_center == 1:
                 print("이 부분 추가해야함")
@@ -394,6 +434,19 @@ class Controller:
                 self.robo._motion.turn("RIGHT",45)
                 time.sleep(1)
 
+                self.ball_feature_ball()
+                time.sleep(1)
+                
+                dist_Process = DistMeasurer()
+                angle = 0
+                dist = dist_Process.display_distance(angle)
+                time.sleep(1)
+
+                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하는거 모션에 넣어줘야 함.")
+
+
             elif self.C_right == 1:
                 self.robo._motion.walk_side("RIGHT")
                 time.sleep(1)
@@ -404,6 +457,18 @@ class Controller:
                 self.robo._motion.turn("RIGHT",45)
                 time.sleep(1)
 
+                self.ball_feature_ball()
+                time.sleep(1)
+                                
+                dist_Process = DistMeasurer()
+                angle = 0
+                dist = dist_Process.display_distance(angle)
+                time.sleep(1)
+
+                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하는거 모션에 넣어줘야 함.")
+
             elif self.C_left == 1:
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(1)
@@ -413,6 +478,19 @@ class Controller:
                 time.sleep(1)
                 self.robo._motion.turn("RIGHT",45)
                 time.sleep(1)
+
+                self.ball_feature_ball()
+                time.sleep(1)
+
+                dist_Process = DistMeasurer()
+                angle = 0
+                dist = dist_Process.display_distance(angle)
+                time.sleep(1)
+
+                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하는거 모션에 넣어줘야 함.")
+
                 
             else:
                 print("원하는 값이 안 옴")
