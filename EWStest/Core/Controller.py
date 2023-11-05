@@ -118,9 +118,11 @@ class Controller:
         if Center == 1 or is_ball_find == False:
             print("가운데에 있다고 생각하겠습니다.")
             is_ball_find = ballFunction.process()
+            print(is_ball_find)
 
             tputcenter = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480)
             centerprocess = tputcenter.process()
+            print(centerprocess)
             time.sleep(1)
 
 
