@@ -72,7 +72,7 @@ class Controller:
 
         cnt = 0
 
-        dir_list = [45, 55, 75, 90]
+        dir_list = [45, 55, 80, 90]
 
 
         for i in range(3):
