@@ -142,7 +142,7 @@ class BallCenterMeasurer:
                     # cv2.destroyAllWindows()
                     
                     return ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
-
+            return False
 
 
 if __name__ == "__main__":
