@@ -72,6 +72,7 @@ class Controller:
         # print(is_ball_find) # False가 출력되어야 함 아마도
 
         cnt = 0
+        Center = 0
 
         dir_list = [45, 55, 80, 90]
 
