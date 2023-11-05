@@ -129,6 +129,7 @@ class Controller:
                         self.C_left = 1
 
                 elif is_ball_find == False:
+                    print("가운데 왼쪽 X")
                     self.robo._motion.set_head("LEFTRIGHT_CENTER")
                     is_ball_find = ballFunction.process()
                     time.sleep(2)
@@ -139,6 +140,7 @@ class Controller:
                             self.C_center = 1
 
                     elif is_ball_find == False:
+                        print("가운데 가운데 X")
                         print("공을 처음 시작할 때 어디서도 찾지 못했습니다.")
                     
                     else:
