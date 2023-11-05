@@ -139,7 +139,7 @@ class BallCenterMeasurer:
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
 
-                    cv2.destroyAllWindows()
+                cv2.destroyAllWindows()
                     
                     # return ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
             # return False
