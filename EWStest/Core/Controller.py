@@ -415,7 +415,7 @@ class Controller:
                     print("T샷 L_right 오류")
 
             elif self.L_center == 1:
-                self.robo._motion.walk("FORWARD",5)
+                self.robo._motion.walk("FORWARD",5,1.0)
                 time.sleep(1)
 
                 self.ball_feature_ball()
