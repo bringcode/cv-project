@@ -115,6 +115,8 @@ class Controller:
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
+        self.C_center = 1 # 실험하는거임 지워야함.
+
         if Center == 1 or is_ball_find == False:
             print("가운데에 있다고 생각하겠습니다.")
             is_ball_find = ballFunction.process()
