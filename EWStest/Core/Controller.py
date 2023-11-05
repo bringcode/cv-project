@@ -387,13 +387,31 @@ class Controller:
             elif self.C_center == 1:
                 print("이 부분 추가해야함")
                 time.sleep(1)
+                self.robo._motion.turn("RIGHT",45)
+                time.sleep(1)
+                self.robo._motion.walk_side("LEFT")
+                time.sleep(1)
+                self.robo._motion.turn("RIGHT",45)
+                time.sleep(1)
 
             elif self.C_right == 1:
                 self.robo._motion.walk_side("RIGHT")
                 time.sleep(1)
+                self.robo._motion.turn("RIGHT",45)
+                time.sleep(1)
+                self.robo._motion.walk_side("LEFT")
+                time.sleep(1)
+                self.robo._motion.turn("RIGHT",45)
+                time.sleep(1)
 
             elif self.C_left == 1:
                 self.robo._motion.walk_side("LEFT")
+                time.sleep(1)
+                self.robo._motion.turn("RIGHT",45)
+                time.sleep(1)
+                self.robo._motion.walk_side("LEFT")
+                time.sleep(1)
+                self.robo._motion.turn("RIGHT",45)
                 time.sleep(1)
                 
             else:
