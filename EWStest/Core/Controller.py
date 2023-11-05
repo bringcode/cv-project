@@ -67,8 +67,8 @@ class Controller:
         dir = 3
 
         ballFunction = BallCenterMeasurer()  # Search_ball 함수
-        is_ball_find = ballFunction.process()  # process 가져옴 True / False로 반환됨.
-        print(is_ball_find) # False가 출력되어야 함 아마도
+        # is_ball_find = ballFunction.process()  # process 가져옴 True / False로 반환됨.
+        # print(is_ball_find) # False가 출력되어야 함 아마도
 
         cnt = 0
 
@@ -386,7 +386,7 @@ class Controller:
             time.sleep(1)
 
             if self.L_right == 1:
-                self.robo._motion.walk("FORWARD",10)
+                self.robo._motion.walk("FORWARD",10, 1.0)
                 time.sleep(1)
 
                 self.ball_feature_ball()
