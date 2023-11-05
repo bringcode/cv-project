@@ -63,24 +63,28 @@ class Controller:
         C_center = self.C_center
         C_left = self.C_left
 
-        time.sleep(3)
-        dir = 100
+        time.sleep(1)
+        dir = 3
 
         ballFunction = BallCenterMeasurer()  # Search_ball 함수
         is_ball_find = ballFunction.process()  # process 가져옴 True / False로 반환됨.
-        
+        print(is_ball_find) # False가 출력되어야 함 아마도
 
         cnt = 0
 
+        dir_list = {30, 45, 60, 80}
+
 
         for i in range(3):
+            self.robo._motion.set_head("DOWN", dir_list[dir])
+            dir -= 1
+            time.sleep(1)
+            is_ball_find = ballFunction.process()
+            time.sleep(1)            
+
             if is_ball_find == False:
-                dir -= 10
-                self.robo._motion.set_head("DOWN", dir)
-                is_ball_find = ballFunction.process()
                 cnt += 1
-                time.sleep(3)
-           
+
             elif is_ball_find == True:
                 print("공을 찾았습니다.")
                 if cnt == 0:
@@ -95,6 +99,9 @@ class Controller:
                 print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
                 cnt += 1
+
+        dir = 0
+        self.robo._motion.set_head("DOWN", dir_list[dir])
 
         if is_ball_find != True:
             self.robo._motion.set_head("RIGHT", 45)
