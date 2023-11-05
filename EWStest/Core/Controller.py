@@ -101,6 +101,7 @@ class Controller:
                     print(is_ball_find)
                     if is_ball_find == True:
                         Center = 1
+                        break
                     else:
                         self.L_left = 1
                 break
