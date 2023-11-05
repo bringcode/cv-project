@@ -115,6 +115,7 @@ class Controller:
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
         if Center == 1:
+            print("가운데에 있다고 생각하겠습니다.")
             is_ball_find = ballFunction.process()
 
             tputcenter = Tputting_x_BallCenterMeasurer()
