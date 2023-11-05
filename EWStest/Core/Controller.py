@@ -132,7 +132,7 @@ class Controller:
 
             elif is_ball_find == False:
                 print("가운데 가운데 X")
-                self.robo._motion.set_head("LEFT", 45)
+                self.robo._motion.set_head("LEFT", 60)
                 time.sleep(2)
                 is_ball_find = ballFunction.process()
                 time.sleep(1)
@@ -147,7 +147,7 @@ class Controller:
 
                 elif is_ball_find == False:
                     print("가운데 왼쪽 X")
-                    self.robo._motion.set_head("RIGHT", 45)
+                    self.robo._motion.set_head("RIGHT", 60)
                     is_ball_find = ballFunction.process()
                     time.sleep(2)
                     centerprocess = tputcenter.process()
