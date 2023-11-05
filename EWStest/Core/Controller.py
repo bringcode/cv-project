@@ -377,7 +377,7 @@ class Controller:
             time.sleep(1)
 
             if self.L_right == 1:
-                self.robo._motion.walk("FORWARD",3)
+                self.robo._motion.walk("FORWARD",10)
                 time.sleep(1)
 
                 self.ball_feature_ball()
@@ -386,6 +386,7 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
+                print(dist) # debug 하려고 넣은거임 지워도 ㄱㅊ
                 time.sleep(1)
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
@@ -402,7 +403,7 @@ class Controller:
                     print("T샷 L_right 오류")
 
             elif self.L_center == 1:
-                self.robo._motion.walk("FORWARD",2)
+                self.robo._motion.walk("FORWARD",5)
                 time.sleep(1)
 
                 self.ball_feature_ball()
@@ -427,7 +428,7 @@ class Controller:
                     print("T샷 L_center 오류")
 
             elif self.L_left == 1:
-                self.robo._motion.walk("FORWARD",1)
+                self.robo._motion.walk("FORWARD",3)
                 time.sleep(1)
 
                 self.ball_feature_ball()
