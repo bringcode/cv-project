@@ -8,6 +8,7 @@ from Core.Check import Check
 from Sensor.search_ball import FindBall
 from Sensor.ball_y_center import BallyCenterMeasurer
 from Sensor.ball_x_center import BallxCenterMeasurer
+from Sensor.tan_dist_measure import DistMeasurer
 
 # from Setting import cur
 import time
@@ -19,7 +20,7 @@ class Act(Enum):
     SEARCH_BALL = auto()  # 공 찾기
     SEARCH_FLAG = auto()  # 깃발 찾기
     SEARCH_ARROW = auto()  # 화살표 찾기
-    SEARCH_BUNKER = auto()  # 벙커 찾기
+    SEARCH_PUTTING_LOCATION = auto()  # 벙커 찾기
     PUTTING = auto()  # 공 퍼팅
     CHECK = auto()  # 홀인 확인
     EXIT = auto()  # 종료
@@ -35,6 +36,13 @@ class Controller:
     area: str = ""  # 현재 맵
     ball: bool
 
+    L_right: int = 0 # T샷할 때 사용하는
+    L_center: int = 0 # 위치 파악하는 변수
+    L_left: int = 0 # 위치가 파악되면 그 위치의 변수가
+    C_right: int = 0 # 1이 된다.
+    C_center: int = 0
+    C_left: int = 0
+
     # Misson.py
     _first: SearchFirst = SearchFirst()
     _find: SearchBall = SearchBall()
@@ -45,46 +53,82 @@ class Controller:
     @classmethod
     def check_ball_first(self):
         act = self.act
+        L_right = self.L_right
+        L_center = self.L_center
+        L_left = self.L_left
+        C_right = self.C_right
+        C_center = self.C_center
+        C_left = self.C_left
+
         time.sleep(3)
         dir = 100
 
         ballFunction = FindBall()  # Search_ball 함수
         is_ball_find = ballFunction.process()  # process 가져옴 True / False로 반환됨.
+        
+
+        cnt = 0
+
 
         for i in range(3):
             if is_ball_find == False:
                 dir -= 10
                 self.robo._motion.set_head("DOWN", dir)
                 is_ball_find = ballFunction.process()
+                cnt += 1
                 time.sleep(3)
+           
             elif is_ball_find == True:
                 print("공을 찾았습니다.")
+                if cnt == 0:
+                    self.L_right = 1
+                elif cnt == 1:
+                    self.L_center = 1
+                elif cnt == 2:
+                    self.L_left = 1
                 break
+           
             else:
                 print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
+                cnt += 1
 
         if is_ball_find != True:
             self.robo._motion.set_head("RIGHT", 45)
             time.sleep(2)
             is_ball_find = ballFunction.process()
+            
             if is_ball_find == True:
                 print("Center: 공을 오른쪽에서 찾았습니다.")
+            
+                if cnt == 3:
+                    self.C_right = 1
+
             elif is_ball_find == False:
                 print("가운데 오른쪽 X")
                 self.robo._motion.set_head("LEFT", 45)
                 time.sleep(2)
                 is_ball_find = ballFunction.process()
+                cnt += 1
+
                 if is_ball_find == True:
                     print("Center: 공을 왼쪽에서 찾았습니다.")
+                    if cnt == 4:
+                        self.C_left = 1
+
                 elif is_ball_find == False:
                     self.robo._motion.set_head("LEFTRIGHT_CENTER")
                     is_ball_find = ballFunction.process()
                     time.sleep(2)
+
                     if is_ball_find == True:
                         print("Center: 공을 가운데에서 찾았습니다.")
+                        if cnt == 5:
+                            self.C_center = 1
+
                     elif is_ball_find == False:
                         print("공을 처음 시작할 때 어디서도 찾지 못했습니다.")
+                    
                     else:
                         print("True False가 반환되지 않았습니다.")
 
@@ -166,13 +210,13 @@ class Controller:
                 print("원하는 값이 반환되지 않았습니다.")
 
     # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤)
-    @classmethod
-    def check_ball_out(self):
-        # 위험 지역에 공이 있으면 공이 나간 걸로 판단 -> 위험 지역을 판별할 cv 생각해야 함
+    # @classmethod
+    # def check_ball_out(self):
+    #     # 위험 지역에 공이 있으면 공이 나간 걸로 판단 -> 위험 지역을 판별할 cv 생각해야 함
 
-        time.sleep(1)
+    #     time.sleep(1)
 
-    # 퍼팅 후 공 위치가 위험한지 안 위험한지
+    # 퍼팅 후 공 위치 찾기
     @classmethod
     def check_ball_location(self):
         print("Debug check_ball_location in Controller")
@@ -304,12 +348,15 @@ class Controller:
     def go_robo(self):
         act = self.act
         robo: Robo = Robo()
-
-        self.robo._motion.set_head("DOWN", 45)
-        time.sleep(1)
-        self.ball_feature_ball()
-        time.sleep(2)
-
+        L_right = self.L_right
+        L_center = self.L_center
+        L_left = self.L_left
+        C_right = self.C_right
+        C_center = self.C_center
+        C_left = self.C_left
+        
+        
+        
         self.act = act.START
 
         if act == act.START:
@@ -323,6 +370,37 @@ class Controller:
             time.sleep(0.5)
 
             self.check_ball_first()
+            time.sleep(1)
+
+            if self.L_right == 1:
+                self.robo._motion.walk("FORWARD",3)
+                time.sleep(1)
+
+            elif self.L_center == 1:
+                self.robo._motion.walk("FORWARD",2)
+                time.sleep(1)
+
+            elif self.L_left == 1:
+                self.robo._motion.walk("FORWARD",1)
+                time.sleep(1)
+
+            elif self.C_center == 1:
+                print("이 부분 추가해야함")
+                time.sleep(1)
+
+            elif self.C_right == 1:
+                self.robo._motion.walk_side("RIGHT")
+                time.sleep(1)
+
+            elif self.C_left == 1:
+                self.robo._motion.walk_side("LEFT")
+                time.sleep(1)
+                
+            else:
+                print("원하는 값이 안 옴")
+                time.sleep(1)
+
+
             self.act = act.SEARCH_BALL
 
         elif act == act.SEARCH_BALL:
@@ -340,9 +418,9 @@ class Controller:
         elif act == act.SEARCH_ARROW:
             print("Act:", act)  # Debug
 
-            self.act = act.SEARCH_BUNKER
+            self.act = act.SEARCH_PUTTING_LOCATION
 
-        elif act == act.SEARCH_BUNKER:
+        elif act == act.SEARCH_PUTTING_LOCATION:
             print("Act:", act)  # Debug
 
             self.act = act.PUTTING
