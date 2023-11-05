@@ -3248,7 +3248,13 @@ KEY169:
     ETX 4800, 169
     GOTO 오른쪽옆으로20_골프
     GOTO RX_EXIT
+    '*************** Putting  ***************
 KEY170:
     ETX 4800, 170
-    GOTO 고개중앙기본자세
+    GOSUB 골프_오른쪽으로_샷1
     GOTO RX_EXIT
+KEY171:
+	ETX 4800, 171
+	GOSUB 골프_왼쪽으로_샷1
+    GOTO RX_EXIT
+    '***************

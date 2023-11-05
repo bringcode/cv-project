@@ -188,7 +188,7 @@ class Motion:
             self.TX_data_py3(dir_list[dir][angle])
             time.sleep(sleep)
 
-    # 옆으로 이동 (161~170)
+    # 옆으로 이동 (161~169)
     def walk_side(self, dir):
         """
         dir: {LEFT, RIGHT} - 이동 방향
@@ -200,7 +200,7 @@ class Motion:
         dir_list = {"LEFT": 161, "RIGHT": 169}
         self.TX_data_py3(dir_list[dir])
 
-    # # 위험지역 인식 (205~206)
+    # # 위험지역 인식
     # def notice_area(self, area):
     #     """
     #     area: {BLACK, STAIR} - 위험 지역 정보
@@ -213,9 +213,14 @@ class Motion:
     #     self.TX_data_py2(area_list[area])
 
 
-    # 공 치기
-    def hit_the_ball(self):
-        pass
+    # 공 치기 (170~171)
+    def hit_the_ball(self, dir):
+        """
+        dir: {LEFT, RIGHT} - 치는 방향
+        """
+
+        dir_list = {"RIGHT": 170, "LEFT": 171}
+        self.TX_data_py3(dir_list[dir])
     ############################################################
 
 
