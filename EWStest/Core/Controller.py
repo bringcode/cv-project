@@ -80,6 +80,7 @@ class Controller:
             dir -= 1
             time.sleep(1)
             is_ball_find = ballFunction.process()
+            print(is_ball_find)
             time.sleep(1)            
 
             if is_ball_find == False:
