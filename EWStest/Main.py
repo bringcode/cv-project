@@ -11,7 +11,7 @@ def main():
 
 if __name__ == "__main__":
     Motion = Motion()
-    Motion.TX_data_py3(172)
+    Motion.TX_data_py3(23)
     # print("head down")
     time.sleep(3)
     main() 
