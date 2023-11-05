@@ -9,6 +9,7 @@ from Sensor.search_ball import FindBall
 from Sensor.ball_y_center import BallyCenterMeasurer
 from Sensor.ball_x_center import BallxCenterMeasurer
 from Sensor.tan_dist_measure import DistMeasurer
+from Sensor.t_put_judge import BallCenterMeasurer
 
 # from Setting import cur
 import time
@@ -65,7 +66,7 @@ class Controller:
         time.sleep(3)
         dir = 100
 
-        ballFunction = FindBall()  # Search_ball 함수
+        ballFunction = BallCenterMeasurer()  # Search_ball 함수
         is_ball_find = ballFunction.process()  # process 가져옴 True / False로 반환됨.
         
 
@@ -428,7 +429,7 @@ class Controller:
                     print("T샷 L_center 오류")
 
             elif self.L_left == 1:
-                self.robo._motion.walk("FORWARD",3)
+                self.robo._motion.walk("FORWARD",1)
                 time.sleep(1)
 
                 self.ball_feature_ball()
