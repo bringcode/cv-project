@@ -77,6 +77,7 @@ class Controller:
 
         for i in range(3):
             self.robo._motion.set_head("DOWN", dir_list[dir])
+            print(1)
             dir -= 1
             time.sleep(3)
             is_ball_find = ballFunction.process()
