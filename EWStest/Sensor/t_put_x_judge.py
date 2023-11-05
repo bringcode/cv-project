@@ -146,5 +146,5 @@ class Tputting_x_BallCenterMeasurer:
 
 
 if __name__ == "__main__":
-    distance_measurer = Tputting_x_BallCenterMeasurer()
+    distance_measurer = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480)
     print(distance_measurer.process())
