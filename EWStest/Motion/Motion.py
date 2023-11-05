@@ -219,7 +219,7 @@ class Motion:
         dir: {LEFT, RIGHT} - 치는 방향
         """
 
-        dir_list = {"RIGHT": 170, "LEFT": 171}
+        dir_list = {"RIGHT": 2, "LEFT": 5}
         self.TX_data_py3(dir_list[dir])
     ############################################################
 
