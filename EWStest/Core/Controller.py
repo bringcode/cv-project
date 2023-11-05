@@ -392,6 +392,15 @@ class Controller:
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
 
+                elif dist < (self.canPutting - 1):
+                    self.robo._motion.walk("FORWARD", 1)
+
+                elif dist < (self.canPutting + 1):
+                    self.robo._motion.walk("BACKWARD", 1)
+
+                else:
+                    print("T샷 L_right 오류")
+
             elif self.L_center == 1:
                 self.robo._motion.walk("FORWARD",2)
                 time.sleep(1)
@@ -408,6 +417,15 @@ class Controller:
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
 
+                elif dist < (self.canPutting - 1):
+                    self.robo._motion.walk("FORWARD", 1)
+
+                elif dist < (self.canPutting + 1):
+                    self.robo._motion.walk("BACKWARD", 1)
+
+                else:
+                    print("T샷 L_center 오류")
+
             elif self.L_left == 1:
                 self.robo._motion.walk("FORWARD",1)
                 time.sleep(1)
@@ -423,6 +441,15 @@ class Controller:
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
+
+                elif dist < (self.canPutting - 1):
+                    self.robo._motion.walk("FORWARD", 1)
+
+                elif dist < (self.canPutting + 1):
+                    self.robo._motion.walk("BACKWARD", 1)
+
+                else:
+                    print("T샷 L_left 오류")
 
             elif self.C_center == 1:
                 print("이 부분 추가해야함")
@@ -445,6 +472,15 @@ class Controller:
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
+                
+                elif dist < (self.canPutting - 1):
+                    self.robo._motion.walk("FORWARD", 1)
+
+                elif dist < (self.canPutting + 1):
+                    self.robo._motion.walk("BACKWARD", 1)
+
+                else:
+                    print("T샷 C_center 오류")
 
 
             elif self.C_right == 1:
@@ -468,6 +504,15 @@ class Controller:
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
+                
+                elif dist < (self.canPutting - 1):
+                    self.robo._motion.walk("FORWARD", 1)
+
+                elif dist < (self.canPutting + 1):
+                    self.robo._motion.walk("BACKWARD", 1)
+
+                else:
+                    print("T샷 C_right 오류")
 
             elif self.C_left == 1:
                 self.robo._motion.walk_side("LEFT")
@@ -490,6 +535,15 @@ class Controller:
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
+                
+                elif dist < (self.canPutting - 1):
+                    self.robo._motion.walk("FORWARD", 1)
+
+                elif dist < (self.canPutting + 1):
+                    self.robo._motion.walk("BACKWARD", 1)
+
+                else:
+                    print("T샷 C_left 오류")
 
                 
             else:
