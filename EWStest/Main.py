@@ -10,9 +10,9 @@ def main():
 
 
 if __name__ == "__main__":
-    #Motion = Motion()
-    #Motion.TX_data_py3(161)
+    Motion = Motion()
+    Motion.TX_data_py3(161)
     # print("head down")
-    # time.sleep(3)
-    main() 
+    time.sleep(3)
+    #main() 
     
