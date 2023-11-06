@@ -95,15 +95,16 @@ class Controller:
                 elif cnt == 1:
                     self.L_center = 1
                 elif cnt == 2:
-                    dir = 0
-                    self.robo._motion.set_head("DOWN", dir_list[dir])
-                    is_ball_find = ballFunction.process()
-                    print(is_ball_find)
-                    if is_ball_find == True:  # 45도로 숙였을 때
-                        Center = 1
-                        break
-                    else:
-                        self.L_left = 1
+                    self.L_left = 1
+                    # dir = 0
+                    # self.robo._motion.set_head("DOWN", dir_list[dir])
+                    # is_ball_find = ballFunction.process()
+                    # print(is_ball_find)
+                    # if is_ball_find == True:  # 45도로 숙였을 때
+                    #     Center = 1
+                    #     break
+                    # else:
+                    #     self.L_left = 1
                 break
 
             else:
