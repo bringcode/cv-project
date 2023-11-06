@@ -112,6 +112,7 @@ class Controller:
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
                 cnt += 1
 
+        cnt += 1
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
@@ -156,6 +157,7 @@ class Controller:
                     time.sleep(2)
                     centerprocess = tputcenter.process()
                     time.sleep(1)
+                    cnt += 1
 
                     if is_ball_find == True and centerprocess == True:
                         print("Center: 공을 오른쪽에서 찾았습니다.")
