@@ -99,7 +99,7 @@ class Controller:
                     self.robo._motion.set_head("DOWN", dir_list[dir])
                     is_ball_find = ballFunction.process()
                     print(is_ball_find)
-                    if is_ball_find == True:
+                    if is_ball_find == True:   # 45도로 숙였을 때
                         Center = 1
                         break
                     else:
@@ -135,7 +135,7 @@ class Controller:
 
             elif is_ball_find == False:
                 print("가운데 가운데 X")
-                self.robo._motion.set_head("LEFT", 50)
+                self.robo._motion.set_head("LEFT", 52)
                 time.sleep(2)
                 is_ball_find = ballFunction.process()
                 time.sleep(1)
@@ -144,13 +144,14 @@ class Controller:
                 cnt += 1
 
                 if is_ball_find == True and centerprocess == True:
+                    
                     print("Center: 공을 왼쪽에서 찾았습니다.")
                     if cnt == 4:
                         self.C_left = 1
 
                 elif is_ball_find == False:
                     print("가운데 왼쪽 X")
-                    self.robo._motion.set_head("RIGHT", 50)
+                    self.robo._motion.set_head("RIGHT", 52)
                     is_ball_find = ballFunction.process()
                     time.sleep(2)
                     centerprocess = tputcenter.process()
