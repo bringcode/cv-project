@@ -18,4 +18,4 @@ if __name__ == "__main__":
     Motion.TX_data_py3(176)  # 1도좌향
     Motion.TX_data_py3(176)
     Motion.TX_data_py3(176)
-    main()
+    # main()
