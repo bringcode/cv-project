@@ -1773,7 +1773,7 @@ GOSUB_RX_EXIT2:
 머리왼쪽30도:
     SPEED 머리이동속도
     SERVO 11,70
-    angle_x = 11
+    angle_x = 70
     GOTO RX_EXIT
 
 머리왼쪽45도:
@@ -1785,7 +1785,7 @@ GOSUB_RX_EXIT2:
 머리왼쪽54도:
    	SPEED 머리이동속도
    	SERVO 11, 45
-   	angle_x = 44
+   	angle_x = 45
    	GOTO RX_EXIT
    
 머리왼쪽60도:
@@ -1927,16 +1927,16 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 73
     SERVO 11, 100
-   	angle_x = 73
-   	angle_y = 100
+   	angle_x = 100
+   	angle_y = 73
     GOTO RX_EXIT
     '******************************************
 전방하향65도:
     SPEED 머리이동속도
     SERVO 16, 69
     SERVO 11, 100
-   	angle_x = 69
-   	angle_y = 100
+   	angle_x = 100
+   	angle_y = 69
     GOTO RX_EXIT
     '******************************************
 전방하향60도:
@@ -2301,9 +2301,9 @@ GOSUB_RX_EXIT2:
 머리4도우향:
    SPEED 머리이동속도
    angle_x = angle_x + 4
-   IF angle_x < 10 THEN
+   IF angle_x > 190 THEN
       MUSIC "C"
-      angle_x = 10
+      angle_x = 190
       SERVO 11, angle_x
    
    ELSE
