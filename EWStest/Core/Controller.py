@@ -74,7 +74,7 @@ class Controller:
         cnt = 0
         Center = 0
 
-        dir_list = [45, 50, 80, 90]
+        dir_list = [45, 60, 80, 90]
 
         for i in range(3):
             self.robo._motion.set_head("DOWN", dir_list[dir])
