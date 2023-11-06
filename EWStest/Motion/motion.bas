@@ -1784,8 +1784,8 @@ GOSUB_RX_EXIT2:
 
 머리왼쪽54도:
    SPEED 머리이동속도
-   SERVO 11, 46
-   angle_x = 46
+   SERVO 11, 45
+   angle_x = 44
    GOTO RX_EXIT
    
 머리왼쪽60도:
@@ -1812,10 +1812,10 @@ GOSUB_RX_EXIT2:
     angle_x = 145
     GOTO RX_EXIT   
 
-머리오른쪽54도:
+머리오른쪽55도:
     SPEED 머리이동속도
-    SERVO 11,154
-    angle_x = 154
+    SERVO 11,155
+    angle_x = 155
     GOTO RX_EXIT
 
 머리오른쪽60도:
@@ -2095,7 +2095,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-1도하향:
+머리1도하향:
    SPEED 머리이동속도
    angle_y = angle_y - 1
    IF angle_y < 10 THEN
@@ -2108,7 +2108,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-1도상향:
+머리1도상향:
    SPEED 머리이동속도
    angle_y = angle_y + 1
    IF angle_y < 10 THEN
@@ -2121,7 +2121,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-1도좌향:
+머리1도좌향:
    SPEED 머리이동속도
    angle_x = angle_x - 1
    IF angle_x < 10 THEN
@@ -2135,7 +2135,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-1도우향:
+머리1도우향:
    SPEED 머리이동속도
    angle_x = angle_x + 1
    IF angle_x < 10 THEN
@@ -2149,7 +2149,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
       '******************************************   
-2도하향:
+머리2도하향:
    SPEED 머리이동속도
    angle_y = angle_y - 2
    IF angle_y < 10 THEN
@@ -2162,7 +2162,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-2도상향:
+머리2도상향:
    SPEED 머리이동속도
    angle_y = angle_y + 2
    IF angle_y < 10 THEN
@@ -2175,7 +2175,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-2도좌향:
+머리2도좌향:
    SPEED 머리이동속도
    angle_x = angle_x - 2
    IF angle_x < 10 THEN
@@ -2189,7 +2189,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-2도우향:
+머리2도우향:
    SPEED 머리이동속도
    angle_x = angle_x + 2
    IF angle_x < 10 THEN
@@ -2203,7 +2203,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-3도하향:
+머리3도하향:
    SPEED 머리이동속도
    angle_y = angle_y - 3
    IF angle_y < 10 THEN
@@ -2216,7 +2216,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-3도상향:
+머리3도상향:
    SPEED 머리이동속도
    angle_y = angle_y + 3
    IF angle_y < 10 THEN
@@ -2229,7 +2229,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-3도좌향:
+머리3도좌향:
    SPEED 머리이동속도
    angle_x = angle_x - 3
    IF angle_x < 10 THEN
@@ -2243,7 +2243,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-3도우향:
+머리3도우향:
    SPEED 머리이동속도
    angle_x = angle_x + 3
    IF angle_x < 10 THEN
@@ -2257,7 +2257,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
       '******************************************   
-4도하향:
+머리4도하향:
    SPEED 머리이동속도
    angle_y = angle_y - 4
    IF angle_y < 10 THEN
@@ -2270,7 +2270,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-4도상향:
+머리4도상향:
    SPEED 머리이동속도
    angle_y = angle_y + 4
    IF angle_y < 10 THEN
@@ -2283,7 +2283,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-4도좌향:
+머리4도좌향:
    SPEED 머리이동속도
    angle_x = angle_x - 4
    IF angle_x < 10 THEN
@@ -2297,7 +2297,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-4도우향:
+머리4도우향:
    SPEED 머리이동속도
    angle_x = angle_x + 4
    IF angle_x < 10 THEN
@@ -2311,7 +2311,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
       '******************************************   
-5도하향:
+머리5도하향:
    SPEED 머리이동속도
    angle_y = angle_y - 5
    IF angle_y < 10 THEN
@@ -2324,7 +2324,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-5도상향:
+머리5도상향:
    SPEED 머리이동속도
    angle_y = angle_y + 5
    IF angle_y < 10 THEN
@@ -2337,7 +2337,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-5도좌향:
+머리5도좌향:
    SPEED 머리이동속도
    angle_x = angle_x - 5
    IF angle_x < 10 THEN
@@ -2351,7 +2351,7 @@ GOSUB_RX_EXIT2:
    ENDIF
    GOTO RX_EXIT
    '******************************************   
-5도우향:
+머리5도우향:
    SPEED 머리이동속도
    angle_x = angle_x + 5
    IF angle_x < 10 THEN
@@ -3598,82 +3598,82 @@ KEY173:
     '*************** head_set 1~5도 ***************
 KEY174:
    ETX 4800, 174
-   GOTO 1도하향
+   GOTO 머리1도하향
    GOTO RX_EXIT
 KEY175:
    ETX 4800, 175
-   GOTO 1도상향
+   GOTO 머리1도상향
    GOTO RX_EXIT
 KEY176:
    ETX 4800, 176
-   GOTO 1도좌향
+   GOTO 머리1도좌향
    GOTO RX_EXIT
 KEY177:
    ETX 4800, 177
-   GOTO 1도우향
+   GOTO 머리1도우향
    GOTO RX_EXIT
 KEY178:
    ETX 4800, 178
-   GOTO 2도하향
+   GOTO 머리2도하향
    GOTO RX_EXIT
 KEY179:
    ETX 4800, 179
-   GOTO 2도상향
+   GOTO 머리2도상향
    GOTO RX_EXIT
 KEY180:
    ETX 4800, 180
-   GOTO 2도좌향
+   GOTO 머리2도좌향
    GOTO RX_EXIT
 KEY181:
    ETX 4800, 181
-   GOTO 2도우향
+   GOTO 머리2도우향
    GOTO RX_EXIT
 KEY182:
    ETX 4800, 182
-   GOTO 3도하향
+   GOTO 머리3도하향
    GOTO RX_EXIT
 KEY183:
    ETX 4800, 183
-   GOTO 3도상향
+   GOTO 머리3도상향
    GOTO RX_EXIT
 KEY184:
    ETX 4800, 184
-   GOTO 3도좌향
+   GOTO 머리3도좌향
    GOTO RX_EXIT
 KEY185:
    ETX 4800, 185
-   GOTO 3도우향
+   GOTO 머리3도우향
    GOTO RX_EXIT
 KEY186:
    ETX 4800, 186
-   GOTO 4도하향
+   GOTO 머리4도하향
    GOTO RX_EXIT
 KEY187:
    ETX 4800, 187
-   GOTO 4도상향
+   GOTO 머리4도상향
    GOTO RX_EXIT
 KEY188:
    ETX 4800, 188
-   GOTO 4도좌향
+   GOTO 머리4도좌향
    GOTO RX_EXIT
 KEY189:
    ETX 4800, 189
-   GOTO 4도우향
+   GOTO 머리4도우향
    GOTO RX_EXIT
 KEY190:
    ETX 4800, 190
-   GOTO 5도하향
+   GOTO 머리5도하향
    GOTO RX_EXIT
 KEY191:
    ETX 4800, 191
-   GOTO 5도상향
+   GOTO 머리5도상향
    GOTO RX_EXIT
 KEY192:
    ETX 4800, 192
-   GOTO 5도좌향
+   GOTO 머리5도좌향
    GOTO RX_EXIT
 KEY193:
    ETX 4800, 193
-   GOTO 5도우향
+   GOTO 머리5도우향
    GOTO RX_EXIT
    '*********************************
