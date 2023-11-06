@@ -1780,9 +1780,9 @@ GOSUB_RX_EXIT2:
     SERVO 11,55
     GOTO RX_EXIT
 
-머리왼쪽50도:
+머리왼쪽52도:
 	SPEED 머리이동속도
-	SERVO 11, 50
+	SERVO 11, 52
 	GOTO RX_EXIT
 	
 머리왼쪽60도:
@@ -1805,9 +1805,9 @@ GOSUB_RX_EXIT2:
     SERVO 11,145
     GOTO RX_EXIT	
 
-머리오른쪽50도:
+머리오른쪽52도:
     SPEED 머리이동속도
-    SERVO 11,150
+    SERVO 11,152
     GOTO RX_EXIT
 
 머리오른쪽60도:
@@ -3270,11 +3270,11 @@ KEY171:
     '*************** head_set more ***************
 KEY172:
 	ETX 4800, 172
-	GOTO 머리오른쪽50도
+	GOTO 머리오른쪽52도
 	GOTO RX_EXIT
 	
 KEY173:
 	ETX 4800, 173
-	GOTO 머리왼쪽50도
+	GOTO 머리왼쪽52도
 	GOTO RX_EXIT
     
