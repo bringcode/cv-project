@@ -38,10 +38,10 @@ class Controller:
     area: str = ""  # 현재 맵
     ball: bool
 
-    L_right: int = 0 # T샷할 때 사용하는
-    L_center: int = 0 # 위치 파악하는 변수
-    L_left: int = 0 # 위치가 파악되면 그 위치의 변수가
-    C_right: int = 0 # 1이 된다.
+    L_right: int = 0  # T샷할 때 사용하는
+    L_center: int = 0  # 위치 파악하는 변수
+    L_left: int = 0  # 위치가 파악되면 그 위치의 변수가
+    C_right: int = 0  # 1이 된다.
     C_center: int = 0
     C_left: int = 0
 
@@ -76,7 +76,6 @@ class Controller:
 
         dir_list = [45, 55, 80, 90]
 
-
         for i in range(3):
             self.robo._motion.set_head("DOWN", dir_list[dir])
             print(1)
@@ -84,7 +83,7 @@ class Controller:
             time.sleep(3)
             is_ball_find = ballFunction.process()
             print(is_ball_find)
-            time.sleep(1)            
+            time.sleep(1)
 
             if is_ball_find == False:
                 cnt += 1
@@ -106,7 +105,7 @@ class Controller:
                     else:
                         self.L_left = 1
                 break
-           
+
             else:
                 print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
@@ -128,16 +127,15 @@ class Controller:
             print(centerprocess)
             time.sleep(1)
 
-
             if centerprocess == True:
                 print("Center: 공을 가운데에서 찾았습니다.")
-            
+
                 if cnt == 3:
                     self.C_center = 1
 
             elif is_ball_find == False:
                 print("가운데 가운데 X")
-                self.robo._motion.set_head("LEFT", 55)
+                self.robo._motion.set_head("LEFT", 50)
                 time.sleep(2)
                 is_ball_find = ballFunction.process()
                 time.sleep(1)
@@ -152,7 +150,7 @@ class Controller:
 
                 elif is_ball_find == False:
                     print("가운데 왼쪽 X")
-                    self.robo._motion.set_head("RIGHT", 55)
+                    self.robo._motion.set_head("RIGHT", 50)
                     is_ball_find = ballFunction.process()
                     time.sleep(2)
                     centerprocess = tputcenter.process()
@@ -167,12 +165,12 @@ class Controller:
                     elif is_ball_find == False:
                         print("가운데 가운데 X")
                         print("공을 처음 시작할 때 어디서도 찾지 못했습니다.")
-                    
+
                     else:
                         print("True False가 반환되지 않았습니다.")
 
                 else:
-                    print("C: 가운데에서 오류가 나는듯")        
+                    print("C: 가운데에서 오류가 나는듯")
 
         # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
 
@@ -271,7 +269,6 @@ class Controller:
         long_left_location = 0
         long_left_location = 0
 
-
         exist_ball_Function = FindBall()
         exist_ball = exist_ball_Function.process()
         print(exist_ball)
@@ -280,25 +277,23 @@ class Controller:
             print("공이 화면에 보입니다.")
             print("공이 안 쳐진듯..")
 
-
         elif exist_ball == False:
             print("공을 찾지 못했습니다.")
             short_forward_location = 1
             if short_forward_location == 1:
-                
-                self.robo._motion.turn("LEFT",45)
+                self.robo._motion.turn("LEFT", 45)
                 time.sleep(1)
-                self.robo._motion.turn("LEFT",45)
+                self.robo._motion.turn("LEFT", 45)
                 time.sleep(1)
                 self.robo._motion.set_head("DOWN", 45)
                 time.sleep(1)
-                
+
                 exist_ball = exist_ball_Function.process()
                 print(exist_ball)
-                
+
                 if exist_ball == True:
                     print("공을 short_forward_location에서 찾았습니다.")
-                
+
                 else:
                     short_left_location = 1
 
@@ -365,7 +360,7 @@ class Controller:
             if long_left_location == 1:
                 print("긴 왼쪽에 있다고 생각")
 
-                self.robo._motion.set_head("LEFT",45)
+                self.robo._motion.set_head("LEFT", 45)
                 time.sleep(1)
 
                 exist_ball = exist_ball_Function.process()
@@ -379,7 +374,6 @@ class Controller:
 
         else:
             print("원하는 값이 반환되지 않았습니다.")
-
 
     # 홀인 했는지 안 했는지
     @classmethod
@@ -420,16 +414,14 @@ class Controller:
                 else:
                     print("check_ball_distance 함수에서 원하는 Y angle이 안 들어옴.")
 
-            elif ball_x_angle[0] =="L":
+            elif ball_x_angle[0] == "L":
                 print("X: 1도 모션 넣어줘야함.")
-
 
             elif ball_x_angle[0] == "R":
                 print("X: 1도 모션 넣어줘야함.")
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
-
 
     @classmethod
     def go_robo(self):
@@ -443,9 +435,7 @@ class Controller:
         C_left = self.C_left
 
         canPutting = self.canPutting
-        
-        
-        
+
         self.act = act.START
 
         if act == act.START:
@@ -462,16 +452,16 @@ class Controller:
             time.sleep(1)
 
             if self.L_right == 1:
-                self.robo._motion.walk("FORWARD",10, 1.0)
+                self.robo._motion.walk("FORWARD", 10, 1.0)
                 time.sleep(1)
 
                 self.ball_feature_ball()
                 time.sleep(1)
-                                
+
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print(dist) # debug 하려고 넣은거임 지워도 ㄱㅊ
+                print(dist)  # debug 하려고 넣은거임 지워도 ㄱㅊ
                 time.sleep(1)
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
@@ -488,12 +478,12 @@ class Controller:
                     print("T샷 L_right 오류")
 
             elif self.L_center == 1:
-                self.robo._motion.walk("FORWARD",5,1.0)
+                self.robo._motion.walk("FORWARD", 5, 1.0)
                 time.sleep(1)
 
                 self.ball_feature_ball()
                 time.sleep(1)
-                               
+
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
@@ -513,12 +503,12 @@ class Controller:
                     print("T샷 L_center 오류")
 
             elif self.L_left == 1:
-                self.robo._motion.walk("FORWARD",1)
+                self.robo._motion.walk("FORWARD", 1)
                 time.sleep(1)
 
                 self.ball_feature_ball()
                 time.sleep(1)
-                                
+
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
@@ -540,16 +530,16 @@ class Controller:
             elif self.C_center == 1:
                 print("이 부분 추가해야함")
                 time.sleep(1)
-                self.robo._motion.turn("RIGHT",45)
+                self.robo._motion.turn("RIGHT", 45)
                 time.sleep(1)
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(1)
-                self.robo._motion.turn("RIGHT",45)
+                self.robo._motion.turn("RIGHT", 45)
                 time.sleep(1)
 
                 self.ball_feature_ball()
                 time.sleep(1)
-                
+
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
@@ -558,7 +548,7 @@ class Controller:
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     self.robo._motion.hit_the_ball("RIGHT")
-                
+
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
 
@@ -568,20 +558,19 @@ class Controller:
                 else:
                     print("T샷 C_center 오류")
 
-
             elif self.C_right == 1:
                 self.robo._motion.walk_side("RIGHT")
                 time.sleep(1)
-                self.robo._motion.turn("RIGHT",45)
+                self.robo._motion.turn("RIGHT", 45)
                 time.sleep(1)
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(1)
-                self.robo._motion.turn("RIGHT",45)
+                self.robo._motion.turn("RIGHT", 45)
                 time.sleep(1)
 
                 self.ball_feature_ball()
                 time.sleep(1)
-                                
+
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
@@ -590,7 +579,7 @@ class Controller:
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
-                
+
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
 
@@ -603,11 +592,11 @@ class Controller:
             elif self.C_left == 1:
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(1)
-                self.robo._motion.turn("RIGHT",45)
+                self.robo._motion.turn("RIGHT", 45)
                 time.sleep(1)
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(1)
-                self.robo._motion.turn("RIGHT",45)
+                self.robo._motion.turn("RIGHT", 45)
                 time.sleep(1)
 
                 self.ball_feature_ball()
@@ -621,7 +610,7 @@ class Controller:
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
-                
+
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
 
@@ -631,18 +620,16 @@ class Controller:
                 else:
                     print("T샷 C_left 오류")
 
-                
             else:
                 print("원하는 값이 안 옴")
                 time.sleep(1)
-
 
             self.act = act.SEARCH_BALL
 
         elif act == act.SEARCH_BALL:
             print("Act:", act)  # Debug
             time.sleep(0.5)
- 
+
             self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
 

@@ -3270,11 +3270,11 @@ KEY171:
     '*************** head_set more ***************
 KEY172:
 	ETX 4800, 172
-	GOTO 머리오른쪽55도
+	GOTO 머리오른쪽50도
 	GOTO RX_EXIT
 	
 KEY173:
 	ETX 4800, 173
-	GOTO 머리왼쪽55도
+	GOTO 머리왼쪽50도
 	GOTO RX_EXIT
     
