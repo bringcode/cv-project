@@ -13,11 +13,11 @@ def main():
 if __name__ == "__main__":
     Motion = Motion()
     # Motion.TX_data_py3(123)
-    print("head left")
-    time.sleep(3)
-    Motion.TX_data_py3(176)  # 1도좌향
-    time.sleep(1)
-    Motion.TX_data_py3(176)
-    time.sleep(1)
-    Motion.TX_data_py3(176)
-    # main()
+    # print("head left")
+    # time.sleep(3)
+    # Motion.TX_data_py3(176)  # 1도좌향
+    # time.sleep(1)
+    # Motion.TX_data_py3(176)
+    # time.sleep(1)
+    # Motion.TX_data_py3(176)
+    main()
