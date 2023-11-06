@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 
-class BallCenterMeasurer:
+class Tputting_x_BallCenterMeasurer:
     def __init__(self, img_width=800, img_height=600, width=4, focal=450):
         self.dist = 0
         self.focal = focal
@@ -53,13 +53,13 @@ class BallCenterMeasurer:
         return max_x, min_x, max_y, min_y
 
     # 가운데인지 판단하는 코드
-    def judgeMiddle(self, max_y, min_y):
-        up_dist = min_y  # l_dist: 공을 표시한 박스 가장 왼쪽으로부터 영상 가장 왼쪽 끝까지의 거리
+    def judgeMiddle(self, max_x, min_x):
+        up_dist = min_x  # l_dist: 공을 표시한 박스 가장 왼쪽으로부터 영상 가장 왼쪽 끝까지의 거리
         down_dist = (
-            self.img_height - max_y
+            self.img_width - max_x
         )  # r_dist: 공을 표시한 박스 가장 오른쪽으로부터 영상 가장 오른쪽 끝까지의 거리
 
-        error_range = self.img_height // 8  # 오차 허용 범위
+        error_range = self.img_width // 12  # 오차 허용 범위
 
         # 박스가 영상의 왼쪽 오른쪽 끝 부분과 떨어진 거리가 오차 허용 범위(error_range) 이내일 때, True를 is_Middle에 저장
         is_Middle = abs(up_dist - down_dist) < error_range
@@ -124,35 +124,37 @@ class BallCenterMeasurer:
                     cv2.drawContours(img, [ball_box], -1, (255, 0, 0), 3)
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
-                    ball_y_isMiddle = self.judgeMiddle(max_y, min_y)
+                    ball_x_isMiddle = self.judgeMiddle(max_x, min_x)
 
-                #             font = cv2.FONT_HERSHEY_SIMPLEX
-                #             org = (0, 20)
-                #             fontScale = 0.6
-                #             color = (0, 0, 255)
-                #             thickness = 2
+                    font = cv2.FONT_HERSHEY_SIMPLEX
+                    org = (0, 20)
+                    fontScale = 0.6
+                    color = (0, 0, 255)
+                    thickness = 2
 
-                #             image = cv2.putText(
-                #                 img,
-                #                 "flag Middle : {}".format(ball_y_isMiddle),
-                #                 org,
-                #                 font,
-                #                 1,
-                #                 color,
-                #                 2,
-                #                 cv2.LINE_AA,
-                #             )
+                    image = cv2.putText(
+                        img,
+                        "flag Middle : {}".format(ball_x_isMiddle),
+                        org,
+                        font,
+                        1,
+                        color,
+                        2,
+                        cv2.LINE_AA,
+                    )
 
-                #     cv2.imshow("Object Dist Measure ", img)
-                #     if cv2.waitKey(1) & 0xFF == ord("q"):
-                #         break
+                cv2.imshow("Object Dist Measure ", img)
+                if cv2.waitKey(1) & 0xFF == ord("q"):
+                    break
 
-                # cv2.destroyAllWindows()
+        cv2.destroyAllWindows()
 
-                return ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
-        return False
+        #         return (
+        #             ball_x_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
+        #         )
+        # return False
 
 
 if __name__ == "__main__":
-    distance_measurer = BallCenterMeasurer()
+    distance_measurer = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480)
     print(distance_measurer.process())
