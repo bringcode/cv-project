@@ -386,6 +386,51 @@ class Controller:
     def check_ball_in(self):
         time.sleep(1)
 
+    # 공 1도씩 조정하면서 각도 확인
+    @classmethod
+    def check_ball_distance(self):
+        time.sleep(1)
+        print("Debug in check_ball_distance")
+
+        correctAngle = 0
+        ball_x_angle = ["N", "N", "N"]
+        ball_y_angle = ["N", "N", "N"]
+
+        while correctAngle != 1:
+            ballxcenter = BallxCenterMeasurer()
+            ball_x_angle = ballxcenter.process()
+            print(ball_x_angle[0])
+
+            if ball_x_angle[0] == "C":
+                ballycenter = BallyCenterMeasurer()
+                ball_y_angle = ballycenter.process()
+
+                if ball_y_angle == "C":
+                    print(ball_x_angle)
+                    print(ball_y_angle)
+                    correctAngle = 1
+                    break
+
+                elif ball_y_angle == "L":
+                    print("Y: 1도 모션 넣어줘야함.")
+
+                elif ball_y_angle == "R":
+                    print("X: 1도 모션 넣어줘야함.")
+
+                else:
+                    print("check_ball_distance 함수에서 원하는 Y angle이 안 들어옴.")
+
+            elif ball_x_angle[0] =="L":
+                print("X: 1도 모션 넣어줘야함.")
+
+
+            elif ball_x_angle[0] == "R":
+                print("X: 1도 모션 넣어줘야함.")
+
+            else:
+                print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
+
+
     @classmethod
     def go_robo(self):
         act = self.act
@@ -431,7 +476,7 @@ class Controller:
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    print("퍼팅하는거 모션에 넣어줘야 함.")
+                    self.robo._motion.hit_the_ball("RIGHT")
 
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
@@ -456,7 +501,7 @@ class Controller:
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    print("퍼팅하는거 모션에 넣어줘야 함.")
+                    self.robo._motion.hit_the_ball("RIGHT")
 
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
@@ -481,7 +526,7 @@ class Controller:
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    print("퍼팅하는거 모션에 넣어줘야 함.")
+                    self.robo._motion.hit_the_ball("RIGHT")
 
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
@@ -512,7 +557,7 @@ class Controller:
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    print("퍼팅하는거 모션에 넣어줘야 함.")
+                    self.robo._motion.hit_the_ball("RIGHT")
                 
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)

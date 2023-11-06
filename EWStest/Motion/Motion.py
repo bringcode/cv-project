@@ -221,6 +221,45 @@ class Motion:
 
         dir_list = {"RIGHT": 170, "LEFT": 171}
         self.TX_data_py3(dir_list[dir])
+
+    # 1도씩 set_head하기 (172~181)
+    def set_head_small(self, dir, angle=0):
+        """
+        dir: {UP, DOWN, LEFT, RIGHT} - 머리 방향
+        angle: 머리 각도
+        """
+
+        """ parameter :
+        dir : {UP, DOWN, LEFT, RIGHT}
+        angle: {
+        UP: {1,2,3,4,5},
+        DOWN:{1,2,3,4,5},
+        LEFT:{1,2,3,4,5},
+        RIGHT:{1,2,3,4,5}
+        }
+        """
+        if dir == 'UP' or dir == 'DOWN':
+            self.ball_angle1 = angle
+        elif dir == 'LEFT' or dir == 'RIGHT':
+            self.ball_angle2 = angle
+
+        dir_list = {
+            'UP': {
+                1:172, 2:173, 3:174, 4:175, 5:176
+            },
+            'DOWN': {
+                1:177, 2:178, 3:179, 4:180, 5:181
+            },
+            'LEFT': {
+                1:182, 2:183, 3:184, 4:185, 5:186
+            },
+            'RIGHT':{
+                1:187, 2:188, 3:189, 4:190, 5:191
+            }
+        }
+
+        self.TX_data_py3(dir_list[dir][angle])
+        time.sleep(0.3)
     ############################################################
 
 
