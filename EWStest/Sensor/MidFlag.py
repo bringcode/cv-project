@@ -124,6 +124,8 @@ class MidFlag:
             cv2.imshow('Green and Yellow Frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break
 
         # Release the video capture and close all OpenCV windows
         cap.release()
