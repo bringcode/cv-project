@@ -15,5 +15,7 @@ if __name__ == "__main__":
     # Motion.TX_data_py3(123)
     # # print("head down")
     # time.sleep(3)
-    # Motion.TX_data_py3(124)
+    Motion.TX_data_py3(176)  # 1도좌향
+    Motion.TX_data_py3(176)
+    Motion.TX_data_py3(176)
     main()
