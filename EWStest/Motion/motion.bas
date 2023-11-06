@@ -1812,10 +1812,10 @@ GOSUB_RX_EXIT2:
     angle_x = 145
     GOTO RX_EXIT   
 
-머리오른쪽55도:
+머리오른쪽54도:
     SPEED 머리이동속도
-    SERVO 11,155
-    angle_x = 155
+    SERVO 11,154
+    angle_x = 154
     GOTO RX_EXIT
 
 머리오른쪽60도:
