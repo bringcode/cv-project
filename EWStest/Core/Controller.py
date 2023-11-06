@@ -133,7 +133,7 @@ class Controller:
                 if cnt == 3:
                     self.C_center = 1
 
-            elif is_ball_find == False:
+            else:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 54)
                 time.sleep(2)
@@ -145,12 +145,12 @@ class Controller:
 
                 print("is_ball_find", is_ball_find)
                 print("centerprocess", centerprocess)
-                if is_ball_find == True and centerprocess == True:
+                if centerprocess == True:
                     print("Center: 공을 왼쪽에서 찾았습니다.")
                     if cnt == 4:
                         self.C_left = 1
 
-                elif is_ball_find == False:
+                else:
                     print("가운데 왼쪽 X")
                     self.robo._motion.set_head("RIGHT", 54)
                     is_ball_find = ballFunction.process()
@@ -161,20 +161,20 @@ class Controller:
 
                     print("is_ball_find", is_ball_find)
                     print("centerprocess", centerprocess)
-                    if is_ball_find == True and centerprocess == True:
+                    if centerprocess == True:
                         print("Center: 공을 오른쪽에서 찾았습니다.")
                         if cnt == 5:
                             self.C_right = 1
 
-                    elif is_ball_find == False:
+                    else:
                         print("가운데 가운데 X")
                         print("공을 처음 시작할 때 어디서도 찾지 못했습니다.")
 
-                    else:
-                        print("True False가 반환되지 않았습니다.")
+                    # else:
+                    #     print("True False가 반환되지 않았습니다.")
 
-                else:
-                    print("C: 가운데에서 오류가 나는듯")
+                # else:
+                #     print("C: 가운데에서 오류가 나는듯")
 
         # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
 
