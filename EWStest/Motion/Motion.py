@@ -222,7 +222,7 @@ class Motion:
         dir_list = {"RIGHT": 170, "LEFT": 171}
         self.TX_data_py3(dir_list[dir])
 
-    # 1도씩 set_head하기 (172~181)
+    # 1도씩 set_head하기 (174~191)
     def set_head_small(self, dir, angle=0):
         """
         dir: {UP, DOWN, LEFT, RIGHT} - 머리 방향
