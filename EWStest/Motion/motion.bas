@@ -1780,9 +1780,9 @@ GOSUB_RX_EXIT2:
     SERVO 11,55
     GOTO RX_EXIT
 
-머리왼쪽55도:
+머리왼쪽50도:
 	SPEED 머리이동속도
-	SERVO 11, 45
+	SERVO 11, 50
 	GOTO RX_EXIT
 	
 머리왼쪽60도:
@@ -1805,9 +1805,9 @@ GOSUB_RX_EXIT2:
     SERVO 11,145
     GOTO RX_EXIT	
 
-머리오른쪽55도:
+머리오른쪽50도:
     SPEED 머리이동속도
-    SERVO 11,155
+    SERVO 11,150
     GOTO RX_EXIT
 
 머리오른쪽60도:
