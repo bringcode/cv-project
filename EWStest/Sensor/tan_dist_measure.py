@@ -6,7 +6,7 @@ class DistMeasurer:
 
     def calculate_distance(self, angle):
         # tan(angle-10) 계산
-        d = self.height * math.tan(math.radians(angle-10))
+        d = self.height * math.tan(math.radians(angle))
         return round(d, 2)
 
     def display_distance(self, angle):
