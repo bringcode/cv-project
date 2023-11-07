@@ -9,27 +9,28 @@ class ShapeRecognition:
         self.flags = []  # List to store recognized flags
         self.arrows = []  # List to store recognized arrows
 
-    def merge_contours(self, contours):
+    def merge_contours(self, contours, threshold=10):
+        if not contours:
+            return []
+
         # 병합된 컨투어들의 목록을 초기화
-        merged_contours = []
-        while contours:
-            # 첫 컨투어를 병합 목록에 넣고 제거
-            merge = [contours.pop(0)]
-            # 병합 대상 컨투어의 경계 상자를 계산
-            x, y, w, h = cv2.boundingRect(merge[0])
-            # 나머지 컨투어들을 순회하면서 병합 여부 확인
-            for contour in contours:
-                ox, oy, ow, oh = cv2.boundingRect(contour)
-                # 컨투어가 인접해 있는지 확인
-                if (x < ox + ow and x + w > ox and y < oy + oh and y + h > oy):
-                    merge.append(contour)
-            # 병합할 컨투어들을 모두 제거
-            for m in merge:
-                if m in contours:
-                    contours.remove(m)
-            # 병합된 컨투어를 계산
-            merged_contour = np.vstack(merge)
-            merged_contours.append(merged_contour)
+        merged_contours = [contours[0]]
+        for current_contour in contours[1:]:
+            x, y, w, h = cv2.boundingRect(current_contour)
+            # 현재 컨투어를 기존에 병합된 컨투어들과 비교
+            for i in range(len(merged_contours)):
+                merged_x, merged_y, merged_w, merged_h = cv2.boundingRect(merged_contours[i])
+                # If current contour is close enough to merged one, merge them
+                if (abs(merged_x - x) <= threshold and
+                    abs(merged_y - y) <= threshold and
+                    abs(merged_w - w) <= threshold and
+                    abs(merged_h - h) <= threshold):
+                    merged_contours[i] = np.vstack((merged_contours[i], current_contour))
+                    break
+            else:
+                # If current contour didn't match any merged contour, add as new
+                merged_contours.append(current_contour)
+
         return merged_contours
 
     def process_frame(self, frame):
@@ -46,29 +47,28 @@ class ShapeRecognition:
         largest_flag_contour = None
         # Check each yellow contour
         for contour in merged_yellow_contours:
+            area = cv2.contourArea(contour)
+            if area > max_flag_area:
+                max_flag_area = area
+                largest_flag_contour = contour
+        # Draw the largest flag and update arrow list
+        for contour in merged_yellow_contours:
             rect = cv2.minAreaRect(contour)
             box = cv2.boxPoints(rect)
             box = np.int0(box)
             M = cv2.moments(contour)
             if M['m00'] != 0:
-                area = cv2.contourArea(contour)
                 cx = int(M['m10']/M['m00'])
                 cy = int(M['m01']/M['m00'])
-                # Identify if this is the largest flag
-                if area > max_flag_area:
-                    max_flag_area = area
-                    largest_flag_contour = contour
-                self.arrows.append((cx, cy))  # Assume it's an arrow for now
-        # Draw the largest flag and update arrow list
-        for contour in merged_yellow_contours:
-            if contour is largest_flag_contour:
-                self.flags.append(cv2.boundingRect(contour))  # Update to flag
-                self.arrows.remove(cv2.boundingRect(contour))  # Remove from arrows
-                cv2.drawContours(frame, [contour], 0, (0, 0, 255), 2)
-                cv2.putText(frame, 'FLAG', cv2.boundingRect(contour)[:2], cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-            else:
-                cv2.drawContours(frame, [contour], 0, (0, 255, 0), 2)
-                cv2.putText(frame, 'ARROW', cv2.boundingRect(contour)[:2], cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                x, y, w, h = cv2.boundingRect(contour)
+                if contour is largest_flag_contour:
+                    self.flags.append((x, y, w, h))  # Update to flag
+                    cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
+                    cv2.putText(frame, 'FLAG', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                else:
+                    self.arrows.append((x, y, w, h))  # Assume it's an arrow
+                    cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+                    cv2.putText(frame, 'ARROW', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
         return frame
 
     def run(self):
