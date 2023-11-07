@@ -575,7 +575,7 @@ class Controller:
         canPutting = self.canPutting
 
         self.act = act.START
-        self.robo._motion.set_head("DOWN", 60)  # test
+        self.robo._motion.set_head("DOWN", 45)  # test
         time.sleep(1)  # test
         self.check_ball_distance()  # test
         time.sleep(10)  # test
