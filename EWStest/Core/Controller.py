@@ -580,8 +580,8 @@ class Controller:
         self.check_ball_distance()  # test
         time.sleep(10)  # test
         angle = abs(90 - self.robo._motion.y_head_angle)  # test
-        dist_ball = DistMeasurer(angle)  # test
-        print(dist_ball)  # test
+        dist_ball = DistMeasurer()  # test
+        print(dist_ball.display_distance(angle))  # test
 
         if act == act.START:
             print("ACT: ", act)  # Debug
