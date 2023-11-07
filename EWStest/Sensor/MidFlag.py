@@ -34,14 +34,10 @@ class ShapeRecognition:
             yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             
             flag_detected = False  # Flag detection flag
-            largest_shape_area = 0  # Area of the largest detected shape
             
             for cnt in yellow_contours:
                 approx = cv2.approxPolyDP(cnt, 0.03 * cv2.arcLength(cnt, True), True)
-                num_vertices = len(approx)
-                area = cv2.contourArea(cnt)
-                
-                if num_vertices > 4:
+                if len(approx) == 6:
                     rect = cv2.minAreaRect(cnt)
                     box = cv2.boxPoints(rect)
                     box = np.int0(box)
@@ -50,27 +46,24 @@ class ShapeRecognition:
                     if M['m00'] != 0:
                         cx = int(M['m10']/M['m00'])
                         cy = int(M['m01']/M['m00'])
-                        cv2.putText(frame, f'SHAPE ({num_vertices})', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                        self.arrows.append((cx, cy, f'SHAPE ({num_vertices})'))
-                        if area > largest_shape_area:
-                            largest_shape_area = area
-                            largest_shape = (cx, cy, f'SHAPE ({num_vertices})')
+                        cv2.putText(frame, 'ARROW', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        self.arrows.append((cx, cy, "ARROW"))
                 else:
-                    if not flag_detected:
-                        rect = cv2.minAreaRect(cnt)
-                        box = cv2.boxPoints(rect)
-                        box = np.int0(box)
-                        cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                        M = cv2.moments(cnt)
-                        if M['m00'] != 0:
-                            cx = int(M['m10']/M['m00'])
-                            cy = int(M['m01']/M['m00'])
-                            cv2.putText(frame, 'FLAG', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            self.flags.append((cx, cy, 'FLAG'))
-                            flag_detected = True
-
+                    rect = cv2.minAreaRect(cnt)
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                    M = cv2.moments(cnt)
+                    if M['m00'] != 0:
+                        cx = int(M['m10']/M['m00'])
+                        cy = int(M['m01']/M['m00'])
+                        cv2.putText(frame, 'FLAG', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        self.flags.append((cx, cy, "FLAG"))
+                        flag_detected = True
+            
+            # If a flag is detected, mark it and add it to the list
             if flag_detected:
-                self.flags = [largest_shape if f == largest_shape else f for f in self.flags]
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
         return frame
 
@@ -83,6 +76,7 @@ class ShapeRecognition:
 
             frame = self.process_frame(frame)
 
+            # Display the original frame
             cv2.imshow('Frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
@@ -92,7 +86,7 @@ class ShapeRecognition:
         self.cap.release()
         cv2.destroyAllWindows()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
     shape_recognition = ShapeRecognition(video_path)
     shape_recognition.run()
