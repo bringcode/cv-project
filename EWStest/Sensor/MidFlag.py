@@ -55,7 +55,7 @@ class ShapeRecognition:
                 cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
 
                 # Convert the yellow region into a binary image for contour detection
-                yellow_binary = np.zeros like(yellow_roi)
+                yellow_binary = np.zeros_like(yellow_roi)
                 yellow_binary[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob] = yellow_roi[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob]
 
                 # Find contours in the binary image
