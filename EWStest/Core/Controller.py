@@ -579,7 +579,7 @@ class Controller:
         time.sleep(1)  # test
         self.check_ball_distance()  # test
         time.sleep(10)  # test
-        angle = abs(90 - self.robo._motion.y_head_angle)  # test
+        angle = abs(self.robo._motion.y_head_angle)  # test
         dist_ball = DistMeasurer()  # test
         print(dist_ball.display_distance(angle))  # test
 
@@ -777,7 +777,7 @@ class Controller:
             self.act = act.SEARCH_BALL
             time.sleep(1)
         elif act == act.SEARCH_BALL:
-            angle = abs(90 - self.robo._motion.y_head_angle)
+            angle = abs(self.robo._motion.y_head_angle)
             dist_ball = DistMeasurer(angle)
             print(dist_ball)
             print("Act:", act)  # Debug
