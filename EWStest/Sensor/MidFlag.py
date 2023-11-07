@@ -3,7 +3,8 @@ import cv2
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        # Some systems may not support cv2.CAP_V4L, it's safe to omit it
+        self.cap = cv2.VideoCapture(video_path)
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
@@ -25,7 +26,7 @@ class ShapeRecognition:
                 if distance < threshold:
                     boxes_to_merge.append(other_box)
 
-            # Merge all boxes that are close to the current box
+            # Remove all boxes that are close to the current box
             for box_to_merge in boxes_to_merge:
                 if box_to_merge in boxes:
                     boxes.remove(box_to_merge)
@@ -42,12 +43,15 @@ class ShapeRecognition:
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        # Define green range
+        # Define color ranges
         low_green = np.array([57, 78, 61])
         high_green = np.array([71, 140, 255])
         green_mask = cv2.inRange(hsv_frame, low_green, high_green)
         result_frame = cv2.bitwise_and(frame, frame, mask=green_mask)
-        contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        # OpenCV version compatibility for findContours
+        contours = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
+        
         green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
         # Merge close green boxes
