@@ -546,17 +546,19 @@ class Controller:
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    self.robo._motion.hit_the_ball("RIGHT")
-                    time.sleep(3)
 
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
+
 
                 elif dist < (self.canPutting + 1):
                     self.robo._motion.walk("BACKWARD", 1)
 
                 else:
                     print("T샷 L_center 오류")
+
+                self.robo._motion.hit_the_ball("RIGHT")
+                time.sleep(3)
 
             elif self.L_left == 1:
                 self.robo._motion.walk("FORWARD", 1)
