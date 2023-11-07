@@ -9,7 +9,6 @@ class ShapeRecognition:
         self.green_boxes = []
         self.flags = []  # List to store recognized flags
         self.arrows = []  # List to store recognized arrows
-        self.farthest_flag_box = None
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -35,10 +34,12 @@ class ShapeRecognition:
             yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             
             flag_detected = False  # Flag detection flag
+            largest_shape_area = 0  # Area of the largest detected shape
             
             for cnt in yellow_contours:
                 approx = cv2.approxPolyDP(cnt, 0.03 * cv2.arcLength(cnt, True), True)
                 num_vertices = len(approx)
+                area = cv2.contourArea(cnt)
                 
                 if num_vertices > 4:
                     rect = cv2.minAreaRect(cnt)
@@ -51,6 +52,9 @@ class ShapeRecognition:
                         cy = int(M['m01']/M['m00'])
                         cv2.putText(frame, f'SHAPE ({num_vertices})', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         self.arrows.append((cx, cy, f'SHAPE ({num_vertices})'))
+                        if area > largest_shape_area:
+                            largest_shape_area = area
+                            largest_shape = (cx, cy, f'SHAPE ({num_vertices})')
                 else:
                     if not flag_detected:
                         rect = cv2.minAreaRect(cnt)
@@ -65,20 +69,8 @@ class ShapeRecognition:
                             self.flags.append((cx, cy, 'FLAG'))
                             flag_detected = True
 
-            # Calculate the distance of the center of the flag box from the bottom center of the camera frame
             if flag_detected:
-                camera_center = (frame.shape[1] // 2, frame.shape[0])
-                flag_center = (x + cx, y + cy)
-                distance = abs(flag_center[1] - camera_center[1])
-
-                # If this flag is farther than the previously detected farthest flag, update it
-                if self.farthest_flag_box is None or distance > self.farthest_flag_box[3]:
-                    self.farthest_flag_box = (cx, cy, 'FLAG', distance)
-
-        # After processing all green boxes, update the rest of the FLAG boxes to ARROW
-        for i, box in enumerate(self.flags):
-            if box[2] == 'FLAG' and box != self.farthest_flag_box:
-                self.flags[i] = (box[0], box[1], 'ARROW')
+                self.flags = [largest_shape if f == largest_shape else f for f in self.flags]
 
         return frame
 
@@ -91,7 +83,6 @@ class ShapeRecognition:
 
             frame = self.process_frame(frame)
 
-            # Display the original frame
             cv2.imshow('Frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
