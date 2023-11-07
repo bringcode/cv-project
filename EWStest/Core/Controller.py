@@ -403,7 +403,7 @@ class Controller:
         ball_y_angle = ["N"]
 
         while correctAngle != 1:
-            ballxcenter = BallxCenterMeasurer()
+            ballxcenter = BallxCenterMeasurer(640, 480)
             ball_x_angle = ballxcenter.process()
             time.sleep(1)
             print("ball_x_angle: ", end="")
@@ -411,7 +411,7 @@ class Controller:
 
             if ball_x_angle[0] == "C":
                 # x축 기준으로 센터라면, y축 기준으로 어디에 있는지 판별
-                ballycenter = BallyCenterMeasurer()
+                ballycenter = BallyCenterMeasurer(640, 480)
                 ball_y_angle = ballycenter.process()
                 time.sleep(1)
                 if ball_y_angle == "C":
