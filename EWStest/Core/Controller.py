@@ -403,7 +403,7 @@ class Controller:
         ball_y_angle = ["N"]
 
         while correctAngle != 1:
-            ballxcenter = BallxCenterMeasurer(img_width = 640,img_height=480)
+            ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
             ball_x_angle = ballxcenter.process()
             time.sleep(1)
             print("ball_x_angle: ", end="")
@@ -411,7 +411,7 @@ class Controller:
 
             if ball_x_angle[0] == "C":
                 # x축 기준으로 센터라면, y축 기준으로 어디에 있는지 판별
-                ballycenter = BallyCenterMeasurer(img_width = 640,img_height=480)
+                ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
                 ball_y_angle = ballycenter.process()
                 time.sleep(1)
                 if ball_y_angle == "C":
@@ -424,7 +424,7 @@ class Controller:
                 elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
                     # 아래로 1도씩 움직이기
                     while ball_y_angle[0] != "C":
-                        ballycenter = BallyCenterMeasurer(img_width = 640,img_height=480)
+                        ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
                         ball_y_angle = ballycenter.process()
                         time.sleep(1)
                         print("ball_y: ", ball_y_angle[0])
@@ -447,7 +447,7 @@ class Controller:
             elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 # 왼쪽으로 1도씩 움직이기
                 while ball_x_angle[0] != "C":
-                    ballxcenter = BallxCenterMeasurer(img_width = 640,img_height=480)
+                    ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
                     ball_x_angle = ballxcenter.process()
                     time.sleep(1)
                     print("ball_x: ", ball_x_angle[0])
@@ -575,7 +575,7 @@ class Controller:
         canPutting = self.canPutting
 
         self.act = act.START
-        self.robo._motion.set_head("DOWN", 30)  # test
+        self.robo._motion.set_head("DOWN", 70)  # test
         time.sleep(1)  # test
         self.check_ball_distance()  # test
         time.sleep(10)  # test
