@@ -7,13 +7,13 @@ class ShapeInfo:
         self.shape = shape
 
 class MidFlag:
-    def __init__(self, video_path = 0, area_threshold = 300):
+    def __init__(self, video_path, area_threshold):
         self.video_path = video_path
         self.area_threshold = area_threshold
         self.farthest_flag_center = None
 
     def process(self):
-        cap = cv2.VideoCapture(self.video_path)
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
 
         while True:
             ret, frame = cap.read()
