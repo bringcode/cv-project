@@ -413,22 +413,66 @@ class Controller:
                     correctAngle = 1
                     break
 
-                elif ball_y_angle == "L":
-                    # 왼쪽으로 1도씩 움직이기
-                    self.robo._motion.set_head_small()
-                    print("Y: 1도 모션 넣어줘야함.")
+                elif ball_y_angle == "D":
+                    # 아래로 1도씩 움직이기
+                    while ball_y_angle != "C":
+                        self.robo._motion.set_head_small("DOWN", 1)
+                    correctAngle = 1
+                    break
 
-                elif ball_y_angle == "R":
-                    print("X: 1도 모션 넣어줘야함.")
+                elif ball_y_angle == "U":
+                    # 위로 1도씩 움직이기
+                    while ball_y_angle != "C":
+                        self.robo._motion.set_head_small("UP", 1)
+                    correctAngle = 1
+                    break
 
                 else:
                     print("check_ball_distance 함수에서 원하는 Y angle이 안 들어옴.")
 
             elif ball_x_angle[0] == "L":
-                print("X: 1도 모션 넣어줘야함.")
+                # 왼쪽으로 1도씩 움직이기
+                while ball_x_angle != "C":
+                    self.robo._motion.set_head_small("LEFT", 1)
+
+                # x축 기준으로 센터가 되면, y축 센터도 맞추기
+                if ball_y_angle == "C":
+                    correctAngle = 1
+                    break
+
+                elif ball_y_angle == "D":
+                    while ball_y_angle != "C":
+                        self.robo._motion.set_head_small("DOWN", 1)
+                    correctAngle = 1
+                    break
+
+                elif ball_y_angle == "U":
+                    while ball_y_angle != "C":
+                        self.robo._motion.set_head_small("UP", 1)
+                    correctAngle = 1
+                    break
 
             elif ball_x_angle[0] == "R":
-                print("X: 1도 모션 넣어줘야함.")
+                # 오른쪽으로 1도씩 움직이기
+                while ball_x_angle != "C":
+                    self.robo._motion.set_head_small("RIGHT", 1)
+
+                # x축 기준으로 센터가 되면, y축 센터도 맞추기
+                if ball_y_angle == "C":
+                    correctAngle = 1
+                    break
+
+                elif ball_y_angle == "D":
+                    while ball_y_angle != "C":
+                        self.robo._motion.set_head_small("DOWN", 1)
+                    correctAngle = 1
+                    break
+
+                elif ball_y_angle == "U":
+                    while ball_y_angle != "C":
+                        self.robo._motion.set_head_small("UP", 1)
+                    correctAngle = 1
+                    break
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
