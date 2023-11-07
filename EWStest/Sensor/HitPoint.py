@@ -4,8 +4,8 @@ import numpy as np
 class HitPointer:
     def __init__(self, a, b, l, h):
         # 값을 받아와야 함
-        self.a = a
-        self.b = b
+        self.a = a              # 로봇과 깃발 거리
+        self.b = b              # 로봇과 공 거리
         self.l = np.radians(l)  # 각도 l을 라디안으로 변환
         self.h = h              # 로봇이 공으로부터 얼마나 떨어져서 타격할지 설정
 
@@ -21,7 +21,7 @@ class HitPointer:
     def calculate_x(self, m):
         y = 90 - np.degrees(m)
         # x = sqrt(b^2 + h^2 - 2bh*cos(y))
-        y_rad = np.radians(y)  # 각도 y를 라디안으로 변환
+        y_rad = np.radians(y)
         return np.sqrt(self.b**2 + self.h**2 - 2*self.b*self.h*np.cos(y_rad))
 
     def calculate_z(self, x):
