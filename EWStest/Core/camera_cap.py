@@ -12,8 +12,9 @@ while True:
     # 'S' 키를 누를 때 사진 찍기
     if cv2.waitKey(1) & 0xFF == ord('s'):
         # 파일로 사진 저장
-        cv2.imwrite('captured_image{}.png'.format(i), frame)
+        cv2.imwrite("/home/pi/Desktop/record/captured_img{}.jpg".format(i), frame)
         print("사진이 저장되었습니다.")
+        i += 1
     elif cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
