@@ -15,7 +15,7 @@ class ShapeRecognition:
 
         # 녹색 범위 정의
         low_green = np.array([57, 78, 61])
-        high_green = np.array([89, 255, 255])
+        high_green = np.array([71, 140, 255])
         green_mask = cv2.inRange(hsv_frame, low_green, high_green)
         result_frame = cv2.bitwise_and(frame, frame, mask=green_mask)
         contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
