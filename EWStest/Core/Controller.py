@@ -392,6 +392,8 @@ class Controller:
         print("Debug in check_ball_distance")
 
         correctAngle = 0
+
+        # 공을 못 찾았을 때 반환하는 값
         ball_x_angle = ["N", "N", "N"]
         ball_y_angle = ["N", "N", "N"]
 
