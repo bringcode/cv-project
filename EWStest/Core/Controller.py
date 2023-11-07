@@ -429,15 +429,16 @@ class Controller:
                         time.sleep(1)
                         print("ball_y: ",ball_y_angle[0])
                         
-                        if ball_y_angle == "U":
+                        if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", 1)
                             time.sleep(1)
 
-                        if ball_y_angle == "D":
-                            self.robo._motion.set_head_small("UP", 1)
+                        if ball_y_angle[0] == "D":
+                            self.robo._motion.set_head_small("DOWN", 1)
                             time.sleep(1)
 
                     correctAngle = 1
+                    print("중앙에 왔습니다.")
                     break
 
                 else:
@@ -445,7 +446,7 @@ class Controller:
 
             elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 # 왼쪽으로 1도씩 움직이기
-                while ball_x_angle != "C":
+                while ball_x_angle[0] != "C":
                     ballxcenter = BallxCenterMeasurer()
                     ball_x_angle = ballxcenter.process()
                     time.sleep(1)
