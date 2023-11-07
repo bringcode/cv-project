@@ -415,10 +415,8 @@ class Controller:
                 ball_y_angle = ballycenter.process()
                 time.sleep(1)
                 if ball_y_angle == "C":
-                    print("ball_x_angle: ",end='')
-                    print(ball_x_angle[0])
-                    print("ball_y_angle: ",end='')
-                    print(ball_y_angle[0])
+                    print("ball_x_angle: ",ball_x_angle[0])
+                    print("ball_y_angle: ",ball_y_angle[0])
                     correctAngle = 1
                     break
 
@@ -427,8 +425,7 @@ class Controller:
                     while ball_y_angle != "C":
                         ballycenter = BallyCenterMeasurer()
                         ball_y_angle = ballycenter.process()
-                        print("ball_y: ",end='')
-                        print(ball_y_angle[0])
+                        print("ball_y: ",ball_y_angle[0])
                         time.sleep(1)
                         self.robo._motion.set_head_small("DOWN", 1)
                         time.sleep(1)
@@ -440,8 +437,7 @@ class Controller:
                     while ball_y_angle != "C":
                         ballycenter = BallyCenterMeasurer()
                         ball_y_angle = ballycenter.process()
-                        print("ball_y: ",end='')
-                        print(ball_y_angle[0])
+                        print("ball_y: ",ball_y_angle[0])
                         time.sleep(1)
                         self.robo._motion.set_head_small("UP", 1)
                         time.sleep(1)
@@ -456,8 +452,7 @@ class Controller:
                 while ball_x_angle != "C":
                     ballxcenter = BallxCenterMeasurer()
                     ball_x_angle = ballxcenter.process()
-                    print("ball_x: ",end='')
-                    print(ball_x_angle[0])
+                    print("ball_x: ",ball_x_angle[0])
                     time.sleep(1)
                     self.robo._motion.set_head_small("LEFT", 1)
                     time.sleep(1)
@@ -471,8 +466,7 @@ class Controller:
                     while ball_y_angle != "C":
                         ballycenter = BallyCenterMeasurer()
                         ball_y_angle = ballycenter.process()
-                        print("ball_y: ",end='')
-                        print(ball_y_angle[0])
+                        print("ball_y: ",ball_y_angle[0])
                         self.robo._motion.set_head_small("DOWN", 1)
                         time.sleep(1)
                     correctAngle = 1
@@ -482,8 +476,7 @@ class Controller:
                     while ball_y_angle != "C":
                         ballycenter = BallyCenterMeasurer()
                         ball_y_angle = ballycenter.process()
-                        print("ball_y: ",end='')
-                        print(ball_y_angle[0])
+                        print("ball_y: ",ball_y_angle[0])
                         self.robo._motion.set_head_small("UP", 1)
                         time.sleep(1)
                     correctAngle = 1
@@ -494,8 +487,7 @@ class Controller:
                 while ball_x_angle != "C":
                     ballxcenter = BallxCenterMeasurer()
                     ball_x_angle = ballxcenter.process()
-                    print("ball_x: ",end='')
-                    print(ball_x_angle[0])
+                    print("ball_x: ",ball_x_angle[0])
                     time.sleep(1)
                     self.robo._motion.set_head_small("RIGHT", 1)
                     time.sleep(1)
@@ -520,8 +512,7 @@ class Controller:
                     while ball_y_angle != "C":
                         allycenter = BallyCenterMeasurer()
                         ball_y_angle = ballycenter.process()
-                        print("ball_y: ",end='')
-                        print(ball_y_angle[0])
+                        print("ball_y: ",ball_y_angle[0])
                         self.robo._motion.set_head_small("UP", 1)
                         time.sleep(1)
                     correctAngle = 1
