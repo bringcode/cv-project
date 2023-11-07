@@ -222,12 +222,11 @@ class Motion:
         dir_list = {"LEFT": 170, "RIGHT": 171}
         if dir == "LEFT":
             print("왼쪽에서 치겠습니다.")
-            self.TX_data_py3(170)
-            self.TX_data_py3(170)
+            Motion.TX_data_py3(170)
         elif dir == "RIGHT":
             print("오른쪽에서 치겠습니다.")
-            self.TX_data_py3(171)
-            self.TX_data_py3(171)
+            
+            Motion.TX_data_py3(171)
 
     # 1도씩 set_head하기 (174~191)
     def set_head_small(self, dir, angle=0):
