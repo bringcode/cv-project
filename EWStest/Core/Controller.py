@@ -690,7 +690,7 @@ class Controller:
             print("Act:", act)  # Debug
             time.sleep(0.5)
 
-            self.ball_feature_ball()
+            #self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
 
         elif act == act.SEARCH_FLAG:
