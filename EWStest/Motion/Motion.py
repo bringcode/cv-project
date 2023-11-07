@@ -7,6 +7,8 @@ from threading import Thread, Lock
 class Motion:
     # 초기화 함수
     def __init__(self, sleep_time=0):  # 명령 간 간격으로 사용할 시간(초) 설정
+        self.x_head_angle = 0
+        self.y_head_angle = 90
         self.serial_use = 1  # 시리얼 통신 사용 여부 (1:사용, 0:미사용)
         self.serial_port = None  # 시리얼 포트 객체
         self.Read_RX = 0  # 읽기 버퍼 (효율적으로 처리하기 위한 중간 저장 공간)
@@ -86,9 +88,9 @@ class Motion:
 
     ############################################################
     # 현재 로봇 머리 각도
-    def current_head_angle(self):
-        self.x_head_angle = 0
-        self.y_head_angle = 0
+    # def current_head_angle(self):
+    #     self.x_head_angle = 0
+    #     self.y_head_angle = 0
 
     ############################################################
     # 기본자세 (100) -> 로봇을 기본 자세로 설정
