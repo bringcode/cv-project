@@ -3,7 +3,7 @@ import cv2
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4Ls)
+        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.flags = []  # List to store recognized flags
