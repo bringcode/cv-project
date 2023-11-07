@@ -1,11 +1,11 @@
-# 공이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 판별하는 코드 (isMiddle)
+# 공이 가운데, 위, 아래 중 어디에 있는지 판별하는 코드 (isMiddle)
 
 # -*- coding: utf-8 -*-
 import numpy as np
 import cv2
 
 
-class BallCenterMeasurer:
+class BallyCenterMeasurer:
     def __init__(self, img_width=800, img_height=600, width=4, focal=450):
         self.dist = 0
         self.focal = focal
@@ -59,11 +59,19 @@ class BallCenterMeasurer:
             self.img_height - max_y
         )  # r_dist: 공을 표시한 박스 가장 오른쪽으로부터 영상 가장 오른쪽 끝까지의 거리
 
-        error_range = self.img_height // 8  # 오차 허용 범위
+        error_range = 80  # 오차 허용 범위
 
         # 박스가 영상의 왼쪽 오른쪽 끝 부분과 떨어진 거리가 오차 허용 범위(error_range) 이내일 때, True를 is_Middle에 저장
         is_Middle = abs(up_dist - down_dist) < error_range
-        return is_Middle
+        print("ball_y_center.py: pass")
+
+        if is_Middle == True:
+            return "C"
+        else:
+            if up_dist > down_dist:
+                return "D"
+            else:
+                return "U"
 
     def process(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)  # 인자로 있었는데 몰루? -> cv2.CAP_V4L
@@ -93,7 +101,6 @@ class BallCenterMeasurer:
             # mac version
             # lower = np.array([170, 100, 100])
             # upper = np.array([180, 255, 255])
-            # mask = cv2.inRange(hsv_img, lower, upper)
 
             # robot version
             lower = np.array([137, 0, 0])
@@ -125,23 +132,7 @@ class BallCenterMeasurer:
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
                     ball_y_isMiddle = self.judgeMiddle(max_y, min_y)
-
-                    font = cv2.FONT_HERSHEY_SIMPLEX
-                    org = (0, 20)
-                    fontScale = 0.6
-                    color = (0, 0, 255)
-                    thickness = 2
-
-                    image = cv2.putText(
-                        img,
-                        "flag Middle : {}".format(ball_y_isMiddle),
-                        org,
-                        font,
-                        1,
-                        color,
-                        2,
-                        cv2.LINE_AA,
-                    )
+                    print(ball_y_isMiddle)
 
             cv2.imshow("Object Dist Measure ", img)
             if cv2.waitKey(1) & 0xFF == ord("q"):
@@ -149,10 +140,10 @@ class BallCenterMeasurer:
 
         cv2.destroyAllWindows()
 
-        #         return ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
-        # return False
+        # return [ball_y_isMiddle]
 
 
 if __name__ == "__main__":
-    distance_measurer = BallCenterMeasurer(img_width = 640,img_height=480)
+
+    distance_measurer = BallyCenterMeasurer(img_width = 640,img_height=480)
     print(distance_measurer.process())
