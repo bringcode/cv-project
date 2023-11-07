@@ -39,8 +39,8 @@ class HitPointer:
 
     def calculate_in_z(self, x):
         cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
-        cos_z = self.l - np.arccos(cos_p)
-        return np.arccos(cos_z)
+        rad_z = self.l - np.arccos(cos_p)
+        return rad_z
 
     def solve(self):
         c = self.calculate_c()
