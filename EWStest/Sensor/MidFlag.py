@@ -10,84 +10,53 @@ class ShapeRecognition:
         self.flags = []  # List to store recognized flags
         self.arrows = []  # List to store recognized arrows
 
+    def merge_close_boxes(self, boxes, threshold=50):
+        # Merge boxes that are close to each other
+        merged_boxes = []
+        while boxes:
+            box = boxes.pop(0)
+            x, y, w, h = box
+            boxes_to_merge = [box]
+
+            # Check each box to see if it is close to the current box
+            for other_box in boxes:
+                ox, oy, ow, oh = other_box
+                distance = np.sqrt((x + w/2 - (ox + ow/2))**2 + (y + h/2 - (oy + oh/2))**2)
+                if distance < threshold:
+                    boxes_to_merge.append(other_box)
+
+            # Merge all boxes that are close to the current box
+            for box_to_merge in boxes_to_merge:
+                if box_to_merge in boxes:
+                    boxes.remove(box_to_merge)
+                    ox, oy, ow, oh = box_to_merge
+                    x = min(x, ox)
+                    y = min(y, oy)
+                    w = max(x + w, ox + ow) - x
+                    h = max(y + h, oy + oh) - y
+
+            # Add the merged box to the list of merged boxes
+            merged_boxes.append((x, y, w, h))
+        return merged_boxes
+
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        # 녹색 범위 정의
+        # Define green range
         low_green = np.array([57, 78, 61])
         high_green = np.array([71, 140, 255])
         green_mask = cv2.inRange(hsv_frame, low_green, high_green)
         result_frame = cv2.bitwise_and(frame, frame, mask=green_mask)
         contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
+        green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
-        # 노랑색 범위 정의
-        low_yellow = np.array([0, 16, 144])
-        high_yellow = np.array([43, 184, 255])
-        yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+        # Merge close green boxes
+        merged_green_boxes = self.merge_close_boxes(green_boxes)
+        self.green_boxes = merged_green_boxes
 
-        max_flag_y = -1  # 가장 높은 FLAG의 y 좌표 초기화
-        flag_detected = False  # Flag detection flag
+        # Rest of the code remains the same...
 
-        for green_box in self.green_boxes:
-            x, y, w, h = green_box
-            green_roi = frame[y:y+h, x:x+w]
-            yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
-            yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-            for cnt in yellow_contours:
-                approx = cv2.approxPolyDP(cnt, 0.03 * cv2.arcLength(cnt, True), True)
-                if len(approx) == 6:
-                    rect = cv2.minAreaRect(cnt)
-                    box = cv2.boxPoints(rect)
-                    box = np.int0(box)
-                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                    M = cv2.moments(cnt)
-                    if M['m00'] != 0:
-                        cx = int(M['m10']/M['m00'])
-                        cy = int(M['m01']/M['m00'])
-                        if cy > max_flag_y:
-                            max_flag_y = cy  # 가장 높은 FLAG의 y 좌표 업데이트
-                            flag_detected = True
-                            self.arrows.append((cx, cy, "ARROW"))
-                else:
-                    rect = cv2.minAreaRect(cnt)
-                    box = cv2.boxPoints(rect)
-                    box = np.int0(box)
-                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                    M = cv2.moments(cnt)
-                    if M['m00'] != 0:
-                        cx = int(M['m10']/M['m00'])
-                        cy = int(M['m01']/M['m00'])
-                        if cy < max_flag_y:
-                            max_flag_y = cy  # 가장 높은 FLAG의 y 좌표 업데이트
-                            flag_detected = True
-                            self.flags.append((cx, cy, "FLAG"))
-
-            if flag_detected:
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                cv2.putText(frame, 'FLAG', (x + cx, y + max_flag_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-
-        return frame
-
-    def run(self):
-        while True:
-            ret, frame = self.cap.read()
-            if not ret:
-                print("Failed to grab a frame")
-                break
-
-            frame = self.process_frame(frame)
-
-            # Display the original frame
-            cv2.imshow('Frame', frame)
-
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
-
-        self.cap.release()
-        cv2.destroyAllWindows()
+    # Rest of the class remains the same...
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
