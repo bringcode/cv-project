@@ -226,7 +226,6 @@ class Motion:
         elif dir == "RIGHT":
             print("오른쪽에서 치겠습니다.")
             self.TX_data_py3(170)
-        time.sleep(3.5)
 
     # 1도씩 set_head하기 (174~191)
     def set_head_small(self, dir, angle=0):
