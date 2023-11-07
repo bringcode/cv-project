@@ -259,12 +259,12 @@ class Motion:
         if dir == "UP":
             self.y_head_angle += angle
             print("1_up_angle: ", angle)
-            print("x_head_angle: ", self.y_head_angle)
+            print("y_head_angle: ", self.y_head_angle)
             print("===========================")
         elif dir == "DOWN":
             self.y_head_angle -= angle
             print("1_down_angle: ", angle)
-            print("x_head_angle: ", self.y_head_angle)
+            print("y_head_angle: ", self.y_head_angle)
             print("===========================")
         elif dir == "LEFT":
             self.x_head_angle -= angle
