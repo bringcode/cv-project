@@ -19,7 +19,6 @@ class HitPointer:
         return np.arccos(cos_m)
 
     def calculate_x(self, m):
-        # y = 90 - m (in degrees)
         y = 90 - np.degrees(m)
         # x = sqrt(b^2 + h^2 - 2bh*cos(y))
         y_rad = np.radians(y)  # 각도 y를 라디안으로 변환
