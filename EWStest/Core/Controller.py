@@ -424,7 +424,7 @@ class Controller:
                 elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
                     # 아래로 1도씩 움직이기
                     while ball_y_angle[0] != "C":
-                        ballycenter = BallyCenterMeasurer()
+                        ballycenter = BallyCenterMeasurer(640, 480)
                         ball_y_angle = ballycenter.process()
                         time.sleep(1)
                         print("ball_y: ", ball_y_angle[0])
@@ -447,7 +447,7 @@ class Controller:
             elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 # 왼쪽으로 1도씩 움직이기
                 while ball_x_angle[0] != "C":
-                    ballxcenter = BallxCenterMeasurer()
+                    ballxcenter = BallxCenterMeasurer(640, 480)
                     ball_x_angle = ballxcenter.process()
                     time.sleep(1)
                     print("ball_x: ", ball_x_angle[0])
