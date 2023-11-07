@@ -7,21 +7,6 @@ class ShapeInfo:
         self.shape = shape
 
 class MidFlag:
-    def __init__(self, video_path, area_threshold=300):
-        self.video_path = video_path
-        self.area_threshold = area_threshold
-        self.farthest_flag_center = None
-    def centering(self, center, shape):
-        self.center = center
-        self.shape = shapeimport numpy as np
-import cv2
-
-class ShapeInfo:
-    def __init__(self, center, shape):
-        self.center = center
-        self.shape = shape
-
-class MidFlag:
     def __init__(self, video_path = 0, area_threshold = 300):
         self.video_path = video_path
         self.area_threshold = area_threshold
