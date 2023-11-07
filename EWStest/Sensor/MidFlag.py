@@ -13,7 +13,7 @@ class ShapeRecognition:
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
         # 녹색 범위 정의
-        low_green = np.array([57, 95, 61])
+        low_green = np.array([57, 78, 61])
         high_green = np.array([89, 255, 255])
         green_mask = cv2.inRange(hsv_frame, low_green, high_green)
         result_frame = cv2.bitwise_and(frame, frame, mask=green_mask)
@@ -21,8 +21,8 @@ class ShapeRecognition:
         self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
         # 노랑색 범위 정의
-        low_yellow = np.array([20, 100, 100])
-        high_yellow = np.array([30, 255, 255])
+        low_yellow = np.array([0, 16, 144])
+        high_yellow = np.array([43, 184, 255])
         yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
         # For each green box, detect yellow shapes within it
