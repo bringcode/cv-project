@@ -1,20 +1,25 @@
-import numpy as np
 import cv2
+import numpy as np
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(video_path,cv2.CAP_V4L )
         self.farthest_flag_box = None
+        self.hsv_frame = None
+        self.green_mask = None
+        self.yellow_mask = None
+
+    def create_masks(self):
+        self.hsv_frame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
+        self.green_mask = cv2.inRange(self.hsv_frame, (57, 95, 61), (89, 255, 255))
+        self.yellow_mask = cv2.inRange(self.hsv_frame, (0, 57, 187), (45, 234, 255))
 
     def process_frame(self, frame):
-        hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        self.frame = frame
+        self.create_masks()
 
-        # Define green and yellow color ranges
-        green_mask = cv2.inRange(hsv_frame, (57, 95, 61), (89, 255, 255))
-        yellow_mask = cv2.inRange(hsv_frame, (0, 57, 187), (45, 234, 255))
-
-        green_contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        yellow_contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        green_contours, _ = cv2.findContours(self.green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        yellow_contours, _ = cv2.findContours(self.yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         shape_info_list = []
 
@@ -22,11 +27,11 @@ class ShapeRecognition:
             x, y, w, h = cv2.boundingRect(green_contour)
             # Make sure that the yellow_roi does not go out of bounds
             y_start = max(0, y)
-            y_end = min(y + h, yellow_mask.shape[0])
+            y_end = min(y + h, self.yellow_mask.shape[0])
             x_start = max(0, x)
-            x_end = min(x + w, yellow_mask.shape[1])
+            x_end = min(x + w, self.yellow_mask.shape[1])
             
-            yellow_roi = yellow_mask[y_start:y_end, x_start:x_end]
+            yellow_roi = self.yellow_mask[y_start:y_end, x_start:x_end]
 
             _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
 
@@ -54,7 +59,7 @@ class ShapeRecognition:
 
         flag_boxes = [box for box in shape_info_list if box[1] == "FLAG"]
         if len(flag_boxes) >= 2:
-            camera_center = (frame.shape[1] // 2, frame.shape[0])
+            camera_center = (self.frame.shape[1] // 2, self.frame.shape[0])
 
             max_distance = 0
             farthest_flag_box = None
@@ -75,9 +80,9 @@ class ShapeRecognition:
             center, shape_text = shape_info[0], shape_info[1]
             offset = -10 if shape_text == "FLAG" else 10
 
-            cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+            cv2.putText(self.frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-        return frame
+        return self.frame
 
     def run(self):
         while True:
