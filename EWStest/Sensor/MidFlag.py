@@ -3,7 +3,7 @@ import cv2
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4Ls)
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.flags = []  # List to store recognized flags
@@ -42,16 +42,16 @@ class ShapeRecognition:
         # Find and merge yellow contours
         yellow_contours, _ = cv2.findContours(yellow_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         merged_yellow_contours = self.merge_contours(yellow_contours)
-        # Initialize variables to identify the largest flag
-        max_flag_area = 0
-        largest_flag_contour = None
+        # Initialize variables to identify the highest flag
+        min_flag_y = float('inf')
+        highest_flag_contour = None
         # Check each yellow contour
         for contour in merged_yellow_contours:
-            area = cv2.contourArea(contour)
-            if area < max_flag_area:
-                max_flag_area = area
-                largest_flag_contour = contour
-        # Draw the largest flag and update arrow list
+            x, y, w, h = cv2.boundingRect(contour)
+            if y < min_flag_y:
+                min_flag_y = y
+                highest_flag_contour = contour
+        # Draw the highest flag and update arrow list
         for contour in merged_yellow_contours:
             rect = cv2.minAreaRect(contour)
             box = cv2.boxPoints(rect)
@@ -61,7 +61,7 @@ class ShapeRecognition:
                 cx = int(M['m10']/M['m00'])
                 cy = int(M['m01']/M['m00'])
                 x, y, w, h = cv2.boundingRect(contour)
-                if contour is largest_flag_contour:
+                if contour is highest_flag_contour:
                     self.flags.append((x, y, w, h))  # Update to flag
                     cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
                     cv2.putText(frame, 'FLAG', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
