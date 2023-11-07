@@ -1773,61 +1773,73 @@ GOSUB_RX_EXIT2:
 머리왼쪽30도:
     SPEED 머리이동속도
     SERVO 11,70
+    angle_x = 70
     GOTO RX_EXIT
 
 머리왼쪽45도:
     SPEED 머리이동속도
     SERVO 11,55
+    angle_x = 55
     GOTO RX_EXIT
 
 머리왼쪽55도:
 	SPEED 머리이동속도
 	SERVO 11, 45
+	angle_x = 45
 	GOTO RX_EXIT
 	
 머리왼쪽60도:
     SPEED 머리이동속도
     SERVO 11,40
+    angle_x = 40
     GOTO RX_EXIT
 
 머리왼쪽90도:
     SPEED 머리이동속도
     SERVO 11,10
+    angle_x = 10
     GOTO RX_EXIT
 
 머리오른쪽30도:
     SPEED 머리이동속도
     SERVO 11,130
+    angle_x = 130
     GOTO RX_EXIT
 
 머리오른쪽45도:
     SPEED 머리이동속도
     SERVO 11,145
+    angle_x = 145
     GOTO RX_EXIT	
 
 머리오른쪽55도:
     SPEED 머리이동속도
     SERVO 11,155
+    angle_x = 155
     GOTO RX_EXIT
 
 머리오른쪽60도:
     SPEED 머리이동속도
     SERVO 11,160
+    angle_x = 160
     GOTO RX_EXIT
 
 머리오른쪽90도:
     SPEED 머리이동속도
     SERVO 11,190
+    angle_x = 190
     GOTO RX_EXIT
 
 머리좌우중앙:
     SPEED 머리이동속도
     SERVO 11,100
+    angle_x = 100
     GOTO RX_EXIT
 
 머리상하정면:
     SPEED 머리이동속도
-    SERVO 11,100	
+    SERVO 11,100
+    angle_x = 100	
     SPEED 5
     GOSUB 기본자세
     GOTO RX_EXIT
@@ -1835,6 +1847,7 @@ GOSUB_RX_EXIT2:
 전방하향110도:
     SPEED 머리이동속도
     SERVO 16, 110
+    angle_y = 110
 
     GOTO RX_EXIT
     '******************************************
@@ -1842,6 +1855,9 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 105
     SERVO 11, 100
+    
+    angle_x = 100
+    angle_y = 105
 
     GOTO RX_EXIT
     '******************************************
@@ -1849,6 +1865,9 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 100
     SERVO 11, 100
+    
+    angle_x = 100
+    angle_y = 100
 
     GOTO RX_EXIT
     '******************************************
@@ -1856,6 +1875,9 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 97
     SERVO 11, 100
+    
+    angle_x = 100
+    angle_y = 97
 
     GOTO RX_EXIT
     '******************************************
@@ -1863,6 +1885,9 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 95
 	SERVO 11, 100
+	
+	angle_x = 100
+	angle_y = 95
     GOTO RX_EXIT
     '******************************************
 전방하향90도:
@@ -1870,12 +1895,17 @@ GOSUB_RX_EXIT2:
     SERVO 16, 92
     SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 92
     GOTO RX_EXIT
     '******************************************
 전방하향85도:
     SPEED 머리이동속도
     SERVO 16, 85
     SERVO 11, 100
+    
+    angle_x = 100
+    angle_y = 85
 
     GOTO RX_EXIT
     '******************************************
@@ -1883,6 +1913,9 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 80
     SERVO 11, 100
+    
+    angle_x = 100
+    angle_y = 80
 
     GOTO RX_EXIT
     '******************************************
@@ -1890,6 +1923,9 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 76
     SERVO 11, 100
+    
+    angle_x = 100
+    angle_y = 76
 
     GOTO RX_EXIT
     '******************************************
@@ -1897,6 +1933,9 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 73
     SERVO 11, 100
+    
+    angle_x = 100
+    angle_y = 73
 
     GOTO RX_EXIT
     '******************************************
@@ -1905,6 +1944,8 @@ GOSUB_RX_EXIT2:
     SERVO 16, 69
     SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 69
     GOTO RX_EXIT
     '******************************************
 전방하향60도:
@@ -1912,71 +1953,101 @@ GOSUB_RX_EXIT2:
     SERVO 16, 65
     SERVO 11, 100
     
-    MOVE G6B, , , , , 
-    ETX  4800,125
+    angle_x = 100
+	angle_y = 65
     GOTO RX_EXIT
     '******************************************
 전방하향55도:
     SPEED 머리이동속도
     SERVO 16, 59
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 59
     GOTO RX_EXIT
     '******************************************
 전방하향50도:
     SPEED 머리이동속도
     SERVO 16, 54
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 54
     GOTO RX_EXIT
     '******************************************
 
 전방하향45도:
     SPEED 머리이동속도
     SERVO 16, 50
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 50
     GOTO RX_EXIT
     '******************************************
 전방하향40도:
     SPEED 머리이동속도
     SERVO 16, 45
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 45
     GOTO RX_EXIT
     '******************************************
 전방하향35도:
     SPEED 머리이동속도
     SERVO 16, 40
+    SERVO 11, 100
     
+    angle_x = 100
+	angle_y = 40
     GOTO RX_EXIT
     '******************************************
 전방하향30도:
     SPEED 머리이동속도
     SERVO 16, 36
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 36
     GOTO RX_EXIT
     '******************************************
 전방하향25도:
     SPEED 머리이동속도
     SERVO 16, 30
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 30
     GOTO RX_EXIT
     '******************************************
 전방하향20도:
     SPEED 머리이동속도
     SERVO 16, 26
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 26
     GOTO RX_EXIT
     '******************************************
 전방하향18도:
 
     SPEED 머리이동속도
     SERVO 16, 22
+	SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 22
     GOTO RX_EXIT
     '******************************************
 전방하향10도:
 
     SPEED 머리이동속도
     SERVO 16, 10
+    SERVO 11, 100
 
+	angle_x = 100
+	angle_y = 10
     GOTO RX_EXIT
     '******************************************
 전방하향:
