@@ -391,11 +391,11 @@ class Controller:
         time.sleep(1)
         print("Debug in check_ball_distance")
 
-        correctAngle = 0
+        correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
 
         # 공을 못 찾았을 때 반환하는 값
         ball_x_angle = ["N", "N", "N"]
-        ball_y_angle = ["N", "N", "N"]
+        ball_y_angle = ["N"]
 
         while correctAngle != 1:
             ballxcenter = BallxCenterMeasurer()
@@ -403,6 +403,7 @@ class Controller:
             print(ball_x_angle[0])
 
             if ball_x_angle[0] == "C":
+                # x축 기준으로 센터라면, y축 기준으로 어디에 있는지 판별
                 ballycenter = BallyCenterMeasurer()
                 ball_y_angle = ballycenter.process()
 
@@ -413,6 +414,8 @@ class Controller:
                     break
 
                 elif ball_y_angle == "L":
+                    # 왼쪽으로 1도씩 움직이기
+                    self.robo._motion.set_head_small()
                     print("Y: 1도 모션 넣어줘야함.")
 
                 elif ball_y_angle == "R":
