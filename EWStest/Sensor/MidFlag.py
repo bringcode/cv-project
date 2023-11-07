@@ -7,7 +7,8 @@ class ShapeRecognition:
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
-        self.farthest_flag_box = None
+        self.flags = []  # List to store recognized flags
+        self.arrows = []  # List to store recognized arrows
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -32,20 +33,37 @@ class ShapeRecognition:
             yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
             yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             
-            # Find the farthest yellow contour if it is a flag
+            flag_detected = False  # Flag detection flag
+            
             for cnt in yellow_contours:
-                rect = cv2.minAreaRect(cnt)
-                box = cv2.boxPoints(rect)
-                box = np.int0(box)
-                cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                M = cv2.moments(cnt)
-                if M['m00'] != 0:
-                    cx = int(M['m10']/M['m00'])
-                    cy = int(M['m01']/M['m00'])
-                    cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    # Check for the farthest flag box
-                    if self.farthest_flag_box is None or cy > self.farthest_flag_box[1]:
-                        self.farthest_flag_box = (cx, cy, "FLAG")
+                approx = cv2.approxPolyDP(cnt, 0.03 * cv2.arcLength(cnt, True), True)
+                if len(approx) == 6:
+                    rect = cv2.minAreaRect(cnt)
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                    M = cv2.moments(cnt)
+                    if M['m00'] != 0:
+                        cx = int(M['m10']/M['m00'])
+                        cy = int(M['m01']/M['m00'])
+                        cv2.putText(frame, 'ARROW', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        self.arrows.append((cx, cy, "ARROW"))
+                else:
+                    rect = cv2.minAreaRect(cnt)
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                    M = cv2.moments(cnt)
+                    if M['m00'] != 0:
+                        cx = int(M['m10']/M['m00'])
+                        cy = int(M['m01']/M['m00'])
+                        cv2.putText(frame, 'FLAG', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        self.flags.append((cx, cy, "FLAG"))
+                        flag_detected = True
+            
+            # If a flag is detected, mark it and add it to the list
+            if flag_detected:
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
         return frame
 
