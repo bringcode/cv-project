@@ -3,7 +3,7 @@ import cv2
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(video_path)
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
@@ -13,7 +13,7 @@ class ShapeRecognition:
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        # 녹색 범위 정의
+        # Green range definition
         low_green = np.array([57, 78, 61])
         high_green = np.array([89, 255, 255])
         green_mask = cv2.inRange(hsv_frame, low_green, high_green)
@@ -21,7 +21,7 @@ class ShapeRecognition:
         contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
-        # 노랑색 범위 정의
+        # Yellow range definition
         low_yellow = np.array([0, 16, 144])
         high_yellow = np.array([43, 184, 255])
         yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
@@ -35,7 +35,33 @@ class ShapeRecognition:
             
             flag_detected = False  # Flag detection flag
             
-            for cnt in yellow_contours:
+            # Yellow contour combination
+            centers = []
+            indices_to_combine = []
+
+            for i, cnt in enumerate(yellow_contours):
+                M = cv2.moments(cnt)
+                if M['m00'] != 0:
+                    cx = int(M['m10'] / M['m00'])
+                    cy = int(M['m01'] / M['m00'])
+                    centers.append((cx, cy))
+                    indices_to_combine.append(i)
+
+            for i in range(len(centers)):
+                if i in indices_to_combine:
+                    for j in range(i + 1, len(centers)):
+                        if j in indices_to_combine:
+                            distance = np.sqrt((centers[i][0] - centers[j][0]) ** 2 + (centers[i][1] - centers[j][1]) ** 2)
+                            if distance < 10:
+                                yellow_contours[i] = np.concatenate((yellow_contours[i], yellow_contours[j]))
+                                indices_to_combine.remove(j)
+
+            yellow_mask_combined = np.zeros_like(yellow_mask)
+            for i in indices_to_combine:
+                cv2.drawContours(yellow_mask_combined, yellow_contours, i, 255, thickness=cv2.FILLED)
+
+            for i in indices_to_combine:
+                cnt = yellow_contours[i]
                 approx = cv2.approxPolyDP(cnt, 0.03 * cv2.arcLength(cnt, True), True)
                 if len(approx) == 6:
                     rect = cv2.minAreaRect(cnt)
@@ -44,9 +70,9 @@ class ShapeRecognition:
                     cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                     M = cv2.moments(cnt)
                     if M['m00'] != 0:
-                        cx = int(M['m10']/M['m00'])
-                        cy = int(M['m01']/M['m00'])
-                        cv2.putText(frame, 'ARROW', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        cx = int(M['m10'] / M['m00'])
+                        cy = int(M['m01'] / M['m00'])
+                        cv2.putText(frame, 'ARROW', (x + cx, y + cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         self.arrows.append((cx, cy, "ARROW"))
                 else:
                     rect = cv2.minAreaRect(cnt)
@@ -55,13 +81,12 @@ class ShapeRecognition:
                     cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                     M = cv2.moments(cnt)
                     if M['m00'] != 0:
-                        cx = int(M['m10']/M['m00'])
-                        cy = int(M['m01']/M['m00'])
-                        cv2.putText(frame, 'FLAG', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        cx = int(M['m10'] / M['m00'])
+                        cy = int(M['m01'] / M['m00'])
+                        cv2.putText(frame, 'FLAG', (x + cx, y + cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         self.flags.append((cx, cy, "FLAG"))
                         flag_detected = True
-            
-            # If a flag is detected, mark it and add it to the list
+
             if flag_detected:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
@@ -76,7 +101,6 @@ class ShapeRecognition:
 
             frame = self.process_frame(frame)
 
-            # Display the original frame
             cv2.imshow('Frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
