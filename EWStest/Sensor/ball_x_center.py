@@ -118,7 +118,7 @@ class BallxCenterMeasurer:
 
             max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
             ball_box = None
-            print('돌아가고있어')
+            print('ball_x_center.py: 돌아가고있어')
             
             for cnt in cont:
                 if (cv2.contourArea(cnt)>10 and cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
