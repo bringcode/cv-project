@@ -63,7 +63,7 @@ class BallyCenterMeasurer:
 
         # 박스가 영상의 왼쪽 오른쪽 끝 부분과 떨어진 거리가 오차 허용 범위(error_range) 이내일 때, True를 is_Middle에 저장
         is_Middle = abs(up_dist - down_dist) < error_range
-        print("pass")
+        print("ball_y_center.py: pass")
 
         if is_Middle == True:
             return "C"
