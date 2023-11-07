@@ -84,7 +84,7 @@ class ShapeRecognition:
             flag_boxes = [box for box in shape_info_list if box[1] == "FLAG"]
             if len(flag_boxes) >= 2:
                 # 카메라 화면의 중하단 중앙 좌표
-                camera_center = (frame.shape[1] // 2, frame.shape[0)
+                camera_center = (frame.shape[1] // 2, frame.shape[0])
 
                 # Find the farthest FLAG box among FLAG boxes
                 max_distance = 0
