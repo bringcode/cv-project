@@ -219,8 +219,9 @@ class Motion:
         dir: {LEFT, RIGHT} - 치는 방향
         """
 
-        dir_list = {"RIGHT": 170, "LEFT": 171}
+        dir_list = {"LEFT": 170, "RIGHT": 171}
         self.TX_data_py3(dir_list[dir])
+        time.sleep(0.3)
 
     # 1도씩 set_head하기 (174~191)
     def set_head_small(self, dir, angle=0):
