@@ -39,8 +39,11 @@ class ShapeRecognition:
             x, y, w, h = green_box
             yellow_roi = yellow_mask[y:y + h, x:x + w]
 
-            # 초록 상자 내부의 노랑색 영역 처리
-            _, labels, stats, centroids = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
+            try:
+                _, labels, stats, centroids = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
+            except cv2.error as e:
+                print(f"OpenCV Error: {e}")
+                continue  # 처리를 계속하기 위해 현재 프레임을 건너뛰기
 
             for i in range(1, len(stats)):
                 x_blob, y_blob, w_blob, h_blob, area_blob = stats[i]
