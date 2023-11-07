@@ -14,7 +14,7 @@ class ShapeDetector:
             self.shape = shape
 
     def detect_shapes(self):
-        cap = cv2.VideoCapture(self.video_path)
+        cap = cv2.VideoCapture(self.video_path, cv2.CAP_V4L)
 
         while True:
             ret, frame = cap.read()
@@ -120,7 +120,7 @@ class ShapeDetector:
 
 if __name__ == "__main__":
     video_path = 0  # 비디오 파일 경로를 설정하세요
-    area_threshold = 300  # 사용자 정의 임계값
+    area_threshold = 1  # 사용자 정의 임계값
 
     shape_detector = ShapeDetector(video_path, area_threshold)
     shape_detector.detect_shapes()
