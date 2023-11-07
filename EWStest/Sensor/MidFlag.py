@@ -13,7 +13,7 @@ class MidFlag:
         self.farthest_flag_center = None
 
     def process(self):
-        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L)  # 카메라로 설정
 
         while True:
             ret, frame = cap.read()
