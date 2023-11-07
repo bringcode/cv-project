@@ -45,6 +45,11 @@ class Controller:
     C_center: int = 0
     C_left: int = 0
 
+    x_R_cnt: int = 0
+    x_L_cnt: int = 0
+    y_U_cnt: int = 0
+    y_D_cnt: int = 0
+
     canPutting: float = 0.0
 
     # Misson.py
@@ -393,6 +398,10 @@ class Controller:
 
         correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
 
+        x_R_cnt = self.x_R_cnt
+        x_L_cnt = self.x_L_cnt
+        y_U_cnt = self.y_U_cnt
+        y_D_cnt = self.y_D_cnt
         # 공을 못 찾았을 때 반환하는 값
         ball_x_angle = ["N", "N", "N"]
         ball_y_angle = ["N"]
@@ -400,13 +409,14 @@ class Controller:
         while correctAngle != 1:
             ballxcenter = BallxCenterMeasurer()
             ball_x_angle = ballxcenter.process()
+            time.sleep(1)
             print(ball_x_angle[0])
 
             if ball_x_angle[0] == "C":
                 # x축 기준으로 센터라면, y축 기준으로 어디에 있는지 판별
                 ballycenter = BallyCenterMeasurer()
                 ball_y_angle = ballycenter.process()
-
+                time.sleep(1)
                 if ball_y_angle == "C":
                     print(ball_x_angle)
                     print(ball_y_angle)
@@ -416,14 +426,18 @@ class Controller:
                 elif ball_y_angle == "D":
                     # 아래로 1도씩 움직이기
                     while ball_y_angle != "C":
+                        self.y_D_cnt += 1
                         self.robo._motion.set_head_small("DOWN", 1)
+                        time.sleep(1)
                     correctAngle = 1
                     break
 
                 elif ball_y_angle == "U":
                     # 위로 1도씩 움직이기
                     while ball_y_angle != "C":
+                        self.y_U_cnt += 1
                         self.robo._motion.set_head_small("UP", 1)
+                        time.sleep(1)
                     correctAngle = 1
                     break
 
@@ -433,7 +447,9 @@ class Controller:
             elif ball_x_angle[0] == "L":
                 # 왼쪽으로 1도씩 움직이기
                 while ball_x_angle != "C":
+                    self.x_L_cnt += 1
                     self.robo._motion.set_head_small("LEFT", 1)
+                    time.sleep(1)
 
                 # x축 기준으로 센터가 되면, y축 센터도 맞추기
                 if ball_y_angle == "C":
@@ -442,20 +458,26 @@ class Controller:
 
                 elif ball_y_angle == "D":
                     while ball_y_angle != "C":
+                        self.y_D_cnt += 1
                         self.robo._motion.set_head_small("DOWN", 1)
+                        time.sleep(1)
                     correctAngle = 1
                     break
 
                 elif ball_y_angle == "U":
                     while ball_y_angle != "C":
+                        self.y_U_cnt += 1
                         self.robo._motion.set_head_small("UP", 1)
+                        time.sleep(1)
                     correctAngle = 1
                     break
 
             elif ball_x_angle[0] == "R":
                 # 오른쪽으로 1도씩 움직이기
                 while ball_x_angle != "C":
+                    self.x_R_cnt += 1
                     self.robo._motion.set_head_small("RIGHT", 1)
+                    time.sleep(1)
 
                 # x축 기준으로 센터가 되면, y축 센터도 맞추기
                 if ball_y_angle == "C":
@@ -464,13 +486,17 @@ class Controller:
 
                 elif ball_y_angle == "D":
                     while ball_y_angle != "C":
+                        self.y_D_cnt += 1
                         self.robo._motion.set_head_small("DOWN", 1)
+                        time.sleep(1)
                     correctAngle = 1
                     break
 
                 elif ball_y_angle == "U":
                     while ball_y_angle != "C":
+                        self.y_U_cnt += 1
                         self.robo._motion.set_head_small("UP", 1)
+                        time.sleep(1)
                     correctAngle = 1
                     break
 
