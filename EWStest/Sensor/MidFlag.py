@@ -14,7 +14,7 @@ class ShapeDetector:
             self.shape = shape
 
     def detect_shapes(self):
-        cap = cv2.VideoCapture(self.video_path)
+        cap = cv2.VideoCapture(self.video_path, cv2.CAP_V4L)
 
         while True:
             ret, frame = cap.read()
