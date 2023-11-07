@@ -685,42 +685,43 @@ class Controller:
                 time.sleep(1)
 
             self.act = act.SEARCH_BALL
-
+            time.sleep(1)
         elif act == act.SEARCH_BALL:
             print("Act:", act)  # Debug
             time.sleep(0.5)
 
             #self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
-
+            time.sleep(1)
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
 
             self.act = act.SEARCH_ARROW
-
+            time.sleep(1)
         elif act == act.SEARCH_ARROW:
             print("Act:", act)  # Debug
 
             self.act = act.SEARCH_PUTTING_LOCATION
-
+            time.sleep(1)
         elif act == act.SEARCH_PUTTING_LOCATION:
             print("Act:", act)  # Debug
 
             self.act = act.PUTTING
-
+            time.sleep(1)
         elif act == act.PUTTING:
             print("Act:", act)  # Debug
 
             self.act = act.CHECK
-
+            time.sleep(1)
         elif act == act.CHECK:
             print("Act:", act)  # Debug
 
             self.act = act.EXIT
-
+            time.sleep(1)
         elif act == act.EXIT:
             print("Act:", act)  # Debug
             self.robo._motion.turn("LEFT",60)
+            time.sleep(1)
         else:
             print("이쪽으로 빠지면 문제가 있는거임.")
 
