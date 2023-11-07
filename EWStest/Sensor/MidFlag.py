@@ -27,14 +27,16 @@ class ShapeRecognition:
         high_yellow = np.array([43, 184, 255])
         yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
+        # Reset flag detection
+        flag_detected = False
+        self.farthest_flag_box = None
+
         # For each green box, detect yellow shapes within it
         for green_box in self.green_boxes:
             x, y, w, h = green_box
             green_roi = frame[y:y+h, x:x+w]
             yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
             yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-            flag_detected = False  # Flag detection flag
 
             for cnt in yellow_contours:
                 approx = cv2.approxPolyDP(cnt, 0.03 * cv2.arcLength(cnt, True), True)
@@ -50,35 +52,18 @@ class ShapeRecognition:
                         cv2.putText(frame, 'ARROW', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                         self.arrows.append((cx, cy, "ARROW"))
                 else:
-                    rect = cv2.minAreaRect(cnt)
-                    box = cv2.boxPoints(rect)
-                    box = np.int0(box)
-                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
-                    M = cv2.moments(cnt)
-                    if M['m00'] != 0:
-                        cx = int(M['m10']/M['m00'])
-                        cy = int(M['m01']/M['m00'])
-                        cv2.putText(frame, 'FLAG', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                        self.flags.append((cx, cy, "FLAG"))
-                        flag_detected = True
-
-            # If a flag is detected, mark it and add it to the list
-            if flag_detected:
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-
-                # Calculate the distance of the center of the flag box from the bottom center of the camera frame
-                camera_center = (frame.shape[1] // 2, frame.shape[0])
-                flag_center = (x + cx, y + cy)
-                distance = abs(flag_center[1] - camera_center[1])
-
-                # If this flag is farther than the previously detected farthest flag, update it
-                if self.farthest_flag_box is None or distance > self.farthest_flag_box[3]:
-                    self.farthest_flag_box = (cx, cy, "FLAG", distance)
-
-        # After processing all green boxes, update the rest of the FLAG boxes to ARROW
-        for i, box in enumerate(self.flags):
-            if box[1] == "FLAG" and box != self.farthest_flag_box:
-                self.flags[i] = (box[0], box[1], "ARROW")
+                    if not flag_detected:
+                        rect = cv2.minAreaRect(cnt)
+                        box = cv2.boxPoints(rect)
+                        box = np.int0(box)
+                        cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                        M = cv2.moments(cnt)
+                        if M['m00'] != 0:
+                            cx = int(M['m10']/M['m00'])
+                            cy = int(M['m01']/M['m00'])
+                            cv2.putText(frame, 'FLAG', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            self.flags.append((cx, cy, "FLAG"))
+                            flag_detected = True
 
         return frame
 
