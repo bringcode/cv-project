@@ -6,23 +6,32 @@ from threading import Thread, Lock
 class AngleSave:
 
     def __init__(self):
-        self.sx_angle = 0
+        self.slx_angle = 0
+        self.srx_angle = 0
         self.sy_angle = 0
 
-    def set_x_angle(self, new_x_angle):
-        self.sx_angle = new_x_angle  # 각도를 설정
+    def set_rx_angle(self, new_rx_angle):
+        self.srx_angle = new_rx_angle  # 각도를 설정
+
+    def set_lx_angle(self, new_lx_angle):
+        self.slx_angle = new_lx_angle  # 각도를 설정
 
     def set_y_angle(self, new_y_angle):
         self.sy_angle = new_y_angle
 
-    def get_x_angle(self):
-        return self.sx_angle  # 현재 각도를 반환
+    def get_rx_angle(self):
+        return self.srx_angle  # 현재 각도를 반환
     
+    def get_lx_angle(self):
+        return self.slx_angle  # 현재 각도를 반환
+
     def get_y_angle(self):
         return self.sy_angle
+    
 class Motion:
     # 초기화 함수
     def __init__(self, sleep_time=0):  # 명령 간 간격으로 사용할 시간(초) 설정
+        self.save_angle = AngleSave()
         self.serial_use = 1  # 시리얼 통신 사용 여부 (1:사용, 0:미사용)
         self.serial_port = None  # 시리얼 포트 객체
         self.Read_RX = 0  # 읽기 버퍼 (효율적으로 처리하기 위한 중간 저장 공간)
@@ -138,7 +147,7 @@ class Motion:
         dir: {DOWN, LEFT, RIGHT, UPDOWN_CENTER, LEFTRIGHT_CENTER} - 머리 방향
         angle: 머리 각도
         """
-
+        
         """ parameter :
         dir : {DOWN, LEFT, RIGHT, UPDOWN_CENTER, LEFTRIGHT_CENTER}
         angle: {DOWN:{20,30,40,45,60,70,80,90,100,110},
@@ -175,6 +184,18 @@ class Motion:
             self.TX_data_py3(center_list[dir])
         else:
             self.TX_data_py3(dir_list[dir][angle])
+            if dir_list[dir] == "DOWN":
+                self.head_angle1 = angle
+                self.save_angle.set_y_angle(angle)
+
+            elif dir_list[dir] == "LEFT":
+                self.head_angle2 = angle
+                self.save_angle.set_lx_angle(angle)
+
+            elif dir_list[dir] == "RIGHT":
+                self.head_angle2 = angle
+                self.save_angle.set_rx_angle(angle)
+            
         time.sleep(0.3)
 
     # 돌기 (141~160)
