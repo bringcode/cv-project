@@ -606,6 +606,8 @@ class Controller:
         canPutting = self.canPutting
 
         self.act = act.START
+        self.check_ball_distance() # test
+        time.sleep(10) # test
 
         if act == act.START:
             print("ACT: ", act)  # Debug
