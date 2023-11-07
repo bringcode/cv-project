@@ -2,14 +2,13 @@ import numpy as np
 import cv2
 
 class ShapeRecognition:
-    def __init__(self, video_path):
+    def __init(self, video_path):
         self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
         self.flags = []  # List to store recognized flags
         self.arrows = []  # List to store recognized arrows
-        self.farthest_flag_box = None
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -37,10 +36,12 @@ class ShapeRecognition:
             green_roi = frame[y:y+h, x:x+w]
             yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
             yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+            
             for cnt in yellow_contours:
                 approx = cv2.approxPolyDP(cnt, 0.03 * cv2.arcLength(cnt, True), True)
-                if len(approx) == 6:
+                num_vertices = len(approx)
+                
+                if num_vertices > 4:
                     rect = cv2.minAreaRect(cnt)
                     box = cv2.boxPoints(rect)
                     box = np.int0(box)
@@ -49,8 +50,8 @@ class ShapeRecognition:
                     if M['m00'] != 0:
                         cx = int(M['m10']/M['m00'])
                         cy = int(M['m01']/M['m00'])
-                        cv2.putText(frame, 'ARROW', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                        self.arrows.append((cx, cy, "ARROW"))
+                        cv2.putText(frame, f'SHAPE ({num_vertices})', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        self.arrows.append((cx, cy, f'SHAPE ({num_vertices})'))
                 else:
                     if not flag_detected:
                         rect = cv2.minAreaRect(cnt)
@@ -62,7 +63,7 @@ class ShapeRecognition:
                             cx = int(M['m10']/M['m00'])
                             cy = int(M['m01']/M['m00'])
                             cv2.putText(frame, 'FLAG', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            self.flags.append((cx, cy, "FLAG"))
+                            self.flags.append((cx, cy, 'FLAG'))
                             flag_detected = True
 
         return frame
