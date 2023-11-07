@@ -6,14 +6,20 @@ from threading import Thread, Lock
 class AngleSave:
 
     def __init__(self):
-        self.angle = 0
+        self.sx_angle = 0
+        self.sy_angle = 0
 
-    def set_angle(self, new_angle):
-        self.angle = new_angle  # 각도를 설정
+    def set_x_angle(self, new_x_angle):
+        self.sx_angle = new_x_angle  # 각도를 설정
 
-    def get_angle(self):
-        return self.angle  # 현재 각도를 반환
+    def set_y_angle(self, new_y_angle):
+        self.sy_angle = new_y_angle
+
+    def get_x_angle(self):
+        return self.sx_angle  # 현재 각도를 반환
     
+    def get_y_angle(self):
+        return self.sy_angle
 class Motion:
     # 초기화 함수
     def __init__(self, sleep_time=0):  # 명령 간 간격으로 사용할 시간(초) 설정
