@@ -3,7 +3,17 @@ import serial
 import time
 from threading import Thread, Lock
 
+class AngleSave:
 
+    def __init__(self):
+        self.angle = 0
+
+    def set_angle(self, new_angle):
+        self.angle = new_angle  # 각도를 설정
+
+    def get_angle(self):
+        return self.angle  # 현재 각도를 반환
+    
 class Motion:
     # 초기화 함수
     def __init__(self, sleep_time=0):  # 명령 간 간격으로 사용할 시간(초) 설정
