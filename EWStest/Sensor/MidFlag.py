@@ -50,11 +50,11 @@ class ShapeRecognition:
                     if M['m00'] != 0:
                         cx = int(M['m10']/M['m00'])
                         cy = int(M['m01']/M['m00'])
-                        cv2.putText(frame, f'SHAPE ({num_vertices})', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                        self.arrows.append((cx, cy, f'SHAPE ({num_vertices})'))
+                        cv2.putText(frame, 'SHAPE', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                        self.arrows.append((cx, cy, 'SHAPE'))
                         if area > largest_shape_area:
                             largest_shape_area = area
-                            largest_shape = (cx, cy, f'SHAPE ({num_vertices})')
+                            largest_shape = (cx, cy, 'SHAPE')
                 else:
                     if not flag_detected:
                         rect = cv2.minAreaRect(cnt)
