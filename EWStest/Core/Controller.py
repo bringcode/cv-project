@@ -406,7 +406,7 @@ class Controller:
             ballxcenter = BallxCenterMeasurer()
             ball_x_angle = ballxcenter.process()
             time.sleep(1)
-            print("ball_x_angle: ",end='')
+            print("ball_x_angle: ", end="")
             print(ball_x_angle[0])
 
             if ball_x_angle[0] == "C":
@@ -415,8 +415,8 @@ class Controller:
                 ball_y_angle = ballycenter.process()
                 time.sleep(1)
                 if ball_y_angle == "C":
-                    print("ball_x_angle: ",ball_x_angle[0])
-                    print("ball_y_angle: ",ball_y_angle[0])
+                    print("ball_x_angle: ", ball_x_angle[0])
+                    print("ball_y_angle: ", ball_y_angle[0])
                     print("중앙에 왔습니다.")
                     correctAngle = 1
                     break
@@ -427,8 +427,8 @@ class Controller:
                         ballycenter = BallyCenterMeasurer()
                         ball_y_angle = ballycenter.process()
                         time.sleep(1)
-                        print("ball_y: ",ball_y_angle[0])
-                        
+                        print("ball_y: ", ball_y_angle[0])
+
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", 1)
                             time.sleep(1)
@@ -450,7 +450,7 @@ class Controller:
                     ballxcenter = BallxCenterMeasurer()
                     ball_x_angle = ballxcenter.process()
                     time.sleep(1)
-                    print("ball_x: ",ball_x_angle[0])
+                    print("ball_x: ", ball_x_angle[0])
 
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", 1)
@@ -462,10 +462,10 @@ class Controller:
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
 
-    #**********************************************************************************
-    #**********************************************************************************
-    #**********************************************************************************
-    
+    # **********************************************************************************
+    # **********************************************************************************
+    # **********************************************************************************
+
     # 깃발 1도씩 조정하면서 각도 확인
     # @classmethod
     # def check_flag_distance(self):
@@ -475,12 +475,10 @@ class Controller:
     #     correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
 
     #     # 깃발을 못 찾았을 때 반환하는 값
-        
 
     #     while correctAngle != 1:
-            
+
     #         time.sleep(1)
-            
 
     #         if ball_x_angle[0] == "C":
     #             # x축 기준으로 센터라면, y축 기준으로 어디에 있는지 판별
@@ -577,10 +575,13 @@ class Controller:
         canPutting = self.canPutting
 
         self.act = act.START
-        self.robo._motion.set_head("DOWN",30) # test
-        time.sleep(1) # test
-        self.check_ball_distance() # test
-        time.sleep(10) # test
+        self.robo._motion.set_head("DOWN", 30)  # test
+        time.sleep(1)  # test
+        self.check_ball_distance()  # test
+        time.sleep(10)  # test
+        angle = abs(90 - self.robo._motion.y_head_angle)  # test
+        dist_ball = DistMeasurer(angle)  # test
+        print(dist_ball)  # test
 
         if act == act.START:
             print("ACT: ", act)  # Debug
@@ -639,7 +640,6 @@ class Controller:
 
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
-
 
                 elif dist < (self.canPutting + 1):
                     self.robo._motion.walk("BACKWARD", 1)
@@ -777,10 +777,13 @@ class Controller:
             self.act = act.SEARCH_BALL
             time.sleep(1)
         elif act == act.SEARCH_BALL:
+            angle = abs(90 - self.robo._motion.y_head_angle)
+            dist_ball = DistMeasurer(angle)
+            print(dist_ball)
             print("Act:", act)  # Debug
             time.sleep(0.5)
 
-            #self.ball_feature_ball()
+            # self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
             time.sleep(1)
         elif act == act.SEARCH_FLAG:
@@ -810,7 +813,7 @@ class Controller:
             time.sleep(1)
         elif act == act.EXIT:
             print("Act:", act)  # Debug
-            self.robo._motion.turn("LEFT",60)
+            self.robo._motion.turn("LEFT", 60)
             time.sleep(1)
         else:
             print("이쪽으로 빠지면 문제가 있는거임.")
