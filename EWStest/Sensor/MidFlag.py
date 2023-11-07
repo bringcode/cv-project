@@ -3,7 +3,7 @@ import cv2
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path,cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(video_path)
         self.farthest_flag_box = None
 
     def process_frame(self, frame):
@@ -20,7 +20,13 @@ class ShapeRecognition:
 
         for green_contour in green_contours:
             x, y, w, h = cv2.boundingRect(green_contour)
-            yellow_roi = yellow_mask[y:y + h, x:x + w]
+            # Make sure that the yellow_roi does not go out of bounds
+            y_start = max(0, y)
+            y_end = min(y + h, yellow_mask.shape[0])
+            x_start = max(0, x)
+            x_end = min(x + w, yellow_mask.shape[1])
+            
+            yellow_roi = yellow_mask[y_start:y_end, x_start:x_end]
 
             _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
 
