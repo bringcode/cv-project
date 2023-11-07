@@ -37,15 +37,15 @@ class ShapeRecognition:
                 rect = cv2.minAreaRect(cnt)
                 box = cv2.boxPoints(rect)
                 box = np.int0(box)
-                cv2.drawContours(green_roi, [box], 0, (0,255,0), 2)
+                cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                 M = cv2.moments(cnt)
-                cx = int(M['m10']/M['m00'])
-                cy = int(M['m01']/M['m00'])
-                shape_info = (cx, cy, "FLAG")
-                cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
-                # Check for the farthest flag box
-                if self.farthest_flag_box is None or cy > self.farthest_flag_box[1]:
-                    self.farthest_flag_box = (cx, cy, "FLAG")
+                if M['m00'] != 0:
+                    cx = int(M['m10']/M['m00'])
+                    cy = int(M['m01']/M['m00'])
+                    cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                    # Check for the farthest flag box
+                    if self.farthest_flag_box is None or cy > self.farthest_flag_box[1]:
+                        self.farthest_flag_box = (cx, cy, "FLAG")
 
         return frame
 
@@ -53,6 +53,7 @@ class ShapeRecognition:
         while True:
             ret, frame = self.cap.read()
             if not ret:
+                print("Failed to grab a frame")
                 break
 
             frame = self.process_frame(frame)
@@ -68,6 +69,6 @@ class ShapeRecognition:
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    video_path = 0 # Use 0 for webcam
+    video_path = 0  # Use 0 for webcam
     shape_recognition = ShapeRecognition(video_path)
     shape_recognition.run()
