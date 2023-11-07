@@ -154,5 +154,5 @@ class BallCenterMeasurer:
 
 
 if __name__ == "__main__":
-    distance_measurer = BallCenterMeasurer()
+    distance_measurer = BallCenterMeasurer(img_width = 640,img_height=480)
     print(distance_measurer.process())
