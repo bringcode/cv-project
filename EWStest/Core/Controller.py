@@ -417,106 +417,46 @@ class Controller:
                 if ball_y_angle == "C":
                     print("ball_x_angle: ",ball_x_angle[0])
                     print("ball_y_angle: ",ball_y_angle[0])
+                    print("중앙에 왔습니다.")
                     correctAngle = 1
                     break
 
-                elif ball_y_angle == "D":
+                elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
                     # 아래로 1도씩 움직이기
-                    while ball_y_angle != "C":
+                    while ball_y_angle[0] != "C":
                         ballycenter = BallyCenterMeasurer()
                         ball_y_angle = ballycenter.process()
+                        time.sleep(1)
                         print("ball_y: ",ball_y_angle[0])
-                        time.sleep(1)
-                        self.robo._motion.set_head_small("DOWN", 1)
-                        time.sleep(1)
-                    correctAngle = 1
-                    break
+                        
+                        if ball_y_angle == "U":
+                            self.robo._motion.set_head_small("UP", 1)
+                            time.sleep(1)
 
-                elif ball_y_angle == "U":
-                    # 위로 1도씩 움직이기
-                    while ball_y_angle != "C":
-                        ballycenter = BallyCenterMeasurer()
-                        ball_y_angle = ballycenter.process()
-                        print("ball_y: ",ball_y_angle[0])
-                        time.sleep(1)
-                        self.robo._motion.set_head_small("UP", 1)
-                        time.sleep(1)
+                        if ball_y_angle == "D":
+                            self.robo._motion.set_head_small("UP", 1)
+                            time.sleep(1)
+
                     correctAngle = 1
                     break
 
                 else:
                     print("check_ball_distance 함수에서 원하는 Y angle이 안 들어옴.")
 
-            elif ball_x_angle[0] == "L":
+            elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 # 왼쪽으로 1도씩 움직이기
                 while ball_x_angle != "C":
                     ballxcenter = BallxCenterMeasurer()
                     ball_x_angle = ballxcenter.process()
+                    time.sleep(1)
                     print("ball_x: ",ball_x_angle[0])
-                    time.sleep(1)
-                    self.robo._motion.set_head_small("LEFT", 1)
-                    time.sleep(1)
 
-                # x축 기준으로 센터가 되면, y축 센터도 맞추기
-                if ball_y_angle == "C":
-                    correctAngle = 1
-                    break
-
-                elif ball_y_angle == "D":
-                    while ball_y_angle != "C":
-                        ballycenter = BallyCenterMeasurer()
-                        ball_y_angle = ballycenter.process()
-                        print("ball_y: ",ball_y_angle[0])
-                        self.robo._motion.set_head_small("DOWN", 1)
+                    if ball_x_angle[0] == "L":
+                        self.robo._motion.set_head_small("LEFT", 1)
                         time.sleep(1)
-                    correctAngle = 1
-                    break
-
-                elif ball_y_angle == "U":
-                    while ball_y_angle != "C":
-                        ballycenter = BallyCenterMeasurer()
-                        ball_y_angle = ballycenter.process()
-                        print("ball_y: ",ball_y_angle[0])
-                        self.robo._motion.set_head_small("UP", 1)
+                    if ball_x_angle[0] == "R":
+                        self.robo._motion.set_head_small("RIGHT", 1)
                         time.sleep(1)
-                    correctAngle = 1
-                    break
-
-            elif ball_x_angle[0] == "R":
-                # 오른쪽으로 1도씩 움직이기
-                while ball_x_angle != "C":
-                    ballxcenter = BallxCenterMeasurer()
-                    ball_x_angle = ballxcenter.process()
-                    print("ball_x: ",ball_x_angle[0])
-                    time.sleep(1)
-                    self.robo._motion.set_head_small("RIGHT", 1)
-                    time.sleep(1)
-
-                # x축 기준으로 센터가 되면, y축 센터도 맞추기
-                if ball_y_angle == "C":
-                    correctAngle = 1
-                    break
-
-                elif ball_y_angle == "D":
-                    while ball_y_angle != "C":
-                        ballycenter = BallyCenterMeasurer()
-                        ball_y_angle = ballycenter.process()
-                        print("ball_y: ",end='')
-                        print(ball_y_angle[0])
-                        self.robo._motion.set_head_small("DOWN", 1)
-                        time.sleep(1)
-                    correctAngle = 1
-                    break
-
-                elif ball_y_angle == "U":
-                    while ball_y_angle != "C":
-                        allycenter = BallyCenterMeasurer()
-                        ball_y_angle = ballycenter.process()
-                        print("ball_y: ",ball_y_angle[0])
-                        self.robo._motion.set_head_small("UP", 1)
-                        time.sleep(1)
-                    correctAngle = 1
-                    break
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
