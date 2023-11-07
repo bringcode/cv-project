@@ -48,7 +48,7 @@ class ShapeRecognition:
         # Check each yellow contour
         for contour in merged_yellow_contours:
             area = cv2.contourArea(contour)
-            if area > max_flag_area:
+            if area < max_flag_area:
                 max_flag_area = area
                 largest_flag_contour = contour
         # Draw the largest flag and update arrow list
