@@ -59,7 +59,7 @@ class ShapeRecognition:
                     if M['m00'] != 0:
                         cx = int(M['m10']/M['m00'])
                         cy = int(M['m01']/M['m00'])
-                        if cy > max_flag_y:
+                        if cy < max_flag_y:
                             max_flag_y = cy  # 가장 높은 FLAG의 y 좌표 업데이트
                             flag_detected = True
                             self.flags.append((cx, cy, "FLAG"))
