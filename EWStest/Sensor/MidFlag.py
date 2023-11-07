@@ -3,7 +3,7 @@ import cv2
 
 class ShapeRecognition:
     def __init__(self, video_path):
-        self.cap = cv2.VideoCapture(video_path)
+        self.cap = cv2.VideoCapture(video_path,cv2.CAP_V4L)
         self.farthest_flag_box = None
 
     def process_frame(self, frame):
