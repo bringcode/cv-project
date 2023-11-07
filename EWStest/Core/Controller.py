@@ -406,6 +406,7 @@ class Controller:
             ballxcenter = BallxCenterMeasurer()
             ball_x_angle = ballxcenter.process()
             time.sleep(1)
+            print("ball_x_angle: ",end='')
             print(ball_x_angle[0])
 
             if ball_x_angle[0] == "C":
@@ -414,7 +415,9 @@ class Controller:
                 ball_y_angle = ballycenter.process()
                 time.sleep(1)
                 if ball_y_angle == "C":
+                    print("ball_x_angle: ",end='')
                     print(ball_x_angle[0])
+                    print("ball_y_angle: ",end='')
                     print(ball_y_angle[0])
                     correctAngle = 1
                     break
