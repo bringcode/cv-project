@@ -720,7 +720,7 @@ class Controller:
 
         elif act == act.EXIT:
             print("Act:", act)  # Debug
-
+            self.robo._motion.turn("LEFT",60)
         else:
             print("이쪽으로 빠지면 문제가 있는거임.")
 
