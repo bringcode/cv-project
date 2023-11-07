@@ -2,7 +2,8 @@
 import serial
 import time
 from threading import Thread, Lock
-    
+
+
 class Motion:
     # 초기화 함수
     def __init__(self, sleep_time=0):  # 명령 간 간격으로 사용할 시간(초) 설정
@@ -84,6 +85,12 @@ class Motion:
                 break
 
     ############################################################
+    # 현재 로봇 머리 각도
+    def current_head_angle(self):
+        self.x_head_angle = 0
+        self.y_head_angle = 0
+
+    ############################################################
     # 기본자세 (100) -> 로봇을 기본 자세로 설정
     def basic(self):
         self.TX_data_py3(100)
@@ -129,13 +136,16 @@ class Motion:
         RIGHT:{30,45,60,90}
         """
         if dir == "DOWN":
-            self.head_angle1 = angle
+            self.y_head_angle = angle
+            print("down_angle: ", angle)
+            print("y_head_angle: ", self.y_head_angle)
+            print("===========================")
         elif dir == "LEFT" or dir == "RIGHT":
-            self.head_angle2 = angle
-        elif dir == "UPDOWN_CENTER":
-            self.head_angle1 = dir
-        elif dir == "LEFTRIGHT_CENTER":
-            self.head_angle2 = dir
+            self.x_head_angle = angle
+            print("left_right_angle: ", angle)
+            print("x_head_angle: ", self.x_head_angle)
+            print("===========================")
+
         center_list = {"UPDOWN_CENTER": 140, "LEFTRIGHT_CENTER": 135}
         dir_list = {
             "DOWN": {
@@ -158,7 +168,7 @@ class Motion:
             self.TX_data_py3(center_list[dir])
         else:
             self.TX_data_py3(dir_list[dir][angle])
-            
+
         time.sleep(0.3)
 
     # 돌기 (141~160)
@@ -225,7 +235,7 @@ class Motion:
             Motion.TX_data_py3(170)
         elif dir == "RIGHT":
             print("오른쪽에서 치겠습니다.")
-            
+
             Motion.TX_data_py3(171)
 
     # 1도씩 set_head하기 (174~191)
@@ -244,10 +254,26 @@ class Motion:
         RIGHT:{1,2,3,4,5}
         }
         """
-        if dir == "UP" or dir == "DOWN":
-            self.ball_angle1 = angle
-        elif dir == "LEFT" or dir == "RIGHT":
-            self.ball_angle2 = angle
+        if dir == "UP":
+            self.y_head_angle += angle
+            print("1_up_angle: ", angle)
+            print("x_head_angle: ", self.y_head_angle)
+            print("===========================")
+        elif dir == "DOWN":
+            self.y_head_angle -= angle
+            print("1_down_angle: ", angle)
+            print("x_head_angle: ", self.y_head_angle)
+            print("===========================")
+        elif dir == "LEFT":
+            self.x_head_angle -= angle
+            print("1_left_angle: ", angle)
+            print("x_head_angle: ", self.x_head_angle)
+            print("===========================")
+        elif dir == "RIGHT":
+            self.x_head_angle += angle
+            print("1_right_angle: ", angle)
+            print("x_head_angle: ", self.x_head_angle)
+            print("===========================")
 
         dir_list = {
             "UP": {1: 175},
