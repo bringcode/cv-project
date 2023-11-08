@@ -523,6 +523,7 @@ class Controller:
 
             elif flag_x_angle[0] == "L" or flag_x_angle[0] == "R":
                 print("flag_x_angle: R or L이 들어왔습니다.")
+                print(flag_x_angle[0])
 
                 while flag_x_angle[0] != "C":
                     print("while문이 실행되었습니다.")
