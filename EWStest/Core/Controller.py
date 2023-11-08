@@ -528,10 +528,10 @@ class Controller:
                     time.sleep(0.2)
                     print("ball_x: ", flag_x_angle)
 
-                    if flag_x_angle[0] == "L":
+                    if flag_x_angle == "L":
                         self.robo._motion.set_head_small("LEFT", 1)
                         time.sleep(0.5)
-                    if flag_x_angle[0] == "R":
+                    if flag_x_angle == "R":
                         self.robo._motion.set_head_small("RIGHT", 1)
                         time.sleep(0.5)
             else:
