@@ -31,6 +31,7 @@ class FlagxCenterMeasurer:
                 return 'R'
             
     def run(self):
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L) # 인자로 있었는데 몰루? -> cv2.CAP_V4L 요건 로봇에서만 넣어야 함
         while True:
             ret, frame = cap.read()
             if not ret:
