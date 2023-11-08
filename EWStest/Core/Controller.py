@@ -11,7 +11,8 @@ from Sensor.ball_x_center import BallxCenterMeasurer
 from Sensor.tan_dist_measure import DistMeasurer
 from Sensor.t_put_judge import BallCenterMeasurer
 from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer
-from Sensor
+from Sensor.flag_x_center import FlagxCenterMeasurer
+from Sensor.flag_y_center import FlagyCenterMeasurer
 
 # from Setting import cur
 import time

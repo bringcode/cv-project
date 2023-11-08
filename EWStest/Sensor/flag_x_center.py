@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-class ShapeRecognition:
+class FlagxCenterMeasurer:
     def __init__(self, video_path, img_width = 800, img_height = 600):
         self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         if not self.cap.isOpened():
