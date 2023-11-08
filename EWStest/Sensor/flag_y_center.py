@@ -3,9 +3,11 @@ import cv2
 
 class FlagyCenterMeasurer:
     def __init__(self, video_path=0, img_width = 800, img_height = 600):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
-        if not self.cap.isOpened():
-            raise ValueError(f"Video at {video_path} cannot be opened")
+        #self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        #if not self.cap.isOpened():
+        #    raise ValueError(f"Video at {video_path} cannot be opened")
+        img_width = img_width
+        img_height= img_height
         self.green_boxes = []
         self.image_width_middle = img_width // 2
         self.image_height_middle = img_height //2
