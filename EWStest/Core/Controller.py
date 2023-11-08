@@ -489,6 +489,7 @@ class Controller:
             if flag_x_angle[0] == 'C':
                 print("통과했어요")
                 flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
+                print("객체 생성 완료")
                 flag_y_angle = flagycneter.run()
                 print(flag_y_angle[0])
                 time.sleep(0.2)
