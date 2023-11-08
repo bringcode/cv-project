@@ -111,4 +111,4 @@ class FlagxCenterMeasurer:
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
     shape_recognition = FlagxCenterMeasurer(video_path, img_width=640, img_height=480)
-    shape_recognition.run()
+    print(shape_recognition.run())
