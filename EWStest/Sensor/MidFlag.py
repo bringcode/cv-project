@@ -82,7 +82,7 @@ class ShapeRecognition:
 
         self.cap.release()
         cv2.destroyAllWindows()
-
+        return farthest_flag_center
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
     shape_recognition = ShapeRecognition(video_path)
