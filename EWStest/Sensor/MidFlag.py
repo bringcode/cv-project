@@ -7,7 +7,7 @@ class ShapeRecognition:
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
-        self.farthest_flag_box = None  # 화면에서 가장 높은 FLAG의 중점값을 저장하는 변수
+        self.flag_centers = []  # 모든 FLAG의 중점값을 저장하는 리스트
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -25,9 +25,6 @@ class ShapeRecognition:
         high_yellow = np.array([43, 184, 255])
         yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
 
-        # 화면에서 가장 높은 FLAG의 y 좌표 초기화
-        max_flag_y = -1
-
         for green_box in self.green_boxes:
             x, y, w, h = green_box
             green_roi = frame[y:y+h, x:x+w]
@@ -39,18 +36,9 @@ class ShapeRecognition:
                 if M['m00'] != 0:
                     cx = int(M['m10'] / M['m00'])
                     cy = int(M['m01'] / M['m00'])
-
-                    # 화면에서 가장 높은 FLAG의 중점값 선택
-                    if cy < max_flag_y or max_flag_y == -1:
-                        max_flag_y = cy
-                        self.farthest_flag_box = (x + cx, y + cy, "FLAG")
-                        
-        # 화면에 화면에서 가장 높은 FLAG만 그리기
-        if self.farthest_flag_box is not None:
-            x, y, _, _ = self.green_boxes[0]  # 화면에서 가장 높은 녹색 영역
-            flag_x, flag_y, flag_label = self.farthest_flag_box
-            cv2.rectangle(green_roi, (flag_x - 10, flag_y - 10), (flag_x + 10, flag_y + 10), (0, 0, 255), 2)
-            cv2.putText(frame, 'Farthest Flag', (x + flag_x, y + flag_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                    cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                    # 모든 FLAG의 중점값을 저장
+                    self.flag_centers.append((x + cx, y + cy))
 
         return frame
 
@@ -70,8 +58,11 @@ class ShapeRecognition:
             if key == ord('q'):
                 break
 
-        if self.farthest_flag_box is not None:
-            print(f"Farthest Flag Center: {self.farthest_flag_box[0]}, {self.farthest_flag_box[1]}")
+        # flag_centers 리스트가 비어있지 않을 때만 실행
+        if self.flag_centers:
+            # y 좌표가 가장 작은 FLAG를 찾기
+            highest_flag = min(self.flag_centers, key=lambda center: center[1])
+            print(f"Highest Flag Center: {highest_flag[0]}, {highest_flag[1]}")
 
         self.cap.release()
         cv2.destroyAllWindows()
