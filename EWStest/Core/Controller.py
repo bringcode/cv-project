@@ -488,6 +488,7 @@ class Controller:
             if flag_x_angle[0] == "C":
                 flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
                 flag_y_angle = flagycneter.run()
+                print(flag_y_angle[0])
                 time.sleep(0.2)
 
                 if flag_y_angle[0] == "C":
