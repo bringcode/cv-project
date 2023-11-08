@@ -571,8 +571,8 @@ class Controller:
         # time.sleep(0.5)
 
 
-        self.robo._motion.set_head("DOWN",30)
-        time.sleep(0.5)
+        self.robo._motion.set_head("DOWN",30) # test
+        time.sleep(1) # test
         self.check_ball_distance()  # test
 
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
