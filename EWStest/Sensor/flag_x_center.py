@@ -32,7 +32,7 @@ class FlagxCenterMeasurer:
             
     def run(self):
         while True:
-            ret, frame = self.cap.read()
+            ret, frame = cap.read()
             if not ret:
                 print("Failed to grab a frame")
                 break
