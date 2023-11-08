@@ -109,7 +109,7 @@ class FlagyCenterMeasurer:
         # if self.farthest_flag_boxes:
         #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
-        flag_y_isMiddle = self.judgeMiddle(max_x, min_x)
+        flag_y_isMiddle = self.judgeMiddle(max_y, min_y)
         return [flag_y_isMiddle]
 
 if __name__ == "__main__":
