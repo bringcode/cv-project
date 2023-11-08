@@ -54,7 +54,7 @@ class ShapeRecognition:
             # flag_centers가 비어있지 않을 때만 실행
             if flag_centers:
                 # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
-                farthest_flag_center = max(flag_centers, key=lambda center: center[1])
+                farthest_flag_center = min(flag_centers, key=lambda center: center[1])
                 # 해당 flag의 박스 그리기
                 cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
                               (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
