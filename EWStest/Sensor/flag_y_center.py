@@ -46,6 +46,7 @@ class FlagyCenterMeasurer:
                 return 'U'
 
     def run(self):
+        print("run 진입")
         while True:
             ret, frame = self.cap.read()
             if not ret:
@@ -53,6 +54,7 @@ class FlagyCenterMeasurer:
                 break
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            print("색깔진입")
 
             low_green = np.array([57, 78, 61])
             high_green = np.array([89, 255, 255])
