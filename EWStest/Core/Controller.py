@@ -395,7 +395,7 @@ class Controller:
     # 공 1도씩 조정하면서 각도 확인
     @classmethod
     def check_ball_distance(self):
-        time.sleep(1)
+        time.sleep(0.2)
         print("Debug in check_ball_distance")
 
         correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
@@ -433,11 +433,11 @@ class Controller:
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", 1)
-                            time.sleep(0.5)
+                            time.sleep(0.2)
 
                         if ball_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", 1)
-                            time.sleep(0.5)
+                            time.sleep(0.2)
 
                     correctAngle = 1
                     print("중앙에 왔습니다.")
@@ -456,10 +456,10 @@ class Controller:
 
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", 1)
-                        time.sleep(0.5)
+                        time.sleep(0.2)
                     if ball_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", 1)
-                        time.sleep(0.5)
+                        time.sleep(0.2)
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
