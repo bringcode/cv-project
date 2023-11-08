@@ -15,6 +15,20 @@ class FlagxCenterMeasurer:
         self.min_y = None
         self.farthest_flag_boxes = []
 
+    def getMaxMin(self, box):
+        # 공에 박스 쳤을 때 왼쪽, 오른쪽 꼭짓점 좌표를 나타내는 변수(일단 최솟값은 최댓값으로 설정, 최댓값은 최솟값으로 설정)
+        min_x, max_x = self.img_height, 0
+        # 공에 박스 쳤을 때 아래, 위 꼭짓점 좌표(위와 같음)
+        min_y, max_y = self.img_height, 0
+
+        for x, y in box:
+            min_x = min(min_x, x)
+            max_x = max(max_x, x)
+            min_y = min(min_y, y)
+            max_y = max(max_y, y)
+
+        return max_x, min_x, max_y, min_y
+
     def judgeMiddle(self, max_x, min_x):
         
         l_dist = min_x
@@ -65,6 +79,7 @@ class FlagxCenterMeasurer:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
+                        max_x, min_x, max_y, min_y = getMaxMin(self, box)
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
