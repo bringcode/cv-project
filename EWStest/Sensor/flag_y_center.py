@@ -93,7 +93,7 @@ class ShapeRecognition:
                     self.farthest_flag_data.append((farthest_flag_x_min, farthest_flag_x_max, farthest_flag_y_min, farthest_flag_y_max))
 
             # Display the original frame
-            cv2.imshow('Frame', frame)
+            #cv2.imshow('Frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
             if key == ord('q'):
