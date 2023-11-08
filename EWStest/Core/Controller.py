@@ -552,27 +552,27 @@ class Controller:
 
         self.act = act.START
 
-        # self.robo._motion.turn("LEFT",45) #test
-        # time.sleep(1) #test
-        # self.robo._motion.turn("LEFT",45) #test
-        # time.sleep(1) #test
-        # self.robo._motion.turn("LEFT",45) #test
-        # time.sleep(1) #test
-        # self.robo._motion.turn("LEFT",20) #test
-        # time.sleep(1) #test
+        self.robo._motion.turn("LEFT",45) #test
+        time.sleep(1) #test
+        self.robo._motion.turn("LEFT",45) #test
+        time.sleep(1) #test
+        self.robo._motion.turn("LEFT",45) #test
+        time.sleep(1) #test
+        self.robo._motion.turn("LEFT",20) #test
+        time.sleep(1) #test
 
-        # self.robo._motion.set_head("DOWN", 90)  # test
-        # time.sleep(0.5)  # test
-        # self.check_flag_distance() # test
-        # time.sleep(0.2)
-        # angle = abs(self.robo._motion.y_head_angle - 20)  # test
-        # dist_flag = DistMeasurer() #test 
-        # print(dist_flag.display_distance(angle))
-        # time.sleep(0.5)
+        self.robo._motion.set_head("DOWN", 90)  # test
+        time.sleep(0.5)  # test
+        self.check_flag_distance() # test
+        time.sleep(0.2)
+        angle = abs(self.robo._motion.y_head_angle - 20)  # test
+        dist_flag = DistMeasurer() #test 
+        print(dist_flag.display_distance(angle))
+        time.sleep(0.5)
 
 
-        self.robo._motion.set_head("DOWN",30) # test
-        time.sleep(0.2) # test
+        # self.robo._motion.set_head("DOWN",30) # test
+        # time.sleep(0.2) # test
         self.check_ball_distance()  # test
 
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
