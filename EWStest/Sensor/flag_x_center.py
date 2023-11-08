@@ -79,7 +79,7 @@ class FlagxCenterMeasurer:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
-                        max_x, min_x, max_y, min_y = self.getMaxMin(self, box)
+                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
