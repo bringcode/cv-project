@@ -416,7 +416,7 @@ class Controller:
                 ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
                 ball_y_angle = ballycenter.process()
                 time.sleep(0.2)
-                if ball_y_angle == "C":
+                if ball_y_angle[0] == "C":
                     print("ball_x_angle: ", ball_x_angle[0])
                     print("ball_y_angle: ", ball_y_angle[0])
                     print("중앙에 왔습니다.")
@@ -483,13 +483,13 @@ class Controller:
             flag_x_angle = flagxcenter.run()
             time.sleep(0.2)
             print("flag_x_angle: ",end="")
-            print(flag_x_angle)
+            print(flag_x_angle[0])
 
-            if flag_x_angle == "C":
+            if flag_x_angle[0] == "C":
                 flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
                 flag_y_angle = flagycneter.run()
                 time.sleep(0.2)
-                if flag_y_angle == "C":
+                if flag_y_angle[0] == "C":
 
                     print("flag_x_angle: ", flag_x_angle)
                     print("flag_y_angle: ", flag_y_angle)
@@ -497,21 +497,21 @@ class Controller:
                     correctAngle = 1
                     break
 
-                elif flag_y_angle == "D" or flag_y_angle == "U":
+                elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
 
-                    while flag_y_angle != "C":
+                    while flag_y_angle[0] != "C":
                         flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
                         flag_y_angle = flagycneter.run()
                         time.sleep(0.2)
-                        print("flag_y: ", flag_y_angle)
+                        print("flag_y: ", flag_y_angle[0])
 
-                        if flag_y_angle == "U":
+                        if flag_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", 1)
-                            time.sleep(0.5)
+                            time.sleep(0.2)
 
-                        if flag_y_angle == "D":
+                        if flag_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", 1)
-                            time.sleep(0.5)
+                            time.sleep(0.2)
 
                     correctAngle = 1
                     print("중앙에 왔습니다.")
@@ -520,20 +520,20 @@ class Controller:
                 else:
                     print("check_flag_distance 함수에서 원하는 Y angle이 안 들어왔습니다.")
 
-            elif flag_x_angle == "L" or flag_x_angle == "R":
+            elif flag_x_angle[0] == "L" or flag_x_angle[0] == "R":
 
-                while flag_x_angle != "C":
+                while flag_x_angle[0] != "C":
                     flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
                     flag_x_angle = flagxcenter.run()
                     time.sleep(0.2)
-                    print("ball_x: ", flag_x_angle)
+                    print("ball_x: ", flag_x_angle[0])
 
-                    if flag_x_angle == "L":
+                    if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", 1)
-                        time.sleep(0.5)
-                    if flag_x_angle == "R":
+                        time.sleep(0.2)
+                    if flag_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", 1)
-                        time.sleep(0.5)
+                        time.sleep(0.2)
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
 
