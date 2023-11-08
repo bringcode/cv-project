@@ -407,7 +407,7 @@ class Controller:
         while correctAngle != 1:
             ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
             ball_x_angle = ballxcenter.process()
-            time.sleep(1)
+            time.sleep(0.2)
             print("ball_x_angle: ", end="")
             print(ball_x_angle[0])
 
@@ -415,7 +415,7 @@ class Controller:
                 # x축 기준으로 센터라면, y축 기준으로 어디에 있는지 판별
                 ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
                 ball_y_angle = ballycenter.process()
-                time.sleep(1)
+                time.sleep(0.2)
                 if ball_y_angle == "C":
                     print("ball_x_angle: ", ball_x_angle[0])
                     print("ball_y_angle: ", ball_y_angle[0])
@@ -428,16 +428,16 @@ class Controller:
                     while ball_y_angle[0] != "C":
                         ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
                         ball_y_angle = ballycenter.process()
-                        time.sleep(1)
+                        time.sleep(0.2)
                         print("ball_y: ", ball_y_angle[0])
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", 1)
-                            time.sleep(1)
+                            time.sleep(0.5)
 
                         if ball_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", 1)
-                            time.sleep(1)
+                            time.sleep(0.5)
 
                     correctAngle = 1
                     print("중앙에 왔습니다.")
@@ -451,15 +451,15 @@ class Controller:
                 while ball_x_angle[0] != "C":
                     ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
                     ball_x_angle = ballxcenter.process()
-                    time.sleep(1)
+                    time.sleep(0.2)
                     print("ball_x: ", ball_x_angle[0])
 
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", 1)
-                        time.sleep(1)
+                        time.sleep(0.5)
                     if ball_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", 1)
-                        time.sleep(1)
+                        time.sleep(0.5)
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
@@ -552,25 +552,27 @@ class Controller:
 
         self.act = act.START
 
-        self.robo._motion.turn("LEFT",45) #test
-        time.sleep(1) #test
-        self.robo._motion.turn("LEFT",45) #test
-        time.sleep(1) #test
-        self.robo._motion.turn("LEFT",45) #test
-        time.sleep(1) #test
-        self.robo._motion.turn("LEFT",20) #test
-        time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",45) #test
+        # time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",45) #test
+        # time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",45) #test
+        # time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",20) #test
+        # time.sleep(1) #test
 
-        self.robo._motion.set_head("DOWN", 90)  # test
-        time.sleep(0.5)  # test
-        self.check_flag_distance() # test
-        time.sleep(0.2)
-        angle = abs(self.robo._motion.y_head_angle - 20)  # test
-        dist_flag = DistMeasurer() #test 
-        print(dist_flag.display_distance(angle))
+        # self.robo._motion.set_head("DOWN", 90)  # test
+        # time.sleep(0.5)  # test
+        # self.check_flag_distance() # test
+        # time.sleep(0.2)
+        # angle = abs(self.robo._motion.y_head_angle - 20)  # test
+        # dist_flag = DistMeasurer() #test 
+        # print(dist_flag.display_distance(angle))
+        # time.sleep(0.5)
+
+
+        self.robo._motion.set_head("DOWN",30)
         time.sleep(0.5)
-
-
         self.check_ball_distance()  # test
 
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
@@ -578,7 +580,7 @@ class Controller:
         print(dist_ball.display_distance(angle))  # test
         
 
-
+        print("11111") # test
         time.sleep(10)  # test
 
         if act == act.START:
