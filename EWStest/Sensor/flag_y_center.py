@@ -63,6 +63,7 @@ class FlagyCenterMeasurer:
             low_yellow = np.array([0, 16, 144])
             high_yellow = np.array([43, 184, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
+            print("1차 통과")
 
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
@@ -86,6 +87,7 @@ class FlagyCenterMeasurer:
                             cy = int(M['m01'] / M['m00'])
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                             flag_centers.append((cx, cy))
+                        print("2차 통과")
 
                 if flag_centers:
                     farthest_flag_center = min(flag_centers, key=lambda center: center[1])
@@ -99,6 +101,7 @@ class FlagyCenterMeasurer:
 
             #cv2.imshow('프레임', frame)
             #if cv2.waitKey(1) & 0xFF == ord('q'):
+            print("3차 통과")
             break
 
         # if self.farthest_flag_boxes:
