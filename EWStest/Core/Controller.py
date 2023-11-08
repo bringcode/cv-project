@@ -489,10 +489,11 @@ class Controller:
                 flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
                 flag_y_angle = flagycneter.run()
                 time.sleep(0.2)
+                
                 if flag_y_angle[0] == "C":
 
-                    print("flag_x_angle: ", flag_x_angle)
-                    print("flag_y_angle: ", flag_y_angle)
+                    print("flag_x_angle: ", flag_x_angle[0])
+                    print("flag_y_angle: ", flag_y_angle[0])
                     print("중앙에 있습니다.")
                     correctAngle = 1
                     break
