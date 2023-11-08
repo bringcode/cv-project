@@ -522,12 +522,13 @@ class Controller:
                     print("check_flag_distance 함수에서 원하는 Y angle이 안 들어왔습니다.")
 
             elif flag_x_angle[0] == "L" or flag_x_angle[0] == "R":
+                print("flag_x_angle: R or L이 들어왔습니다.")
 
                 while flag_x_angle[0] != "C":
                     flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
                     flag_x_angle = flagxcenter.run()
                     time.sleep(0.2)
-                    print("ball_x: ", flag_x_angle[0])
+                    print("flag_x: ", flag_x_angle[0])
 
                     if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", 1)
