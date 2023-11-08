@@ -95,15 +95,13 @@ class ShapeRecognition:
             # Display the original frame
             #cv2.imshow('Frame', frame)
 
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
+            
 
         if self.farthest_flag_data:
             farthest_flag_x_min, farthest_flag_x_max, farthest_flag_y_min, farthest_flag_y_max = self.farthest_flag_data[-1]
 
-        self.cap.release()
-        cv2.destroyAllWindows()
+        #self.cap.release()
+        #cv2.destroyAllWindows()
         ball_x_isMiddle = self.judgeMiddle(farthest_flag_y_max, farthest_flag_y_min)
         return farthest_flag_center
 
