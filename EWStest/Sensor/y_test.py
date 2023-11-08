@@ -80,8 +80,8 @@ class FlagxCenterMeasurer:
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
 
             cv2.imshow('프레임', frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            
+            break
 
         if self.farthest_flag_boxes:
             max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
