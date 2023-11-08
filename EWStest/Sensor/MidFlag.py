@@ -52,14 +52,14 @@ class ShapeRecognition:
                         cy = int(M['m01'] / M['m00'])
                         cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-        # 가장 높은 위치의 박스를 찾습니다.
-        target_box = self.find_highest_box(self.green_boxes)
+            # 가장 높은 위치의 박스를 찾습니다.
+            target_box = self.find_highest_box(self.green_boxes)
 
-        if target_box is not None:
-            # 타겟 박스를 빨강색으로 표시
-            x, y, w, h = target_box
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-            cv2.putText(frame, 'Target', (x + w // 2, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+            if target_box is not None:
+                # 타겟 박스를 빨강색으로 표시
+                x, y, w, h = target_box
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                cv2.putText(frame, 'Target', (x + w // 2, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
         return frame
 
