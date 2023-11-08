@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-class FlagxCenterMeasurer:
+class FlagyCenterMeasurer:
     def __init__(self, video_path=0, img_width=800, img_height=600):
         self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         #if not self.cap.isOpened():
@@ -15,7 +15,22 @@ class FlagxCenterMeasurer:
         self.min_y = None
         self.farthest_flag_boxes = []
 
+    def getMaxMin(self, box):
+        # 공에 박스 쳤을 때 왼쪽, 오른쪽 꼭짓점 좌표를 나타내는 변수(일단 최솟값은 최댓값으로 설정, 최댓값은 최솟값으로 설정)
+        min_x, max_x = self.img_height, 0
+        # 공에 박스 쳤을 때 아래, 위 꼭짓점 좌표(위와 같음)
+        min_y, max_y = self.img_height, 0
+
+        for x, y in box:
+            min_x = min(min_x, x)
+            max_x = max(max_x, x)
+            min_y = min(min_y, y)
+            max_y = max(max_y, y)
+
+        return max_x, min_x, max_y, min_y
+
     def judgeMiddle(self, max_x, min_x):
+        
         l_dist = min_x
         r_dist = self.img_width - max_x
         error_range = 30
@@ -63,6 +78,7 @@ class FlagxCenterMeasurer:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
+                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
@@ -78,18 +94,20 @@ class FlagxCenterMeasurer:
                     cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
+                    print(farthest_flag_center)
+                    
 
             #cv2.imshow('프레임', frame)
             #if cv2.waitKey(1) & 0xFF == ord('q'):
-                #break
+            break
 
-        if self.farthest_flag_boxes:
-            max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
+        # if self.farthest_flag_boxes:
+        #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
-        flag_x_isMiddle = self.judgeMiddle(max_y, min_y)
-        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
+        flag_y_isMiddle = self.judgeMiddle(max_x, min_x)
+        return [flag_y_isMiddle]
 
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
-    shape_recognition = FlagxCenterMeasurer(video_path)
-    shape_recognition.run()
+    shape_recognition = FlagyCenterMeasurer(video_path, img_width=640, img_height=480)
+    print(shape_recognition.run())
