@@ -558,6 +558,8 @@ class Controller:
         time.sleep(1) #test
         self.robo._motion.turn("LEFT",45) #test
         time.sleep(1) #test
+        self.robo._motion.turn("LEFT",20) #test
+        time.sleep(1) #test
 
         self.robo._motion.set_head("DOWN", 90)  # test
         time.sleep(0.5)  # test
