@@ -109,7 +109,7 @@ class FlagxCenterMeasurer:
 
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
-    shape_recognition = ShapeRecognition(video_path)
+    shape_recognition = FlagxCenterMeasurer(video_path)
     farthest_flag_x_min, farthest_flag_x_max, farthest_flag_y_min, farthest_flag_y_max = shape_recognition.run()
     if farthest_flag_x_min is not None and farthest_flag_y_min is not None:
         print(f"Farthest Flag x_min: {farthest_flag_x_min}, x_max: {farthest_flag_x_max}, y_min: {farthest_flag_y_min}, y_max: {farthest_flag_y_max}")
