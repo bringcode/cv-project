@@ -112,7 +112,7 @@ class FlagyCenterMeasurer:
         #self.cap.release()
         #cv2.destroyAllWindows()
         flag_x_isMiddle = self.judgeMiddle(max_y, min_y)
-        return flag_x_isMiddle
+        return [flag_x_isMiddle]
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
     shape_recognition = FlagyCenterMeasurer(video_path)
