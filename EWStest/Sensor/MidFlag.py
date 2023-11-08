@@ -8,6 +8,14 @@ class ShapeRecognition:
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
 
+    def find_highest_box(self, boxes):
+        # 중점 y 좌표를 기준으로 가장 높은 위치의 박스를 찾습니다.
+        if not boxes:
+            return None
+
+        highest_box = min(boxes, key=lambda box: box[1])
+        return highest_box
+
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -43,6 +51,15 @@ class ShapeRecognition:
                         cx = int(M['m10'] / M['m00'])
                         cy = int(M['m01'] / M['m00'])
                         cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+
+        # 가장 높은 위치의 박스를 찾습니다.
+        target_box = self.find_highest_box(self.green_boxes)
+
+        if target_box is not None:
+            # 타겟 박스를 빨강색으로 표시
+            x, y, w, h = target_box
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.putText(frame, 'Target', (x + w // 2, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
         return frame
 
