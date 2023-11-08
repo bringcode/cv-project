@@ -7,7 +7,7 @@ class ShapeRecognition:
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
-        self.flag_centers = []  # 모든 FLAG의 중점값을 저장하는 리스트
+        self.farthest_flag_boxes = []  # 모든 flag의 중점값을 저장하는 리스트
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -30,15 +30,38 @@ class ShapeRecognition:
             green_roi = frame[y:y+h, x:x+w]
             yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
             yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            
+            # flag의 중점값을 저장하는 리스트
+            flag_centers = []
 
             for cnt in yellow_contours:
-                M = cv2.moments(cnt)
-                if M['m00'] != 0:
-                    cx = int(M['m10'] / M['m00'])
-                    cy = int(M['m01'] / M['m00'])
-                    cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    # 모든 FLAG의 중점값을 저장
-                    self.flag_centers.append((x + cx, y + cy))
+                # 영역의 면적 계산
+                area = cv2.contourArea(cnt)
+                if area > 10:  # 일정 면적 이상의 영역만 처리
+                    rect = cv2.minAreaRect(cnt)
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                    M = cv2.moments(cnt)
+                    if M['m00'] != 0:
+                        cx = int(M['m10'] / M['m00'])
+                        cy = int(M['m01'] / M['m00'])
+                        cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                    
+                        # flag_centers 리스트에 중점값 추가
+                        flag_centers.append((cx, cy))
+
+            # flag_centers가 비어있지 않을 때만 실행
+            if flag_centers:
+                # flag_centers 리스트에서 중점값이 가장 높은 flag 선택
+                farthest_flag_center = max(flag_centers, key=lambda center: center[1])
+                # 해당 flag의 박스 그리기
+                cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
+                              (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
+                cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                # farthest_flag_boxes 리스트에 중점값과 "FLAG" 추가
+                self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
 
         return frame
 
@@ -58,11 +81,9 @@ class ShapeRecognition:
             if key == ord('q'):
                 break
 
-        # flag_centers 리스트가 비어있지 않을 때만 실행
-        if self.flag_centers:
-            # y 좌표가 가장 작은 FLAG를 찾기
-            highest_flag = min(self.flag_centers, key=lambda center: center[1])
-            print(f"Highest Flag Center: {highest_flag[0]}, {highest_flag[1]}")
+        if self.farthest_flag_boxes:
+            for box in self.farthest_flag_boxes:
+                print(f"Farthest Flag Center: {box[0]}, {box[1]}")
 
         self.cap.release()
         cv2.destroyAllWindows()
