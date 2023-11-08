@@ -91,7 +91,7 @@ class FlagxCenterMeasurer:
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
 
             # Display the original frame
-            #cv2.imshow('Frame', frame)
+            cv2.imshow('Frame', frame)
 
 
         if self.farthest_flag_boxes:
@@ -109,8 +109,8 @@ class FlagxCenterMeasurer:
                     if self.min_y is None or min_y < self.min_y:
                         self.min_y = min_y
 
-        #self.cap.release()
-        #cv2.destroyAllWindows()
+        self.cap.release()
+        cv2.destroyAllWindows()
         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
         return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
 if __name__ == "__main__":
