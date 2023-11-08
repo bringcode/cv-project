@@ -77,12 +77,24 @@ class ShapeRecognition:
                 break
 
         if self.farthest_flag_boxes:
-            for box in self.farthest_flag_boxes:
-                print(f"Farthest Flag Center: {box[0]}, {box[1]}")
+                for box in self.farthest_flag_boxes:
+                    print(f"Farthest Flag Center: {box[0]}, {box[1]}")
+
+                for box in self.farthest_flag_boxes:
+                    max_x, min_x, max_y, min_y = box[0], box[1], box[2], box[3]
+                    if self.max_x is None or max_x > self.max_x:
+                        self.max_x = max_x
+                    if self.min_x is None or min_x < self.min_x:
+                        self.min_x = min_x
+                    if self.max_y is None or max_y > self.max_y:
+                        self.max_y = max_y
+                    if self.min_y is None or min_y < self.min_y:
+                        self.min_y = min_y
 
         self.cap.release()
         cv2.destroyAllWindows()
 
+        return farthest_flag_center
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
     shape_recognition = ShapeRecognition(video_path)
