@@ -61,6 +61,11 @@ class ShapeRecognition:
                 if farthest_flag_center is None or farthest_flag_center_candidate[1] > farthest_flag_center[1]:
                     farthest_flag_center = farthest_flag_center_candidate
 
+        if farthest_flag_center is not None:
+            x, y = farthest_flag_center
+            # 빨간 박스 그리기
+            cv2.rectangle(frame, (x - 10, y - 10), (x + 10, y + 10), (0, 0, 255), 2)
+
         return frame, farthest_flag_center
 
     def run(self):
