@@ -525,6 +525,7 @@ class Controller:
                 print("flag_x_angle: R or L이 들어왔습니다.")
 
                 while flag_x_angle[0] != "C":
+                    print("while문이 실행되었습니다.")
                     flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
                     flag_x_angle = flagxcenter.run()
                     time.sleep(0.2)
