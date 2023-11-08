@@ -63,7 +63,7 @@ class ShapeRecognition:
         self.cap.release()
         cv2.destroyAllWindows()
 
-if __main__ == "__main__":
+if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
     shape_recognition = ShapeRecognition(video_path)
     shape_recognition.run()
