@@ -18,7 +18,7 @@ class FlagxCenterMeasurer:
     def judgeMiddle(self, max_x, min_x):
         
         l_dist = min_x
-        print(l_dist, img_width, max_x)
+        print(l_dist, self.img_width, max_x)
         r_dist = self.img_width - max_x
         error_range = 30
 
