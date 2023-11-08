@@ -474,12 +474,14 @@ class Controller:
         time.sleep(1)
         print("Debug in check_flag_distance")
 
+        flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
+        flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
+                
         correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
 
         # 깃발을 못 찾았을 때 반환하는 값
 
         while correctAngle != 1:
-            flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
             flag_x_angle = flagxcenter.run()
             time.sleep(0.2)
             print("flag_x_angle: ",end="")
@@ -488,8 +490,6 @@ class Controller:
 
             if flag_x_angle[0] == 'C':
                 print("통과했어요")
-                flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
-                print("객체 생성 완료")
                 flag_y_angle = flagycneter.run()
                 print(flag_y_angle[0])
                 time.sleep(0.2)
@@ -505,7 +505,6 @@ class Controller:
                 elif flag_y_angle[0] == 'D' or flag_y_angle[0] == 'U':
 
                     while flag_y_angle[0] != 'C':
-                        flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
                         flag_y_angle = flagycneter.run()
                         time.sleep(0.2)
                         print("flag_y: ", flag_y_angle[0])
@@ -531,8 +530,6 @@ class Controller:
 
                 while flag_x_angle[0] != 'C':
                     print("while문이 실행되었습니다.")
-                    flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
-                    print("xcenter 객체 생성 완료")
                     flag_x_angle = flagxcenter.run()
                     time.sleep(0.2)
                     print("flag_x: ", flag_x_angle[0])
