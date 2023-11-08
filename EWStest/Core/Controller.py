@@ -489,7 +489,7 @@ class Controller:
                 flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
                 flag_y_angle = flagycneter.run()
                 time.sleep(0.2)
-                
+
                 if flag_y_angle[0] == "C":
 
                     print("flag_x_angle: ", flag_x_angle[0])
@@ -553,17 +553,17 @@ class Controller:
 
         self.act = act.START
 
-        self.robo._motion.turn("LEFT",45) #test
-        time.sleep(1) #test
-        self.robo._motion.turn("LEFT",45) #test
-        time.sleep(1) #test
-        self.robo._motion.turn("LEFT",45) #test
-        time.sleep(1) #test
-        self.robo._motion.turn("LEFT",20) #test
-        time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",45) #test
+        # time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",45) #test
+        # time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",45) #test
+        # time.sleep(1) #test
+        # self.robo._motion.turn("LEFT",20) #test
+        # time.sleep(1) #test
 
-        self.robo._motion.set_head("DOWN", 90)  # test
-        time.sleep(0.5)  # test
+        # self.robo._motion.set_head("DOWN", 90)  # test
+        # time.sleep(0.5)  # test
         self.check_flag_distance() # test
         time.sleep(0.2)
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
