@@ -7,7 +7,6 @@ class ShapeRecognition:
         if not self.cap.isOpened():
             raise ValueError(f"Video at {video_path} cannot be opened")
         self.green_boxes = []
-        self.lowest_flag_box = None  # 화면에서 가장 낮은 FLAG의 중점값을 저장하는 변수
 
     def process_frame(self, frame):
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -31,19 +30,19 @@ class ShapeRecognition:
             yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
             yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             
-            # 초록 영역과 노랑 영역의 겹치는 영역 계산
             for cnt in yellow_contours:
-                M = cv2.moments(cnt)
-                if M['m00'] != 0:
-                    cx = int(M['m10'] / M['m00'])
-                    cy = int(M['m01'] / M['m00'])
-                    if x <= cx + x < x + w and y <= cy + y < y + h:
+                # 영역의 면적 계산
+                area = cv2.contourArea(cnt)
+                if area > 10:  # 일정 면적 이상의 영역만 처리
+                    rect = cv2.minAreaRect(cnt)
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
+                    M = cv2.moments(cnt)
+                    if M['m00'] != 0:
+                        cx = int(M['m10'] / M['m00'])
+                        cy = int(M['m01'] / M['m00'])
                         cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    
-                        # 현재 FLAG의 중점값과 y 좌표를 저장
-                        current_flag = (x + cx, y + cy)
-                        if self.lowest_flag_box is None or current_flag[1] > self.lowest_flag_box[1]:
-                            self.lowest_flag_box = current_flag
 
         return frame
 
@@ -62,9 +61,6 @@ class ShapeRecognition:
             key = cv2.waitKey(1) & 0xFF
             if key == ord('q'):
                 break
-
-        if self.lowest_flag_box is not None:
-            print(f"Lowest Flag Center: {self.lowest_flag_box[0]}, {self.lowest_flag_box[1]}")
 
         self.cap.release()
         cv2.destroyAllWindows()
