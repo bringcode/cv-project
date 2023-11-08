@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-class FlagxCenterMeasurer:
+class FlagyCenterMeasurer:
     def __init__(self, video_path=0, img_width = 800, img_height = 600):
         self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         if not self.cap.isOpened():
@@ -113,5 +113,5 @@ class FlagxCenterMeasurer:
         return flag_x_isMiddle
 if __name__ == "__main__":
     video_path = 0  # Use 0 for webcam
-    shape_recognition = FlagxCenterMeasurer(video_path)
+    shape_recognition = FlagyCenterMeasurer(video_path)
     shape_recognition.run()
