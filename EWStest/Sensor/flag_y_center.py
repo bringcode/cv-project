@@ -24,9 +24,9 @@ class ShapeRecognition:
             return 'C'
         else:
             if r_dist > l_dist:
-                return 'U'
-            else:
                 return 'D'
+            else:
+                return 'U'
             
     def run(self):
         while True:
