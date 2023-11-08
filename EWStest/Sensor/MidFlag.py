@@ -39,12 +39,17 @@ class ShapeRecognition:
                 if M['m00'] != 0:
                     cx = int(M['m10'] / M['m00'])
                     cy = int(M['m01'] / M['m00'])
-                    cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
                     # 현재 flag의 중점값 중 Y 좌표가 가장 높은 flag를 찾음
                     if cy < max_flag_y or max_flag_y == -1:
                         max_flag_y = cy
                         self.farthest_flag_box = (x + cx, y + cy, "FLAG")
+                        
+                    if cy != max_flag_y:
+                        # 현재 flag가 가장 높은 flag가 아닌 경우, 해당 flag에 대한 텍스트 제거
+                        cv2.putText(frame, '', (x + cx, y + cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    else:
+                        cv2.putText(frame, 'Flag', (x + cx, y + cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
         return frame
 
