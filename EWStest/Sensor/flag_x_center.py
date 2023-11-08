@@ -94,7 +94,7 @@ class FlagxCenterMeasurer:
             cv2.imshow('Frame', frame)
 
 
-        if self.farthest_flag_boxes:
+            if self.farthest_flag_boxes:
                 for box in self.farthest_flag_boxes:
                     print(f"Farthest Flag Center: {box[0]}, {box[1]}")
 
