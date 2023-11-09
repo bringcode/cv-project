@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 class FlagyCenterMeasurer:
-    def __init__(self, video_path=0, img_width=400, img_height=600):
+    def __init__(self, video_path=0, img_width=800, img_height=600):
         # self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         #if not self.cap.isOpened():
             #raise ValueError(f"비디오 {video_path}를 열 수 없습니다.")
@@ -98,7 +98,7 @@ class FlagyCenterMeasurer:
                     cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
-                    print(farthest_flag_center)
+                    print(farthest_flag_boxes)
                     
 
             cv2.imshow('프레임', frame)
