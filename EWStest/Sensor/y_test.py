@@ -186,7 +186,7 @@ class FlagxCenterMeasurer:
                 if shape_text == "FLAG":
                     point_x = shape_info[0]
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] - offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                    return [point_x]
+                    print(point_x)
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
