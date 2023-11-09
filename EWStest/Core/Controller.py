@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
-from Sensor.search_ball import FindBall
-from Sensor.ball_y_center import BallyCenterMeasurer
-from Sensor.ball_x_center import BallxCenterMeasurer
-from Sensor.tan_dist_measure import DistMeasurer
-from Sensor.t_put_judge import BallCenterMeasurer
-from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer
-from Sensor.flag_x_center import FlagxCenterMeasurer
-from Sensor.flag_y_center import FlagyCenterMeasurer
+from Sensor.search_ball import FindBall # 
+from Sensor.ball_y_center import BallyCenterMeasurer #
+from Sensor.ball_x_center import BallxCenterMeasurer #
+from Sensor.tan_dist_measure import DistMeasurer #
+from Sensor.t_put_judge import BallCenterMeasurer #
+from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer #
+from Sensor.flag_x_center import FlagxCenterMeasurer #
+from Sensor.flag_y_center import FlagyCenterMeasurer #
 
 # from Setting import cur
 import time
@@ -54,12 +54,10 @@ class Controller:
         C_center = self.C_center # 로봇: C / 공: center
         C_left = self.C_left # 로봇: C / 공: left
         
-        ballFunction = BallCenterMeasurer()  # Search_ball 함수  # fix
         #  .process():  공에 유무를 반환함 T/F
         dir_list = [45, 60, 80, 90] # 임의로 지정한 로봇 머리 값
         dir = 3 # dir_list 에서 90을 고를 수 있도록 설정하는 값
         cnt = 0 # 로봇이 어디에서 찾았는지 구분하는 변수
-        Center = 0 # 공이 가운데이 있는지 확인할 때 사용하는 변수
 
         time.sleep(1) # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
@@ -69,13 +67,13 @@ class Controller:
             self.robo._motion.set_head("DOWN", dir_list[dir]) # 왼쪽에 있을 떄 사용하는 로봇 각도 값 모션
             dir -= 1 # 각도 임의값 변경
             time.sleep(0.1) 
-            is_ball_find = ballFunction.process() # fix
-            print("Ball T/F: ",is_ball_find) # fix 공 T/F값 출력
+            Tput_center_isFind_Big = BallCenterMeasurer().process() 
+            print("Ball find and center T/F: ",Tput_center_isFind_Big)  #공 T/F값 출력
 
-            if is_ball_find == False: # 발견되지 않았을 때
+            if Tput_center_isFind_Big == False: # 발견되지 않았을 때
                 cnt += 1
 
-            elif is_ball_find == True: # 발견됐을 때
+            elif Tput_center_isFind_Big == True: # 발견됐을 때
                 print("공을 찾았습니다.")
                 if cnt == 0:
                     self.L_right = 1
@@ -95,17 +93,17 @@ class Controller:
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
-        if Center == 1 or is_ball_find == False:
+        if Tput_center_isFind_Big == False:
             print("가운데에 있다고 생각하겠습니다.")
-            is_ball_find = ballFunction.process() # fix
-            print(is_ball_find) # fix
+            Tput_center_isFind_Big = BallCenterMeasurer().process()
+            print("Ball find and center T/F: ",Tput_center_isFind_Big) 
 
-            tputcenter = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480) # fix
-            centerprocess = tputcenter.process() # fix
-            print(centerprocess) # fix
-            time.sleep(0.1) 
+            # 이 부분이 필요없을 것 같음.
+            # Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480).process() 
+            # print("Tput_x_center: ",Tput_center_isFind_Small) 
+            # time.sleep(0.1) 
 
-            if centerprocess == True: # fix
+            if Tput_center_isFind_Big == True: # fix
                 print("Center: 공을 가운데에서 찾았습니다.")
 
                 if cnt == 3:
@@ -115,15 +113,15 @@ class Controller:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 54)
                 time.sleep(0.1)
-                is_ball_find = ballFunction.process()
+                Tput_center_isFind_Big = BallCenterMeasurer().process()
                 time.sleep(0.1)
-                centerprocess = tputcenter.process()
+                Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480).process()
                 time.sleep(0.1)
                 cnt += 1
 
-                print("is_ball_find", is_ball_find)
-                print("centerprocess", centerprocess)
-                if centerprocess == True:
+                print("Tput_isFind: ", Tput_center_isFind_Big)
+                print("Tput_center: ", Tput_center_isFind_Small)
+                if Tput_center_isFind_Small == True:
                     print("Center: 공을 왼쪽에서 찾았습니다.")
                     if cnt == 4:
                         self.C_left = 1
@@ -132,15 +130,15 @@ class Controller:
                     print("가운데 왼쪽 X")
                     self.robo._motion.set_head("RIGHT", 54)
                     time.sleep(0.1)
-                    is_ball_find = ballFunction.process()
+                    Tput_center_isFind_Big = BallCenterMeasurer().process()
                     time.sleep(0.1)
-                    centerprocess = tputcenter.process()
+                    Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480).process()
                     time.sleep(0.1)
                     cnt += 1
 
-                    print("is_ball_find", is_ball_find)
-                    print("centerprocess", centerprocess)
-                    if centerprocess == True:
+                    print("Tput_isFind: ", Tput_center_isFind_Big)
+                    print("Tput_center: ", Tput_center_isFind_Small)
+                    if Tput_center_isFind_Small == True:
                         print("Center: 공을 오른쪽에서 찾았습니다.")
                         if cnt == 5:
                             self.C_right = 1
@@ -153,25 +151,24 @@ class Controller:
     @classmethod
     def ball_feature_ball(self):
         print("Debug in ball_feature_ball")
-        ball_feature = ["N", "N", "N"] # fix
+        ball_is_x_center = ["N", "N", "N"] # fix
         # [공의 가운데 여부, 공의 x중심좌표, 공의 y중심좌표]
         
         # ball_ball_feature_measure 에서 return 값: L / C / R
-        while ball_feature[0] != "C":
-            cmeasurer = BallxCenterMeasurer() 
-            ball_feature = cmeasurer.process()
-            print(ball_feature[0])
+        while ball_is_x_center[0] != "C":
+            ball_is_x_center = BallxCenterMeasurer().process()
+            print("카메라 기준(공): ",ball_is_x_center[0])
 
-            if ball_feature[0] == "L":
+            if ball_is_x_center[0] == "L":
                 print("공이 왼쪽에 있습니다.")
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(0.5)
 
-            elif ball_feature[0] == "C":
+            elif ball_is_x_center[0] == "C":
                 print("공이 가운데 있습니다.")
                 break
 
-            elif ball_feature[0] == "R":
+            elif ball_is_x_center[0] == "R":
                 print("공이 오른쪽에 있습니다.")
                 self.robo._motion.walk_side("RIGHT")
                 time.sleep(0.5)
@@ -192,8 +189,7 @@ class Controller:
         long_left_location = 0
         long_left_location = 0
 
-        exist_ball_Function = FindBall()
-        exist_ball = exist_ball_Function.process()
+        exist_ball = FindBall().process()
         print(exist_ball)
 
         if exist_ball == True:
@@ -211,7 +207,7 @@ class Controller:
                 self.robo._motion.set_head("DOWN", 45)
                 time.sleep(0.1)
 
-                exist_ball = exist_ball_Function.process()
+                exist_ball = FindBall().process()
                 print(exist_ball)
 
                 if exist_ball == True:
@@ -226,7 +222,7 @@ class Controller:
                 self.robo._motion.set_head("LEFT", 45)
                 time.sleep(0.1)
 
-                exist_ball = exist_ball_Function.process()
+                exist_ball = FindBall().process()
                 print(exist_ball)
 
                 if exist_ball == True:
@@ -241,7 +237,7 @@ class Controller:
                 self.robo._motion.set_head("RIGHT", 45)
                 time.sleep(0.1)
 
-                exist_ball = exist_ball_Function.process()
+                exist_ball = FindBall().process()
                 print(exist_ball)
 
                 if exist_ball == True:
@@ -256,7 +252,7 @@ class Controller:
                 self.robo._motion.set_head("DOWN", 80)
                 time.sleep(0.1)
 
-                exist_ball = exist_ball_Function.process()
+                exist_ball = FindBall().process()
                 print(exist_ball)
 
                 if exist_ball == True:
@@ -271,7 +267,7 @@ class Controller:
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.1)
 
-                exist_ball = exist_ball_Function.process()
+                exist_ball = FindBall().process()
                 print(exist_ball)
 
                 if exist_ball == True:
@@ -286,7 +282,7 @@ class Controller:
                 self.robo._motion.set_head("LEFT", 45)
                 time.sleep(0.1)
 
-                exist_ball = exist_ball_Function.process()
+                exist_ball = FindBall().process()
                 print(exist_ball)
 
                 if exist_ball == True:
@@ -447,8 +443,8 @@ class Controller:
         # 공을 못 찾았을 때 반환하는 값
         ball_x_angle = ["N", "N", "N"]
 
-        xcenterprocess = BallxCenterMeasurer(img_width=640, img_height=480)
-        ball_x_angle = xcenterprocess.process()
+        xTput_x_center = BallxCenterMeasurer(img_width=640, img_height=480)
+        ball_x_angle = xTput_x_center.process()
 
         # 걸어가면서 틀어진 각도 맞추는 로직
         while ball_x_angle[0] != "C":
