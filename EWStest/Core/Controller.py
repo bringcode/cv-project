@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
-from Core.SearchFirst import SearchFirst
-from Core.SearchBall import SearchBall
-from Core.Putting import Putting
-from Core.Check import Check
 from Sensor.search_ball import FindBall
 from Sensor.ball_y_center import BallyCenterMeasurer
 from Sensor.ball_x_center import BallxCenterMeasurer
@@ -31,69 +27,55 @@ class Act(Enum):
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    act: Act = Act.START
+    act: Act = Act.START # 순서도 시작
 
     count_putting: int = 0  # 퍼팅 횟수
     check_holein: int = 0  # 홀인 판단 횟수
     area: str = ""  # 현재 맵
-    ball: bool
+    ball: bool # 공 T/F 
 
-    L_right: int = 0  # T샷할 때 사용하는
-    L_center: int = 0  # 위치 파악하는 변수
-    L_left: int = 0  # 위치가 파악되면 그 위치의 변수가
-    C_right: int = 0  # 1이 된다.
-    C_center: int = 0
-    C_left: int = 0
+    # T샷할 때 사용하는 위치 파악하는 변수 위치가 파악되면 그 위치의 변수가 1이 된다.
+    L_right: int = 0  # 로봇: L / 공: right
+    L_center: int = 0  # 로봇: L / 공: center
+    L_left: int = 0  # 로봇: L / 공: left
+    C_right: int = 0  # 로봇: C / 공: right
+    C_center: int = 0 # 로봇: C / 공: center
+    C_left: int = 0 # 로봇: C / 공: left
 
-    x_R_cnt: int = 0
-    x_L_cnt: int = 0
-    y_U_cnt: int = 0
-    y_D_cnt: int = 0
-
-    canPutting: float = 0.0
-
-    # Misson.py
-    _first: SearchFirst = SearchFirst()
-    _find: SearchBall = SearchBall()
-    _check: Check = Check()
-    _putt: Putting = Putting()
+    canPutting: float = 0.0 # 칠 수 있는 거리있는지 판단 변수 (길이)
 
     # 처음 공이 어디에 있는지 확인하는 코드
     @classmethod
     def check_ball_first(self):
-        act = self.act
-        L_right = self.L_right
-        L_center = self.L_center
-        L_left = self.L_left
-        C_right = self.C_right
-        C_center = self.C_center
-        C_left = self.C_left
+        L_right = self.L_right # 로봇: L / 공: right
+        L_center = self.L_center # 로봇: L / 공: center
+        L_left = self.L_left # 로봇: L / 공: left
+        C_right = self.C_right # 로봇: C / 공: right
+        C_center = self.C_center # 로봇: C / 공: center
+        C_left = self.C_left # 로봇: C / 공: left
+        
+        ballFunction = BallCenterMeasurer()  # Search_ball 함수  # fix
+        #  .process():  공에 유무를 반환함 T/F
+        dir_list = [45, 60, 80, 90] # 임의로 지정한 로봇 머리 값
+        dir = 3 # dir_list 에서 90을 고를 수 있도록 설정하는 값
+        cnt = 0 # 로봇이 어디에서 찾았는지 구분하는 변수
+        Center = 0 # 공이 가운데이 있는지 확인할 때 사용하는 변수
 
-        time.sleep(1)
-        dir = 3
+        time.sleep(1) # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
-        ballFunction = BallCenterMeasurer()  # Search_ball 함수
-        # is_ball_find = ballFunction.process()  # process 가져옴 True / False로 반환됨.
-        # print(is_ball_find) # False가 출력되어야 함 아마도
 
-        cnt = 0
-        Center = 0
 
-        dir_list = [45, 60, 80, 90]
+        for i in range(3): # 왼쪽 경우의 숫 3개
+            self.robo._motion.set_head("DOWN", dir_list[dir]) # 왼쪽에 있을 떄 사용하는 로봇 각도 값 모션
+            dir -= 1 # 각도 임의값 변경
+            time.sleep(0.1) 
+            is_ball_find = ballFunction.process() # fix
+            print("Ball T/F: ",is_ball_find) # fix 공 T/F값 출력
 
-        for i in range(3):
-            self.robo._motion.set_head("DOWN", dir_list[dir])
-            print(1)
-            dir -= 1
-            time.sleep(3)
-            is_ball_find = ballFunction.process()
-            print(is_ball_find)
-            time.sleep(1)
-
-            if is_ball_find == False:
+            if is_ball_find == False: # 발견되지 않았을 때
                 cnt += 1
 
-            elif is_ball_find == True:
+            elif is_ball_find == True: # 발견됐을 때
                 print("공을 찾았습니다.")
                 if cnt == 0:
                     self.L_right = 1
@@ -101,18 +83,10 @@ class Controller:
                     self.L_center = 1
                 elif cnt == 2:
                     self.L_left = 1
-                    # dir = 0
-                    # self.robo._motion.set_head("DOWN", dir_list[dir])
-                    # is_ball_find = ballFunction.process()
-                    # print(is_ball_find)
-                    # if is_ball_find == True:  # 45도로 숙였을 때
-                    #     Center = 1
-                    #     break
-                    # else:
-                    #     self.L_left = 1
                 break
 
-            else:
+            else: # 이 부분은 삭제 해도 될 것 같긴함.
+
                 print("왼쪽 위치에 있지 않거나, 문제가 있을 수 있습니다.")
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
                 cnt += 1
@@ -121,19 +95,17 @@ class Controller:
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
 
-        # self.C_center = 1 # 실험하는거임 지워야함.
-
         if Center == 1 or is_ball_find == False:
             print("가운데에 있다고 생각하겠습니다.")
-            is_ball_find = ballFunction.process()
-            print(is_ball_find)
+            is_ball_find = ballFunction.process() # fix
+            print(is_ball_find) # fix
 
-            tputcenter = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480)
-            centerprocess = tputcenter.process()
-            print(centerprocess)
-            time.sleep(1)
+            tputcenter = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480) # fix
+            centerprocess = tputcenter.process() # fix
+            print(centerprocess) # fix
+            time.sleep(0.1) 
 
-            if centerprocess == True:
+            if centerprocess == True: # fix
                 print("Center: 공을 가운데에서 찾았습니다.")
 
                 if cnt == 3:
@@ -144,9 +116,9 @@ class Controller:
                 self.robo._motion.set_head("LEFT", 54)
                 time.sleep(0.1)
                 is_ball_find = ballFunction.process()
-                time.sleep(1)
+                time.sleep(0.1)
                 centerprocess = tputcenter.process()
-                time.sleep(1)
+                time.sleep(0.1)
                 cnt += 1
 
                 print("is_ball_find", is_ball_find)
@@ -174,69 +146,19 @@ class Controller:
                             self.C_right = 1
 
                     else:
-                        print("가운데 가운데 X")
                         print("공을 처음 시작할 때 어디서도 찾지 못했습니다.")
 
-                    # else:
-                    #     print("True False가 반환되지 않았습니다.")
 
-                # else:
-                #     print("C: 가운데에서 오류가 나는듯")
-
-        # 로봇이 왼쪽에서 시작한다고 생각하고 시작하는 부분
-
-        # 고개 각도를 90도에서 50도로 변경하면서 공을 찾습니다.
-        # for _ in range(3):
-        #     print(self.ball)
-        #     if self.ball == True:
-        #         print("공을 찾았습니다.")
-        #         break
-        #     dir -= 10
-        #     self.robo._motion.set_head("DOWN", dir)
-        #     time.sleep(3)
-
-        # 로봇이 가운데로 생각하고 시작하는 부분
-        # dir = 50
-        # self.robo._motion.set_head("DOWN", dir)
-
-        # if not self.ball == True:
-        #     time.sleep(3)
-        #     # 오른쪽으로 시선 이동
-        #     self.robo._motion.set_head("RIGHT", 45)
-        #     time.sleep(3)
-        #     if not self.ball == True:
-        #         # 왼쪽으로 시선 이동
-        #         self.robo._motion.set_head("LEFT", 45)
-        #         time.sleep(3)
-
-        # if self.ball == True:
-        #     print("공을 찾았습니다.")
-        # else:
-        #     print("공을 찾지 못했습니다.")
-        # 처음에는 공이 안 보임
-        # 로봇이 왼쪽에 있다고 생각
-        # 10도 내리면 왼쪽 기준으로 가장 먼 쪽을 봄
-        # 다시 10도 내리면 가운데
-        # 다시 10도 내리면 왼쪽
-
-        # 이때 로봇이 공을 인식 못하면 로봇이 가운데 있다고 생각
-        # 이제 10도를 더 내려서 가운데 확인
-        # 오른쪽 확인
-        # 왼쪽 확인
-
-        # 이 부분에 첫 공을 찾는 부분을 넣어야하는게 맞는지?
-
+    # 공이 가운데 있는지 확인해서 로봇 왼쪽 오른쪽 모션
     @classmethod
     def ball_feature_ball(self):
         print("Debug in ball_feature_ball")
-        ball_feature = ["N", "N", "N"]
-        # print("너 여기 왔니?")
-        # print(ball_feature[0])
-
+        ball_feature = ["N", "N", "N"] # fix
         # [공의 가운데 여부, 공의 x중심좌표, 공의 y중심좌표]
+        
         # ball_ball_feature_measure 에서 return 값: L / C / R
         while ball_feature[0] != "C":
-            cmeasurer = BallxCenterMeasurer()
+            cmeasurer = BallxCenterMeasurer() 
             ball_feature = cmeasurer.process()
             print(ball_feature[0])
 
@@ -256,18 +178,12 @@ class Controller:
             else:
                 print("원하는 값이 반환되지 않았습니다.")
 
-    # 퍼팅 후 공이 나갔는지 확인하는 코드 (공을 발견하면 그 각도로 멈춤)
-    # @classmethod
-    # def check_ball_out(self):
-    #     # 위험 지역에 공이 있으면 공이 나간 걸로 판단 -> 위험 지역을 판별할 cv 생각해야 함
 
-    #     time.sleep(1)
-
-    # 퍼팅 후 공 위치 찾기
+    # 퍼팅 후 공 위치 찾기 -
     @classmethod
     def check_ball_location(self):
         print("Debug check_ball_location in Controller")
-        time.sleep(1)
+        time.sleep(0.1)
 
         short_left_location = 0
         short_right_location = 0
@@ -381,11 +297,6 @@ class Controller:
 
         else:
             print("원하는 값이 반환되지 않았습니다.")
-
-    # 홀인 했는지 안 했는지
-    @classmethod
-    def check_ball_in(self):
-        time.sleep(1)
 
     # 공 1도씩 조정하면서 각도 확인
     @classmethod
