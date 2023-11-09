@@ -571,10 +571,10 @@ class Controller:
         # time.sleep(0.5)  # test
 
 
-        time = 0.2
+        t = 0.2
         for i in range(2):
             self.robo._motion.set_head_small("DOWN", 1)
-            time.sleep(time)
+            time.sleep(t)
             time -= 0.1
 
 
