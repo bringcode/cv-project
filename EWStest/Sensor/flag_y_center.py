@@ -47,6 +47,7 @@ while True:
     for green_box in green_boxes:
         x, y, w, h = green_box
         yellow_roi = yellow_mask[y:y + h, x:x + w]
+        print(yellow_roi)
         print("주의!")
 
         # 초록 상자 내부의 노랑색 영역 처리
