@@ -1,6 +1,7 @@
 # 공이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 판별하는 코드 (isMiddle)
 
 # -*- coding: utf-8 -*-
+from builtins import print
 import numpy as np
 import cv2
 
@@ -190,6 +191,10 @@ class FlagxCenterMeasurer:
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
+                
+                flag_x_isMiddle = self.judgeMiddle(a+10, a-10)
+                return [flag_x_isMiddle, a, b]
+
     # Display the original frame
             #cv2.imshow('Green and Yellow Frame', frame)
 
@@ -198,13 +203,12 @@ class FlagxCenterMeasurer:
                 #break
 
 # Release the video capture and close all OpenCV windows
-        cap.release()
-        cv2.destroyAllWindows()
-        flag_x_isMiddle = self.judgeMiddle(a+10, b-10)
-        return [flag_x_isMiddle, a, b]
+        #cap.release()
+        
+        #cv2.destroyAllWindows()
 
 
 
 if __name__ == "__main__":
     distance_measurer = FlagxCenterMeasurer() # img_width=1280, img_height=720
-    print(distance_measurer.process())
+    print("it's running")
