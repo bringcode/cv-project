@@ -115,7 +115,7 @@ class Motion:
 
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir])
-            time.sleep(sleep)
+            # time.sleep(sleep)
 
     # def walk_30(self, sleep=0.1, short=False):
 
@@ -171,7 +171,7 @@ class Motion:
         else:
             self.TX_data_py3(dir_list[dir][angle])
 
-        time.sleep(0.3)
+        # time.sleep(0.3)
 
     # 돌기 (141~160)
     def turn(self, dir, angle, loop=1, sleep=0.5, arm=False):
@@ -199,7 +199,7 @@ class Motion:
 
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir][angle])
-            time.sleep(sleep)
+            # time.sleep(sleep)
 
     # 옆으로 이동 (161~169)
     def walk_side(self, dir):
@@ -285,7 +285,7 @@ class Motion:
         }
 
         self.TX_data_py3(dir_list[dir][angle])
-        time.sleep(0.3)
+        # time.sleep(0.3)
 
     ############################################################
 
