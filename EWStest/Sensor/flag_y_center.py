@@ -2,8 +2,8 @@ import numpy as np
 import cv2
 
 class FlagxCenterMeasurer:
-    def __init__(self,  img_width=800, img_height=600):
-        
+    def __init__(self, video_path=0, img_width=800, img_height=600):
+        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         #if not self.cap.isOpened():
             #raise ValueError(f"비디오 {video_path}를 열 수 없습니다.")
         self.img_width = img_width
@@ -47,9 +47,8 @@ class FlagxCenterMeasurer:
                 return 'R'
 
     def run(self):
-        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
         while True:
-            ret, frame = cap.read()
+            ret, frame = self.cap.read()
             if not ret:
                 print("프레임 캡처에 실패했습니다.")
                 break
@@ -66,9 +65,7 @@ class FlagxCenterMeasurer:
             low_yellow = np.array([0, 16, 144])
             high_yellow = np.array([43, 184, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-            
-            max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
-            box = None
+            flag_centers = []
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
                 green_roi = frame[y:y+h, x:x+w]
@@ -83,7 +80,7 @@ class FlagxCenterMeasurer:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
-                        
+                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
@@ -92,29 +89,27 @@ class FlagxCenterMeasurer:
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                             flag_centers.append((cx, cy))
 
-                    if flag_centers:
-                        farthest_flag_center = min(flag_centers, key=lambda center: center[1])
-                        cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
-                                    (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
-                        cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
+                if flag_centers:
+                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
+                    cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
+                                  (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
+                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                        self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
-                        print(farthest_flag_center)
-
-                        max_x, min_x, max_y, min_y = self.getMaxMin(box)
-                        flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-                        flag_x = round((max_x + min_x)/2, 2)
-                        flag_y = round((max_y + min_y)/2, 2)
-                        return [flag_x_isMiddle, flag_x, flag_y]
-
+                    self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
+                    print(farthest_flag_center)
+                    
 
             #cv2.imshow('프레임', frame)
             #if cv2.waitKey(1) & 0xFF == ord('q'):
-            #break
+            break
 
         # if self.farthest_flag_boxes:
         #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
+        print(farthest_flag_center[0]+10, max_x)
+        flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
+        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
 
 if __name__ == "__main__":
-    shape_recognition = FlagxCenterMeasurer()
+    video_path = 0  # 웹캠을 사용하려면 0을 사용
+    shape_recognition = FlagxCenterMeasurer(video_path, img_width=640, img_height=480)
     print(shape_recognition.run())
