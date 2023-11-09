@@ -3,7 +3,7 @@ import cv2
 
 your_area_threshold = 300  # 사용자 정의 임계값, 필요에 따라 값을 조정하세요
 
-cap = cv2.VideoCapture(0,cv2.CAP_V4L)  # 비디오 파일 경로를 설정하세요
+cap = cv2.VideoCapture(0)  # 비디오 파일 경로를 설정하세요
 print("flag_y 시작!!")
 
 # 초록 영역 박스의 정보를 저장할 리스트
@@ -25,8 +25,6 @@ while True:
 
     # 녹색 범위에 해당하는 부분을 추출
     green_mask = cv2.inRange(hsv_frame, low_green, high_green)
-
-    # 추출된 녹색 부분을 원본 프레임에 표시
 
 
     # 녹색 영역의 윤곽선 찾기
@@ -53,7 +51,7 @@ while True:
         print("주의!")
 
         # 초록 상자 내부의 노랑색 영역 처리
-        _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
+        _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=4)
         print("아니넹")
         print(len(stats))
         for i in range(0, len(stats)):
@@ -67,7 +65,7 @@ while True:
             
             print("초록색 영역안의 작은 노란색을 제거했어요!!")
             cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
-            print("사각형을 그려요!!!")
+
             # Convert the yellow region into a binary image for contour detection
             yellow_binary = np.zeros_like(yellow_roi)
             yellow_binary[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob] = yellow_roi[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob]
