@@ -73,7 +73,6 @@ class FlagyCenterMeasurer:
                 # 초록 상자 내부의 노랑색 영역 처리
                 _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=4)
                 # print("아니넹")
-                print(len(stats))
                 for i in range(0, len(stats)):
                     # print("여긴가?")
                     x_blob, y_blob, w_blob, h_blob, area_blob = stats[i]
