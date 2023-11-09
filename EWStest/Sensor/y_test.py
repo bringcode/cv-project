@@ -74,7 +74,7 @@ class FlagxCenterMeasurer:
     def process(self):
         your_area_threshold = 300  # 사용자 정의 임계값, 필요에 따라 값을 조정하세요
 
-        cap = cv2.VideoCapture(0)  # 비디오 파일 경로를 설정하세요
+        cap = cv2.VideoCapture('YYY.h264')  # 비디오 파일 경로를 설정하세요
 
 # 초록 영역 박스의 정보를 저장할 리스트
         green_boxes = []
@@ -110,7 +110,7 @@ class FlagxCenterMeasurer:
 
     # 노랑색 범위에 해당하는 부분을 추출
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-
+            shape_info=[]
             shape_info_list = []
 
             for green_box in green_boxes:
@@ -188,18 +188,19 @@ class FlagxCenterMeasurer:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] - offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                flag_x_isMiddle = self.judgeMiddle(point_x[0]+10, point_x[0]-10)
-                return [flag_x_isMiddle, point_x[0],point_x[1]]
-    # Display the original frame
-            #cv2.imshow('Green and Yellow Frame', frame)
 
-            #key = cv2.waitKey(1) & 0xFF
-            #if key == ord('q'):
-                #break
+    # Display the original frame
+            cv2.imshow('Green and Yellow Frame', frame)
+
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break
 
 # Release the video capture and close all OpenCV windows
-        #cap.release()
-        #cv2.destroyAllWindows()
+        cap.release()
+        cv2.destroyAllWindows()
+                    
+        return [point_x]
 
 
 
