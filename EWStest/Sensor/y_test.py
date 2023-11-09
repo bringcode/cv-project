@@ -201,7 +201,7 @@ class FlagxCenterMeasurer:
                         
         flag_x_isMiddle = self.judgeMiddle(farthest_flag_box[0]+10.0, farthest_flag_box[0]-10.0)
 
-        return [flag_x_isMiddle, farthest_flag_boxq]
+        return [flag_x_isMiddle, farthest_flag_box[0], farthest_flag_box[1]]
 
 
 
