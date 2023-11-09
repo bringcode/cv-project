@@ -533,7 +533,7 @@ class Controller:
         time.sleep(0.1) # test
         self.check_flag_distance()  # test
         time.sleep(0.2)
-        angle = abs(self.robo._motion.y_head_angle - 20)  # test
+        angle = abs(self.robo._motion.y_head_angle - 23)  # test
         dist_flag = DistMeasurer()  # test
         print("flag distance: ",end='') # test
         print(dist_flag.display_distance(angle))  # test
