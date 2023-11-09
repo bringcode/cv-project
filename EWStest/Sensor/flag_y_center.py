@@ -3,7 +3,7 @@ import cv2
 
 your_area_threshold = 300  # 사용자 정의 임계값, 필요에 따라 값을 조정하세요
 
-cap = cv2.VideoCapture(0)  # 비디오 파일 경로를 설정하세요
+cap = cv2.VideoCapture(0,cv2.CAP_V4L)  # 비디오 파일 경로를 설정하세요
 print("flag_y 시작!!")
 
 # 초록 영역 박스의 정보를 저장할 리스트
