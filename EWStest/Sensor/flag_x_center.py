@@ -100,7 +100,7 @@ class FlagxCenterMeasurer:
 
                     
                         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-                        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
+                    return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
 
 
             #cv2.imshow('프레임', frame)
