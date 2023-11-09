@@ -110,7 +110,7 @@ class FlagxCenterMeasurer:
 
     # 노랑색 범위에 해당하는 부분을 추출
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-
+            shape_info=[]
             shape_info_list = []
 
             for green_box in green_boxes:
@@ -185,23 +185,23 @@ class FlagxCenterMeasurer:
                 offset = 10  # Offset to move the text upward
                 if shape_text == "FLAG":
                     point_x = shape_info[0]
-                    a,b = point_x
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] - offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                    print(point_x)
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     # Display the original frame
-            #cv2.imshow('Green and Yellow Frame', frame)
+            cv2.imshow('Green and Yellow Frame', frame)
 
-            #key = cv2.waitKey(1) & 0xFF
-            #if key == ord('q'):
-                #break
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break
 
 # Release the video capture and close all OpenCV windows
         cap.release()
         cv2.destroyAllWindows()
-        flag_x_isMiddle = self.judgeMiddle(a+10, b-10)
-        return [flag_x_isMiddle, a, b]
+                    
+        
 
 
 
