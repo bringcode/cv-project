@@ -3,7 +3,8 @@ import cv2
 
 class FlagxCenterMeasurer:
     def __init__(self, video_path=0, img_width=800, img_height=600):
-        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        # self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        print("객체 생성 중")
         #if not self.cap.isOpened():
             #raise ValueError(f"비디오 {video_path}를 열 수 없습니다.")
         self.img_width = img_width
