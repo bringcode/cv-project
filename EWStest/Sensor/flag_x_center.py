@@ -54,24 +54,25 @@ class FlagxCenterMeasurer:
                 break
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
+            flag_centers = []
+            farthest_flag_center = []
             low_green = np.array([57, 78, 61])
             high_green = np.array([89, 255, 255])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
-
+        
             low_yellow = np.array([0, 16, 144])
             high_yellow = np.array([43, 184, 255])
             yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-
+            flag_centers = []
             for green_box in self.green_boxes:
                 x, y, w, h = green_box
                 green_roi = frame[y:y+h, x:x+w]
                 yellow_roi_mask = yellow_mask[y:y+h, x:x+w]
                 yellow_contours, _ = cv2.findContours(yellow_roi_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-                flag_centers = []
+                
 
                 for cnt in yellow_contours:
                     area = cv2.contourArea(cnt)
