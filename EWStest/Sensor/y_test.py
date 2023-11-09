@@ -200,7 +200,7 @@ class FlagxCenterMeasurer:
         cv2.destroyAllWindows()
                         
 
-        return [flag_x_isMiddle, farthest_flag_box]
+        return [farthest_flag_box]
 
 
 
