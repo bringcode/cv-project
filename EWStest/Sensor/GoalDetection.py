@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 class GoalDetect:
-    def __init__(self, img_width=800, img_height=600, width=4, focal=450):
+    def __init__(self, img_width=640, img_height=480, width=4, focal=450):
         self.dist = 0 
         self.focal = focal
         self.pixels = 30
@@ -21,16 +21,6 @@ class GoalDetect:
         self.thickness = 2
         
         self.middle = img_width // 2
-        
-        # #Define object specific variables  
-        # dist = 0
-        # focal = 450
-        # pixels = 30
-        # width = 4
-
-        # img_width = 640
-        # img_height = 480
-        # middle = img_width // 2
 
     #find the distance from then camera
     def get_dist(self, rectange_params, image, name, isMiddle):
@@ -39,20 +29,6 @@ class GoalDetect:
 
         #calculate distance
         dist = (self.img_width * self.focal)/pixels
-        
-        #Write n the image
-        if name == 'flag':
-            image = cv2.putText(image, 'flag Distance from Camera in CM :', self.org, self.font,  
-            1, self.color, 2, cv2.LINE_AA)
-
-            image = cv2.putText(image, 'flag Middle : {}'.format(isMiddle), self.org, self.font,  
-            1, self.color, 2, cv2.LINE_AA)
-        else:
-            image = cv2.putText(image, 'ball Distance from Camera in CM :', self.org, self.font,  
-            1, self.color, 2, cv2.LINE_AA)
-
-            image = cv2.putText(image, 'flag Middle : {}'.format(isMiddle), (0,40), self.font,  
-            1, self.color, 2, cv2.LINE_AA)
 
         image = cv2.putText(image, str(dist), (110,50), self.font,  
         self.fontScale, self.color, 1, cv2.LINE_AA)
@@ -103,20 +79,13 @@ class GoalDetect:
 
     def process(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
-        #Extract Frames 
-        # cap = cv2.VideoCapture("long.h264")
 
         #basic constants for opencv Functs
         kernel = np.ones((3,3),'uint8')
-        font = cv2.FONT_HERSHEY_SIMPLEX 
-        org = (0,20)  
-        fontScale = 0.6 
-        color = (0, 0, 255) 
-        thickness = 2
 
-
-        cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('Object Dist Measure ', 700,600)
+        # imshow 실행시 주석 빼기
+        # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
+        # cv2.resizeWindow('Object Dist Measure ', 700,600)
 
         #loop to capture video frames
         while True:
@@ -194,13 +163,13 @@ class GoalDetect:
                     if f_min_x <= b_min_x and b_max_x <= f_max_x and f_min_y <= b_min_y and b_max_y <= f_max_y:
                         print("Goal!")
                 
+        #     imshow 실행시 주석 빼기
+        #     cv2.imshow('Object Dist Measure ', img)
 
-            cv2.imshow('Object Dist Measure ', img)
+        #     if cv2.waitKey(1) & 0xFF == ord('q'):
+        #         break
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
         
 if __name__ == "__main__":
     goal_detect = GoalDetect()
