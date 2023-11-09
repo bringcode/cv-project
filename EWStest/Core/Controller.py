@@ -524,9 +524,16 @@ class Controller:
         ##########################################################
         # self.robo._motion.set_head("DOWN", 90)  # test
         # time.sleep(0.5)  # test
-        self.robo._motion.walk("FORWARD", 10, 1.0)
-        print("10번 걸었습니다.")
+        self.robo._motion.turn("RIGHT",45)
+        time.sleep(0.2)
+        self.robo._motion.turn("RIGHT",45)
+        time.sleep(0.2)
+        for i in range(10):
+            self.robo._motion.walk_side("RIGHT")
+            time.sleep(0.2)
+
         time.sleep(10)
+
         # self.robo._motion.hit_the_ball("RIGHT")
         # time.sleep(5)
         # self.robo._motion.hit_the_ball("LEFT")
