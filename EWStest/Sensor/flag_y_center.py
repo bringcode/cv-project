@@ -24,8 +24,10 @@ class FlagyCenterMeasurer:
         for x, y in box:
             min_x = min(min_x, x)
             max_x = max(max_x, x)
-            min_y = min(min_y, y)
-            max_y = max(max_y, y)
+            # min_y = min(min_y, y)
+            # max_y = max(max_y, y)
+            min_y = max(min_y, y)
+            man_y = min(max_y, y)
 
         return max_x, min_x, max_y, min_y
 
