@@ -36,6 +36,8 @@ class FlagyCenterMeasurer:
         error_range = 30
 
         is_Middle = abs(r_dist - l_dist) < error_range
+        print("r_dist: ", r_dist)
+        print("l_dist: ", l_dist)
 
         if is_Middle:
             return 'C'
