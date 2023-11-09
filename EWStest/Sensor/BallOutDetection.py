@@ -54,8 +54,8 @@ class BallOutDetection:
         hsv = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2HSV)
         
         # 경기장 색인식 범위 지정
-        lower_green = np.array([40, 100, 40])
-        upper_green = np.array([80, 255, 255])
+        lower_green = np.array([40, 70, 40])
+        upper_green = np.array([140, 180, 255])
         
         # 경기장 mask
         mask = cv2.inRange(hsv, lower_green, upper_green)
@@ -83,7 +83,7 @@ class BallOutDetection:
                 print(ball_out)
                 # cv2.putText(resized_frame, "OUT", (ball_position[0] + 20, ball_position[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
         else:
-            print("None")
+            print("None asdf")
 
         return resized_frame, ball_out
 
