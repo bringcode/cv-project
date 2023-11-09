@@ -10,12 +10,12 @@ class FlagyCenterMeasurer:
         error_range = 15
         img_height_middle = img_height//2
 
-        is_Middle = img_height_middle - error_range < ball_center[0][1] < img_height_middle + error_range
+        is_Middle = img_height_middle - error_range < ball_center[1] < img_height_middle + error_range
 
         if is_Middle:
             return 'C'
         else:
-            if ball_center[0][1] < img_height_middle:
+            if ball_center[1] < img_height_middle:
                 return 'U'
             else:
                 return 'D'
