@@ -53,7 +53,7 @@ while True:
         _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
         print("아니넹")
         print(len(stats))
-        for i in range(1, len(stats)):
+        for i in range(0, len(stats)):
             print("여긴가?")
             x_blob, y_blob, w_blob, h_blob, area_blob = stats[i]
             print("아니었고~")
