@@ -102,6 +102,8 @@ class FlagyCenterMeasurer:
                     
 
             cv2.imshow('프레임', frame)
+            flag_y_isMiddle = self.judgeMiddle(max_y, min_y)
+            print(flag_y_isMiddle)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 print("3차 통과")
                 break
