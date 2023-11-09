@@ -17,7 +17,7 @@ class FlagyCenterMeasurer:
 
     def getMaxMin(self, box):
         # 공에 박스 쳤을 때 왼쪽, 오른쪽 꼭짓점 좌표를 나타내는 변수(일단 최솟값은 최댓값으로 설정, 최댓값은 최솟값으로 설정)
-        min_x, max_x = self.img_height, 0
+        min_x, max_x = self.img_width, 0
         # 공에 박스 쳤을 때 아래, 위 꼭짓점 좌표(위와 같음)
         min_y, max_y = self.img_height, 0
 
