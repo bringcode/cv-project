@@ -47,6 +47,7 @@ while True:
     print("이제 초록색 박스를 잡기 시작하겠습니다.")
     for green_box in green_boxes:
         x, y, w, h = green_box
+        print(len(green_boxes))
         yellow_roi = yellow_mask[y:y + h, x:x + w]
         print(len(yellow_roi))
         print("주의!")
@@ -123,7 +124,7 @@ while True:
     # Print the center coordinates
     if farthest_flag_box is not None:
         farthest_center = farthest_flag_box[0]
-        print("Farthest FLAG Center: {farthest_center}")
+        print(f"Farthest FLAG Center: {farthest_center}")
 
     # Display centers and shape information on the frame
     for shape_info in shape_info_list:
