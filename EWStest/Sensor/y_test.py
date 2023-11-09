@@ -184,6 +184,8 @@ class FlagxCenterMeasurer:
                 center, shape_text = shape_info[0], shape_info[1]
                 offset = 10  # Offset to move the text upward
                 if shape_text == "FLAG":
+                    point_x = shape_info[0]
+                    point_y= shape_info[1]
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] - offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
@@ -198,9 +200,8 @@ class FlagxCenterMeasurer:
 # Release the video capture and close all OpenCV windows
         cap.release()
         cv2.destroyAllWindows()
-                        
-
-        return [farthest_flag_box]
+                    
+        return [point_x, point_y]
 
 
 
