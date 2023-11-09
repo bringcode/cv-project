@@ -89,7 +89,7 @@ class BallOutDetection:
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
 
         while True:
-            ret, frame = self.cap.read()
+            ret, frame = cap.read()
             if not ret:
                 break
 
