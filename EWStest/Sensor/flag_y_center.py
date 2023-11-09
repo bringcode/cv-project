@@ -99,9 +99,9 @@ class FlagxCenterMeasurer:
                     print(farthest_flag_center)
                     
 
-            #cv2.imshow('프레임', frame)
-            #if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            cv2.imshow('프레임', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
         # if self.farthest_flag_boxes:
         #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
