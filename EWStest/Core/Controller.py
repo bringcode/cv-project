@@ -9,6 +9,7 @@ from Sensor.t_put_judge import BallCenterMeasurer #
 from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer #
 from Sensor.flag_x_center import FlagxCenterMeasurer #
 from Sensor.flag_y_center import FlagyCenterMeasurer #
+from Sensor.HitPoint import HitPointer
 
 # from Setting import cur
 import time
@@ -536,7 +537,8 @@ class Controller:
         angle = abs(self.robo._motion.y_head_angle - 21)  # test
         dist_flag = DistMeasurer()  # test
         print("flag distance: ",end='') # test
-        print(dist_flag.display_distance(angle))  # test
+        distflag = dist_flag.display_distance(angle)
+        print(distflag)  # test
         time.sleep(0.2)  # test
 
         flag_angle = self.robo._motion.x_head_angle
@@ -547,7 +549,8 @@ class Controller:
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
         dist_ball = DistMeasurer()  # test
         print("ball distance: ",end='') # test
-        print(dist_ball.display_distance(angle))  # test
+        distball = dist_ball.display_distance(angle)
+        print(distball)  # test
 
         ball_angle = self.robo._motion.x_head_angle # test
         if ball_angle >= flag_angle: # test
@@ -556,6 +559,11 @@ class Controller:
             real_angle = flag_angle - ball_angle # test
         print("Real angle: ", end="") # test
         print(real_angle) #test
+
+        solver = HitPointer(distflag, distball, real_angle, 7)
+        a,b = solver.solve()
+        print(a)
+        print(b)
         
         print("11111")  # test
         time.sleep(10)  # test
@@ -789,3 +797,4 @@ class Controller:
             print("이쪽으로 빠지면 문제가 있는거임.")
 
         return False
+        
