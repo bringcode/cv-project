@@ -154,19 +154,17 @@ class FlagyCenterMeasurer:
 
             is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
 
-            return is_y_middle
+            # return is_y_middle
 
-            # Display the original frame
-            # cv2.imshow('Green and Yellow Frame', frame)
+            cv2.imshow('Green and Yellow Frame', frame)
 
-            # key = cv2.waitKey(1) & 0xFF
-            # if key == ord('q'):
-            #     break
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break
 
-        # Release the video capture and close all OpenCV windows
-        # cap.release()
-        # cv2.destroyAllWindows()
+        cap.release()
+        cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    shape_recognition = FlagxCenterMeasurer(img_width=640, img_height=480)
+    shape_recognition = FlagyCenterMeasurer(img_width=640, img_height=480)
     print(shape_recognition.run())
