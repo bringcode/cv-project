@@ -587,7 +587,7 @@ class Controller:
 
         a = int(a) # test 정수로 변환
         goto = a // 4
-        self.robo._motion.walk("FORWARD", 10, 0.3) # test 
+        self.robo._motion.walk("FORWARD", goto, 0.8) # test 
 
 
 
