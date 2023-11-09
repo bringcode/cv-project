@@ -81,9 +81,11 @@ class BallOutDetection:
             if cv2.pointPolygonTest(field_contour, ball_position, False) < 0:
                 ball_out = True
                 print(ball_out)
-                # cv2.putText(resized_frame, "OUT", (ball_position[0] + 20, ball_position[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
-        else:
-            print("None asdf")
+                cv2.putText(resized_frame, "OUT", (ball_position[0] + 20, ball_position[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+        elif ball_position is None and field_contour is not None:
+            print("Can't find ball")
+        elif ball_position is not None and field_contour is None:
+            print("Can't find field")
 
         return resized_frame, ball_out
 
