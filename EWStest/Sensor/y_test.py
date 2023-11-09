@@ -1,7 +1,6 @@
 # 공이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 판별하는 코드 (isMiddle)
 
 # -*- coding: utf-8 -*-
-from builtins import print
 import numpy as np
 import cv2
 
@@ -75,7 +74,7 @@ class FlagxCenterMeasurer:
     def process(self):
         your_area_threshold = 300  # 사용자 정의 임계값, 필요에 따라 값을 조정하세요
 
-        cap = cv2.VideoCapture('YYY.h264')  # 비디오 파일 경로를 설정하세요
+        cap = cv2.VideoCapture(0)  # 비디오 파일 경로를 설정하세요
 
 # 초록 영역 박스의 정보를 저장할 리스트
         green_boxes = []
@@ -186,15 +185,11 @@ class FlagxCenterMeasurer:
                 offset = 10  # Offset to move the text upward
                 if shape_text == "FLAG":
                     point_x = shape_info[0]
-                    a,b = point_x
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] - offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                 else:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-                
-                flag_x_isMiddle = self.judgeMiddle(a+10, a-10)
-                return [flag_x_isMiddle, a, b]
-
+                flag_x_isMiddle = self.judgeMiddle(point_x[0]+10, point_x[0]-10)
+                return [flag_x_isMiddle, point_x[0],point_x[1]]
     # Display the original frame
             #cv2.imshow('Green and Yellow Frame', frame)
 
@@ -204,11 +199,10 @@ class FlagxCenterMeasurer:
 
 # Release the video capture and close all OpenCV windows
         #cap.release()
-        
         #cv2.destroyAllWindows()
 
 
 
 if __name__ == "__main__":
     distance_measurer = FlagxCenterMeasurer() # img_width=1280, img_height=720
-    print("it's running")
+    print(distance_measurer.process())
