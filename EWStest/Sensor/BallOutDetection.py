@@ -8,16 +8,11 @@ class BallOutDetection:
         self.scale_percent = scale_percent
     
     def ball_detector(self, hsv, resized_frame):
-        # 빨간색 공의 HSV 색상 범위
-        lower_red1 = np.array([0, 120, 70])
-        upper_red1 = np.array([10, 255, 255])
-        lower_red2 = np.array([170, 120, 70])
-        upper_red2 = np.array([180, 255, 255])
-
-        # 빨간색 공 감지를 위한 마스크 생성
-        mask_ball1 = cv2.inRange(hsv, lower_red1, upper_red1)
-        mask_ball2 = cv2.inRange(hsv, lower_red2, upper_red2)
-        mask_ball = mask_ball1 + mask_ball2
+        
+        # robot version
+        lower = np.array([137, 0, 0])
+        upper = np.array([255, 255, 255])
+        mask_ball = cv2.inRange(hsv, lower, upper)
 
         # 마스크에서 공을 찾음.
         contours_ball, _ = cv2.findContours(mask_ball, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -93,5 +88,5 @@ class BallOutDetection:
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    detector = BallOutDetection("flagONLY.h264")
+    detector = BallOutDetection()
     detector.run()
