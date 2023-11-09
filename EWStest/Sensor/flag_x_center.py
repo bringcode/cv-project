@@ -89,25 +89,26 @@ class FlagxCenterMeasurer:
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                             flag_centers.append((cx, cy))
 
-                if flag_centers:
-                    farthest_flag_center = min(flag_centers, key=lambda center: center[1])
-                    cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
-                                  (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
-                    cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
+                    if flag_centers:
+                        farthest_flag_center = min(flag_centers, key=lambda center: center[1])
+                        cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
+                                    (farthest_flag_center[0] + 10, farthest_flag_center[1] + 10), (0, 0, 255), 2)
+                        cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                    self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
-                    print(farthest_flag_center)
+                        self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
+                        print(farthest_flag_center)
+
                     
+                        flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
+                        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
+
 
             #cv2.imshow('프레임', frame)
             #if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            #break
 
         # if self.farthest_flag_boxes:
         #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
-        print(farthest_flag_center[0]+10, max_x)
-        flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
 
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
