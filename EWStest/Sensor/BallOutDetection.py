@@ -82,6 +82,8 @@ class BallOutDetection:
                 ball_out = True
                 print(ball_out)
                 cv2.putText(resized_frame, "OUT", (ball_position[0] + 20, ball_position[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+            else:
+                print("In")
         elif ball_position is None and field_contour is not None:
             print("Can't find ball")
         elif ball_position is not None and field_contour is None:
