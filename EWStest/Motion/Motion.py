@@ -115,14 +115,8 @@ class Motion:
 
         for _ in range(loop):
             self.TX_data_py3(dir_list[dir])
-            # time.sleep(sleep)
+            time.sleep(sleep) # 주석하면 큰일날듯
 
-    # def walk_30(self, sleep=0.1, short=False):
-
-    #     dir_list = {}
-
-    # def walk_10(self, sleep=0.1, short=False):
-    #     dir_list = {}
 
     # 머리 각도 (121~140)
     def set_head(self, dir, angle=0):
@@ -212,18 +206,6 @@ class Motion:
         """
         dir_list = {"LEFT": 161, "RIGHT": 169}
         self.TX_data_py3(dir_list[dir])
-
-    # # 위험지역 인식
-    # def notice_area(self, area):
-    #     """
-    #     area: {BLACK, STAIR} - 위험 지역 정보
-    #     """
-
-    #     """parameter :
-    #     area : {BLACK, STAIR}
-    #     """
-    #     area_list = {'BLACK': 205, 'STAIR': 206}
-    #     self.TX_data_py2(area_list[area])
 
     # 공 치기 (170~171)
     def hit_the_ball(self, dir):
