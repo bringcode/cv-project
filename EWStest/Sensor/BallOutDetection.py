@@ -2,10 +2,6 @@ import cv2
 import numpy as np
 
 class BallOutDetection:
-
-    # def __init__(self, video_path, scale_percent=65):
-    #     self.cap = cv2.VideoCapture(video_path)
-    #     self.scale_percent = scale_percent
     
     def __init__(self, img_width=800, img_height=600, width=4, focal=450):
         self.dist = 0 
@@ -43,9 +39,6 @@ class BallOutDetection:
         return None, 0  # 공이 감지되지 않았다면 None 반환
 
     def process_frame(self, frame):
-        # 영상 resize
-        # width = int(frame.shape[1] * self.scale_percent / 100)
-        # height = int(frame.shape[0] * self.scale_percent / 100)
         width = int(frame.shape[1])
         height = int(frame.shape[0])
         dim = (width, height)
