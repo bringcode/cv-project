@@ -565,9 +565,9 @@ class Controller:
             print("ACT: ", act)  # Debug
             time.sleep(0.5)
 
-            self.check_ball_first()
+            self.check_ball_first() # 퍼팅 부분
 
-            if self.L_right == 1:
+            if self.L_right == 1: # 퍼팅 판단 return 받은걸로 모션
                 self.robo._motion.walk("FORWARD", 10, 1.0)
                 time.sleep(0.1)
 
@@ -578,6 +578,7 @@ class Controller:
                 angle = 0
                 dist = dist_Process.display_distance(angle)
 
+                # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     self.robo._motion.hit_the_ball("RIGHT")
@@ -604,6 +605,7 @@ class Controller:
                 dist = dist_Process.display_distance(angle)
                 time.sleep(0.1)
 
+                # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
 
@@ -631,6 +633,7 @@ class Controller:
                 dist = dist_Process.display_distance(angle)
                 time.sleep(0.1)
 
+                # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     self.robo._motion.hit_the_ball("RIGHT")
@@ -663,6 +666,7 @@ class Controller:
                 dist = dist_Process.display_distance(angle)
                 time.sleep(1)
 
+                # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     self.robo._motion.hit_the_ball("RIGHT")
@@ -695,6 +699,7 @@ class Controller:
                 dist = dist_Process.display_distance(angle)
                 time.sleep(1)
 
+                # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
@@ -726,6 +731,7 @@ class Controller:
                 dist = dist_Process.display_distance(angle)
                 time.sleep(0.1)
 
+                # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
