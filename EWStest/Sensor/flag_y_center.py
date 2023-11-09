@@ -89,8 +89,7 @@ class FlagyCenterMeasurer:
                             cy = int(M['m01'] / M['m00'])
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                             flag_centers.append((cx, cy))
-                        print("2차 통과")
-
+                        print(cx, cy)
                 if flag_centers:
                     farthest_flag_center = min(flag_centers, key=lambda center: center[1])
                     cv2.rectangle(green_roi, (farthest_flag_center[0] - 10, farthest_flag_center[1] - 10),
