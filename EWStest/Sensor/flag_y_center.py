@@ -8,6 +8,7 @@ print("flag_y 시작!!")
 
 # 초록 영역 박스의 정보를 저장할 리스트
 green_boxes = []
+green_box=[]
 farthest_flag_box = None
 
 while True:
