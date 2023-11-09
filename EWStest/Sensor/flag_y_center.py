@@ -47,12 +47,16 @@ while True:
     for green_box in green_boxes:
         x, y, w, h = green_box
         yellow_roi = yellow_mask[y:y + h, x:x + w]
+        print("주의!")
 
         # 초록 상자 내부의 노랑색 영역 처리
         _, labels, stats, _ = cv2.connectedComponentsWithStats(yellow_roi, connectivity=8)
+        print("아니넹")
 
         for i in range(1, len(stats)):
+            print("여긴가?")
             x_blob, y_blob, w_blob, h_blob, area_blob = stats[i]
+            print("아니었고~")
 
             # 영역값이 100픽셀 이하인 영역을 제거
             if area_blob <= 100:
