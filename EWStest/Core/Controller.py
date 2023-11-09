@@ -334,11 +334,11 @@ class Controller:
                         print("ball_y: ", ball_y_angle[0])
 
                         if ball_y_angle[0] == "U":
-                            self.robo._motion.set_head_small("UP", 1)
+                            self.robo._motion.set_head_small("UP", 2)
                             time.sleep(0.1)
 
                         if ball_y_angle[0] == "D":
-                            self.robo._motion.set_head_small("DOWN", 1)
+                            self.robo._motion.set_head_small("DOWN", 2)
                             time.sleep(0.1)
 
                     correctAngle = 1
@@ -357,10 +357,10 @@ class Controller:
                     print("ball_x: ", ball_x_angle[0])
 
                     if ball_x_angle[0] == "L":
-                        self.robo._motion.set_head_small("LEFT", 1)
+                        self.robo._motion.set_head_small("LEFT", 2)
                         time.sleep(0.1)
                     if ball_x_angle[0] == "R":
-                        self.robo._motion.set_head_small("RIGHT", 1)
+                        self.robo._motion.set_head_small("RIGHT", 2)
                         time.sleep(0.1)
 
             else:
@@ -405,11 +405,11 @@ class Controller:
                         print("flag_y: ", flag_y_angle[0])
 
                         if flag_y_angle[0] == "U":
-                            self.robo._motion.set_head_small("UP", 1)
+                            self.robo._motion.set_head_small("UP", 2)
                             time.sleep(0.1)
 
                         if flag_y_angle[0] == "D":
-                            self.robo._motion.set_head_small("DOWN", 1)
+                            self.robo._motion.set_head_small("DOWN", 2)
                             time.sleep(0.1)
 
                     correctAngle = 1
@@ -430,10 +430,10 @@ class Controller:
                     print("flag_x: ", flag_x_angle[0])
 
                     if flag_x_angle[0] == "L":
-                        self.robo._motion.set_head_small("LEFT", 1)
+                        self.robo._motion.set_head_small("LEFT", 2)
                         time.sleep(0.1)
                     if flag_x_angle[0] == "R":
-                        self.robo._motion.set_head_small("RIGHT", 1)
+                        self.robo._motion.set_head_small("RIGHT", 2)
                         time.sleep(0.1)
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
@@ -454,11 +454,11 @@ class Controller:
         while ball_x_angle[0] != "C":
             if ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 if ball_x_angle[0] == "L":
-                    self.robo._motion.set_head_small("LEFT", 1)
+                    self.robo._motion.set_head_small("LEFT", 2)
                     time.sleep(0.1)
 
                 if ball_x_angle[0] == "R":
-                    self.robo._motion.set_head_small("RIGHT", 1)
+                    self.robo._motion.set_head_small("RIGHT", 2)
                     time.sleep(0.1)
 
         # 현재 머리 각도가 플러스면 오른쪽으로 턴해야 함

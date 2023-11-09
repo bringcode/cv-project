@@ -258,30 +258,30 @@ class Motion:
         """
         if dir == "UP":
             self.y_head_angle += angle
-            print("1_up_angle: ", angle)
+            print("2_up_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
         elif dir == "DOWN":
             self.y_head_angle -= angle
-            print("1_down_angle: ", angle)
+            print("2_down_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
         elif dir == "LEFT":
             self.x_head_angle -= angle
-            print("1_left_angle: ", angle)
+            print("2_left_angle: ", angle)
             print("x_head_angle: ", self.x_head_angle)
             print("===========================")
         elif dir == "RIGHT":
             self.x_head_angle += angle
-            print("1_right_angle: ", angle)
+            print("2_right_angle: ", angle)
             print("x_head_angle: ", self.x_head_angle)
             print("===========================")
 
         dir_list = {
-            "UP": {1: 175},
-            "DOWN": {1: 174},
-            "LEFT": {1: 176},
-            "RIGHT": {1: 177},
+            "UP": {2: 175},
+            "DOWN": {2: 174},
+            "LEFT": {2: 176},
+            "RIGHT": {2: 177},
         }
 
         self.TX_data_py3(dir_list[dir][angle])
