@@ -571,12 +571,13 @@ class Controller:
         # time.sleep(0.5)  # test
 
 
-        t = 0.2
-        for i in range(2):
-            self.robo._motion.set_head_small("DOWN", 1)
-            time.sleep(t)
-            time -= 0.1
-
+        
+        self.robo._motion.set_head_small("DOWN", 1)
+        time.sleep(0.2)
+        self.robo._motion.set_head_small("DOWN", 1)
+        time.sleep(0.1)
+        self.robo._motion.set_head_small("DOWN", 1)
+        self.robo._motion.set_head_small("DOWN", 1)
 
         # self.check_flag_distance() # test
         # time.sleep(0.2)
