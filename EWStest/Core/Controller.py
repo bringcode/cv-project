@@ -528,6 +528,8 @@ class Controller:
         # time.sleep(5)
         # self.robo._motion.hit_the_ball("LEFT")
         self.robo._motion.set_head("DOWN",80) # test
+        time.sleep(0.1)
+        self.robo._motion.set_head("RIGHT",30)
         time.sleep(0.1) # test
         self.check_flag_distance()  # test
         time.sleep(0.2)
