@@ -98,15 +98,16 @@ class FlagxCenterMeasurer:
                     print(farthest_flag_center)
                     
 
-            #cv2.imshow('프레임', frame)
-            #if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            cv2.imshow('프레임', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        cv2.destroyAllWindows()
 
         # if self.farthest_flag_boxes:
         #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
+        # return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
 
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
