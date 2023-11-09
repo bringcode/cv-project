@@ -59,8 +59,8 @@ while True:
             print("아니었고~")
 
             # 영역값이 100픽셀 이하인 영역을 제거
-            if area_blob <= 10:
-                continue
+            # if area_blob <= 10:
+            #     continue
             
             print("초록색 영역안의 작은 노란색을 제거했어요!!")
             cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
