@@ -20,8 +20,8 @@ while True:
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # 녹색 범위 정의
-    low_green = np.array([37, 166, 0])
-    high_green = np.array([255, 255, 77])
+    low_green = np.array([64, 160, 0])
+    high_green = np.array([255, 255, 73])
 
     # 녹색 범위에 해당하는 부분을 추출
     green_mask = cv2.inRange(hsv_frame, low_green, high_green)
@@ -34,8 +34,8 @@ while True:
     green_boxes = [cv2.boundingRect(contour) for contour in contours]
 
     # 노랑색 범위 정의
-    low_yellow = np.array([0, 75, 0])
-    high_yellow = np.array([55, 229, 212])
+    low_yellow = np.array([0, 128, 46])
+    high_yellow = np.array([39, 246, 255])
 
     # 노랑색 범위에 해당하는 부분을 추출
     yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
