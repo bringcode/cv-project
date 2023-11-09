@@ -85,8 +85,8 @@ class FlagyCenterMeasurer:
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
-                            cx = (M['m10'] + M['m00'])//2
-                            cy = (M['m01'] + M['m00'])//2
+                            cx = int((M['m10'] + M['m00'])//2)
+                            cy = int((M['m01'] + M['m00'])//2)
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                             flag_centers.append((cx, cy))
                         print("2차 통과")
