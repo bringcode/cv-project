@@ -531,6 +531,7 @@ class Controller:
         time.sleep(0.2)
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
         dist_flag = DistMeasurer()  # test
+        print("flag distance: ",end='') # test
         print(dist_flag.display_distance(angle))  # test
         time.sleep(0.2)  # test
 
@@ -541,13 +542,17 @@ class Controller:
         self.check_ball_distance()  # test
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
         dist_ball = DistMeasurer()  # test
+        print("ball distance: ",end='') # test
         print(dist_ball.display_distance(angle))  # test
 
         ball_angle = self.robo._motion.x_head_angle # test
-        real_angle = abs(flag_angle) + abs(ball_angle) # test
+        if ball_angle >= flag_angle: # test
+            real_angle = ball_angle - flag_angle # test
+        else: # test
+            real_angle = flag_angle - ball_angle # test
+        print("Real angle: ", end="") # test
         print(real_angle) #test
         
-
         print("11111")  # test
         time.sleep(10)  # test
         ##########################################################
