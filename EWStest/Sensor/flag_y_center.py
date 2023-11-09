@@ -77,7 +77,7 @@ class FlagyCenterMeasurer:
 
                 for cnt in yellow_contours:
                     area = cv2.contourArea(cnt)
-                    if area > 10:
+                    if area > 5:
                         rect = cv2.minAreaRect(cnt)
                         box = cv2.boxPoints(rect)
                         box = np.int0(box)
@@ -85,8 +85,8 @@ class FlagyCenterMeasurer:
                         cv2.drawContours(green_roi, [box], 0, (0, 255, 0), 2)
                         M = cv2.moments(cnt)
                         if M['m00'] != 0:
-                            cx = int((M['m10'] + M['m00'])//2)
-                            cy = int((M['m01'] + M['m00'])//2)
+                            cx = int(M['m10'] / M['m00'])
+                            cy = int(M['m01'] / M['m00'])
                             cv2.putText(frame, 'Flag', (x+cx, y+cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                             flag_centers.append((cx, cy))
                         print("2차 통과")
@@ -98,11 +98,11 @@ class FlagyCenterMeasurer:
                     cv2.putText(frame, 'Farthest Flag', (x + farthest_flag_center[0], y + farthest_flag_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
-                    
+                
                     
 
             cv2.imshow('프레임', frame)
-            flag_y_isMiddle = self.judgeMiddle(max_y, min_y)
+            flag_y_isMiddle = self.judgeMiddle(farthest_flag_center[1]+10, farthest_flag_center[1]-10)
             print(flag_y_isMiddle)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 print("3차 통과")
