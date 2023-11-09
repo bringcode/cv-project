@@ -23,9 +23,7 @@ class Act(Enum):
     SEARCH_FIRST = auto()  # T샷 시작
     SEARCH_BALL = auto()  # 공 찾기
     SEARCH_FLAG = auto()  # 깃발 찾기
-    SEARCH_ARROW = auto()  # 화살표 찾기
-    SEARCH_PUTTING_LOCATION = auto()  # 벙커 찾기
-    PUTTING = auto()  # 공 퍼팅
+    SEARCH_PUTTING_LOCATION = auto()  # 치는 위치 찾기
     CHECK = auto()  # 홀인 확인
     EXIT = auto()  # 종료
 
@@ -245,7 +243,7 @@ class Controller:
             if ball_feature[0] == "L":
                 print("공이 왼쪽에 있습니다.")
                 self.robo._motion.walk_side("LEFT")
-                time.sleep(2)
+                time.sleep(0.5)
 
             elif ball_feature[0] == "C":
                 print("공이 가운데 있습니다.")
@@ -254,7 +252,7 @@ class Controller:
             elif ball_feature[0] == "R":
                 print("공이 오른쪽에 있습니다.")
                 self.robo._motion.walk_side("RIGHT")
-                time.sleep(2)
+                time.sleep(0.5)
             else:
                 print("원하는 값이 반환되지 않았습니다.")
 
@@ -291,9 +289,9 @@ class Controller:
             short_forward_location = 1
             if short_forward_location == 1:
                 self.robo._motion.turn("LEFT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
                 self.robo._motion.turn("LEFT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
                 self.robo._motion.set_head("DOWN", 45)
                 time.sleep(0.1)
 
@@ -551,9 +549,6 @@ class Controller:
 
         canPutting = self.canPutting
 
-        self.act = act.START
-
-
         # self.robo._motion.set_head("DOWN", 90)  # test
         # time.sleep(0.5)  # test
 
@@ -672,11 +667,11 @@ class Controller:
                 print("이 부분 추가해야함")
                 time.sleep(0.1)
                 self.robo._motion.turn("RIGHT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
                 self.robo._motion.walk_side("LEFT")
-                time.sleep(1)
+                time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
 
                 self.ball_feature_ball()
                 time.sleep(1)
@@ -702,13 +697,13 @@ class Controller:
 
             elif self.C_right == 1:
                 self.robo._motion.walk_side("RIGHT")
-                time.sleep(1)
+                time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
 
                 self.ball_feature_ball()
                 time.sleep(1)
@@ -733,13 +728,13 @@ class Controller:
 
             elif self.C_left == 1:
                 self.robo._motion.walk_side("LEFT")
-                time.sleep(1)
+                time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
                 self.robo._motion.walk_side("LEFT")
                 time.sleep(0.5)
                 self.robo._motion.turn("RIGHT", 45)
-                time.sleep(1)
+                time.sleep(0.8)
 
                 self.ball_feature_ball()
                 time.sleep(1)
@@ -772,9 +767,8 @@ class Controller:
             print("Act:", act)  # Debug
             time.sleep(0.1)
             angle = abs(self.robo._motion.y_head_angle - 20)
-            dist_ball = DistMeasurer(angle)
+            dist_ball = DistMeasurer(angle) # 볼 거리 구한 값 저장
             print(dist_ball)
-            time.sleep(10)
 
             # self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
@@ -782,32 +776,24 @@ class Controller:
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
 
-            self.act = act.SEARCH_ARROW
-            time.sleep(1)
-        elif act == act.SEARCH_ARROW:
-            print("Act:", act)  # Debug
-
             self.act = act.SEARCH_PUTTING_LOCATION
-            time.sleep(1)
+
+        
         elif act == act.SEARCH_PUTTING_LOCATION:
             print("Act:", act)  # Debug
 
-            self.act = act.PUTTING
-            time.sleep(1)
-        elif act == act.PUTTING:
-            print("Act:", act)  # Debug
-
             self.act = act.CHECK
-            time.sleep(1)
+
         elif act == act.CHECK:
             print("Act:", act)  # Debug
 
             self.act = act.EXIT
-            time.sleep(1)
+
         elif act == act.EXIT:
             print("Act:", act)  # Debug
             self.robo._motion.turn("LEFT", 60)
             time.sleep(1)
+
         else:
             print("이쪽으로 빠지면 문제가 있는거임.")
 
