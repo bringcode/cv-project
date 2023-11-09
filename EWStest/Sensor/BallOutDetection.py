@@ -3,9 +3,27 @@ import numpy as np
 
 class BallOutDetection:
 
-    def __init__(self, video_path, scale_percent=65):
-        self.cap = cv2.VideoCapture(video_path)
-        self.scale_percent = scale_percent
+    # def __init__(self, video_path, scale_percent=65):
+    #     self.cap = cv2.VideoCapture(video_path)
+    #     self.scale_percent = scale_percent
+    
+    def __init__(self, img_width=800, img_height=600, width=4, focal=450):
+        self.dist = 0 
+        self.focal = focal
+        self.pixels = 30
+        self.width = width
+
+        self.img_width = img_width
+        self.img_height = img_height
+        self.img_width_middle = img_width // 2
+        self.img_height_middle = img_height // 2
+
+        self.kernel = np.ones((3, 3), 'uint8')
+        self.font = cv2.FONT_HERSHEY_SIMPLEX
+        self.org = (0, 20)
+        self.fontScale = 0.6
+        self.color = (0, 0, 255)
+        self.thickness = 2
     
     def ball_detector(self, hsv, resized_frame):
         
@@ -68,7 +86,9 @@ class BallOutDetection:
         return resized_frame, ball_out
 
     def run(self):
-        while self.cap.isOpened():
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
+
+        while True:
             ret, frame = self.cap.read()
             if not ret:
                 break
