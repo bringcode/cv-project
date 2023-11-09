@@ -779,12 +779,12 @@ class Controller:
             self.act = act.SEARCH_PUTTING_LOCATION
 
         
-        elif act == act.SEARCH_PUTTING_LOCATION:
+        elif act == act.SEARCH_PUTTING_LOCATION: # 치는 위치 확인
             print("Act:", act)  # Debug
 
             self.act = act.CHECK
 
-        elif act == act.CHECK:
+        elif act == act.CHECK: # 홀인했는지 확인
             print("Act:", act)  # Debug
 
             self.act = act.EXIT
