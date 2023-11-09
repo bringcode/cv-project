@@ -520,6 +520,7 @@ class Controller:
 
         canPutting = self.canPutting
 
+        ##########################################################
         # self.robo._motion.set_head("DOWN", 90)  # test
         # time.sleep(0.5)  # test
 
@@ -533,16 +534,23 @@ class Controller:
         print(dist_flag.display_distance(angle))  # test
         time.sleep(0.2)  # test
 
+        flag_angle = self.robo._motion.x_head_angle
+
         # self.robo._motion.set_head("DOWN",30) # test
         # time.sleep(0.2) # test
         self.check_ball_distance()  # test
-
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
         dist_ball = DistMeasurer()  # test
         print(dist_ball.display_distance(angle))  # test
 
+        ball_angle = self.robo._motion.x_head_angle # test
+        real_angle = abs(flag_angle) + abs(ball_angle) # test
+        print(real_angle) #test
+        
+
         print("11111")  # test
         time.sleep(10)  # test
+        ##########################################################
 
         if act == act.START:
             print("ACT: ", act)  # Debug
