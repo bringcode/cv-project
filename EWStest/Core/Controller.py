@@ -157,7 +157,7 @@ class Controller:
         # ball_ball_feature_measure 에서 return 값: L / C / R
         while ball_is_x_center[0] != "C":
             ball_is_x_center = BallxCenterMeasurer().process()
-            print("카메라 기준(공): ",ball_is_x_center[0])
+            print("카메라 기준(공): ",ball_is_x_center[0]) # 카메라 기준(공): L or C or R
 
             if ball_is_x_center[0] == "L":
                 print("공이 왼쪽에 있습니다.")
@@ -182,17 +182,18 @@ class Controller:
         print("Debug check_ball_location in Controller")
         time.sleep(0.1)
 
-        short_left_location = 0
-        short_right_location = 0
-        short_forward_location = 0
-        long_forward_location = 0
-        long_left_location = 0
-        long_left_location = 0
+        # 구간을 나눠서 찾는다고 생각
+        short_left_location = 0 # 짧은 거리 왼쪽
+        short_right_location = 0 # 짧은 거리 오른쪽
+        short_forward_location = 0 # 짧은 거리 정면
+        long_forward_location = 0 # 긴 거리 정면
+        long_left_location = 0 # 긴 거리 왼쪽
+        long_right_location = 0 # 긴 거리 오른쪽
 
-        exist_ball = FindBall().process()
-        print(exist_ball)
+        exist_ball = FindBall().process() # 공 찾은 값 True/False
+        print("공을 찾았습니다 (T/F): ",exist_ball)
 
-        if exist_ball == True:
+        if exist_ball == True: 
             print("공이 화면에 보입니다.")
             print("공이 안 쳐진듯..")
 
@@ -545,8 +546,6 @@ class Controller:
 
         if act == act.START:
             print("ACT: ", act)  # Debug
-            # print("current area: ", cur.AREA, "(Setting.py Hard Coding for Debuging)")
-            # time.sleep(0.5)
             self.act = act.SEARCH_FIRST
 
         elif act == act.SEARCH_FIRST:
@@ -565,7 +564,6 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print(dist)  # debug 하려고 넣은거임 지워도 ㄱㅊ
 
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
