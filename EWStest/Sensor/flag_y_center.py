@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-class FlagxCenterMeasurer:
+class FlagyCenterMeasurer:
     def __init__(self, img_width, img_height):
         self.img_width = img_width
         self.img_height = img_height
