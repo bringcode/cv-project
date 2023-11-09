@@ -458,18 +458,14 @@ class Controller:
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
 
-    # **********************************************************************************
-    # **********************************************************************************
-    # **********************************************************************************
-
-    #깃발 1도씩 조정하면서 각도 확인
+    # 깃발 1도씩 조정하면서 각도 확인
     @classmethod
     def check_flag_distance(self):
         print("Debug in check_flag_distance")
 
         flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
         flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
-                
+
         correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
 
         # 깃발을 못 찾았을 때 반환하는 값
@@ -477,36 +473,34 @@ class Controller:
         while correctAngle != 1:
             flag_x_angle = flagxcenter.run()
             time.sleep(0.2)
-            print("flag_x_angle: ",end="")
+            print("flag_x_angle: ", end="")
             print(flag_x_angle[0])
-            print(flag_x_angle[0] == 'C')
+            print(flag_x_angle[0] == "C")
 
-            if flag_x_angle[0] == 'C':
+            if flag_x_angle[0] == "C":
                 print("통과했어요")
                 flag_y_angle = flagycneter.run()
                 print(flag_y_angle[0])
                 time.sleep(0.2)
 
-                if flag_y_angle[0] == 'C':
-
+                if flag_y_angle[0] == "C":
                     print("flag_x_angle: ", flag_x_angle[0])
                     print("flag_y_angle: ", flag_y_angle[0])
                     print("중앙에 있습니다.")
                     correctAngle = 1
                     break
 
-                elif flag_y_angle[0] == 'D' or flag_y_angle[0] == 'U':
-
-                    while flag_y_angle[0] != 'C':
+                elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
+                    while flag_y_angle[0] != "C":
                         flag_y_angle = flagycneter.run()
                         time.sleep(0.2)
                         print("flag_y: ", flag_y_angle[0])
 
-                        if flag_y_angle[0] == 'U':
+                        if flag_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", 1)
                             time.sleep(0.1)
 
-                        if flag_y_angle[0] == 'D':
+                        if flag_y_angle[0] == "D":
                             self.robo._motion.set_head_small("DOWN", 1)
                             time.sleep(0.1)
 
@@ -517,24 +511,93 @@ class Controller:
                 else:
                     print("check_flag_distance 함수에서 원하는 Y angle이 안 들어왔습니다.")
 
-            elif flag_x_angle[0] == 'L' or flag_x_angle[0] == 'R':
+            elif flag_x_angle[0] == "L" or flag_x_angle[0] == "R":
                 print("flag_x_angle: R or L이 들어왔습니다.")
                 print(flag_x_angle[0])
 
-                while flag_x_angle[0] != 'C':
+                while flag_x_angle[0] != "C":
                     print("while문이 실행되었습니다.")
                     flag_x_angle = flagxcenter.run()
                     time.sleep(0.2)
                     print("flag_x: ", flag_x_angle[0])
 
-                    if flag_x_angle[0] == 'L':
+                    if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", 1)
                         time.sleep(0.1)
-                    if flag_x_angle[0] == 'R':
+                    if flag_x_angle[0] == "R":
                         self.robo._motion.set_head_small("RIGHT", 1)
                         time.sleep(0.1)
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
+
+    # 걸어갈 때, 틀어질 경우를 대비해서 다시 위치 잡는 함수
+    @classmethod
+    def correct_position(self):
+        # 공을 못 찾았을 때 반환하는 값
+        ball_x_angle = ["N", "N", "N"]
+
+        xcenterprocess = BallxCenterMeasurer(img_width=640, img_height=480)
+        ball_x_angle = xcenterprocess.process()
+
+        # 걸어가면서 틀어진 각도 맞추는 로직
+        while ball_x_angle[0] != "C":
+            print("걸어가면서 틀어진 각도 맞추기")
+
+        while ball_x_angle[0] != "C":
+            if ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
+                if ball_x_angle[0] == "L":
+                    self.robo._motion.set_head_small("LEFT", 1)
+                    time.sleep(0.1)
+
+                if ball_x_angle[0] == "R":
+                    self.robo._motion.set_head_small("RIGHT", 1)
+                    time.sleep(0.1)
+
+        # 현재 머리 각도가 플러스면 오른쪽으로 턴해야 함
+        while self.robo._motion.x_head_angle > 0:
+            self.robo._motion.x_head_angle = head_plus(60)
+            self.robo._motion.x_head_angle = head_plus(45)
+            self.robo._motion.x_head_angle = head_plus(20)
+            self.robo._motion.x_head_angle = head_plus(10)
+            self.robo._motion.x_head_angle = head_plus(5)
+            self.robo._motion.x_head_angle = head_plus(3)
+            self.robo._motion.x_head_angle = 0
+
+        # 현재 머리 각도가 마이너스면 왼쪽으로 턴해야 함
+        while self.robo._motion.x_head_angle < 0:
+            self.robo._motion.x_head_angle = head_minus(60)
+            self.robo._motion.x_head_angle = head_minus(45)
+            self.robo._motion.x_head_angle = head_minus(20)
+            self.robo._motion.x_head_angle = head_minus(10)
+            self.robo._motion.x_head_angle = head_minus(5)
+            self.robo._motion.x_head_angle = head_minus(3)
+            self.robo._motion.x_head_angle = 0
+
+        # 오른쪽으로 턴
+        def head_plus(self, N):
+            x_head_angle_n = self.robo._motion.x_head_angle // N
+            if x_head_angle_n >= 1:
+                for _ in range(x_head_angle_n):
+                    self.robo._mothon.turn("RIGHT", N)
+                    self.robo._motion.x_head_angle -= N
+            elif x_head_angle_n == 0:
+                return self.robo._motion.x_head_angle
+            else:
+                print("여기로 오면 안 되는뎁..")
+            return self.robo._motion.x_head_angle
+
+        # 왼쪽으로 턴
+        def head_minus(self, N):
+            x_head_angle_n = self.robo._motion.x_head_angle // -N
+            if x_head_angle_n >= 1:
+                for _ in range(x_head_angle_n):
+                    self.robo._mothon.turn("LEFT", N)
+                    self.robo._motion.x_head_angle += N
+            elif x_head_angle_n == 0:
+                return self.robo._motion.x_head_angle
+            else:
+                print("여기로 오면 안 되는뎁..")
+            return self.robo._motion.x_head_angle
 
     @classmethod
     def go_robo(self):
@@ -555,13 +618,12 @@ class Controller:
         # self.robo._motion.hit_the_ball("RIGHT")
         # time.sleep(5)
         # self.robo._motion.hit_the_ball("LEFT")
-        self.check_flag_distance() # test
+        self.check_flag_distance()  # test
         time.sleep(0.2)
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
-        dist_flag = DistMeasurer() #test 
-        print(dist_flag.display_distance(angle)) # test
-        time.sleep(0.2) # test
-
+        dist_flag = DistMeasurer()  # test
+        print(dist_flag.display_distance(angle))  # test
+        time.sleep(0.2)  # test
 
         # self.robo._motion.set_head("DOWN",30) # test
         # time.sleep(0.2) # test
@@ -570,9 +632,8 @@ class Controller:
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
         dist_ball = DistMeasurer()  # test
         print(dist_ball.display_distance(angle))  # test
-        
 
-        print("11111") # test
+        print("11111")  # test
         time.sleep(10)  # test
 
         if act == act.START:
@@ -770,7 +831,7 @@ class Controller:
             print("Act:", act)  # Debug
             time.sleep(0.1)
             angle = abs(self.robo._motion.y_head_angle - 20)
-            dist_ball = DistMeasurer(angle) # 볼 거리 구한 값 저장
+            dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
             print(dist_ball)
 
             # self.ball_feature_ball()
@@ -781,13 +842,12 @@ class Controller:
 
             self.act = act.SEARCH_PUTTING_LOCATION
 
-        
-        elif act == act.SEARCH_PUTTING_LOCATION: # 치는 위치 확인
+        elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
             print("Act:", act)  # Debug
 
             self.act = act.CHECK
 
-        elif act == act.CHECK: # 홀인했는지 확인
+        elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
 
             self.act = act.EXIT
