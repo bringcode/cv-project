@@ -527,6 +527,8 @@ class Controller:
         # self.robo._motion.hit_the_ball("RIGHT")
         # time.sleep(5)
         # self.robo._motion.hit_the_ball("LEFT")
+        self.robo._motion.set_head("DOWN",80) # test
+        time.sleep(0.1) # test
         self.check_flag_distance()  # test
         time.sleep(0.2)
         angle = abs(self.robo._motion.y_head_angle - 20)  # test
