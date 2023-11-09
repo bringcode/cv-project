@@ -41,9 +41,9 @@ class FlagxCenterMeasurer:
             return 'C'
         else:
             if r_dist > l_dist:
-                return 'R'
-            else:
                 return 'L'
+            else:
+                return 'R'
 
     def run(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
