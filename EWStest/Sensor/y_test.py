@@ -191,17 +191,17 @@ class FlagxCenterMeasurer:
                     cv2.putText(frame, f'Shape: {shape_text}', (center[0], center[1] + offset), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     # Display the original frame
-            cv2.imshow('Green and Yellow Frame', frame)
+            #cv2.imshow('Green and Yellow Frame', frame)
 
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
+            #key = cv2.waitKey(1) & 0xFF
+            #if key == ord('q'):
+                #break
 
 # Release the video capture and close all OpenCV windows
         cap.release()
         cv2.destroyAllWindows()
-                    
-        return [point_x, point_y]
+        flag_x_isMiddle = self.judgeMiddle(point_x[0]+10, point_x[0]-10)
+        return [flag_x_isMiddle, point_x[0],point_x[1]]
 
 
 
