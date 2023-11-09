@@ -102,9 +102,9 @@ class GoalDetect:
         return True
 
     def process(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
         #Extract Frames 
-        cap = cv2.VideoCapture("long.h264")
+        # cap = cv2.VideoCapture("long.h264")
 
         #basic constants for opencv Functs
         kernel = np.ones((3,3),'uint8')
