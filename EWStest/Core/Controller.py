@@ -552,21 +552,24 @@ class Controller:
         # self.robo._motion.set_head("DOWN", 90)  # test
         # time.sleep(0.5)  # test
 
-        self.check_flag_distance() # test
-        time.sleep(0.2)
-        angle = abs(self.robo._motion.y_head_angle - 20)  # test
-        dist_flag = DistMeasurer() #test 
-        print(dist_flag.display_distance(angle)) # test
-        time.sleep(0.2) # test
-
-
-        # self.robo._motion.set_head("DOWN",30) # test
+        self.robo._motion.hit_the_ball("RIGHT")
+        time.sleep(5)
+        self.robo._motion.hit_the_ball("LEFT")
+        # self.check_flag_distance() # test
+        # time.sleep(0.2)
+        # angle = abs(self.robo._motion.y_head_angle - 20)  # test
+        # dist_flag = DistMeasurer() #test 
+        # print(dist_flag.display_distance(angle)) # test
         # time.sleep(0.2) # test
-        self.check_ball_distance()  # test
 
-        angle = abs(self.robo._motion.y_head_angle - 20)  # test
-        dist_ball = DistMeasurer()  # test
-        print(dist_ball.display_distance(angle))  # test
+
+        # # self.robo._motion.set_head("DOWN",30) # test
+        # # time.sleep(0.2) # test
+        # self.check_ball_distance()  # test
+
+        # angle = abs(self.robo._motion.y_head_angle - 20)  # test
+        # dist_ball = DistMeasurer()  # test
+        # print(dist_ball.display_distance(angle))  # test
         
 
         print("11111") # test
