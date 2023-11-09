@@ -27,7 +27,7 @@ while True:
     green_mask = cv2.inRange(hsv_frame, low_green, high_green)
 
     # 추출된 녹색 부분을 원본 프레임에 표시
-    result_frame = cv2.bitwise_and(frame, frame, mask=green_mask)
+
 
     # 녹색 영역의 윤곽선 찾기
     contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
