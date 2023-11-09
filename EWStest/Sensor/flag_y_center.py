@@ -67,7 +67,7 @@ while True:
             
             print("초록색 영역안의 작은 노란색을 제거했어요!!")
             cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
-
+            print("사각형을 그려요!!!")
             # Convert the yellow region into a binary image for contour detection
             yellow_binary = np.zeros_like(yellow_roi)
             yellow_binary[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob] = yellow_roi[y_blob:y_blob + h_blob, x_blob:x_blob + w_blob]
