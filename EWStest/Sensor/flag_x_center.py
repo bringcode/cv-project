@@ -3,7 +3,7 @@ import cv2
 
 class FlagxCenterMeasurer:
     def __init__(self, video_path=0, img_width=800, img_height=600):
-        # self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
+        self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
         #if not self.cap.isOpened():
             #raise ValueError(f"비디오 {video_path}를 열 수 없습니다.")
         self.img_width = img_width
@@ -46,9 +46,8 @@ class FlagxCenterMeasurer:
                 return 'R'
 
     def run(self):
-        cap = cv2.VideoCapture(0, cv2.CAP_V4L)
         while True:
-            ret, frame = cap.read()
+            ret, frame = self.cap.read()
             if not ret:
                 print("프레임 캡처에 실패했습니다.")
                 break
@@ -98,10 +97,9 @@ class FlagxCenterMeasurer:
                     print(farthest_flag_center)
                     
 
-            # cv2.imshow('프레임', frame)
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
+            #cv2.imshow('프레임', frame)
+            #if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        # cv2.destroyAllWindows()
 
         # if self.farthest_flag_boxes:
         #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
