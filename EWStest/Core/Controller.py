@@ -560,14 +560,40 @@ class Controller:
         print("Real angle: ", end="") # test
         print(real_angle) #test
 
-        solver = HitPointer(distflag, distball, real_angle, 7)
-        a,b = solver.solve()
-        print(a)
-        print(b)
-        
+        solver = HitPointer(distflag, distball, real_angle, 7) # test 깃발, 공, 각도, 치는 위치(cm)
+        a,b = solver.solve() # test 거리,각도 구하는거 실행
+        print(a) # test  거리
+        print(b) # test  각도
+
+        def find_best_actions(target_angle):
+            actions = [60, 45, 20, 10, 5, 3]  # 가능한 동작 리스트
+            remaining_angle = target_angle
+            best_actions = []
+
+            while remaining_angle > 0 and actions:
+                best_action = min(actions, key=lambda x: abs(target_angle - x))
+                if best_action <= remaining_angle:
+                    best_actions.append(best_action)
+                    remaining_angle -= best_action
+                actions.remove(best_action)
+
+            if remaining_angle == 0:
+                print(f"가장 적합한 동작: {', '.join(map(str, best_actions))}")
+            else:
+                print(f"가장 적합한 동작: {', '.join(map(str, best_actions))}, 남은 각도: {remaining_angle}")
+
+        b = int(b)
+        find_best_actions(b)
+
+        a = int(a) # test 정수로 변환
+        goto = a // 4
+        self.robo._motion.walk("FORWARD", 10, 0.1) # test 
+
+
+
         print("11111")  # test
         time.sleep(10)  # test
-        ##########################################################
+        ########################################################## # test
 
         if act == act.START:
             print("ACT: ", act)  # Debug
