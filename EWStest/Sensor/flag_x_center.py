@@ -100,7 +100,7 @@ class FlagxCenterMeasurer:
 
             # cv2.imshow('프레임', frame)
             # if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            break
         # cv2.destroyAllWindows()
 
         # if self.farthest_flag_boxes:
