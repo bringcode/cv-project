@@ -4,6 +4,7 @@ import cv2
 your_area_threshold = 300  # 사용자 정의 임계값, 필요에 따라 값을 조정하세요
 
 cap = cv2.VideoCapture(0)  # 비디오 파일 경로를 설정하세요
+print("flag_y 시작!!")
 
 # 초록 영역 박스의 정보를 저장할 리스트
 green_boxes = []
@@ -42,6 +43,7 @@ while True:
 
     shape_info_list = []
 
+    print("이제 초록색 박스를 잡기 시작하겠습니다.")
     for green_box in green_boxes:
         x, y, w, h = green_box
         yellow_roi = yellow_mask[y:y + h, x:x + w]
@@ -55,7 +57,8 @@ while True:
             # 영역값이 100픽셀 이하인 영역을 제거
             if area_blob <= 100:
                 continue
-
+            
+            print("초록색 영역안의 작은 노란색을 제거했어요!!")
             cv2.rectangle(frame, (x + x_blob, y + y_blob), (x + x_blob + w_blob, y + y_blob + h_blob), (0, 255, 0), 2)
 
             # Convert the yellow region into a binary image for contour detection
@@ -65,6 +68,7 @@ while True:
             # Find contours in the binary image
             yellow_contours, _ = cv2.findContours(yellow_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
+            print("yellow_contour 시작!")
             for contour in yellow_contours:
                 # Approximate the contour to find the vertices
                 epsilon = 0.04 * cv2.arcLength(contour, True)
@@ -81,6 +85,8 @@ while True:
 
                 # Add shape information to the list
                 shape_info_list.append((center, shape_text))
+                print("노란색 컨투어 하나 확인!")
+    print("화살표와 깃발 구분 완료")
 
     # 사용자 정의 조건
     custom_condition = True
