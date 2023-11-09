@@ -573,9 +573,7 @@ class Controller:
 
         
         self.robo._motion.set_head_small("DOWN", 1)
-        time.sleep(0.2)
         self.robo._motion.set_head_small("DOWN", 1)
-        time.sleep(0.1)
         self.robo._motion.set_head_small("DOWN", 1)
         self.robo._motion.set_head_small("DOWN", 1)
 
