@@ -178,11 +178,7 @@ class FlagxCenterMeasurer:
                     for i, box in enumerate(shape_info_list):
                         if box[1] == "FLAG" and box != farthest_flag_box:
                             shape_info_list[i] = (box[0], "ARROW")
-
-    # Print the center coordinates
-            if farthest_flag_box is not None:
-                flag_x_isMiddle = self.judgeMiddle(farthest_flag_box[0]+10, farthest_flag_box[0]-10)
-
+                
     # Display centers and shape information on the frame
             for shape_info in shape_info_list:
                 center, shape_text = shape_info[0], shape_info[1]
@@ -203,8 +199,9 @@ class FlagxCenterMeasurer:
         cap.release()
         cv2.destroyAllWindows()
                         
-                    
-        return [flag_x_isMiddle, farthest_flag_box[0],farthest_flag_box[1]]
+        flag_x_isMiddle = self.judgeMiddle(farthest_flag_box[0]+10.0, farthest_flag_box[0]-10.0)
+
+        return [flag_x_isMiddle, farthest_flag_boxq]
 
 
 
