@@ -44,8 +44,10 @@ class BallOutDetection:
 
     def process_frame(self, frame):
         # 영상 resize
-        width = int(frame.shape[1] * self.scale_percent / 100)
-        height = int(frame.shape[0] * self.scale_percent / 100)
+        # width = int(frame.shape[1] * self.scale_percent / 100)
+        # height = int(frame.shape[0] * self.scale_percent / 100)
+        width = int(frame.shape[1])
+        height = int(frame.shape[0])
         dim = (width, height)
         resized_frame = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
         
@@ -95,17 +97,17 @@ class BallOutDetection:
 
             processed_frame, ball_out = self.process_frame(frame)
             
-            cv2.imshow("Processed Frame", processed_frame)
+            # cv2.imshow("Processed Frame", processed_frame)
             
             if ball_out:
                 print("The ball is out of the field!")
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                        cv2.destroyAllWindows()
-                        break
+        #     if cv2.waitKey(1) & 0xFF == ord('q'):
+        #                 cv2.destroyAllWindows()
+        #                 break
 
-        self.cap.release()
-        cv2.destroyAllWindows()
+        # self.cap.release()
+        # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     detector = BallOutDetection()
