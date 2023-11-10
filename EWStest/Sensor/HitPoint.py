@@ -65,5 +65,6 @@ b = 7
 l = 45
 h = 3
 
-solver = HitPointer(a, b, l, h)
-solver.solve()
+if __name__ == "__main__":
+    solver = HitPointer(a, b, l, h)
+    solver.solve()
