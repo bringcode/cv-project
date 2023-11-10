@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
-
+# flag_x_isMiddle: 깃발이 중앙에 있는지 판단 출력값은 'C', 'L', 'R'로 나뉘어 리턴.
+# farthest_flag_center[0]: 깃발 박스의 중점 x좌표,   farthest_flag_center[1]: 깃발 박스의 중점 y좌표
 class FlagxCenterMeasurer:
     def __init__(self, video_path=0, img_width=800, img_height=600):
         # self.cap = cv2.VideoCapture(video_path, cv2.CAP_V4L)
@@ -108,8 +109,7 @@ class FlagxCenterMeasurer:
 
         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
         return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
-# flag_x_isMiddle: 깃발이 중앙에 있는지 판단 출력값은 C, L, R로 나뉜다.
-# farthest_flag_center[0]: 깃발 박스의 x최댓값,   farthest_flag_center[1]: 깃발 박스의 x최솟값
+
 
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
