@@ -108,6 +108,8 @@ class FlagxCenterMeasurer:
 
         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
         return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
+# flag_x_isMiddle: 깃발이 중앙에 있는지 판단 출력값은 C, L, R로 나뉜다.
+# farthest_flag_center[0]: 깃발 박스의 x최댓값,   farthest_flag_center[1]: 깃발 박스의 x최솟값
 
 if __name__ == "__main__":
     video_path = 0  # 웹캠을 사용하려면 0을 사용
