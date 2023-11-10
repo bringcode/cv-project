@@ -260,10 +260,10 @@ class Motion:
             print("===========================")
 
         dir_list = {
-            "UP": {2: 175},
-            "DOWN": {2: 174},
-            "LEFT": {2: 176},
-            "RIGHT": {2: 177},
+            "UP": {2: 175, 5:183},
+            "DOWN": {2: 174, 5:182},
+            "LEFT": {2: 176, 5:184},
+            "RIGHT": {2: 177, 5:185},
         }
 
         self.TX_data_py3(dir_list[dir][angle])
