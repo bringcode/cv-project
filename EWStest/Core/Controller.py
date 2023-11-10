@@ -333,6 +333,8 @@ class Controller:
                 self.robo._motion.set_head("DOWN", down_y[y_dir])
                 y_dir += 1
                 time.sleep(0.2)
+                if y_dir == len(down_y):
+                    break
         
                 # 고개 오른쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
@@ -363,35 +365,35 @@ class Controller:
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.2)
         
-            # 여기까지 오면 공을 찾은 상황
-            # 공을 찾으면, 공 센터 맞추는 함수 실행
-            self.check_ball_distance()
-            time.sleep(0.1)
+            # # 여기까지 오면 공을 찾은 상황
+            # # 공을 찾으면, 공 센터 맞추는 함수 실행
+            # self.check_ball_distance()
+            # time.sleep(0.1)
             
-            # 공 센터 맞추면 해당 각도 저장
-            ball_angle = self.robo._motion.x_head_angle
-            print("공 찾아서 각도 저장함")
-            print("======================")
+            # # 공 센터 맞추면 해당 각도 저장
+            # ball_angle = self.robo._motion.x_head_angle
+            # print("공 찾아서 각도 저장함")
+            # print("======================")
         
-            # 공 센터 맞추면 로봇과 공의 거리 구하는 코드 실행
-            dist_Process = DistMeasurer()
-            self.dist = dist_Process.display_distance(ball_angle)  # dist: 공과 로봇의 거리
-            time.sleep(0.1)
+            # # 공 센터 맞추면 로봇과 공의 거리 구하는 코드 실행
+            # dist_Process = DistMeasurer()
+            # self.dist = dist_Process.display_distance(ball_angle)  # dist: 공과 로봇의 거리
+            # time.sleep(0.1)
         
-            # flag_ball_angle_fin: 공이랑 깃발 사이의 각도
-            self.flag_ball_angle_fin = abs(ball_angle - flag_angle)
-            print("공이랑 깃발 각도 저장함")
-            print("======================")
+            # # flag_ball_angle_fin: 공이랑 깃발 사이의 각도
+            # self.flag_ball_angle_fin = abs(ball_angle - flag_angle)
+            # print("공이랑 깃발 각도 저장함")
+            # print("======================")
 						
-            # direction: 방향
-            if (ball_angle - flag_angle) > 0:
-                direction = "R"
-            elif (ball_angle - flag_angle) < 0:
-                direction = "L"
-            else:
-                direction = ""  # 여기 나오면 안 되긴 함..
-            print("방향 저장함")
-            print("======================")
+            # # direction: 방향
+            # if (ball_angle - flag_angle) > 0:
+            #     direction = "R"
+            # elif (ball_angle - flag_angle) < 0:
+            #     direction = "L"
+            # else:
+            #     direction = ""  # 여기 나오면 안 되긴 함..
+            # print("방향 저장함")
+            # print("======================")
  
         # 공 센터 맞추는 부분
         while correctAngle != 1:
