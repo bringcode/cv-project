@@ -155,7 +155,7 @@ class FlagyCenterMeasurer:
             is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
 
             return is_y_middle
-
+# flag_y_isMiddle: 깃발이 중앙에 있는지 판단 출력값은 C, U, D로 나뉜다.
         #     cv2.imshow('Green and Yellow Frame', frame)
         #     print(is_y_middle)
 
