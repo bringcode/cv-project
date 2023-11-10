@@ -78,7 +78,7 @@ class BallyCenterMeasurer:
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
-        while True:
+        for _ in range(10):
             ret, img = cap.read()
             if not ret:
                 print("영상정보를 가져올 수 없습니다.")
@@ -121,6 +121,7 @@ class BallyCenterMeasurer:
 
             max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
             ball_box = None
+            ball_y_isMiddle = 'N'
 
             for cnt in cont:
                 if cv2.contourArea(cnt) > 100 and cv2.contourArea(cnt) < 306000:
@@ -141,6 +142,11 @@ class BallyCenterMeasurer:
                     # cv2.destroyAllWindows()
 
                     return [ball_y_isMiddle]
+            
+            if ball_y_isMiddle != 'N':
+                return [ball_y_isMiddle]
+        return [ball_y_isMiddle]
+        
 
 
 if __name__ == "__main__":
