@@ -69,13 +69,6 @@ class GoalDetect:
             return True
         else:
             return False
-            
-            
-    def is_inside(flag_box, ball_box):
-        for point in ball_box:
-            if cv2.pointPolygonTest(flag_box, (point[0], point[1]), False) < 0:
-                return False
-        return True
 
     def process(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)
