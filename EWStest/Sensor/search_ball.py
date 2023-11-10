@@ -23,9 +23,12 @@ class FindBall:
             hsv_img = cv2.cvtColor(dilimg, cv2.COLOR_BGR2HSV)
 
             # window version
-            lower = np.array([137, 0, 0])
-            upper = np.array([255, 255, 255])
-            mask = cv2.inRange(hsv_img, lower, upper)
+            mask1 = cv2.inRange(hsv_img, lower, upper)
+            mask2 = cv2.inRange(hsv_img, lower1, upper1)
+            mask3 = cv2.inRange(hsv_img, lower2, upper2)
+            
+
+            mask = mask1+mask2+mask3
             # lower1 = np.array([1, 99, 100])
             # upper1 = np.array([5, 255, 255])
             # mask += cv2.inRange(hsv_img, lower1, upper1)
