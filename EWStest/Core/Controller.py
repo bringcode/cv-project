@@ -326,6 +326,7 @@ class Controller:
         
         if ball_x_angle[0] == "N":
             while find_ball != True:
+                print("find_ball", find_ball)
                 y_dir = 0
                 x_dir = 0
                 self.robo._motion.set_head("DOWN", down_y[y_dir])
