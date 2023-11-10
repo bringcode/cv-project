@@ -76,7 +76,7 @@ class BallxCenterMeasurer:
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
-        while True:
+        for _ in range(10):
             ret, img = cap.read()
             if not ret:
                 break
@@ -119,6 +119,9 @@ class BallxCenterMeasurer:
             max_x, min_x, max_y, min_y = -1, self.img_width + 1, -1, self.img_width + 1
             ball_box = None
             print('ball_x_center.py: 돌아가고있어')
+            ball_x_isMiddle = 'N'
+            ball_x = 'N'
+            ball_y = 'N'
             
             for cnt in cont:
                 if (cv2.contourArea(cnt)>10 and cv2.contourArea(cnt)<306000): # cv2.contourArea(cnt)>100 and
@@ -134,6 +137,7 @@ class BallxCenterMeasurer:
                     ball_x = round((max_x + min_x)/2, 2)
                     ball_y = round((max_y + min_y / 2), 2)
 
+
             # cv2.imshow('Object Dist Measure ', img)
             # print(ball_x_isMiddle)
             # if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -141,8 +145,9 @@ class BallxCenterMeasurer:
             #     break
 
                         
-                    
-                    return [ball_x_isMiddle, ball_x, ball_y]
+            if ball_x_isMiddle != 'N':
+                return [ball_x_isMiddle, ball_x, ball_y]
+        return [ball_x_isMiddle, ball_x, ball_y]
 
 
 
