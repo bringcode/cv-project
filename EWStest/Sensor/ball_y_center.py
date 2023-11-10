@@ -146,8 +146,7 @@ class BallyCenterMeasurer:
             if ball_y_isMiddle != 'N':
                 return [ball_y_isMiddle] # 공이 잡힌 경우, R, L, C 중 하나를 return.
         return [ball_y_isMiddle] # 10번 찾아봤는데 공이 검출되지 않는다면, ['N']이 return.
-        # 만약 퍼팅 지점을 예측하기 위해 실행시켰는데 ['N']이 뜨면 고개를 움직이면서 공을 찾고, 공을 찾으면 로봇이 깃발로부터
-        # 고개를 왼쪽으로 돌렸는지 오른쪽으로 돌렸는지를 파악해 다시 깃발쪽으로 고개를 돌려 깃발과 공 사이의 각도를 알아낸다.
+
 
 
 if __name__ == "__main__":
