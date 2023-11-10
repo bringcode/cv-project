@@ -584,7 +584,7 @@ class Controller:
         if act == act.START:
             print("ACT: ", act)  # Debug
             self.act = act.SEARCH_FIRST
-
+#############################################################################
         elif act == act.SEARCH_FIRST:
             print("ACT: ", act)  # Debug
             time.sleep(0.5)
@@ -774,7 +774,7 @@ class Controller:
                 time.sleep(1)
 
             self.act = act.SEARCH_BALL
-
+#############################################################################
         elif act == act.SEARCH_BALL:
             print("Act:", act)  # Debug
             time.sleep(0.1)
@@ -784,12 +784,12 @@ class Controller:
 
             # self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
-
+#############################################################################
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
 
             self.act = act.SEARCH_PUTTING_LOCATION
-
+#############################################################################
         elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
             print("Act:", act)  # Debug
 
@@ -850,17 +850,17 @@ class Controller:
             print("퍼팅해주세요")    
 
             self.act = act.CHECK
-
+#############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
 
             self.act = act.EXIT
-
+#############################################################################
         elif act == act.EXIT:
             print("Act:", act)  # Debug
             self.robo._motion.turn("LEFT", 60)
             time.sleep(1)
-
+#############################################################################
         else:
             print("이쪽으로 빠지면 문제가 있는거임.")
 
