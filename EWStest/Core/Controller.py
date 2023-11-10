@@ -589,9 +589,11 @@ class Controller:
         print(real_angle) #test
 
         solver = HitPointer(distflag, distball, real_angle, 7) # test 깃발, 공, 각도, 치는 위치(cm)
-        a,b = solver.solve() # test 거리,각도 구하는거 실행
+        a,b,c,d = solver.solve() # test 거리,각도 구하는거 실행
         print(a) # test  거리
         print(b) # test  각도
+        print(c) # test  공으로 다가가서 돌아야하는 각도
+        print(d) # test  공이 깃발 뒤에 있는지 앞에 있는지
 
         def find_best_actions(target_angle, way):
             # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
@@ -630,6 +632,16 @@ class Controller:
         a = int(a) # test 정수로 변환
         goto = a // 4
         self.robo._motion.walk("FORWARD", goto, 1.0) # test 
+
+        if d == False:
+            if shot_way == 'R':
+                shot_way = 'L'
+            else:
+                shot_way = 'R'
+
+            find_best_actions(c,shot_way)
+        else:
+            find_best_actions(c,shot_way)
 
 
 
