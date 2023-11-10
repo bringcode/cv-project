@@ -83,8 +83,11 @@ class HitPointer:
 
         # 결과 출력
         print(f"x: {x:.2f}, z: {z_deg:.2f} degrees")
-        return [x, z_deg, angle_triangle, judge_triangle] #angle triangle : 목표지점 이동 후 돌아야하는 각도(라디안 형태)     
-                                                          #judge_triangle : 타격지점이 삼각형 안 : True,  타격지점 삼각형 밖: False  (목표지점 이동후 왼쪽으로 돌지 오른쪽으로 돌지 판단에 필요)
+        return [x, z_deg, angle_triangle, judge_triangle] 
+        # x: 로봇의 첫 위치에서 목표지점까지 이동해야하는 직선 거리
+        # z_deg: 로봇의 첫 위치에서 목표지점을 바라볼때 필요한 각도
+        #angle triangle : 목표지점 이동 후 돌아야하는 각도(라디안 형태)     
+        #judge_triangle : 타격지점이 삼각형 안 : True,  타격지점 삼각형 밖: False  (목표지점 이동후 왼쪽으로 돌지 오른쪽으로 돌지 판단에 필요)
 
 # 예제 사용:
 a = 5
