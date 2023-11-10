@@ -47,11 +47,11 @@ class HitPointer:
         m = self.calculate_m(c)
         
         if np.degrees(m) <= 90: # 타격지점이 삼각형 밖에 위치
-          x = self.calculate_out_x(m)
-          z = self.calculate_out_z(x)
+            x = self.calculate_out_x(m)
+            z = self.calculate_out_z(x)
         else:                   # 타격지점이 삼각형 안에 위치
-          x = self.calculate_in_x(m)
-          z = self.calculate_in_z(x)
+            x = self.calculate_in_x(m)
+            z = self.calculate_in_z(x)
           
         z_deg = np.degrees(z)  # z를 도(degree) 단위로 변환
 
