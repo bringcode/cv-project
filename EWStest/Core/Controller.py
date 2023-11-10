@@ -27,7 +27,8 @@ class Act(Enum):
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    act: Act = Act.START  # 순서도 시작
+    act: Act = Act.SEARCH_PUTTING_LOCATION  # 순서도 시작
+    # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
     check_holein: int = 0  # 홀인 판단 횟수
