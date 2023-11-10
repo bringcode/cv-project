@@ -179,4 +179,4 @@ class GoalDetect:
         
 if __name__ == "__main__":
     goal_detector = GoalDetect()
-    goal_detector.process()
+    print(goal_detector.process())
