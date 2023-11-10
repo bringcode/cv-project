@@ -76,7 +76,7 @@ class BallxCenterMeasurer:
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
-        for _ in range(10):
+        for _ in range(50):
             ret, img = cap.read()
             if not ret:
                 break
@@ -103,7 +103,18 @@ class BallxCenterMeasurer:
             # robot version
             lower = np.array([137, 0, 0])
             upper = np.array([255, 255, 255])
-            mask = cv2.inRange(hsv_img, lower, upper)
+            lower1 = np.array([0, 66, 87])
+            upper1 = np.array([14, 255, 255])
+            lower2 = np.array([168, 0, 0])
+            upper2 = np.array([255, 255, 255])
+            
+            mask1 = cv2.inRange(hsv_img, lower, upper)
+            mask2 = cv2.inRange(hsv_img, lower1, upper1)
+            mask3 = cv2.inRange(hsv_img, lower2, upper2)
+            
+
+            mask = mask1+mask2
+            
 
             # lower_flag = np.array([10, 150, 100])
             # upper_flag = np.array([35, 255, 255])
@@ -138,11 +149,11 @@ class BallxCenterMeasurer:
                     ball_y = round((max_y + min_y / 2), 2)
 
 
-            # cv2.imshow('Object Dist Measure ', img)
+            cv2.imshow('Object Dist Measure ', img)
             # print(ball_x_isMiddle)
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     cv2.destroyAllWindows()
-            #     break
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                cv2.destroyAllWindows()
+                break
 
                         
             if ball_x_isMiddle != 'N':
