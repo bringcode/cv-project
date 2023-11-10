@@ -27,7 +27,7 @@ class Act(Enum):
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    act: Act = Act.SEARCH_PUTTING_LOCATION # 순서도 시작
+    act: Act = Act.SEARCH_PUTTING_LOCATION  # 순서도 시작
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -310,10 +310,62 @@ class Controller:
 
         ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
         ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
+        
         # 공을 못 찾았을 때 반환하는 값
         ball_x_angle = ["N", "N", "N"]
         ball_y_angle = ["N"]
-
+        
+        # 공과 로봇의 거리(dist)와 공이랑 깃발 사이의 각도(flag_ball_angle_fin), 방향(direction)을 구하는 부분
+        flag_angle = self.robo._motion.x_head_angle  # 깃발 각도 저장
+        down_y = [20, 30, 45, 60, 75, 80] # 공 찾기 위한 Y축 (80도까지는 안 쓸 거 같기도..)
+        right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인 필요하고 바꿔야 함..
+        y_dir = 0
+        x_dir = 0
+        
+        if ball_x_angle == ["N", "N", "N"]:
+            while FindBall != True:
+                self.robo._motion.set_head("DOWN", down_y[y_dir])
+                y_dir += 1
+        
+                # 고개 오른쪽으로 찾기 (각도 저장하는 거 추가하기)
+                for i in range(len(right_left)):
+                    self.robo._motion.set_head("RIGHT", right_left[x_dir])
+                    x_dir += 1
+                    if FindBall == True or x_dir == len(right_left):
+                        break
+                self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
+        
+                # 고개 왼쪽으로 찾기 (각도 저장하는 거 추가하기)
+                for i in range(len(right_left)):
+                    self.robo._motion.set_head("LEFT", right_left[x_dir])
+                    x_dir += 1
+                    if FindBall == True or x_dir == len(right_left):
+                        break
+                self.robo._motion.set_head("LEFTRIGHT_CENTER")
+        
+            # 여기까지 오면 공을 찾은 상황
+            # 공을 찾으면, 공 센터 맞추는 함수 실행
+            self.check_ball_distance()
+            
+            # 공 센터 맞추면 해당 각도 저장
+            ball_angle = self.robo._motion.x_head_angle
+        
+            # 공 센터 맞추면 로봇과 공의 거리 구하는 코드 실행
+            dist_Process = DistMeasurer()
+            self.dist = dist_Process.display_distance(ball_angle)  # dist: 공과 로봇의 거리
+        
+            # flag_ball_angle_fin: 공이랑 깃발 사이의 각도
+            self.flag_ball_angle_fin = abs(ball_angle - flag_angle)
+						
+            # direction: 방향
+            if (ball_angle - flag_angle) > 0:
+                direction = "R"
+            elif (ball_angle - flag_angle) < 0:
+                direction = "L"
+            else:
+                direction = ""  # 여기 나오면 안 되긴 함..
+ 
+        # 공 센터 맞추는 부분
         while correctAngle != 1:
             ball_x_angle = ballxcenter.process()
             time.sleep(0.2)
@@ -415,7 +467,6 @@ class Controller:
                     correctAngle = 1
                     break
 
-                # 우진아 여기 봐줘
                 elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
                     while flag_y_angle[0] != "C":
                         before_flag_y_angle = copy.copy(flag_y_angle[0])
@@ -537,6 +588,8 @@ class Controller:
                 print("여기로 오면 안 되는뎁..")
             return self.robo._motion.x_head_angle
         
+    ###################################################################################################
+    # 가장 최적의 값으로 도는 함수
     @classmethod
     def find_best_actions(self,target_angle, way):
         # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
