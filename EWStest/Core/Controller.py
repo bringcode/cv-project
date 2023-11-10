@@ -13,6 +13,7 @@ from Sensor.HitPoint import HitPointer
 
 # from Setting import cur
 import time
+import copy
 
 
 class Act(Enum):
@@ -403,7 +404,7 @@ class Controller:
                 # 우진아 여기 봐줘
                 elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
                     while flag_y_angle[0] != "C":
-                        before_flag_y_angle = flag_y_angle[0]
+                        before_flag_y_angle = copy.copy(flag_y_angle[0])
                         flag_y_angle = flagycneter.run() # 여기서 U/C/D 판단
                         time.sleep(0.2)
                         print("flag_y: ", flag_y_angle[0]) # 판단 내용 출력
