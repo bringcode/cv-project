@@ -304,12 +304,13 @@ class Controller:
 
         correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
 
+        ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
+        ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
         # 공을 못 찾았을 때 반환하는 값
         ball_x_angle = ["N", "N", "N"]
         ball_y_angle = ["N"]
 
         while correctAngle != 1:
-            ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
             ball_x_angle = ballxcenter.process()
             time.sleep(0.2)
             print("ball_x_angle: ", end="")
@@ -317,7 +318,6 @@ class Controller:
 
             if ball_x_angle[0] == "C":
                 # x축 기준으로 센터라면, y축 기준으로 어디에 있는지 판별
-                ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
                 ball_y_angle = ballycenter.process()
                 time.sleep(0.2)
                 if ball_y_angle[0] == "C":
@@ -330,17 +330,22 @@ class Controller:
                 elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
                     # 아래로 1도씩 움직이기
                     while ball_y_angle[0] != "C":
-                        ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
+                        before_ball_y_angle = copy.copy(ball_y_angle[0])
                         ball_y_angle = ballycenter.process()
                         time.sleep(0.2)
                         print("ball_y: ", ball_y_angle[0])
 
+                        if before_ball_y_angle != ball_y_angle[0]:
+                            recent_will_angle = 2
+                        else:
+                            recent_will_angle = 5
+
                         if ball_y_angle[0] == "U":
-                            self.robo._motion.set_head_small("UP", 2)
+                            self.robo._motion.set_head_small("UP", recent_will_angle)
                             time.sleep(0.1)
 
                         if ball_y_angle[0] == "D":
-                            self.robo._motion.set_head_small("DOWN", 2)
+                            self.robo._motion.set_head_small("DOWN", recent_will_angle)
                             time.sleep(0.1)
 
                     correctAngle = 1
@@ -353,16 +358,21 @@ class Controller:
             elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 # 왼쪽으로 1도씩 움직이기
                 while ball_x_angle[0] != "C":
-                    ballxcenter = BallxCenterMeasurer(img_width=640, img_height=480)
+                    before_ball_x_angle = copy.copy(ball_x_angle[0])
                     ball_x_angle = ballxcenter.process()
                     time.sleep(0.2)
                     print("ball_x: ", ball_x_angle[0])
 
+                    if before_ball_x_angle != ball_x_angle[0]:
+                        recent_will_angle = 2
+                    else:
+                        recent_will_angle = 5
+
                     if ball_x_angle[0] == "L":
-                        self.robo._motion.set_head_small("LEFT", 2)
+                        self.robo._motion.set_head_small("LEFT", recent_will_angle)
                         time.sleep(0.1)
                     if ball_x_angle[0] == "R":
-                        self.robo._motion.set_head_small("RIGHT", 2)
+                        self.robo._motion.set_head_small("RIGHT", recent_will_angle)
                         time.sleep(0.1)
 
             else:
@@ -374,7 +384,7 @@ class Controller:
         print("Debug in check_flag_distance")
 
         flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
-        flagycneter = FlagyCenterMeasurer(img_width=640, img_height=480)
+        flagycenter = FlagyCenterMeasurer(img_width=640, img_height=480)
 
         correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
 
@@ -389,7 +399,7 @@ class Controller:
 
             if flag_x_angle[0] == "C":
                 print("통과했어요")
-                flag_y_angle = flagycneter.run()
+                flag_y_angle = flagycenter.run()
                 print(flag_y_angle[0])
                 time.sleep(0.2)
 
@@ -405,7 +415,7 @@ class Controller:
                 elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
                     while flag_y_angle[0] != "C":
                         before_flag_y_angle = copy.copy(flag_y_angle[0])
-                        flag_y_angle = flagycneter.run() # 여기서 U/C/D 판단
+                        flag_y_angle = flagycenter.run() # 여기서 U/C/D 판단
                         time.sleep(0.2)
                         print("flag_y: ", flag_y_angle[0]) # 판단 내용 출력
 
@@ -434,15 +444,21 @@ class Controller:
 
                 while flag_x_angle[0] != "C":
                     print("while문이 실행되었습니다.")
-                    flag_x_angle = flagxcenter.run()
+                    before_flag_x_angle = copy.copy(flag_x_angle[0])
+                    flag_x_angle = flagxcenter.run() # 여기서 U/C/D 판단
                     time.sleep(0.2)
-                    print("flag_x: ", flag_x_angle[0])
+                    print("flag_x: ", flag_x_angle[0]) # 판단 내용 출력
+
+                    if before_flag_x_angle != flag_x_angle[0]:
+                        recent_will_angle = 2
+                    else:
+                        recent_will_angle = 5
 
                     if flag_x_angle[0] == "L":
-                        self.robo._motion.set_head_small("LEFT", 2)
+                        self.robo._motion.set_head_small("LEFT", recent_will_angle)
                         time.sleep(0.1)
                     if flag_x_angle[0] == "R":
-                        self.robo._motion.set_head_small("RIGHT", 2)
+                        self.robo._motion.set_head_small("RIGHT", recent_will_angle)
                         time.sleep(0.1)
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
