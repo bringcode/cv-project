@@ -21,6 +21,13 @@ class FindBall:
             ret, img = cap.read()
             dilimg = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(dilimg, cv2.COLOR_BGR2HSV)
+                        # robot version
+            lower = np.array([137, 0, 0])
+            upper = np.array([255, 255, 255])
+            lower1 = np.array([0, 66, 87])
+            upper1 = np.array([14, 255, 255])
+            lower2 = np.array([168, 0, 0])
+            upper2 = np.array([255, 255, 255])
 
             # window version
             mask1 = cv2.inRange(hsv_img, lower, upper)
