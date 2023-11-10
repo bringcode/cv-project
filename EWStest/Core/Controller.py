@@ -321,31 +321,38 @@ class Controller:
         right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인 필요하고 바꿔야 함..
         y_dir = 0
         x_dir = 0
+        find_ball = FindBall().process()
         
         if ball_x_angle == ["N", "N", "N"]:
-            while FindBall != True:
+            while find_ball != True:
                 self.robo._motion.set_head("DOWN", down_y[y_dir])
                 y_dir += 1
+                time.sleep(0.1)
         
                 # 고개 오른쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
                     self.robo._motion.set_head("RIGHT", right_left[x_dir])
                     x_dir += 1
-                    if FindBall == True or x_dir == len(right_left):
+                    time.sleep(0.1)
+                    if (find_ball == True) or (x_dir == len(right_left)):
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
+                time.sleep(0.1)
         
                 # 고개 왼쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
                     self.robo._motion.set_head("LEFT", right_left[x_dir])
                     x_dir += 1
-                    if FindBall == True or x_dir == len(right_left):
+                    time.sleep(0.1)
+                    if (find_ball == True) or (x_dir == len(right_left)):
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
+                time.sleep(0.1)
         
             # 여기까지 오면 공을 찾은 상황
             # 공을 찾으면, 공 센터 맞추는 함수 실행
             self.check_ball_distance()
+            time.sleep(0.1)
             
             # 공 센터 맞추면 해당 각도 저장
             ball_angle = self.robo._motion.x_head_angle
@@ -353,6 +360,7 @@ class Controller:
             # 공 센터 맞추면 로봇과 공의 거리 구하는 코드 실행
             dist_Process = DistMeasurer()
             self.dist = dist_Process.display_distance(ball_angle)  # dist: 공과 로봇의 거리
+            time.sleep(0.1)
         
             # flag_ball_angle_fin: 공이랑 깃발 사이의 각도
             self.flag_ball_angle_fin = abs(ball_angle - flag_angle)
