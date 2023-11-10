@@ -877,7 +877,7 @@ class Controller:
 
             self.check_flag_distance() # 깃발 거리 angle 구하기
             time.sleep(0.2)
-            angle = abs(self.robo._motion.y_head_angle - 21) # angle 값 수정
+            angle = abs(self.robo._motion.y_head_angle) # angle 값 수정
             distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
             print("flag distance: ", end="")
             print(distflag)
