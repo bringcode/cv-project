@@ -575,6 +575,12 @@ class Controller:
                 if best_action <= remaining_angle:
                     best_actions.append(best_action)
                     remaining_angle -= best_action
+
+                    self.robo._motion.turn("RIGHT", best_action) 
+                    # 이 부분 수정해야하는데, 어떻게 수정하냐면
+                    # 깃발을 찾고 공을 찾는 부분에서 고개를 어느 방향으로 하는지를 판단해서
+                    # 공이 오른쪾에 있는지 왼쪽에 있는지 판단하면 될듯
+                    time.sleep(0.8)
                 actions.remove(best_action)
 
             if remaining_angle == 0:
