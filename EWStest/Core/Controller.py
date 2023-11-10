@@ -535,72 +535,6 @@ class Controller:
             else:
                 print("여기로 오면 안 되는뎁..")
             return self.robo._motion.x_head_angle
-        
-    ###################################################################################################
-    @classmethod
-    def go_robo(self):
-        act = self.act
-        robo: Robo = Robo()
-        L_right = self.L_right
-        L_center = self.L_center
-        L_left = self.L_left
-        C_right = self.C_right
-        C_center = self.C_center
-        C_left = self.C_left
-
-        canPutting = self.canPutting
-
-        ##########################################################
-        # self.robo._motion.set_head("DOWN", 90)  # test
-        # time.sleep(0.5)  # test
-
-        # self.robo._motion.hit_the_ball("RIGHT")
-        # time.sleep(5)
-        # self.robo._motion.hit_the_ball("LEFT")
-        self.robo._motion.set_head("DOWN", 80)  # test
-        time.sleep(0.1)
-        self.robo._motion.set_head("RIGHT", 30)
-        time.sleep(0.1)  # test
-        self.check_flag_distance()  # test
-        time.sleep(0.2)
-        angle = abs(self.robo._motion.y_head_angle - 21)  # test
-        dist_flag = DistMeasurer()  # test
-        print("flag distance: ", end="")  # test
-        distflag = dist_flag.display_distance(angle)
-        print(distflag)  # test
-        time.sleep(0.2)  # test
-
-        flag_angle = self.robo._motion.x_head_angle
-
-        # self.robo._motion.set_head("DOWN",30) # test
-        # time.sleep(0.2) # test
-        self.check_ball_distance()  # test
-        angle = abs(self.robo._motion.y_head_angle - 20)  # test
-        dist_ball = DistMeasurer()  # test
-        print("ball distance: ", end="")  # test
-        distball = dist_ball.display_distance(angle)
-        print(distball)  # test
-
-        shot_way = "N"
-
-        ball_angle = self.robo._motion.x_head_angle  # test
-        if ball_angle >= flag_angle:  # test
-            real_angle = ball_angle - flag_angle  # test
-            shot_way = "R"
-        else:  # test
-            real_angle = flag_angle - ball_angle  # test
-            shot_way = "L"
-        print("Real angle: ", end="")  # test
-        print(real_angle)  # test
-
-        solver = HitPointer(
-            distflag, distball, real_angle, 7
-        )  # test 깃발, 공, 각도, 치는 위치(cm)
-        a, b, c, d = solver.solve()  # test 거리,각도 구하는거 실행
-        print(a)  # test  거리
-        print(b)  # test  각도
-        print(c)  # test  공으로 다가가서 돌아야하는 각도
-        print(d)  # test  공이 깃발 뒤에 있는지 앞에 있는지
 
         def find_best_actions(target_angle, way):
             # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
@@ -627,33 +561,24 @@ class Controller:
                         print("shot_way의 값이 이상함.")
                     time.sleep(0.8)
                 actions.remove(best_action)
+        
+    ###################################################################################################
+    @classmethod
+    def go_robo(self):
+        act = self.act
+        robo: Robo = Robo()
+        L_right = self.L_right
+        L_center = self.L_center
+        L_left = self.L_left
+        C_right = self.C_right
+        C_center = self.C_center
+        C_left = self.C_left
 
-            if remaining_angle == 0:
-                print(f"가장 적합한 동작: {', '.join(map(str, best_actions))}")
-            else:
-                print(
-                    f"가장 적합한 동작: {', '.join(map(str, best_actions))}, 남은 각도: {remaining_angle}"
-                )
+        canPutting = self.canPutting
 
-        b = int(b)
-        find_best_actions(b, shot_way)
+        ########################################################## # test
 
-        a = int(a)  # test 정수로 변환
-        goto = a // 4
-        self.robo._motion.walk("FORWARD", goto, 1.0)  # test
-
-        if d == False:
-            if shot_way == "R":
-                shot_way = "L"
-            else:
-                shot_way = "R"
-
-            find_best_actions(c, shot_way)
-        else:
-            find_best_actions(c, shot_way)
-
-        print("11111")  # test
-        time.sleep(10)  # test
+        
         ########################################################## # test
 
         if act == act.START:
@@ -867,6 +792,62 @@ class Controller:
 
         elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
             print("Act:", act)  # Debug
+
+            self.check_flag_distance() # 깃발 거리 angle 구하기
+            time.sleep(0.2)
+            angle = abs(self.robo._motion.y_head_angle - 21) # angle 값 수정
+            distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
+            print("flag distance: ", end="")
+            print(distflag)
+            time.sleep(0.2)
+            flag_angle = self.robo._motion.x_head_angle
+
+            self.check_ball_distance()  # 공 거리 anlge 구하기
+            angle = abs(self.robo._motion.y_head_angle - 20)  # angle 값 수정
+            distball = DistMeasurer().display_distance(angle) # 공 거리값
+            print("ball distance: ", end="") 
+            print(distball)
+            time.sleep(0.2)
+            ball_angle = self.robo._motion.x_head_angle
+
+            if ball_angle >= flag_angle:   # ball angle이 더 크면 오른쪽
+                real_angle = ball_angle - flag_angle  
+                shot_way = "R" # 공이 오른쪽에 있으니 오른쪽으로
+            else:  # ball angle이 더 작으면 왼쪽
+                real_angle = flag_angle - ball_angle  
+                shot_way = "L" # 공이 왼쪽에 있으니 왼쪽으로
+
+            print("Real angle: ", end="")  # 값 확인
+            print(real_angle)
+
+            solver = HitPointer(distflag, distball, real_angle, 7)
+            hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back = solver.solve()
+            print("가야하는 거리: ", hit_dist)
+            print("돌아야하는 각도", hit_angle)
+            print("공앞에서 돌아야하는 각도", hit_will_anlge)
+            print("공이 깃발 뒤에 있는지 없는지 (T/F): ", ball_is_flag_back)
+
+            hit_angle = int(hit_angle)
+            self.find_best_actions(hit_angle, shot_way)
+
+            hit_dist = int(hit_dist)
+            will_goto_ball = hit_dist // 4
+            self.robo._motion.walk("FORWARD", will_goto_ball, 1.0)
+
+            if ball_is_flag_back == False: # 공이 깃발 뒤에 있을 떄
+                if shot_way == "R": # 깃발 뒤에 있으면 치는 방향이 바뀌기 때문에 
+                    shot_way = "L" # shot_way를 L로 
+
+                else:
+                    shot_way = "R"
+
+                self.find_best_actions(hit_will_anlge, shot_way) # hit_will_angle로 몇도 돌아야 하는지, shot_way로 어느 방향으로 돌아야하는지
+            else:
+                self.find_best_actions(hit_will_anlge, shot_way)
+
+            time.sleep(0.1)
+            print("퍼팅 위치까지 왔습니다.")
+            print("퍼팅해주세요")    
 
             self.act = act.CHECK
 
