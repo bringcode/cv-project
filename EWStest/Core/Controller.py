@@ -319,12 +319,12 @@ class Controller:
         flag_angle = self.robo._motion.x_head_angle  # 깃발 각도 저장
         down_y = [20, 30, 45, 60, 75, 80] # 공 찾기 위한 Y축 (80도까지는 안 쓸 거 같기도..)
         right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인 필요하고 바꿔야 함..
-        y_dir = 0
-        x_dir = 0
         find_ball = FindBall().process()
         
         if ball_x_angle == ["N", "N", "N"]:
             while find_ball != True:
+                y_dir = 0
+                x_dir = 0
                 self.robo._motion.set_head("DOWN", down_y[y_dir])
                 y_dir += 1
                 time.sleep(0.1)
