@@ -348,7 +348,6 @@ class Controller:
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
                 
-                y_dir = 0
                 x_dir = 0
                 # 고개 왼쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
