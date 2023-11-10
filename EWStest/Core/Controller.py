@@ -552,11 +552,15 @@ class Controller:
         distball = dist_ball.display_distance(angle)
         print(distball)  # test
 
+        shot_way = 'N'
+
         ball_angle = self.robo._motion.x_head_angle # test
         if ball_angle >= flag_angle: # test
             real_angle = ball_angle - flag_angle # test
+            shot_way = 'R'
         else: # test
             real_angle = flag_angle - ball_angle # test
+            shot_way = 'L'
         print("Real angle: ", end="") # test
         print(real_angle) #test
 
@@ -565,9 +569,13 @@ class Controller:
         print(a) # test  거리
         print(b) # test  각도
 
-        def find_best_actions(target_angle):
+        def find_best_actions(target_angle, way):
+            # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
+            # way: 공이 왼쪽에 있는지 오른쪽에 있는지 판단하는 값
             actions = [60, 45, 20, 10, 5, 3]  # 가능한 동작 리스트
             remaining_angle = target_angle
+            robot_way = way
+        
             best_actions = []
 
             while remaining_angle > 0 and actions:
@@ -576,10 +584,14 @@ class Controller:
                     best_actions.append(best_action)
                     remaining_angle -= best_action
 
-                    self.robo._motion.turn("RIGHT", best_action) 
-                    # 이 부분 수정해야하는데, 어떻게 수정하냐면
-                    # 깃발을 찾고 공을 찾는 부분에서 고개를 어느 방향으로 하는지를 판단해서
-                    # 공이 오른쪾에 있는지 왼쪽에 있는지 판단하면 될듯
+                    if robot_way == 'R':
+                        self.robo._motion.turn("RIGHT", best_action) 
+                    
+                    elif robot_way == 'L':
+                        self.robo._motion.turn("LEFT", best_action)
+
+                    else:
+                        print("shot_way의 값이 이상함.")
                     time.sleep(0.8)
                 actions.remove(best_action)
 
@@ -589,7 +601,7 @@ class Controller:
                 print(f"가장 적합한 동작: {', '.join(map(str, best_actions))}, 남은 각도: {remaining_angle}")
 
         b = int(b)
-        find_best_actions(b)
+        find_best_actions(b,shot_way)
 
         a = int(a) # test 정수로 변환
         goto = a // 4
