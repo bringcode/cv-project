@@ -589,7 +589,7 @@ class Controller:
             return self.robo._motion.x_head_angle
         
     ###################################################################################################
-    # 가장 최적의 값으로 도는 함수
+    # 퍼팅 후 타격지점 찾을 때, 리턴된 앵글값의 가장 최적의 값을 찾는 함수
     @classmethod
     def find_best_actions(self,target_angle, way):
         # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
