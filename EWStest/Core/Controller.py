@@ -794,6 +794,10 @@ class Controller:
 #############################################################################
         elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
             print("Act:", act)  # Debug
+            self.robo._motion.set_head("UPDOWN_CENTER")
+            time.sleep(0.2)
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            time.sleep(0.1)
 
             self.check_flag_distance() # 깃발 거리 angle 구하기
             time.sleep(0.2)
