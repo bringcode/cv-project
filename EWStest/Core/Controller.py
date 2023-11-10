@@ -321,6 +321,7 @@ class Controller:
         right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인 필요하고 바꿔야 함..
         find_ball = FindBall().process()
         
+        print(ball_x_angle[0])
         if ball_x_angle[0] == "N":
             while find_ball != True:
                 y_dir = 0
