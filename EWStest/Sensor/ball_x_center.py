@@ -146,8 +146,12 @@ class BallxCenterMeasurer:
 
                         
             if ball_x_isMiddle != 'N':
+                # 10번 찾았을 때, 공이 잡혔을 때 이것을 실행. 첫번째 인자에 R,L,C 중 하나가 들어오고, 두번쩨부터 각각 공의 x중심좌표, y중심좌표임.
                 return [ball_x_isMiddle, ball_x, ball_y]
-        return [ball_x_isMiddle, ball_x, ball_y]
+        return [ball_x_isMiddle, ball_x, ball_y] # 10번 찾았는데도 아무것도 안 잡혔을 때, ['N', 'N', 'N']을 return.
+        # 만약 퍼팅 지점을 예측하기 위해 실행시켰는데 ['N', 'N', 'N']이 뜨면 고개를 움직이면서 공을 찾고, 공을 찾으면
+        # 일단 공과 로봇의 거리를 구한다. 이후 로봇이 홀컵으로부터 고개를 왼쪽으로 돌렸는지 오른쪽으로 돌렸는지를 파악해 다시 홀컵쪽으로
+        # 고개를 조금씩 돌려 홀컵과 공 사이의 각도를 알아낸다.(근데 y값 차이가 많이 나면 공의 중심 맞추고, 홀컵으로 고개를 돌렸을 때, 홀컵이 안잡힐 수 있음 주의!)
 
 
 
