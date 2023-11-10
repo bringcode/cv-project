@@ -327,31 +327,33 @@ class Controller:
                 x_dir = 0
                 self.robo._motion.set_head("DOWN", down_y[y_dir])
                 y_dir += 1
-                time.sleep(0.1)
+                time.sleep(0.2)
         
                 # 고개 오른쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
+                    find_ball = FindBall().process()
                     print("고개 오른쪽으로 찾기")
                     print("======================")
                     self.robo._motion.set_head("RIGHT", right_left[x_dir])
                     x_dir += 1
-                    time.sleep(0.1)
+                    time.sleep(0.2)
                     if (find_ball == True) or (x_dir == len(right_left)):
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
-                time.sleep(0.1)
+                time.sleep(0.2)
         
                 # 고개 왼쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
+                    find_ball = FindBall().process()
                     print("고개 왼쪽으로 찾기")
                     print("======================")
                     self.robo._motion.set_head("LEFT", right_left[x_dir])
                     x_dir += 1
-                    time.sleep(0.1)
+                    time.sleep(0.2)
                     if (find_ball == True) or (x_dir == len(right_left)):
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
-                time.sleep(0.1)
+                time.sleep(0.2)
         
             # 여기까지 오면 공을 찾은 상황
             # 공을 찾으면, 공 센터 맞추는 함수 실행
