@@ -399,18 +399,24 @@ class Controller:
                     correctAngle = 1
                     break
 
+
+                # 우진아 여기 봐줘
                 elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
                     while flag_y_angle[0] != "C":
-                        flag_y_angle = flagycneter.run()
+                        before_flag_y_angle = flag_y_angle[0]
+                        flag_y_angle = flagycneter.run() # 여기서 U/C/D 판단
                         time.sleep(0.2)
-                        print("flag_y: ", flag_y_angle[0])
+                        print("flag_y: ", flag_y_angle[0]) # 판단 내용 출력
+                        recent_will_angle = 5
 
-                        if flag_y_angle[0] == "U":
-                            self.robo._motion.set_head_small("UP", 2)
+                        if before_flag_y_angle != flag_y_angle[0]:
+                            recent_will_angle = 2
+                        if flag_y_angle[0] == "U": # 판단 내용 판단
+                            self.robo._motion.set_head_small("UP", recent_will_angle)
                             time.sleep(0.1)
 
-                        if flag_y_angle[0] == "D":
-                            self.robo._motion.set_head_small("DOWN", 2)
+                        if flag_y_angle[0] == "D": #판단 내용 판단
+                            self.robo._motion.set_head_small("DOWN", recent_will_angle)
                             time.sleep(0.1)
 
                     correctAngle = 1
