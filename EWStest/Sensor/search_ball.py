@@ -54,14 +54,14 @@ class FindBall:
                 if cv2.contourArea(cnt) > 100 and cv2.contourArea(cnt) < 306000:
                     is_ball = True
 
-            cv2.imshow("Object Dist Measure ", img)
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                cv2.destroyAllWindows()
-                break
+            # cv2.imshow("Object Dist Measure ", img)
+            # if cv2.waitKey(1) & 0xFF == ord("q"):
+            #     cv2.destroyAllWindows()
+            #     break
 
-        #     print(is_ball)
-        #     break
-        # return is_ball
+            print(is_ball)
+            break
+        return is_ball
 
 
 if __name__ == "__main__":
