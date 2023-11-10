@@ -407,10 +407,11 @@ class Controller:
                         flag_y_angle = flagycneter.run() # 여기서 U/C/D 판단
                         time.sleep(0.2)
                         print("flag_y: ", flag_y_angle[0]) # 판단 내용 출력
-                        recent_will_angle = 5
 
                         if before_flag_y_angle != flag_y_angle[0]:
                             recent_will_angle = 2
+                        else:
+                            recent_will_angle = 5
                         if flag_y_angle[0] == "U": # 판단 내용 판단
                             self.robo._motion.set_head_small("UP", recent_will_angle)
                             time.sleep(0.1)
