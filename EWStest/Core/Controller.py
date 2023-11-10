@@ -336,7 +336,7 @@ class Controller:
                 if y_dir == len(down_y):
                     break
         
-                # 고개 오른쪽으로 찾기 (각도 저장하는 거 추가하기)
+                # 고개 오른쪽으로 찾기
                 for i in range(len(right_left)):
                     find_ball = FindBall().process()
                     time.sleep(0.1)
@@ -351,7 +351,7 @@ class Controller:
                 time.sleep(0.2)
                 
                 x_dir = 0
-                # 고개 왼쪽으로 찾기 (각도 저장하는 거 추가하기)
+                # 고개 왼쪽으로 찾기
                 for i in range(len(right_left)):
                     find_ball = FindBall().process()
                     time.sleep(0.1)
@@ -471,7 +471,7 @@ class Controller:
         flagxcenter = FlagxCenterMeasurer(img_width=640, img_height=480)
         flagycenter = FlagyCenterMeasurer(img_width=640, img_height=480)
 
-        correctAngle = 0  # 공이 센터에 왔을 때 1로 변경
+        correctAngle = 0  # 깃발이 센터에 왔을 때 1로 변경
 
         # 깃발을 못 찾았을 때 반환하는 값
 
