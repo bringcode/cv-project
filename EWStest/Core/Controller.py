@@ -332,6 +332,7 @@ class Controller:
                 # 고개 오른쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
                     find_ball = FindBall().process()
+                    time.sleep(0.1)
                     print("고개 오른쪽으로 찾기")
                     print("======================")
                     self.robo._motion.set_head("RIGHT", right_left[x_dir])
@@ -345,6 +346,7 @@ class Controller:
                 # 고개 왼쪽으로 찾기 (각도 저장하는 거 추가하기)
                 for i in range(len(right_left)):
                     find_ball = FindBall().process()
+                    time.sleep(0.1)
                     print("고개 왼쪽으로 찾기")
                     print("======================")
                     self.robo._motion.set_head("LEFT", right_left[x_dir])
