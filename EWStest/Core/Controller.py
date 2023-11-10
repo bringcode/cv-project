@@ -881,6 +881,8 @@ class Controller:
             distflag = DistMeasurer().display_distance(angle) # 깃발 거리값
             print("flag distance: ", end="")
             print(distflag)
+            print("flag angle: ", end="")
+            print(angle)
             # 깃발 거리를 측정하고 프로그램 종료
             exit()
             time.sleep(0.2)
