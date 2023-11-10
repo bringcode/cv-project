@@ -17,8 +17,8 @@ import copy
 class Act(Enum):
     START = auto()  # 시작 - 아무런 동작도 안 함
     SEARCH_FIRST = auto()  # T샷 시작
-    SEARCH_BALL = auto()  # 공 찾기
     SEARCH_FLAG = auto()  # 깃발 찾기
+    SEARCH_BALL = auto()  # 공 찾기
     SEARCH_PUTTING_LOCATION = auto()  # 치는 위치 찾기
     CHECK = auto()  # 홀인 확인
     EXIT = auto()  # 종료
@@ -27,7 +27,7 @@ class Act(Enum):
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    act: Act = Act.SEARCH_BALL  # 순서도 시작
+    act: Act = Act.SEARCH_FLAG  # 순서도 시작
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
