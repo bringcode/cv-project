@@ -15,7 +15,7 @@ import copy
 
 
 class Act(Enum):
-    START = auto()  # 시작 - 아무도 동작도 안 함
+    START = auto()  # 시작 - 아무런 동작도 안 함
     SEARCH_FIRST = auto()  # T샷 시작
     SEARCH_BALL = auto()  # 공 찾기
     SEARCH_FLAG = auto()  # 깃발 찾기
@@ -44,7 +44,8 @@ class Controller:
 
     canPutting: float = 0.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
 
-    # 처음 공이 어디에 있는지 확인하는 코드
+    ###################################################################################################
+    # 티샷에서 공이 어디에 있는지 확인하는 코드
     @classmethod
     def check_ball_first(self):
         L_right = self.L_right  # 로봇: L / 공: right
@@ -55,25 +56,24 @@ class Controller:
         C_left = self.C_left  # 로봇: C / 공: left
 
         #  .process():  공에 유무를 반환함 T/F
-        dir_list = [45, 60, 80, 90]  # 임의로 지정한 로봇 머리 값
-        dir = 3  # dir_list 에서 90을 고를 수 있도록 설정하는 값
+        dir_list = [45, 60, 80, 90]  # 임의로 지정한 로봇 머리의 각도 값 (실제 경기장에서 다시 설정해야 할 수도..)
+        dir = 3  # dir_list에서 90을 고를 수 있도록 설정하는 값
         cnt = 0  # 로봇이 어디에서 찾았는지 구분하는 변수
 
         time.sleep(1)  # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
-        for i in range(3):  # 왼쪽 경우의 숫 3개
-            self.robo._motion.set_head(
-                "DOWN", dir_list[dir]
-            )  # 왼쪽에 있을 떄 사용하는 로봇 각도 값 모션
-            dir -= 1  # 각도 임의값 변경
+        # 로봇이 왼쪽에 있을 때 확인하기
+        for i in range(3):  # 티샷이 3개이므로 3번 반복
+            self.robo._motion.set_head("DOWN", dir_list[dir])  # 고개 내리면서 확인
+            dir -= 1
             time.sleep(0.1)
             Tput_center_isFind_Big = BallCenterMeasurer().process()
             print("Ball find and center T/F: ", Tput_center_isFind_Big)  # 공 T/F값 출력
 
-            if Tput_center_isFind_Big == False:  # 발견되지 않았을 때
+            if Tput_center_isFind_Big == False:  # 공이 발견되지 않았을 때
                 cnt += 1
 
-            elif Tput_center_isFind_Big == True:  # 발견됐을 때
+            elif Tput_center_isFind_Big == True:  # 공이 발견됐을 때
                 print("공을 찾았습니다.")
                 if cnt == 0:
                     self.L_right = 1
@@ -88,6 +88,7 @@ class Controller:
                 print("로봇이 가운데 위치한다고 생각하고 시작하겠습니다.")
                 cnt += 1
 
+        # 로봇이 가운데 있다고 가정
         cnt += 1
         dir = 0
         self.robo._motion.set_head("DOWN", dir_list[dir])
@@ -102,7 +103,7 @@ class Controller:
             # print("Tput_x_center: ",Tput_center_isFind_Small)
             # time.sleep(0.1)
 
-            if Tput_center_isFind_Big == True:  # fix
+            if Tput_center_isFind_Big == True:
                 print("Center: 공을 가운데에서 찾았습니다.")
 
                 if cnt == 3:
@@ -148,7 +149,8 @@ class Controller:
 
                     else:
                         print("공을 처음 시작할 때 어디서도 찾지 못했습니다.")
-
+                        
+    ###################################################################################################
     # 공이 가운데 있는지 확인해서 로봇 왼쪽 오른쪽 모션
     @classmethod
     def ball_feature_ball(self):
@@ -176,7 +178,8 @@ class Controller:
                 time.sleep(0.5)
             else:
                 print("원하는 값이 반환되지 않았습니다.")
-
+                
+    ###################################################################################################
     # 퍼팅 후 공 위치 찾기 -
     @classmethod
     def check_ball_location(self):
@@ -295,7 +298,8 @@ class Controller:
 
         else:
             print("원하는 값이 반환되지 않았습니다.")
-
+            
+    ###################################################################################################
     # 공 1도씩 조정하면서 각도 확인
     @classmethod
     def check_ball_distance(self):
@@ -376,7 +380,8 @@ class Controller:
 
             else:
                 print("check_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
-
+                
+    ###################################################################################################
     # 깃발 1도씩 조정하면서 각도 확인
     @classmethod
     def check_flag_distance(self):
@@ -460,7 +465,8 @@ class Controller:
                         time.sleep(0.1)
             else:
                 print("flag_ball_distance 함수에서 원하는 X angle이 안 들어옴.")
-
+                
+    ###################################################################################################
     # 걸어갈 때, 틀어질 경우를 대비해서 다시 위치 잡는 함수
     @classmethod
     def correct_position(self):
@@ -529,7 +535,8 @@ class Controller:
             else:
                 print("여기로 오면 안 되는뎁..")
             return self.robo._motion.x_head_angle
-
+        
+    ###################################################################################################
     @classmethod
     def go_robo(self):
         act = self.act
