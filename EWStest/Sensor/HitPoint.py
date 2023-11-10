@@ -30,6 +30,19 @@ class HitPointer:
         # cos(z) = (b^2 + x^2 - h^2) / (2bx)
         cos_z = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
         return np.arccos(cos_z)
+    
+    def calculate_out_angle(self, x, m):
+        y = 90 - np.degrees(m)
+        y_rad = np.radians(y)
+        cos_z = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
+        z_rad = np.arccos(cos_z)
+
+        return y_rad+z_rad
+    
+    def judgement_out():                        #깃발 뒤에 공 있을때 false
+        return False
+    def judgement_in():                         #깃발 앞에 공 있을때 true
+        return True
       
     # 타격지점이 삼각형 안에 있을 때
     def calculate_in_x(self, m):
@@ -41,6 +54,15 @@ class HitPointer:
         cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
         rad_z = self.l - np.arccos(cos_p)
         return rad_z
+    def calculate_in_angle(self, x, m):
+        y = np.degrees(m) - 90
+        y_rad = np.radians(y)
+        cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
+        rad_z = self.l - np.arccos(cos_p)
+        l = self.l
+
+        return l - y_rad - rad_z
+
 
     def solve(self):
         c = self.calculate_c()
@@ -49,15 +71,20 @@ class HitPointer:
         if np.degrees(m) <= 90: # 타격지점이 삼각형 밖에 위치
             x = self.calculate_out_x(m)
             z = self.calculate_out_z(x)
+            angle_triangle = self.calculate_out_angle(x,m)
+            judge_triangle = self.judgement_out()
         else:                   # 타격지점이 삼각형 안에 위치
             x = self.calculate_in_x(m)
             z = self.calculate_in_z(x)
+            angle_triangle = self.calculate_in_angle(x,m)
+            judge_triangle = self.judgement_in()                        
           
         z_deg = np.degrees(z)  # z를 도(degree) 단위로 변환
 
         # 결과 출력
         print(f"x: {x:.2f}, z: {z_deg:.2f} degrees")
-        return x, z_deg
+        return [x, z_deg, angle_triangle, judge_triangle] #angle triangle : 목표지점 이동 후 돌아야하는 각도(라디안 형태)     
+                                                          #judge_triangle : 타격지점이 삼각형 안 : True,  타격지점 삼각형 밖: False  (목표지점 이동후 왼쪽으로 돌지 오른쪽으로 돌지 판단에 필요)
 
 # 예제 사용:
 a = 5
