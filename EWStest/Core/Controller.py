@@ -536,32 +536,33 @@ class Controller:
             else:
                 print("여기로 오면 안 되는뎁..")
             return self.robo._motion.x_head_angle
+        
+    @classmethod
+    def find_best_actions(self,target_angle, way):
+        # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
+        # way: 공이 왼쪽에 있는지 오른쪽에 있는지 판단하는 값
+        actions = [60, 45, 20, 10, 5, 3]  # 가능한 동작 리스트
+        remaining_angle = target_angle
+        robot_way = way
 
-        def find_best_actions(target_angle, way):
-            # target_angle: 로봇이 퍼팅 위치 가기전 틀어야하는 각도
-            # way: 공이 왼쪽에 있는지 오른쪽에 있는지 판단하는 값
-            actions = [60, 45, 20, 10, 5, 3]  # 가능한 동작 리스트
-            remaining_angle = target_angle
-            robot_way = way
+        best_actions = []
 
-            best_actions = []
+        while remaining_angle > 0 and actions:
+            best_action = min(actions, key=lambda x: abs(target_angle - x))
+            if best_action <= remaining_angle:
+                best_actions.append(best_action)
+                remaining_angle -= best_action
 
-            while remaining_angle > 0 and actions:
-                best_action = min(actions, key=lambda x: abs(target_angle - x))
-                if best_action <= remaining_angle:
-                    best_actions.append(best_action)
-                    remaining_angle -= best_action
+                if robot_way == "R":
+                    self.robo._motion.turn("RIGHT", best_action)
 
-                    if robot_way == "R":
-                        self.robo._motion.turn("RIGHT", best_action)
+                elif robot_way == "L":
+                    self.robo._motion.turn("LEFT", best_action)
 
-                    elif robot_way == "L":
-                        self.robo._motion.turn("LEFT", best_action)
-
-                    else:
-                        print("shot_way의 값이 이상함.")
-                    time.sleep(0.8)
-                actions.remove(best_action)
+                else:
+                    print("shot_way의 값이 이상함.")
+                time.sleep(0.8)
+            actions.remove(best_action)
         
     ###################################################################################################
     @classmethod
