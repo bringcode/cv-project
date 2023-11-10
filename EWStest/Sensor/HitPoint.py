@@ -38,11 +38,7 @@ class HitPointer:
         z_rad = np.arccos(cos_z)
 
         return y_rad+z_rad
-    
-    def judgement_out():                        #깃발 뒤에 공 있을때 false
-        return False
-    def judgement_in():                         #깃발 앞에 공 있을때 true
-        return True
+  
       
     # 타격지점이 삼각형 안에 있을 때
     def calculate_in_x(self, m):
@@ -72,12 +68,12 @@ class HitPointer:
             x = self.calculate_out_x(m)
             z = self.calculate_out_z(x)
             angle_triangle = self.calculate_out_angle(x,m)
-            judge_triangle = self.judgement_out()
+            judge_triangle = False
         else:                   # 타격지점이 삼각형 안에 위치
             x = self.calculate_in_x(m)
             z = self.calculate_in_z(x)
             angle_triangle = self.calculate_in_angle(x,m)
-            judge_triangle = self.judgement_in()                        
+            judge_triangle = True                      
           
         z_deg = np.degrees(z)  # z를 도(degree) 단위로 변환
 
