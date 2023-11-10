@@ -323,6 +323,7 @@ class Controller:
         
         
         print("ball_x_angle[0]", ball_x_angle[0] == "N")
+        print("find_ball", find_ball)
         
         if ball_x_angle[0] == "N":
             while find_ball != True:
