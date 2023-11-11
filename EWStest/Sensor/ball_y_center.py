@@ -6,7 +6,7 @@ import cv2
 
 
 class BallyCenterMeasurer:
-    def __init__(self, img_width=800, img_height=600, width=4, focal=450):
+    def __init__(self, img_width=640, img_height=480, width=4, focal=450):
         self.dist = 0
         self.focal = focal
         self.pixels = 30
