@@ -950,21 +950,6 @@ class Controller:
             print("Act:", act)  # Debug
             
             self.check_flag()   # 깃발 찾기
-
-            self.act = act.SEARCH_BALL
-#############################################################################
-        elif act == act.SEARCH_BALL:
-                    print("Act:", act)  # Debug
-                    time.sleep(0.1)
-                    angle = abs(self.robo._motion.y_head_angle - 11.6)
-                    dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
-                    print(dist_ball)
-
-                    # self.ball_feature_ball()
-                    self.act = act.SEARCH_PUTTING_LOCATION
-#############################################################################
-        elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
-            print("Act:", act)  # Debug
             # print("TEST")
             # self.find_best_actions(60, 'R')
             # print("===================")
@@ -985,10 +970,26 @@ class Controller:
             print(angle)
             # # 깃발 거리를 측정하고 프로그램 종료
             exit()
+
+            self.act = act.SEARCH_BALL
+#############################################################################
+        elif act == act.SEARCH_BALL:
+                    print("Act:", act)  # Debug
+                    time.sleep(0.1)
+                    angle = abs(self.robo._motion.y_head_angle - 11.6)
+                    dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
+                    print(dist_ball)
+                    
+                    self.check_ball_distance()  # 공 거리 anlge 구하기
+
+                    # self.ball_feature_ball()
+                    self.act = act.SEARCH_PUTTING_LOCATION
+#############################################################################
+        elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
+            print("Act:", act)  # Debug
             time.sleep(0.2)
             flag_angle = self.robo._motion.x_head_angle
 
-            self.check_ball_distance()  # 공 거리 anlge 구하기
             angle = abs(self.robo._motion.y_head_angle - 11.6)  # angle 값 수정
             distball = DistMeasurer().display_distance(angle) # 공 거리값
             print("ball distance: ", end="") 
