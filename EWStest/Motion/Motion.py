@@ -238,10 +238,10 @@ class Motion:
         """ parameter :
         dir : {UP, DOWN, LEFT, RIGHT}
         angle: {
-        UP: {2,5},
-        DOWN:{2,5},
-        LEFT:{2,5},
-        RIGHT:{2,5}
+        UP: {1,3},
+        DOWN:{1,3},
+        LEFT:{1,3},
+        RIGHT:{1,3}
         }
         """
         if dir == "UP":
@@ -266,10 +266,10 @@ class Motion:
             print("===========================")
 
         dir_list = {
-            "UP": {2: 175, 5:183},
-            "DOWN": {2: 174, 5:182},
-            "LEFT": {2: 176, 5:184},
-            "RIGHT": {2: 177, 5:185},
+            "UP": {1: 175, 3:183},
+            "DOWN": {1: 174, 3:182},
+            "LEFT": {1: 176, 3:184},
+            "RIGHT": {1: 177, 3:185},
         }
 
         self.TX_data_py3(dir_list[dir][angle])

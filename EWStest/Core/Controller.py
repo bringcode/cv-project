@@ -396,7 +396,7 @@ class Controller:
 
                 elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
                     # 아래로 1도씩 움직이기
-                    recent_will_angle = 5
+                    recent_will_angle = 3
                     while ball_y_angle[0] != "C":
                         before_ball_y_angle = copy.copy(ball_y_angle[0])
                         ball_y_angle = ballycenter.process()
@@ -404,7 +404,7 @@ class Controller:
                         print("ball_y: ", ball_y_angle[0])
 
                         if before_ball_y_angle != ball_y_angle[0]:
-                            recent_will_angle = 2
+                            recent_will_angle = 1
 
                         if ball_y_angle[0] == "U":
                             self.robo._motion.set_head_small("UP", recent_will_angle)
@@ -449,7 +449,7 @@ class Controller:
 
             elif ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 # 왼쪽으로 1도씩 움직이기
-                recent_will_angle = 5
+                recent_will_angle = 3
                 while ball_x_angle[0] != "C":
                     before_ball_x_angle = copy.copy(ball_x_angle[0])
                     ball_x_angle = ballxcenter.process()
@@ -457,7 +457,7 @@ class Controller:
                     print("ball_x: ", ball_x_angle[0])
 
                     if before_ball_x_angle != ball_x_angle[0]:
-                        recent_will_angle = 2
+                        recent_will_angle = 1
 
                     if ball_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
@@ -503,7 +503,7 @@ class Controller:
                     break
 
                 elif flag_y_angle[0] == "D" or flag_y_angle[0] == "U":
-                    recent_will_angle = 5
+                    recent_will_angle = 3
                     while flag_y_angle[0] != "C":
                         before_flag_y_angle = copy.copy(flag_y_angle[0])
                         flag_y_angle = flagycenter.run()  # 여기서 U/C/D 판단
@@ -511,7 +511,7 @@ class Controller:
                         print("flag_y: ", flag_y_angle[0])  # 판단 내용 출력
 
                         if before_flag_y_angle != flag_y_angle[0]:
-                            recent_will_angle = 2
+                            recent_will_angle = 1
 
                         if flag_y_angle[0] == "U":  # 판단 내용 판단
                             self.robo._motion.set_head_small("UP", recent_will_angle)
@@ -531,7 +531,7 @@ class Controller:
             elif flag_x_angle[0] == "L" or flag_x_angle[0] == "R":
                 print("flag_x_angle: R or L이 들어왔습니다.")
                 print(flag_x_angle[0])
-                recent_will_angle = 5
+                recent_will_angle = 3
                 while flag_x_angle[0] != "C":
                     print("while문이 실행되었습니다.")
                     before_flag_x_angle = copy.copy(flag_x_angle[0])
@@ -540,7 +540,7 @@ class Controller:
                     print("flag_x: ", flag_x_angle[0])  # 판단 내용 출력
 
                     if before_flag_x_angle != flag_x_angle[0]:
-                        recent_will_angle = 2
+                        recent_will_angle = 1
 
                     if flag_x_angle[0] == "L":
                         self.robo._motion.set_head_small("LEFT", recent_will_angle)
@@ -568,11 +568,11 @@ class Controller:
         while ball_x_angle[0] != "C":
             if ball_x_angle[0] == "L" or ball_x_angle[0] == "R":
                 if ball_x_angle[0] == "L":
-                    self.robo._motion.set_head_small("LEFT", 2)
+                    self.robo._motion.set_head_small("LEFT", 1)
                     time.sleep(0.1)
 
                 if ball_x_angle[0] == "R":
-                    self.robo._motion.set_head_small("RIGHT", 2)
+                    self.robo._motion.set_head_small("RIGHT", 1)
                     time.sleep(0.1)
 
         # 현재 머리 각도가 플러스면 오른쪽으로 턴해야 함

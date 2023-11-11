@@ -2060,7 +2060,7 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방하향:
 	SPEED 머리이동속도
-	angle_y = angle_y - 2
+	angle_y = angle_y - 1
 	IF angle_y < 10 THEN
 		MUSIC "C"
 		angle_y = 10
@@ -2075,7 +2075,7 @@ GOSUB_RX_EXIT2:
 	'******************************************
 전방상향:
 	SPEED 머리이동속도
-	angle_y = angle_y + 2
+	angle_y = angle_y + 1
 	IF angle_y > 110 THEN
 		MUSIC "C"
 		angle_y = 110
@@ -2091,7 +2091,7 @@ GOSUB_RX_EXIT2:
 	'******************************************
 우향:
 	SPEED 머리이동속도
-	angle_x = angle_x + 2
+	angle_x = angle_x + 1
 	IF angle_x > 190 THEN
 		MUSIC "C"	
 		angle_x = 190
@@ -2106,7 +2106,7 @@ GOSUB_RX_EXIT2:
 	'******************************************	
 좌향:
 	SPEED 머리이동속도
-	angle_x = angle_x - 2
+	angle_x = angle_x - 1
 	IF angle_x < 10 THEN
 		MUSIC "C"
 		angle_x = 10
@@ -2120,9 +2120,9 @@ GOSUB_RX_EXIT2:
 	ENDIF
 	GOTO RX_EXIT
 	    '******************************************
-전방하향5도:
+전방하향3도:
 	SPEED 머리이동속도
-	angle_y = angle_y - 5
+	angle_y = angle_y - 3
 	IF angle_y < 10 THEN
 		MUSIC "C"
 		angle_y = 10
@@ -2135,9 +2135,9 @@ GOSUB_RX_EXIT2:
 	ENDIF
 	GOTO RX_EXIT
 	'******************************************
-전방상향5도:
+전방상향3도:
 	SPEED 머리이동속도
-	angle_y = angle_y + 5
+	angle_y = angle_y + 3
 	IF angle_y > 110 THEN
 		MUSIC "C"
 		angle_y = 110
@@ -2151,9 +2151,9 @@ GOSUB_RX_EXIT2:
 	ENDIF
 	GOTO RX_EXIT
 	'******************************************
-우향5도:
+우향3도:
 	SPEED 머리이동속도
-	angle_x = angle_x + 5
+	angle_x = angle_x + 3
 	IF angle_x > 190 THEN
 		MUSIC "C"	
 		angle_x = 190
@@ -2166,9 +2166,9 @@ GOSUB_RX_EXIT2:
 	ENDIF
 	GOTO RX_EXIT
 	'******************************************	
-좌향5도:
+좌향3도:
 	SPEED 머리이동속도
-	angle_x = angle_x - 5
+	angle_x = angle_x - 3
 	IF angle_x < 10 THEN
 		MUSIC "C"
 		angle_x = 10
@@ -3529,7 +3529,7 @@ KEY177:
 	ETX 4800, 177
     GOTO 우향
     GOTO RX_EXIT
-    '*************** turn more ***************
+    '*************** turn more 1 ***************
 KEY178:
 	ETX 4800, 178
 	GOTO 오른쪽턴5_골프
@@ -3546,22 +3546,22 @@ KEY181:
 	ETX 4800, 181
 	GOTO 왼쪽턴3
 	GOTO RX_EXIT
-	'*************** head_set more 5 ***************
+	'*************** head_set more 3 ***************
 KEY182:
 	ETX 4800, 182
-	GOTO 전방하향5도
+	GOTO 전방하향3도
 	GOTO RX_EXIT
 KEY183:
 	ETX 4800, 183
-	GOTO 전방상향5도
+	GOTO 전방상향3도
 	GOTO RX_EXIT
 KEY184:
 	ETX 4800, 184
-	GOTO 좌향5도
+	GOTO 좌향3도
 	GOTO RX_EXIT
 KEY185:
 	ETX 4800, 185
-    GOTO 우향5도
+    GOTO 우향3도
     GOTO RX_EXIT
     '*************** Putting more ***************
 KEY186:
