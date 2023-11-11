@@ -71,6 +71,7 @@ class HitPointer:
         p_rad = np.arccos(cos_p)
         print(y_rad, rad_z)
         return y_rad + p_rad 
+      
     def calculate_zero_angle(self):
         c = np.sqrt(self.h**2 + self.b**2)
         cos_z = (self.b**2 + c**2 - self.h**2) / (2*self.b*c)
@@ -82,8 +83,6 @@ class HitPointer:
     def solve(self):
         c = self.calculate_c()
         m = self.calculate_m(c)
-
-
         
         if np.degrees(m) <= 90: # 타격지점이 삼각형 밖에 위치
             if(self.l != 0):
