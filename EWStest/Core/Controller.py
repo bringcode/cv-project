@@ -652,6 +652,63 @@ class Controller:
         
     ###################################################################################################
     @classmethod
+    def check_flag(self):
+        down_y = [20, 50, 80] # 깃발 찾기 위한 Y축
+        right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
+        
+        find_flag = FlagxCenterMeasurer().process()
+        y_dir = 0
+        while find_flag[3] != True:   # 깃발을 못 찾았을 때
+            print("find_flag[3]: ", find_flag[3])
+            x_dir = 0
+            self.robo._motion.set_head("DOWN", down_y[y_dir])
+            y_dir += 1
+            time.sleep(0.2)
+            if y_dir == len(down_y):
+                break
+        
+            # 고개 오른쪽으로 찾기
+            for i in range(len(right_left)):
+                find_flag = FlagxCenterMeasurer().process()
+                time.sleep(0.1)
+                print("고개 오른쪽으로 찾기")
+                print("======================")
+                self.robo._motion.set_head("RIGHT", right_left[x_dir])
+                print("Debug: ", right_left[x_dir])
+                print("======================")
+                x_dir += 1
+                time.sleep(0.2)
+                if (find_flag == True) or (x_dir == len(right_left)):
+                    print("find_flag == True: ", find_flag == True)
+                    print("x_dir == len(right_left): ", x_dir == len(right_left))
+                    break
+            self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
+            time.sleep(0.2)
+            
+            x_dir = 0
+            # 고개 왼쪽으로 찾기
+            for i in range(len(right_left)):
+                find_flag = FlagxCenterMeasurer().process()
+                time.sleep(0.1)
+                print("고개 왼쪽으로 찾기")
+                print("======================")
+                self.robo._motion.set_head("LEFT", right_left[x_dir])
+                print("Debug: ", right_left[x_dir])
+                print("======================")
+                x_dir += 1
+                time.sleep(0.2)
+                if (find_flag == True) or (x_dir == len(right_left)):
+                    print("find_flag == True: ", find_flag == True)
+                    print("x_dir == len(right_left): ", x_dir == len(right_left))
+                    break
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            time.sleep(0.2)
+
+            # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
+            self.check_flag_distance()
+    
+    ###################################################################################################
+    @classmethod
     def go_robo(self):
         act = self.act
         robo: Robo = Robo()
@@ -679,8 +736,9 @@ class Controller:
         elif act == act.SEARCH_FIRST:
             print("ACT: ", act)  # Debug
             time.sleep(0.5)
-
-            self.check_ball_first()  # 퍼팅 부분
+            
+            self.check_ball_first()  # 티샷에서 공 찾는 함수
+            
 
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 self.robo._motion.walk("FORWARD", 10, 1.0)
@@ -894,6 +952,8 @@ class Controller:
 #############################################################################
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
+            
+            self.check_flag()   # 깃발 찾기
 
             self.act = act.SEARCH_PUTTING_LOCATION
 #############################################################################
