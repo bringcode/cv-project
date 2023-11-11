@@ -55,6 +55,7 @@ class FlagxCenterMeasurer:
                 break
                 
             have_flag = False # 화면에 flag가 있으면 True, 없으면 False
+            farthest_flag_center = [0, 0] # 화면에 flag가 있으면 True, 없으면 False
             
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
