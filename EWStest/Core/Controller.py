@@ -663,6 +663,7 @@ class Controller:
         
         y_dir = 0
         while find_flag[3] != True:   # 깃발을 못 찾았을 때
+            print("깃발 찾는 함수(check_flag) 실행")
             print("find_flag[3]: ", find_flag[3])
             x_dir = 0
             self.robo._motion.set_head("DOWN", down_y[y_dir])
