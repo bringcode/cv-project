@@ -13,12 +13,22 @@ class HitPointer:
     def calculate_c(self):
         # c = sqrt(a^2 + b^2 - 2ab*cos(l))
         return np.sqrt(self.a**2 + self.b**2 - 2*self.a*self.b*np.cos(self.l))
+        
 
     def calculate_m(self, c):
         # cos(m) = (b^2 + c^2 - a^2) / (2bc)
         cos_m = (self.b**2 + c**2 - self.a**2) / (2*self.b*c)
         return np.arccos(cos_m)
-
+        
+    def calculatezero_x(self):
+        # c = sqrt(a^2 + b^2 - 2ab*cos(l))
+        return np.sqrt(self.h**2 + self.b**2)
+    def calculatezero_z(self):
+        # c = sqrt(a^2 + b^2 - 2ab*cos(l))
+        c = np.sqrt(self.h**2 + self.b**2)
+        cos_z = (self.b**2 + c**2 - self.h**2) / (2*self.b*c)
+        return  np.arccos(cos_z)
+    
     # 타격지점이 삼각형 밖에 있을 때
     def calculate_out_x(self, m):
         y = 90 - np.degrees(m)
@@ -45,7 +55,7 @@ class HitPointer:
         y = np.degrees(m) - 90
         y_rad = np.radians(y)
         return np.sqrt(self.b**2 + self.h**2 - 2*self.b*self.h*np.cos(y_rad))
-
+ 
     def calculate_in_z(self, x):
         cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
         rad_z = self.l - np.arccos(cos_p)
@@ -59,17 +69,27 @@ class HitPointer:
         p_rad = np.arccos(cos_p)
         print(y_rad, rad_z)
         return y_rad + p_rad 
+    def calculate_zero_angle(self):
+        c = np.sqrt(self.h**2 + self.b**2)
+        cos_z = (self.b**2 + c**2 - self.h**2) / (2*self.b*c)
+        rad_z = np.arccos(cos_z)
+        
+        return  np.radians(90) + rad_z
 
 
     def solve(self):
         c = self.calculate_c()
         m = self.calculate_m(c)
+
+
         
         if np.degrees(m) <= 90: # 타격지점이 삼각형 밖에 위치
+            
             x = self.calculate_out_x(m)
             z = self.calculate_out_z(x)
-            angle_triangle = self.calculate_out_angle(x,m)
+            angle_triangle = int(np.degrees(self.calculate_out_angle(x,m)))
             judge_triangle = False
+        
         else:                   # 타격지점이 삼각형 안에 위치
             x = self.calculate_in_x(m)
             z = self.calculate_in_z(x)
