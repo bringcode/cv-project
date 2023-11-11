@@ -118,29 +118,29 @@ class BallCenterMeasurer:
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
                     ball_y_isMiddle = self.judgeMiddle(max_y, min_y)
 
-                    # imshow
-                    font = cv2.FONT_HERSHEY_SIMPLEX
-                    org = (0, 20)
-                    fontScale = 0.6
-                    color = (0, 0, 255)
-                    thickness = 2
+            # imshow
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            org = (0, 20)
+            fontScale = 0.6
+            color = (0, 0, 255)
+            thickness = 2
 
-                    image = cv2.putText(
-                        img,
-                        "flag Middle : {}".format(ball_y_isMiddle),
-                        org,
-                        font,
-                        1,
-                        color,
-                        2,
-                        cv2.LINE_AA,
-                    )
+            image = cv2.putText(
+                img,
+                "flag Middle : {}".format(ball_y_isMiddle),
+                org,
+                font,
+                1,
+                color,
+                2,
+                cv2.LINE_AA,
+            )
 
-                    cv2.imshow("Object Dist Measure ", img)
-                    if cv2.waitKey(1) & 0xFF == ord("q"):
-                        break
+            cv2.imshow("Object Dist Measure ", img)
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
 
-                cv2.destroyAllWindows()
+        cv2.destroyAllWindows()
 
             #         return (
             #             ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
