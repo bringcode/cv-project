@@ -137,7 +137,7 @@ class BallyCenterMeasurer:
 
                     #cv2.imshow('Object Dist Measure ', img)
                     #if cv2.waitKey(1) & 0xFF == ord('q'):
-                         break
+                         #break
 
                     #cv2.destroyAllWindows()
 
