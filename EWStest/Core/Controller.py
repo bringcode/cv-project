@@ -956,6 +956,7 @@ class Controller:
             print("Act:", act)  # Debug
             self.robo._motion.turn("LEFT", 60)
             time.sleep(1)
+            exit()
 #############################################################################
         else:
             print("이쪽으로 빠지면 문제가 있는거임.")
