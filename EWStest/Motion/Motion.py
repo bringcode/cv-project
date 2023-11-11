@@ -168,7 +168,7 @@ class Motion:
 
         # time.sleep(0.3)
 
-    # 돌기 (141~160)
+    # 돌기 (141~160) + (178~181)
     def turn(self, dir, angle, loop=1, sleep=0.5, arm=False):
         """
         dir: {LEFT, RIGHT} - 회전 방향
@@ -223,7 +223,7 @@ class Motion:
             self.TX_data_py3(dir_list[dir])
         time.sleep(1)
 
-    # 1도씩 set_head하기 (174~191)
+    # 1도씩 set_head하기 (174~177) + (182+185)
     def set_head_small(self, dir, angle=0):
         """
         dir: {UP, DOWN, LEFT, RIGHT} - 머리 방향
@@ -233,10 +233,10 @@ class Motion:
         """ parameter :
         dir : {UP, DOWN, LEFT, RIGHT}
         angle: {
-        UP: {1,2,3,4,5},
-        DOWN:{1,2,3,4,5},
-        LEFT:{1,2,3,4,5},
-        RIGHT:{1,2,3,4,5}
+        UP: {2,5},
+        DOWN:{2,5},
+        LEFT:{2,5},
+        RIGHT:{2,5}
         }
         """
         if dir == "UP":
