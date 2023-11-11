@@ -57,7 +57,7 @@ class BallxCenterMeasurer:
         l_dist = min_x  # l_dist: 공을 표시한 박스 가장 왼쪽으로부터 영상 가장 왼쪽 끝까지의 거리
         r_dist = self.img_width - max_x  # r_dist: 공을 표시한 박스 가장 오른쪽으로부터 영상 가장 오른쪽 끝까지의 거리
         
-        error_range = 10 # 오차 허용 범위
+        error_range = 20 # 오차 허용 범위
 
         # 박스가 영상의 왼쪽 오른쪽 끝 부분과 떨어진 거리가 오차 허용 범위(error_range) 이내일 때, True를 is_Middle에 저장
         is_Middle = abs(r_dist - l_dist) < error_range
