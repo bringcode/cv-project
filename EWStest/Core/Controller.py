@@ -656,7 +656,10 @@ class Controller:
         down_y = [20, 50, 80] # 깃발 찾기 위한 Y축
         right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
         
+        # 깃발이 없을 때
         find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
+        print("test - find_flag[3]: ", find_flag[3])
+        
         y_dir = 0
         while find_flag[3] != True:   # 깃발을 못 찾았을 때
             print("find_flag[3]: ", find_flag[3])
