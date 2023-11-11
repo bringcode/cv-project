@@ -164,8 +164,8 @@ class FlagyCenterMeasurer:
             #    break
             #return is_y_middle
 
-        cap.release()
-        cv2.destroyAllWindows()
+        #cap.release()
+        #cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     shape_recognition = FlagyCenterMeasurer(img_width=640, img_height=480)
