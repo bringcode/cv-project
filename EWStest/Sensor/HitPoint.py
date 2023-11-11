@@ -78,30 +78,35 @@ class HitPointer:
 
 
     def solve(self):
-        c = self.calculate_c()
-        m = self.calculate_m(c)
+        
 
 
         
         if np.degrees(m) <= 90: # 타격지점이 삼각형 밖에 위치
-            if(c!=0):
+            if(self.l != 0):
+                c = self.calculate_c()
+                m = self.calculate_m(c)
                 x = self.calculate_out_x(m)
                 z = self.calculate_out_z(x)
                 angle_triangle = int(np.degrees(self.calculate_out_angle(x,m)))
                 judge_triangle = False
             else
+                c = self.a  - self.b
                 x=self.calculate_zero_x()
                 y=self.calculate_zero_Z()
                 angle_triangle = int(np.degrees(self.calculate_zero_angle(x,m)))
                 judge_triangle = False
         
         else:                   # 타격지점이 삼각형 안에 위치
-            if(c!=0):
+            if(self.l != 0):
+                c = self.calculate_c()
+                m = self.calculate_m(c)
                 x = self.calculate_in_x(m)
                 z = self.calculate_in_z(x)
                 angle_triangle = int(np.degrees(self.calculate_in_angle(x,m)))
                 judge_triangle = True
             else
+                c = self.a  - self.b
                 x=self.calculate_zero_x()
                 y=self.calculate_zero_Z()
                 angle_triangle = int(np.degrees(self.calculate_zero_angle(x,m)))
@@ -112,7 +117,7 @@ class HitPointer:
 
         # 결과 출력
         print(f"x: {x:.2f}, z: {z_deg:.2f} degrees")
-        return [x, z_deg, angle_triangle, judge_triangle] 
+        return [x, z_deg, angle_triangle, judge_triangle, c] 
         # x: 로봇의 첫 위치에서 목표지점까지 이동해야하는 직선 거리
         # z_deg: 로봇의 첫 위치에서 목표지점을 바라볼때 필요한 각도
         #angle triangle : 목표지점 이동 후 돌아야하는 각도(라디안 형태)     
