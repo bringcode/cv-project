@@ -37,9 +37,10 @@ class HitPointer:
         return np.sqrt(self.b**2 + self.h**2 - 2*self.b*self.h*np.cos(y_rad))
 
     def calculate_out_z(self, x):
-        # cos(z) = (b^2 + x^2 - h^2) / (2bx)
-        cos_z = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
-        return np.arccos(cos_z)
+        # cos(p) = (b^2 + x^2 - h^2) / (2bx)
+        cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
+        rad_z = self.l + np.arccos(cos_p)
+        return rad_z
     
     def calculate_out_angle(self, x, m):
         y =  90 - np.degrees(m)
@@ -61,6 +62,7 @@ class HitPointer:
         rad_z = self.l - np.arccos(cos_p)
         
         return rad_z
+      
     def calculate_in_angle(self, x, m):
         y = np.degrees(m) - 90
         y_rad = np.radians(y)
