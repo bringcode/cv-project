@@ -1836,6 +1836,14 @@ GOSUB_RX_EXIT2:
     angle_x = 100
     GOTO RX_EXIT
 
+머리상하좌우정면:
+	SPEED 머리이동속도
+	SERVO 11, 100
+	SERVO 16, 100
+	angle_x = 100
+	angle_y = 100
+	GOTO RX_EXIT
+
 머리상하정면:
     SPEED 머리이동속도
     SERVO 11,100
@@ -1892,11 +1900,11 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방하향90도:
     SPEED 머리이동속도
-    SERVO 16, 92
+    SERVO 16, 90
     SERVO 11, 100
 
 	angle_x = 100
-	angle_y = 92
+	angle_y = 90
     GOTO RX_EXIT
     '******************************************
 전방하향85도:
@@ -1921,62 +1929,52 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방하향75도:
     SPEED 머리이동속도
-    SERVO 16, 76
+    SERVO 16, 75
     SERVO 11, 100
     
     angle_x = 100
-    angle_y = 76
+    angle_y = 75
 
     GOTO RX_EXIT
     '******************************************
 전방하향70도:
     SPEED 머리이동속도
-    SERVO 16, 73
+    SERVO 16, 70
     SERVO 11, 100
     
     angle_x = 100
-    angle_y = 73
+    angle_y = 70
 
     GOTO RX_EXIT
     '******************************************
 전방하향65도:
     SPEED 머리이동속도
-    SERVO 16, 69
+    SERVO 16, 65
     SERVO 11, 100
 
 	angle_x = 100
-	angle_y = 69
+	angle_y = 65
     GOTO RX_EXIT
     '******************************************
 전방하향60도:
     SPEED 머리이동속도
-    SERVO 16, 65
+    SERVO 16, 60
     SERVO 11, 100
     
     angle_x = 100
-	angle_y = 65
+	angle_y = 60
     GOTO RX_EXIT
     '******************************************
 전방하향55도:
     SPEED 머리이동속도
-    SERVO 16, 59
+    SERVO 16, 55
     SERVO 11, 100
 
 	angle_x = 100
-	angle_y = 59
+	angle_y = 55
     GOTO RX_EXIT
     '******************************************
 전방하향50도:
-    SPEED 머리이동속도
-    SERVO 16, 54
-    SERVO 11, 100
-
-	angle_x = 100
-	angle_y = 54
-    GOTO RX_EXIT
-    '******************************************
-
-전방하향45도:
     SPEED 머리이동속도
     SERVO 16, 50
     SERVO 11, 100
@@ -1985,7 +1983,8 @@ GOSUB_RX_EXIT2:
 	angle_y = 50
     GOTO RX_EXIT
     '******************************************
-전방하향40도:
+
+전방하향45도:
     SPEED 머리이동속도
     SERVO 16, 45
     SERVO 11, 100
@@ -1994,25 +1993,25 @@ GOSUB_RX_EXIT2:
 	angle_y = 45
     GOTO RX_EXIT
     '******************************************
-전방하향35도:
+전방하향40도:
     SPEED 머리이동속도
     SERVO 16, 40
     SERVO 11, 100
-    
-    angle_x = 100
+
+	angle_x = 100
 	angle_y = 40
     GOTO RX_EXIT
     '******************************************
-전방하향30도:
+전방하향35도:
     SPEED 머리이동속도
-    SERVO 16, 36
+    SERVO 16, 35
     SERVO 11, 100
-
-	angle_x = 100
-	angle_y = 36
+    
+    angle_x = 100
+	angle_y = 35
     GOTO RX_EXIT
     '******************************************
-전방하향25도:
+전방하향30도:
     SPEED 머리이동속도
     SERVO 16, 30
     SERVO 11, 100
@@ -2021,23 +2020,32 @@ GOSUB_RX_EXIT2:
 	angle_y = 30
     GOTO RX_EXIT
     '******************************************
-전방하향20도:
+전방하향25도:
     SPEED 머리이동속도
-    SERVO 16, 26
+    SERVO 16, 25
     SERVO 11, 100
 
 	angle_x = 100
-	angle_y = 26
+	angle_y = 25
+    GOTO RX_EXIT
+    '******************************************
+전방하향20도:
+    SPEED 머리이동속도
+    SERVO 16, 20
+    SERVO 11, 100
+
+	angle_x = 100
+	angle_y = 20
     GOTO RX_EXIT
     '******************************************
 전방하향18도:
 
     SPEED 머리이동속도
-    SERVO 16, 22
+    SERVO 16, 18
 	SERVO 11, 100
 
 	angle_x = 100
-	angle_y = 22
+	angle_y = 18
     GOTO RX_EXIT
     '******************************************
 전방하향10도:
@@ -2506,7 +2514,7 @@ MAIN_2:
 
     '**** 입력된 A값이 0 이면 MAIN 라벨로 가고
     '**** 1이면 KEY1 라벨, 2이면 key2로... 가는문
-    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27,KEY28,KEY29,KEY30,KEY31,KEY32,KEY33,KEY34,KEY35,KEY36,KEY37,KEY38,KEY39,KEY40,KEY41,KEY42,KEY43,KEY44,KEY45,KEY46,KEY47,KEY48,KEY49,KEY50,KEY51,KEY52,KEY53,KEY54,KEY55,KEY56,KEY57,KEY58,KEY59,KEY60,KEY61,KEY62,KEY63,KEY64,KEY65,KEY66,KEY67,KEY68,KEY69,KEY70,KEY71,KEY72,KEY73,KEY74,KEY75,KEY76,KEY77,KEY78,KEY79,KEY80,KEY81,KEY82,KEY83,KEY84,KEY85,KEY86,KEY87,KEY88,KEY89,KEY90,KEY91,KEY92,KEY93,KEY94,KEY95,KEY96,KEY97,KEY98,KEY99,KEY100,KEY101,KEY102,KEY103,KEY104,KEY105,KEY106,KEY107,KEY108,KEY109,KEY110,KEY111,KEY112,KEY113,KEY114,KEY115,KEY116,KEY117,KEY118,KEY119,KEY120,KEY121,KEY122,KEY123,KEY124,KEY125,KEY126,KEY127,KEY128,KEY129,KEY130,KEY131,KEY132,KEY133,KEY134,KEY135,KEY136,KEY137,KEY138,KEY139,KEY140,KEY141,KEY142,KEY143,KEY144,KEY145,KEY146,KEY147,KEY148,KEY149,KEY150,KEY151,KEY152,KEY153,KEY154,KEY155,KEY156,KEY157,KEY158,KEY159,KEY160,KEY161,KEY162,KEY163,KEY164,KEY165,KEY166,KEY167,KEY168,KEY169,KEY170,KEY171,KEY172,KEY173,KEY174,KEY175,KEY176,KEY177,KEY178,KEY179,KEY180,KEY181,KEY182,KEY183,KEY184,KEY185,KEY186
+    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27,KEY28,KEY29,KEY30,KEY31,KEY32,KEY33,KEY34,KEY35,KEY36,KEY37,KEY38,KEY39,KEY40,KEY41,KEY42,KEY43,KEY44,KEY45,KEY46,KEY47,KEY48,KEY49,KEY50,KEY51,KEY52,KEY53,KEY54,KEY55,KEY56,KEY57,KEY58,KEY59,KEY60,KEY61,KEY62,KEY63,KEY64,KEY65,KEY66,KEY67,KEY68,KEY69,KEY70,KEY71,KEY72,KEY73,KEY74,KEY75,KEY76,KEY77,KEY78,KEY79,KEY80,KEY81,KEY82,KEY83,KEY84,KEY85,KEY86,KEY87,KEY88,KEY89,KEY90,KEY91,KEY92,KEY93,KEY94,KEY95,KEY96,KEY97,KEY98,KEY99,KEY100,KEY101,KEY102,KEY103,KEY104,KEY105,KEY106,KEY107,KEY108,KEY109,KEY110,KEY111,KEY112,KEY113,KEY114,KEY115,KEY116,KEY117,KEY118,KEY119,KEY120,KEY121,KEY122,KEY123,KEY124,KEY125,KEY126,KEY127,KEY128,KEY129,KEY130,KEY131,KEY132,KEY133,KEY134,KEY135,KEY136,KEY137,KEY138,KEY139,KEY140,KEY141,KEY142,KEY143,KEY144,KEY145,KEY146,KEY147,KEY148,KEY149,KEY150,KEY151,KEY152,KEY153,KEY154,KEY155,KEY156,KEY157,KEY158,KEY159,KEY160,KEY161,KEY162,KEY163,KEY164,KEY165,KEY166,KEY167,KEY168,KEY169,KEY170,KEY171,KEY172,KEY173,KEY174,KEY175,KEY176,KEY177,KEY178,KEY179,KEY180,KEY181,KEY182,KEY183,KEY184,KEY185
 
   '  IF A > 100 AND A < 110 THEN
 '        BUTTON_NO = A - 100
@@ -2801,7 +2809,7 @@ KEY28: ' ◁
 KEY29: ' □
     ETX  4800,29
 
-    GOTO 전원초기자세
+    GOTO 머리상하좌우정면
 
     GOTO RX_EXIT
     '***************
@@ -3460,9 +3468,4 @@ KEY184:
 KEY185:
 	ETX 4800, 185
     GOTO 우향5도
-    GOTO RX_EXIT
-	'****************** set_head ******************
-KEY186:
-    ETX  4800,186
-    GOTO 전방하향50도
     GOTO RX_EXIT
