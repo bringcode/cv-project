@@ -10,6 +10,7 @@ from Sensor.t_put_x_judge import Tputting_x_BallCenterMeasurer  # 공이 X축 �
 from Sensor.flag_x_center import FlagxCenterMeasurer  # 깃발이 가운데, 왼쪽, 오른쪽 중 어디에 있는지 (C, L, R)
 from Sensor.flag_y_center import FlagyCenterMeasurer  # 깃발이 가운데, 위, 아래 중 어디에 있는지 (C, U, D)
 from Sensor.HitPoint import HitPointer  # 타격지점 구하는 코드
+from Sensor.GoalDetection import GoalDetect # 홀인 했는지 확인하는 코드
 import time
 import copy
 
@@ -955,7 +956,14 @@ class Controller:
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
 
-            self.act = act.EXIT
+            goal_detector = GoalDetect()
+            is_goal = goal_detector.process()
+            print("홀인 유무 (T/F): ", is_goal)
+
+            if is_goal == True:
+                self.act = act.EXIT
+            else:
+                self.act = act.SEARCH_BALL
 #############################################################################
         elif act == act.EXIT:
             print("Act:", act)  # Debug
