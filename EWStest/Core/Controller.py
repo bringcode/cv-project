@@ -869,7 +869,7 @@ class Controller:
         elif act == act.SEARCH_BALL:
             print("Act:", act)  # Debug
             time.sleep(0.1)
-            angle = abs(self.robo._motion.y_head_angle - 12.6)
+            angle = abs(self.robo._motion.y_head_angle - 11.6)
             dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
             print(dist_ball)
 
@@ -907,7 +907,7 @@ class Controller:
             flag_angle = self.robo._motion.x_head_angle
 
             self.check_ball_distance()  # 공 거리 anlge 구하기
-            angle = abs(self.robo._motion.y_head_angle - 12.6)  # angle 값 수정
+            angle = abs(self.robo._motion.y_head_angle - 11.6)  # angle 값 수정
             distball = DistMeasurer().display_distance(angle) # 공 거리값
             print("ball distance: ", end="") 
             print(distball)
