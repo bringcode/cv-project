@@ -66,6 +66,7 @@ class Controller:
         time.sleep(1)  # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
         # 로봇이 왼쪽에 있을 때 확인하기
+        Tput_center_isFind_Big = BallCenterMeasurer(img_width=640, img_height=480)
         for i in range(3):  # 티샷이 3개이므로 3번 반복
             self.robo._motion.set_head("DOWN", dir_list[dir])  # 고개 내리면서 확인
             dir -= 1
