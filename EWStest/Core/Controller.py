@@ -23,12 +23,13 @@ class Act(Enum):
     SEARCH_PUTTING_LOCATION = auto()  # 치는 위치 찾기
     CHECK = auto()  # 홀인 확인
     EXIT = auto()  # 종료
+    TEST = auto() # 테스트때 사용
 
 
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    act: Act = Act.SEARCH_PUTTING_LOCATION  # 순서도 시작
+    act: Act = Act.TEST  # 순서도 시작
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -664,7 +665,10 @@ class Controller:
         canPutting = self.canPutting
 
         ########################################################## # test
-
+        if act == act.TETS:
+            self.robo._motion.hit_the_ball("RIGHT")
+            time.sleep(3)
+            exit()
         
         ########################################################## # test
 
