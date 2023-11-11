@@ -938,11 +938,12 @@ class Controller:
             print(real_angle)
 
             solver = HitPointer(distflag, distball, real_angle, 7)
-            hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back = solver.solve()
+            hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
             print("가야하는 거리: ", hit_dist)
             print("돌아야하는 각도", hit_angle)
             print("공앞에서 돌아야하는 각도", hit_will_anlge)
             print("공이 깃발 뒤에 있는지 없는지 (T/F): ", ball_is_flag_back)
+            print("공과 깃발 사이의 거리(cm): ", flag_ball_dis)
 
             hit_angle = int(hit_angle)
             self.find_best_actions(hit_angle, shot_way)
@@ -968,7 +969,10 @@ class Controller:
             print("퍼팅 위치까지 왔습니다.")
             print("퍼팅해주세요")    
 
-            self.robo._motion.hit_the_ball("LEFT")
+            if flag_ball_dis <= 60:
+                self.robo._motion.hit_the_ball("LEFT",short=True)
+            else:
+                self.robo._motion.hit_the_ball("LEFT")
             time.sleep(0.1)
 
             self.act = act.CHECK
