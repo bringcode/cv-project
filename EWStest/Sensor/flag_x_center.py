@@ -53,7 +53,9 @@ class FlagxCenterMeasurer:
             if not ret:
                 print("프레임 캡처에 실패했습니다.")
                 break
-
+                
+            have_flag = False # 화면에 flag가 있으면 True, 없으면 False
+            
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
             low_green = np.array([38, 100, 61])
@@ -98,6 +100,7 @@ class FlagxCenterMeasurer:
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                     self.farthest_flag_boxes.append((x + farthest_flag_center[0], y + farthest_flag_center[1], "FLAG"))
                     print(farthest_flag_center)
+                    self.have_flag = True
                     
 
             # cv2.imshow('프레임', frame)
@@ -109,10 +112,7 @@ class FlagxCenterMeasurer:
         #     max_x, min_x, max_y, min_y = self.max_x, self.min_x, self.max_y, self.min_y
 
         flag_x_isMiddle = self.judgeMiddle(max_x, min_x)
-        if max_x == 0 and min_x == 0:
-            print('홀컵이 잡히지 않음')
-            return ['N', 'N', 'N']
-        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1]]
+        return [flag_x_isMiddle, farthest_flag_center[0], farthest_flag_center[1], have_flag]
 
 
 if __name__ == "__main__":
