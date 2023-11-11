@@ -78,38 +78,37 @@ class HitPointer:
 
 
     def solve(self):
-        
+        c = self.calculate_c()
+        m = self.calculate_m(c)
 
 
         
         if np.degrees(m) <= 90: # 타격지점이 삼각형 밖에 위치
             if(self.l != 0):
-                c = self.calculate_c()
-                m = self.calculate_m(c)
                 x = self.calculate_out_x(m)
                 z = self.calculate_out_z(x)
                 angle_triangle = int(np.degrees(self.calculate_out_angle(x,m)))
                 judge_triangle = False
+                c = int(c)
             else:
-                c = self.a  - self.b
+                c = int(self.a  - self.b)
                 x=self.calculate_zero_x()
                 y=self.calculate_zero_Z()
-                angle_triangle = int(np.degrees(self.calculate_zero_angle(x,m)))
+                angle_triangle = int(np.degrees(self.calculate_zero_angle()))
                 judge_triangle = False
         
         else:                   # 타격지점이 삼각형 안에 위치
             if(self.l != 0):
-                c = self.calculate_c()
-                m = self.calculate_m(c)
                 x = self.calculate_in_x(m)
                 z = self.calculate_in_z(x)
                 angle_triangle = int(np.degrees(self.calculate_in_angle(x,m)))
                 judge_triangle = True
+                c = int(c)
             else:
-                c = self.a  - self.b
+                c = int(self.a  - self.b)
                 x=self.calculate_zero_x()
                 y=self.calculate_zero_Z()
-                angle_triangle = int(np.degrees(self.calculate_zero_angle(x,m)))
+                angle_triangle = int(np.degrees(self.calculate_zero_angle()))
                 judge_triangle = True                  
           
         z_deg = np.degrees(z)  # z를 도(degree) 단위로 변환
