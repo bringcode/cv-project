@@ -142,7 +142,7 @@ class FlagyCenterMeasurer:
             # Print the center coordinates
             if farthest_flag_box is not None:
                 farthest_center = farthest_flag_box[0]
-                print(f"Farthest FLAG Center: {farthest_center}")
+                # print(f"Farthest FLAG Center: {farthest_center}")
 
             # Display centers and shape information on the frame
             for shape_info in shape_info_list:
