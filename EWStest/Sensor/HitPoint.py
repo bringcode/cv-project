@@ -21,7 +21,7 @@ class HitPointer:
 
     # 타격지점이 삼각형 밖에 있을 때
     def calculate_out_x(self, m):
-        y = np.degrees(m) - 90
+        y = 90 - np.degrees(m)
         # x = sqrt(b^2 + h^2 - 2bh*cos(y))
         y_rad = np.radians(y)
         return np.sqrt(self.b**2 + self.h**2 - 2*self.b*self.h*np.cos(y_rad))
@@ -32,7 +32,7 @@ class HitPointer:
         return np.arccos(cos_z)
     
     def calculate_out_angle(self, x, m):
-        y =  np.degrees(m) - 90
+        y =  90 - np.degrees(m)
         y_rad = np.radians(y)
         cos_z = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
         z_rad = np.arccos(cos_z)
@@ -42,7 +42,7 @@ class HitPointer:
       
     # 타격지점이 삼각형 안에 있을 때
     def calculate_in_x(self, m):
-        y = 90 - np.degrees(m)
+        y = np.degrees(m) - 90
         y_rad = np.radians(y)
         return np.sqrt(self.b**2 + self.h**2 - 2*self.b*self.h*np.cos(y_rad))
 
@@ -51,7 +51,7 @@ class HitPointer:
         rad_z = self.l - np.arccos(cos_p)
         return rad_z
     def calculate_in_angle(self, x, m):
-        y = 90 - np.degrees(m)
+        y = np.degrees(m) - 90
         y_rad = np.radians(y)
         cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
         rad_z = self.l - np.arccos(cos_p)
