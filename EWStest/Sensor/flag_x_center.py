@@ -56,8 +56,8 @@ class FlagxCenterMeasurer:
 
             hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-            low_green = np.array([57, 78, 61])
-            high_green = np.array([89, 255, 255])
+            low_green = np.array([38, 100, 61])
+            high_green = np.array([86, 255, 255])
             green_mask = cv2.inRange(hsv_frame, low_green, high_green)
             contours, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.green_boxes = [cv2.boundingRect(contour) for contour in contours]
