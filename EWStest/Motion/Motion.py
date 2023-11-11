@@ -209,12 +209,17 @@ class Motion:
         self.TX_data_py3(dir_list[dir])
 
     # 공 치기 (170~171)
-    def hit_the_ball(self, dir):
+    def hit_the_ball(self, dir, short=False):
         """
         dir: {LEFT, RIGHT} - 치는 방향
         """
 
         dir_list = {"LEFT": {171}, "RIGHT": {170}}
+        
+
+        if short:
+            dir_list[dir] += 16 # 짧게 치는게 왼쪽 187, 오른쪽 186임.
+
         if dir == "LEFT":
             print("왼쪽에서 치겠습니다.")
             self.TX_data_py3(dir_list[dir])
