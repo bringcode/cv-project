@@ -7,7 +7,7 @@ class FlagyCenterMeasurer:
         self.img_height = img_height
 
     def judgeMiddle(self, ball_center, img_height):
-        error_range = 15
+        error_range = 10
         img_height_middle = img_height//2
 
         is_Middle = img_height_middle - error_range < ball_center[1] < img_height_middle + error_range
