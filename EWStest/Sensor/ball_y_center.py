@@ -135,8 +135,8 @@ class BallyCenterMeasurer:
                     ball_y_isMiddle = self.judgeMiddle(max_y, min_y)
                     print(ball_y_isMiddle)
 
-                    cv2.imshow('Object Dist Measure ', img)
-                    if cv2.waitKey(1) & 0xFF == ord('q'):
+                    #cv2.imshow('Object Dist Measure ', img)
+                    #if cv2.waitKey(1) & 0xFF == ord('q'):
                          break
 
                     #cv2.destroyAllWindows()
