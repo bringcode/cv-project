@@ -30,12 +30,8 @@ class FindBall:
             upper2 = np.array([255, 255, 255])
 
             # window version
-            mask1 = cv2.inRange(hsv_img, lower, upper)
-            mask2 = cv2.inRange(hsv_img, lower1, upper1)
-            mask3 = cv2.inRange(hsv_img, lower2, upper2)
-            
+            mask = cv2.inRange(hsv_img, lower, upper)
 
-            mask = mask1+mask2+mask3
             # lower1 = np.array([1, 99, 100])
             # upper1 = np.array([5, 255, 255])
             # mask += cv2.inRange(hsv_img, lower1, upper1)
