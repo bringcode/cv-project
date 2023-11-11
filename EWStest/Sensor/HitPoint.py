@@ -89,8 +89,9 @@ class HitPointer:
                 z = self.calculate_out_z(x)
                 angle_triangle = int(np.degrees(self.calculate_out_angle(x,m)))
                 judge_triangle = False
+                c = int(c)
             else:
-                c = self.a  - self.b
+                c = int(self.a  - self.b)
                 x=self.calculate_zero_x()
                 y=self.calculate_zero_Z()
                 angle_triangle = int(np.degrees(self.calculate_zero_angle()))
@@ -102,8 +103,9 @@ class HitPointer:
                 z = self.calculate_in_z(x)
                 angle_triangle = int(np.degrees(self.calculate_in_angle(x,m)))
                 judge_triangle = True
+                c = int(c)
             else:
-                c = self.a  - self.b
+                c = int(self.a  - self.b)
                 x=self.calculate_zero_x()
                 y=self.calculate_zero_Z()
                 angle_triangle = int(np.degrees(self.calculate_zero_angle()))
