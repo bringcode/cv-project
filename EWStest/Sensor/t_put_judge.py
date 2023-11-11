@@ -78,23 +78,6 @@ class BallCenterMeasurer:
             img = cv2.dilate(img, self.kernel, iterations=1)
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-            # window version
-            # lower = np.array([170, 99, 100])
-            # upper = np.array([180, 255, 255])
-            # mask = cv2.inRange(hsv_img, lower, upper)
-            # lower1 = np.array([1, 99, 100])
-            # upper1 = np.array([5, 255, 255])
-            # mask += cv2.inRange(hsv_img, lower1, upper1)
-
-            # lower_flag = np.array([35, 130, 150])
-            # upper_flag = np.array([45, 255, 255])
-            # mask_flag = cv2.inRange(hsv_img, lower_flag, upper_flag)
-
-            # mac version
-            # lower = np.array([170, 100, 100])
-            # upper = np.array([180, 255, 255])
-            # mask = cv2.inRange(hsv_img, lower, upper)
-
             # robot version
             lower = np.array([137, 0, 0])
             upper = np.array([255, 255, 255])
