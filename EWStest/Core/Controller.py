@@ -959,7 +959,7 @@ class Controller:
 #############################################################################
         elif act == act.EXIT:
             print("Act:", act)  # Debug
-            self.robo._motion.turn("LEFT", 60)
+            #self.robo._motion.turn("LEFT", 60)
             time.sleep(1)
             exit()
 #############################################################################
