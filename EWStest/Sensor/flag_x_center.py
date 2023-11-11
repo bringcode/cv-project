@@ -34,7 +34,7 @@ class FlagxCenterMeasurer:
         
         l_dist = min_x
         r_dist = self.img_width - max_x
-        error_range = 30
+        error_range = 40
 
         is_Middle = abs(r_dist - l_dist) < error_range
 
