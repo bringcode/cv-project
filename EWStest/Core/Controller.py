@@ -651,6 +651,7 @@ class Controller:
             actions.remove(best_action)
         
     ###################################################################################################
+    # 깃발이 있는지 찾는 코드
     @classmethod
     def check_flag(self):
         down_y = [20, 50, 80] # 깃발 찾기 위한 Y축
