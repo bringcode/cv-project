@@ -322,8 +322,8 @@ class Controller:
         find_ball = FindBall().process()
         
         
-        print("ball_x_angle[0]", ball_x_angle[0] == "N")
-        print("find_ball", find_ball)
+        print("ball_x_angle[0]: ", ball_x_angle[0] == "N") # Debug
+        print("find_ball (T/F): ", find_ball) # 공 찾는거 T/F
         
         if ball_x_angle[0] == "N":
             y_dir = 0
@@ -343,9 +343,13 @@ class Controller:
                     print("고개 오른쪽으로 찾기")
                     print("======================")
                     self.robo._motion.set_head("RIGHT", right_left[x_dir])
+                    print("Debug: ", right_left[x_dir])
+                    print("======================")
                     x_dir += 1
                     time.sleep(0.2)
                     if (find_ball == True) or (x_dir == len(right_left)):
+                        print("find_ball == True: ", find_ball == True)
+                        print("x_dir == len(right_left): ", x_dir == len(right_left))
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
                 time.sleep(0.2)
@@ -358,9 +362,13 @@ class Controller:
                     print("고개 왼쪽으로 찾기")
                     print("======================")
                     self.robo._motion.set_head("LEFT", right_left[x_dir])
+                    print("Debug: ", right_left[x_dir])
+                    print("======================")
                     x_dir += 1
                     time.sleep(0.2)
                     if (find_ball == True) or (x_dir == len(right_left)):
+                        print("find_ball == True: ", find_ball == True)
+                        print("x_dir == len(right_left): ", x_dir == len(right_left))
                         break
                 self.robo._motion.set_head("LEFTRIGHT_CENTER")
                 time.sleep(0.2)
@@ -883,8 +891,8 @@ class Controller:
             print(distflag)
             print("flag angle: ", end="")
             print(angle)
-            # 깃발 거리를 측정하고 프로그램 종료
-            exit()
+            # # 깃발 거리를 측정하고 프로그램 종료
+            # exit()
             time.sleep(0.2)
             flag_angle = self.robo._motion.x_head_angle
 
@@ -923,9 +931,11 @@ class Controller:
             if ball_is_flag_back == False: # 공이 깃발 뒤에 있을 떄
                 if shot_way == "R": # 깃발 뒤에 있으면 치는 방향이 바뀌기 때문에 
                     shot_way = "L" # shot_way를 L로 
+                    print("shot way를 R에서 L로 변경합니다.")
 
                 else:
                     shot_way = "R"
+                    print("shot_way를 L에서 R로 변경합니다.")
 
                 self.find_best_actions(hit_will_anlge, shot_way) # hit_will_angle로 몇도 돌아야 하는지, shot_way로 어느 방향으로 돌아야하는지
             else:
