@@ -968,6 +968,7 @@ class Controller:
         elif act == act.EXIT:
             print("Act:", act)  # Debug
             #self.robo._motion.turn("LEFT", 60)
+            print("이 부분에 세레머니 추가")
             time.sleep(1)
             exit()
 #############################################################################
