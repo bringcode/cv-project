@@ -973,7 +973,7 @@ class Controller:
                 self.robo._motion.hit_the_ball("LEFT",short=True)
             else:
                 self.robo._motion.hit_the_ball("LEFT")
-            time.sleep(0.1)
+            time.sleep(4)
 
             self.act = act.CHECK
 #############################################################################
@@ -983,6 +983,11 @@ class Controller:
             self.robo._motion.turn("LEFT", 45)
             time.sleep(0.1)
             self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
+
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            time.sleep(0.2)
+            self.robo._motion.set_head("DONW",45)
             time.sleep(0.1)
 
             self.check_flag_distance() # 깃발 거리 angle 구하기
