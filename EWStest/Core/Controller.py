@@ -695,7 +695,7 @@ class Controller:
 
                 # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하겠습니다.")
                     self.robo._motion.hit_the_ball("LEFT")
                     time.sleep(0.1)
 
@@ -707,7 +707,7 @@ class Controller:
 
                 else:
                     print("T샷 L_right 오류")
-                self.robo._motion.hit_the_ball("LEFT")
+                # self.robo._motion.hit_the_ball("LEFT")
                 time.sleep(0.1)
 
             elif self.L_center == 1:
@@ -724,7 +724,8 @@ class Controller:
 
                 # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
+                    print("퍼팅하겠습니다.")
+                    self.robo._motion.hit_the_ball("LEFT")
 
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
@@ -735,8 +736,8 @@ class Controller:
                 else:
                     print("T샷 L_center 오류")
 
-                self.robo._motion.hit_the_ball("RIGHT")
-                time.sleep(3)
+                # self.robo._motion.hit_the_ball("RIGHT")
+                time.sleep(0.1)
 
             elif self.L_left == 1:
                 self.robo._motion.walk("FORWARD", 1)
@@ -753,7 +754,7 @@ class Controller:
                 # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    self.robo._motion.hit_the_ball("RIGHT")
+                    self.robo._motion.hit_the_ball("LEFT")
                     time.sleep(3)
 
                 elif dist < (self.canPutting - 1):
@@ -764,6 +765,8 @@ class Controller:
 
                 else:
                     print("T샷 L_left 오류")
+                
+                time.sleep(0.1)
 
             elif self.C_center == 1:
                 print("이 부분 추가해야함")
