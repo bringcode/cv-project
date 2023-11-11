@@ -32,6 +32,11 @@ class Controller:
     act: Act = Act.SEARCH_PUTTING_LOCATION  # 순서도 시작
     # test START로 바꿔야함.
 
+    robo._motion.set_head("LEFTRIGHT_CENTER")
+    time.sleep(0.1)
+    robo._motion.set_head("UPDOWN_CENTER")
+    time.sleep(0.1)
+
     count_putting: int = 0  # 퍼팅 횟수
     check_holein: int = 0  # 홀인 판단 횟수
     area: str = ""  # 현재 맵
