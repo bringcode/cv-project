@@ -735,7 +735,7 @@ class Controller:
                 else:
                     print("T샷 L_center 오류")
 
-                self.robo._motion.hit_the_ball("RIGHT")
+                # self.robo._motion.hit_the_ball("RIGHT")
                 time.sleep(3)
 
             elif self.L_left == 1:
