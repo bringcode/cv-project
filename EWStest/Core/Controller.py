@@ -943,16 +943,6 @@ class Controller:
                 print("원하는 값이 안 옴")
                 time.sleep(1)
 
-            self.act = act.SEARCH_BALL
-#############################################################################
-        elif act == act.SEARCH_BALL:
-            print("Act:", act)  # Debug
-            time.sleep(0.1)
-            angle = abs(self.robo._motion.y_head_angle - 11.6)
-            dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
-            print(dist_ball)
-
-            # self.ball_feature_ball()
             self.act = act.SEARCH_FLAG
 #############################################################################
         elif act == act.SEARCH_FLAG:
@@ -960,7 +950,17 @@ class Controller:
             
             self.check_flag()   # 깃발 찾기
 
-            self.act = act.SEARCH_PUTTING_LOCATION
+            self.act = act.SEARCH_BALL
+#############################################################################
+        elif act == act.SEARCH_BALL:
+                    print("Act:", act)  # Debug
+                    time.sleep(0.1)
+                    angle = abs(self.robo._motion.y_head_angle - 11.6)
+                    dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
+                    print(dist_ball)
+
+                    # self.ball_feature_ball()
+                    self.act = act.SEARCH_PUTTING_LOCATION
 #############################################################################
         elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
             print("Act:", act)  # Debug
