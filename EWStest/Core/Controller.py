@@ -878,6 +878,11 @@ class Controller:
 #############################################################################
         elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
             print("Act:", act)  # Debug
+            print("TEST")
+            self.find_best_actions(hit_will_anlge, shot_way)
+            print("===================")
+            exit()
+
             self.robo._motion.set_head("UPDOWN_CENTER")
             time.sleep(0.2)
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
