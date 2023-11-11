@@ -163,8 +163,8 @@ class FlagyCenterMeasurer:
             if key == ord('q'):
             #     break
 
-        cap.release()
-        cv2.destroyAllWindows()
+        #cap.release()
+        #cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     shape_recognition = FlagyCenterMeasurer(img_width=640, img_height=480)
