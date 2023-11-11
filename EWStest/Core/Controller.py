@@ -658,7 +658,9 @@ class Controller:
         right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
         
         # 깃발이 없을 때
+        print("check_flag 들어옴")
         flag = FlagxCenterMeasurer(img_width=640, img_height=480)
+        print("flag객체 생성")
         find_flag = flag.run()
         print("test - find_flag[3]: ", find_flag[3])
         
