@@ -156,13 +156,13 @@ class FlagyCenterMeasurer:
             is_y_middle = self.judgeMiddle(farthest_center, self.img_height)
 
             
-            cv2.imshow('Green and Yellow Frame', frame)
-            print(is_y_middle)
+            #cv2.imshow('Green and Yellow Frame', frame)
+            #print(is_y_middle)
 
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
-            return is_y_middle
+            #key = cv2.waitKey(1) & 0xFF
+            #if key == ord('q'):
+            #    break
+            #return is_y_middle
 
         cap.release()
         cv2.destroyAllWindows()
