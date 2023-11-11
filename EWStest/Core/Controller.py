@@ -665,7 +665,7 @@ class Controller:
         canPutting = self.canPutting
 
         ########################################################## # test
-        if act == act.TETS:
+        if act == act.TEST:
             self.robo._motion.hit_the_ball("RIGHT")
             time.sleep(3)
             exit()
