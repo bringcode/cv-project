@@ -969,7 +969,7 @@ class Controller:
             print("flag angle: ", end="")
             print(angle)
             # # 깃발 거리를 측정하고 프로그램 종료
-            exit()
+            # exit()
 
             self.act = act.SEARCH_BALL
 #############################################################################
