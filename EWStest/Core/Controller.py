@@ -653,7 +653,7 @@ class Controller:
     # 깃발이 있는지 찾는 코드
     @classmethod
     def check_flag(self):
-        down_y = [20, 50, 80] # 깃발 찾기 위한 Y축
+        down_y = [80, 90, 100, 110] # 깃발 찾기 위한 Y축
         right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
         
         # 깃발이 없을 때
