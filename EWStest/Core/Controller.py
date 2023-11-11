@@ -970,10 +970,10 @@ class Controller:
             print("퍼팅해주세요")    
 
             if flag_ball_dis <= 60:
-                self.robo._motion.hit_the_ball("LEFT",short=True)
+                self.robo._motion.hit_the_ball("LEFT",short=True) # 짧게 치기
             else:
-                self.robo._motion.hit_the_ball("LEFT")
-            time.sleep(4)
+                self.robo._motion.hit_the_ball("LEFT") # 길게 치기
+            time.sleep(6)
 
             self.act = act.CHECK
 #############################################################################
@@ -987,14 +987,14 @@ class Controller:
 
             self.robo._motion.set_head("LEFTRIGHT_CENTER")
             time.sleep(0.2)
-            self.robo._motion.set_head("DONW",45)
+            self.robo._motion.set_head("DOWN",45)
             time.sleep(0.1)
 
             self.check_flag_distance() # 깃발 거리 angle 구하기
             time.sleep(0.2)
 
             goal_detector = GoalDetect()
-            is_goal = goal_detector.process()
+            is_goal = goal_detector.process() # 골이 들어갔는지 판단
             print("홀인 유무 (T/F): ", is_goal)
 
             if is_goal == True:
