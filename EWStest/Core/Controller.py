@@ -976,6 +976,14 @@ class Controller:
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
 
+            self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
+            self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
+
+            self.check_flag_distance() # 깃발 거리 angle 구하기
+            time.sleep(0.2)
+
             goal_detector = GoalDetect()
             is_goal = goal_detector.process()
             print("홀인 유무 (T/F): ", is_goal)
