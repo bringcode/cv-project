@@ -73,10 +73,11 @@ class HitPointer:
         else:                   # 타격지점이 삼각형 안에 위치
             x = self.calculate_in_x(m)
             z = self.calculate_in_z(x)
-            angle_triangle = self.calculate_in_angle(x,m)
+            angle_triangle = np.degrees(self.calculate_in_angle(x,m))
             judge_triangle = True                      
           
         z_deg = np.degrees(z)  # z를 도(degree) 단위로 변환
+        
 
         # 결과 출력
         print(f"x: {x:.2f}, z: {z_deg:.2f} degrees")
