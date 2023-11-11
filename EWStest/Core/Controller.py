@@ -666,7 +666,7 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.hit_the_ball("RIGHT")
+            self.robo._motion.hit_the_ball("LEFT")
             time.sleep(3)
             exit()
         
@@ -696,7 +696,7 @@ class Controller:
                 # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    self.robo._motion.hit_the_ball("RIGHT")
+                    self.robo._motion.hit_the_ball("LEFT")
                     time.sleep(0.1)
 
                 elif dist < (self.canPutting - 1):
@@ -707,6 +707,8 @@ class Controller:
 
                 else:
                     print("T샷 L_right 오류")
+                self.robo._motion.hit_the_ball("LEFT")
+                time.sleep(0.1)
 
             elif self.L_center == 1:
                 self.robo._motion.walk("FORWARD", 5, 1.0)
@@ -784,7 +786,7 @@ class Controller:
                 # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
                     print("퍼팅 하겠습니다.")
-                    self.robo._motion.hit_the_ball("RIGHT")
+                    self.robo._motion.hit_the_ball("LEFT")
                     time.sleep(3)
 
                 elif dist < (self.canPutting - 1):
@@ -795,6 +797,9 @@ class Controller:
 
                 else:
                     print("T샷 C_center 오류")
+
+                self.robo._motion.hit_the_ball("LEFT")
+                time.sleep(0.1)
 
             elif self.C_right == 1:
                 self.robo._motion.walk_side("RIGHT")
@@ -827,6 +832,8 @@ class Controller:
 
                 else:
                     print("T샷 C_right 오류")
+                
+                self.robo._motion.hit_the_ball("LEFT")
 
             elif self.C_left == 1:
                 self.robo._motion.walk_side("LEFT")
@@ -851,6 +858,9 @@ class Controller:
                     print("퍼팅 하겠습니다.")
                     print("퍼팅하는거 모션에 넣어줘야 함.")
 
+                    self.robo._motion.hit_the_ball("LEFT")
+                    time.sleep(0.1)
+
                 elif dist < (self.canPutting - 1):
                     self.robo._motion.walk("FORWARD", 1)
 
@@ -859,6 +869,9 @@ class Controller:
 
                 else:
                     print("T샷 C_left 오류")
+
+                self.robo._motion.hit_the_ball("LEFT")
+                time.sleep(0.1)
 
             else:
                 print("원하는 값이 안 옴")
@@ -954,6 +967,9 @@ class Controller:
             time.sleep(0.1)
             print("퍼팅 위치까지 왔습니다.")
             print("퍼팅해주세요")    
+
+            self.robo._motion.hit_the_ball("LEFT")
+            time.sleep(0.1)
 
             self.act = act.CHECK
 #############################################################################

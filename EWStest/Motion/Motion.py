@@ -212,6 +212,7 @@ class Motion:
     def hit_the_ball(self, dir, short=False):
         """
         dir: {LEFT, RIGHT} - 치는 방향
+        short: 약하게 치는 방식 없으면 그냥 세게 침
         """
 
         dir_list = {"LEFT": 171, "RIGHT": 170}
