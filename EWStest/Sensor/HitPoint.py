@@ -56,8 +56,9 @@ class HitPointer:
         cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
         rad_z = self.l - np.arccos(cos_p)
         l = self.l
+        p_rad = np.arccos(cos_p)
 
-        return l - y_rad - rad_z
+        return y_rad + p_rad 
 
 
     def solve(self):
