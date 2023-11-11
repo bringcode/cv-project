@@ -70,7 +70,7 @@ class HitPointer:
         rad_z = self.l - np.arccos(cos_p)
         p_rad = np.arccos(cos_p)
         print(y_rad, rad_z)
-        return y_rad + p_rad 
+        return y_rad + p_rad
       
     def calculate_zero_angle(self):
         c = np.sqrt(self.h**2 + self.b**2)
