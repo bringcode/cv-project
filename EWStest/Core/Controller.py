@@ -944,6 +944,8 @@ class Controller:
             else:
                 print("원하는 값이 안 옴")
                 time.sleep(1)
+                
+            self.robo._motion.turn("RIGHT", 90)   # 티샷 끝나고 깃발 찾기 위해 턴
 
             self.act = act.SEARCH_FLAG
 #############################################################################
