@@ -29,7 +29,7 @@ class Act(Enum):
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    act: Act = Act.START  # 순서도 시작
+    act: Act = Act.SEARCH_FLAG  # 순서도 시작
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -971,8 +971,8 @@ class Controller:
             print(distflag)
             print("flag angle: ", end="")
             print(angle)
-            # # 깃발 거리를 측정하고 프로그램 종료
-            # exit()
+            # 깃발 거리를 측정하고 프로그램 종료
+            exit()
 
             self.act = act.SEARCH_BALL
 #############################################################################
