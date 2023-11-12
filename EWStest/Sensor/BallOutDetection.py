@@ -97,14 +97,14 @@ class BallOutDetection:
             if ball_out:
                 print("The ball is out of the field!")
             
-            cv2.imshow("Processed Frame", processed_frame)
+        #     cv2.imshow("Processed Frame", processed_frame)
             
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                        cv2.destroyAllWindows()
-                        break
+        #     if cv2.waitKey(1) & 0xFF == ord('q'):
+        #                 cv2.destroyAllWindows()
+        #                 break
 
-        self.cap.release()
-        cv2.destroyAllWindows()
+        # self.cap.release()
+        # cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     detector = BallOutDetection()
