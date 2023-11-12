@@ -1167,7 +1167,6 @@
 #             print("이쪽으로 빠지면 문제가 있는거임.")
 
 #         return False
-
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
@@ -2124,7 +2123,8 @@ class Controller:
             ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
             ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
             correctAngle = 0
-            canPutting_error = 2
+            putting_angle = 40
+            putting_angle_error = 5
             dist_Process = DistMeasurer()
 
             while correctAngle != 1:
@@ -2173,14 +2173,14 @@ class Controller:
                             print("======================")
                             time.sleep(0.1)
 
-                            if dist > (self.canPutting - canPutting_error) and dist < (self.canPutting + canPutting_error):
+                            if dist > (putting_angle - putting_angle_error) and dist < (putting_angle + putting_angle_error):
                                 print("퍼팅 하겠습니다.")
                                 break
 
-                            elif dist < (self.canPutting - canPutting_error):
+                            elif dist < (putting_angle - putting_angle_error):
                                 self.robo._motion.walk("BACKWARD", 1)
 
-                            elif dist > (self.canPutting + canPutting_error):
+                            elif dist > (putting_angle + putting_angle_error):
                                 self.robo._motion.walk("FORWARD", 1)
 
                             else:
