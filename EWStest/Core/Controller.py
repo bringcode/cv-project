@@ -1167,6 +1167,7 @@
 #             print("이쪽으로 빠지면 문제가 있는거임.")
 
 #         return False
+
 # -*- coding: utf-8 -*-
 from enum import Enum, auto
 from Core.Robo import Robo
@@ -2166,21 +2167,22 @@ class Controller:
                             ball_angle = self.robo._motion.y_head_angle
                             print("공 찾아서 각도 저장함")
 
-                            dist = dist_Process.display_distance(abs(ball_angle - 11.6))
+                            # dist = dist_Process.display_distance(abs(ball_angle - 11.6))
+                            robot_ball_angle = ball_angle - 11.6
 
-                            print("dist:",dist)
-                            print("ball_angle:",ball_angle - 11.6)
+                            # print("dist:",dist)
+                            print("tobot_ball_angle", robot_ball_angle)
                             print("======================")
                             time.sleep(0.1)
 
-                            if dist > (putting_angle - putting_angle_error) and dist < (putting_angle + putting_angle_error):
+                            if robot_ball_angle > (putting_angle - putting_angle_error) and robot_ball_angle < (putting_angle + putting_angle_error):
                                 print("퍼팅 하겠습니다.")
                                 break
 
-                            elif dist < (putting_angle - putting_angle_error):
+                            elif robot_ball_angle < (putting_angle - putting_angle_error):
                                 self.robo._motion.walk("BACKWARD", 1)
 
-                            elif dist > (putting_angle + putting_angle_error):
+                            elif robot_ball_angle > (putting_angle + putting_angle_error):
                                 self.robo._motion.walk("FORWARD", 1)
 
                             else:
