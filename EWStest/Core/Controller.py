@@ -29,8 +29,8 @@ class Act(Enum):
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    # act: Act = Act.START  # 순서도 시작
-    act: Act = Act.SEARCH_BALL
+    act: Act = Act.START  # 순서도 시작
+    # act: Act = Act.SEARCH_BALL
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -1059,7 +1059,7 @@ class Controller:
                     dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
                     print(dist_ball)
                     
-                    self.check_ball_distance()  # 공 거리 anlge 구하기
+                    self.check_ball_distance()  # 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
 
                     # self.ball_feature_ball()
                     self.act = act.SEARCH_PUTTING_LOCATION
@@ -1074,7 +1074,8 @@ class Controller:
             print("ball distance: ", end="") 
             print(distball)
             time.sleep(0.2)
-            exit()
+            # 공의 거리 구할 때 여기를 exit하면 공의 거리를 출력하고 멈춤
+            # exit()
             ball_angle = self.robo._motion.x_head_angle
 
             if ball_angle >= flag_angle:   # ball angle이 더 크면 오른쪽
