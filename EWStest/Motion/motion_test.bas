@@ -1765,8 +1765,8 @@ GOSUB_RX_EXIT2:
 세레머니:
     MOVE G6A,100, 56, 182, 76, 100, 100
     MOVE G6D,100, 56, 182, 76, 100, 100
-    MOVE G6B,100,  30,  80,
-    MOVE G6C,100,  30,  80, 190
+    MOVE G6B,100,  100,  80,
+    MOVE G6C,100,  100,  80, 190
     WAIT
     mode = 2
     RETURN
