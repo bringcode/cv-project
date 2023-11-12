@@ -22,11 +22,11 @@ class HitPointer:
         
     def calculatezero_x(self):
         # c = sqrt(a^2 + b^2 - 2ab*cos(l))
-        return np.sqrt(self.h**2 + self.b**2)
+        return np.sqrt(self.h**2 + (self.a-self.b)**2)
     def calculatezero_z(self):
         # c = sqrt(a^2 + b^2 - 2ab*cos(l))
-        c = np.sqrt(self.h**2 + self.b**2)
-        cos_z = (self.b**2 + c**2 - self.h**2) / (2*self.b*c)
+        c = np.sqrt(self.h**2 + (self.a-self.b)**2)
+        cos_z = ((self.a-self.b)**2 + c**2 - self.h**2) / (2*(self.a-self.b)*c)
         return  np.arccos(cos_z)
     
     # 타격지점이 삼각형 밖에 있을 때
@@ -73,7 +73,7 @@ class HitPointer:
         return y_rad + p_rad
       
     def calculate_zero_angle(self):
-        c = np.sqrt(self.h**2 + self.b**2)
+        c = np.sqrt(self.h**2 + (self.a-self.b)**2)
         cos_z = (self.b**2 + c**2 - self.h**2) / (2*self.b*c)
         rad_z = np.arccos(cos_z)
         
