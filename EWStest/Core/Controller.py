@@ -993,9 +993,9 @@ class Controller:
                             ball_angle = self.robo._motion.y_head_angle
                             print("공 찾아서 각도 저장함")
 
-                            dist = dist_Process.display_distance(ball_angle)
+                            dist = dist_Process.display_distance(ball_angle - 11.6)
                             print("dist:",dist)
-                            print("ball_angle:",ball_angle)
+                            print("ball_angle:",ball_angle - 11.6)
                             print("======================")
                             time.sleep(0.1)
 
