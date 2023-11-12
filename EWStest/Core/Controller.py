@@ -747,22 +747,64 @@ class Controller:
             
             self.check_ball_first()  # 티샷에서 공 찾는 함수
             
+            # 공 센터 맞추는 부분
+            ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
+            ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
+            
+            while correctAngle != 1:
+                # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
+                ball_y_angle = ballycenter.process()
+                time.sleep(0.2)
+                if ball_y_angle[0] == "C":
+                    print("ball_y_angle: ", ball_y_angle[0])
+                    print("중앙에 왔습니다.")
+                    correctAngle = 1
+                    break
 
-            if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
-                self.robo._motion.walk("FORWARD", 10, 1.0)
-                time.sleep(0.1)
+                elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
+                    # 아래로 1도씩 움직이기
+                    recent_will_angle = 3
+                    while ball_y_angle[0] != "C":
+                        before_ball_y_angle = copy.copy(ball_y_angle[0])
+                        ball_y_angle = ballycenter.process()
+                        time.sleep(0.2)
+                        print("ball_y: ", ball_y_angle[0])
 
-                self.ball_feature_ball()
-                time.sleep(0.1)
+                        if before_ball_y_angle != ball_y_angle[0]:
+                            recent_will_angle = 1
 
-                dist_Process = DistMeasurer()
-                angle = 0
-                dist = dist_Process.display_distance(angle)
-                print(dist)
+                        if ball_y_angle[0] == "U":
+                            self.robo._motion.set_head_small("UP", recent_will_angle)
+                            time.sleep(0.1)
+
+                        if ball_y_angle[0] == "D":
+                            self.robo._motion.set_head_small("DOWN", recent_will_angle)
+                            time.sleep(0.1)
+
+                    correctAngle = 1
+                    print("중앙에 왔습니다.")
+                
+                    # 공 센터 맞추면 해당 각도 저장
+                    ball_angle = self.robo._motion.x_head_angle
+                    print("공 찾아서 각도 저장함")
+                    print("======================")
+                
+                
+                if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
+                    self.robo._motion.walk("FORWARD", 10, 1.0)
+                    time.sleep(0.1)
+
+                    self.ball_feature_ball()
+                    time.sleep(0.1)
+
+                    dist_Process = DistMeasurer()
+                    angle = 0
+                    dist = dist_Process.display_distance(ball_angle)
+                    print(dist)
 
                 # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅하겠습니다.")
+                    print("퍼팅하겠습니다.")                                                    
                     self.robo._motion.hit_the_ball("LEFT")
                     time.sleep(0.1)
 
@@ -787,7 +829,6 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print(dist)
                 time.sleep(0.1)
 
                 # 이 부분 수정 필요
@@ -817,7 +858,6 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print(dist)
                 time.sleep(0.1)
 
                 # 이 부분 수정 필요
@@ -853,7 +893,6 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print(dist)
                 time.sleep(1)
 
                 # 이 부분 수정 필요
@@ -890,7 +929,6 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print(dist)
                 time.sleep(1)
 
                 # 이 부분 수정 필요
@@ -925,7 +963,6 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print(dist)
                 time.sleep(0.1)
 
                 # 이 부분 수정 필요
