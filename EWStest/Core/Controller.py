@@ -67,12 +67,12 @@ class Controller:
         time.sleep(1)  # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
         # 로봇이 왼쪽에 있을 때 확인하기
-        Tput_center_isFind_Big = BallCenterMeasurer(img_width=640, img_height=480).process()
+        Tput_center_isFind_Big = BallCenterMeasurer().process()
         for i in range(3):  # 티샷이 3개이므로 3번 반복
             self.robo._motion.set_head("DOWN", dir_list[dir])  # 고개 내리면서 확인
             dir -= 1
             time.sleep(0.1)
-            Tput_center_isFind_Big = BallCenterMeasurer(img_width=640, img_height=480).process()
+            Tput_center_isFind_Big = BallCenterMeasurer().process()
             print("Ball find and center T/F: ", Tput_center_isFind_Big)  # 공 T/F값 출력
 
             if Tput_center_isFind_Big == False:  # 공이 발견되지 않았을 때
@@ -100,7 +100,7 @@ class Controller:
 
         if Tput_center_isFind_Big == False:
             print("가운데에 있다고 생각하겠습니다.")
-            Tput_center_isFind_Big = BallCenterMeasurer(img_width=640, img_height=480).process()
+            Tput_center_isFind_Big = BallCenterMeasurer().process()
             print("Ball find and center T/F: ", Tput_center_isFind_Big)
 
             # 이 부분이 필요없을 것 같음.
@@ -118,11 +118,9 @@ class Controller:
                 print("가운데 가운데 X")
                 self.robo._motion.set_head("LEFT", 54)
                 time.sleep(0.1)
-                Tput_center_isFind_Big = BallCenterMeasurer(img_width=640, img_height=480).process()
+                Tput_center_isFind_Big = BallCenterMeasurer().process()
                 time.sleep(0.1)
-                Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer(
-                    img_width=640, img_height=480
-                ).process()
+                Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
                 cnt += 1
 
@@ -137,9 +135,9 @@ class Controller:
                     print("가운데 왼쪽 X")
                     self.robo._motion.set_head("RIGHT", 54)
                     time.sleep(0.1)
-                    Tput_center_isFind_Big = BallCenterMeasurer(img_width=640, img_height=480).process()
+                    Tput_center_isFind_Big = BallCenterMeasurer().process()
                     time.sleep(0.1)
-                    Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer(img_width=640, img_height=480).process()
+                    Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
                     time.sleep(0.1)
                     cnt += 1
 
