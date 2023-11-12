@@ -45,10 +45,10 @@ class Motion:
         self.serial_port.write(serial.to_bytes([one_byte]))  # python3
         time.sleep(0.1)
 
-    # def TX_data_py3(self, one_byte):
-    #     self.lock = True
-    #     self.serial_port.write(serial.to_bytes([one_byte]))
-    #     time.sleep(0.1)
+    def TX_data_py3(self, one_byte):
+        self.lock = True
+        self.serial_port.write(serial.to_bytes([one_byte]))
+        time.sleep(0.1)
 
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
@@ -148,7 +148,7 @@ class Motion:
                 20: 121,
                 30: 122,
                 45: 123,
-                50: 186,
+                50: 188,
                 55: 124,
                 60: 125,
                 75: 126,
@@ -215,7 +215,7 @@ class Motion:
         short: 약하게 치는 방식 없으면 그냥 세게 침
         """
 
-        dir_list = {"LEFT": 2, "RIGHT": 5}
+        dir_list = {"LEFT": 171, "RIGHT": 170}
         
 
         if short:
