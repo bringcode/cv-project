@@ -787,6 +787,7 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
+                print(dist)
                 time.sleep(0.1)
 
                 # 이 부분 수정 필요
@@ -816,6 +817,7 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
+                print(dist)
                 time.sleep(0.1)
 
                 # 이 부분 수정 필요
@@ -851,6 +853,7 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
+                print(dist)
                 time.sleep(1)
 
                 # 이 부분 수정 필요
@@ -887,6 +890,7 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
+                print(dist)
                 time.sleep(1)
 
                 # 이 부분 수정 필요
@@ -921,6 +925,7 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
+                print(dist)
                 time.sleep(0.1)
 
                 # 이 부분 수정 필요
