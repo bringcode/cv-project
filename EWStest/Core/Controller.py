@@ -29,7 +29,8 @@ class Act(Enum):
 # 상황 판단 하는 파트
 class Controller:
     robo: Robo = Robo()
-    act: Act = Act.SEARCH_PUTTING_LOCATION  # 순서도 시작
+    act: Act = Act.START
+    # act: Act = Act.SEARCH_FLAG  # 순서도 시작
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -45,7 +46,7 @@ class Controller:
     C_center: int = 0  # 로봇: C / 공: center
     C_left: int = 0  # 로봇: C / 공: left
 
-    canPutting: float = 0.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
+    canPutting: float = 11.0  # 칠 수 있는 거리있는지 판단 변수 (길이)
 
     ###################################################################################################
     # 티샷에서 공이 어디에 있는지 확인하는 코드
@@ -66,6 +67,7 @@ class Controller:
         time.sleep(1)  # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
         # 로봇이 왼쪽에 있을 때 확인하기
+        Tput_center_isFind_Big = BallCenterMeasurer().process()
         for i in range(3):  # 티샷이 3개이므로 3번 반복
             self.robo._motion.set_head("DOWN", dir_list[dir])  # 고개 내리면서 확인
             dir -= 1
@@ -118,9 +120,7 @@ class Controller:
                 time.sleep(0.1)
                 Tput_center_isFind_Big = BallCenterMeasurer().process()
                 time.sleep(0.1)
-                Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer(
-                    img_width=640, img_height=480
-                ).process()
+                Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
                 time.sleep(0.1)
                 cnt += 1
 
@@ -137,9 +137,7 @@ class Controller:
                     time.sleep(0.1)
                     Tput_center_isFind_Big = BallCenterMeasurer().process()
                     time.sleep(0.1)
-                    Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer(
-                        img_width=640, img_height=480
-                    ).process()
+                    Tput_center_isFind_Small = Tputting_x_BallCenterMeasurer().process()
                     time.sleep(0.1)
                     cnt += 1
 
@@ -651,6 +649,73 @@ class Controller:
             actions.remove(best_action)
         
     ###################################################################################################
+    # 깃발이 있는지 찾는 코드
+    @classmethod
+    def check_flag(self):
+        down_y = [80, 90, 100, 110] # 깃발 찾기 위한 Y축
+        right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
+        
+        # 깃발이 없을 때
+        print("check_flag 들어옴")
+        flag = FlagxCenterMeasurer(img_width=640, img_height=480)
+        print("flag객체 생성")
+        find_flag = flag.run()
+        print("test - find_flag[3]: ", find_flag[3])
+        
+        y_dir = 0
+        while find_flag[3] != True:   # 깃발을 못 찾았을 때
+            print("깃발 찾는 함수(check_flag) 실행")
+            print("find_flag[3]: ", find_flag[3])
+            # 수정한 부분
+            find_flag = flag.run()
+            x_dir = 0
+            self.robo._motion.set_head("DOWN", down_y[y_dir])
+            y_dir += 1
+            time.sleep(0.2)
+            if y_dir == len(down_y):
+                break
+        
+            # 고개 오른쪽으로 찾기
+            for i in range(len(right_left)):
+                find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                time.sleep(0.1)
+                print("고개 오른쪽으로 찾기")
+                print("======================")
+                self.robo._motion.set_head("RIGHT", right_left[x_dir])
+                print("Debug: ", right_left[x_dir])
+                print("======================")
+                x_dir += 1
+                time.sleep(0.2)
+                if (find_flag == True) or (x_dir == len(right_left)):
+                    print("find_flag == True: ", find_flag == True)
+                    print("x_dir == len(right_left): ", x_dir == len(right_left))
+                    break
+            self.robo._motion.set_head("LEFTRIGHT_CENTER") # 고개 원위치로 (가운데로)
+            time.sleep(0.2)
+            
+            x_dir = 0
+            # 고개 왼쪽으로 찾기
+            for i in range(len(right_left)):
+                find_flag = FlagxCenterMeasurer(img_width=640, img_height=480).run
+                time.sleep(0.1)
+                print("고개 왼쪽으로 찾기")
+                print("======================")
+                self.robo._motion.set_head("LEFT", right_left[x_dir])
+                print("Debug: ", right_left[x_dir])
+                print("======================")
+                x_dir += 1
+                time.sleep(0.2)
+                if (find_flag == True) or (x_dir == len(right_left)):
+                    print("find_flag == True: ", find_flag == True)
+                    print("x_dir == len(right_left): ", x_dir == len(right_left))
+                    break
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            time.sleep(0.2)
+
+            # 여기까지 오면 깃발을 찾은 상황 -> 깃발 센터 맞추는 함수로 넘어가기
+            self.check_flag_distance()
+    
+    ###################################################################################################
     @classmethod
     def go_robo(self):
         act = self.act
@@ -666,7 +731,7 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.hit_the_ball("RIGHT")
+            self.robo._motion.hit_the_ball("LEFT")
             time.sleep(3)
             exit()
         
@@ -679,9 +744,9 @@ class Controller:
         elif act == act.SEARCH_FIRST:
             print("ACT: ", act)  # Debug
             time.sleep(0.5)
-
-            self.check_ball_first()  # 퍼팅 부분
-
+            
+            self.check_ball_first()  # 티샷에서 공 찾는 함수
+        
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 self.robo._motion.walk("FORWARD", 10, 1.0)
                 time.sleep(0.1)
@@ -689,24 +754,27 @@ class Controller:
                 self.ball_feature_ball()
                 time.sleep(0.1)
 
-                dist_Process = DistMeasurer()
-                angle = 0
-                dist = dist_Process.display_distance(angle)
+                #     dist_Process = DistMeasurer()
+                #     angle = 0
+                #     dist = dist_Process.display_distance(ball_angle)
+                #     print(dist)
 
-                # 이 부분 수정 필요
-                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
-                    self.robo._motion.hit_the_ball("RIGHT")
-                    time.sleep(0.1)
+                # # 이 부분 수정 필요
+                # if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                #     print("퍼팅하겠습니다.")                                                    
+                #     self.robo._motion.hit_the_ball("LEFT")
+                #     time.sleep(0.1)
 
-                elif dist < (self.canPutting - 1):
-                    self.robo._motion.walk("FORWARD", 1)
+                # elif dist < (self.canPutting - 1):
+                #     self.robo._motion.walk("FORWARD", 1)
 
-                elif dist < (self.canPutting + 1):
-                    self.robo._motion.walk("BACKWARD", 1)
+                # elif dist < (self.canPutting + 1):
+                #     self.robo._motion.walk("BACKWARD", 1)
 
-                else:
-                    print("T샷 L_right 오류")
+                # else:
+                #     print("T샷 L_right 오류")
+                # # self.robo._motion.hit_the_ball("LEFT")
+                # time.sleep(0.1)
 
             elif self.L_center == 1:
                 self.robo._motion.walk("FORWARD", 5, 1.0)
@@ -715,26 +783,27 @@ class Controller:
                 self.ball_feature_ball()
                 time.sleep(0.1)
 
-                dist_Process = DistMeasurer()
-                angle = 0
-                dist = dist_Process.display_distance(angle)
-                time.sleep(0.1)
+                # dist_Process = DistMeasurer()
+                # angle = 0
+                # dist = dist_Process.display_distance(angle)
+                # time.sleep(0.1)
 
-                # 이 부분 수정 필요
-                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
+                # # 이 부분 수정 필요
+                # if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                #     print("퍼팅하겠습니다.")
+                #     self.robo._motion.hit_the_ball("LEFT")
 
-                elif dist < (self.canPutting - 1):
-                    self.robo._motion.walk("FORWARD", 1)
+                # elif dist < (self.canPutting - 1):
+                #     self.robo._motion.walk("FORWARD", 1)
 
-                elif dist < (self.canPutting + 1):
-                    self.robo._motion.walk("BACKWARD", 1)
+                # elif dist < (self.canPutting + 1):
+                #     self.robo._motion.walk("BACKWARD", 1)
 
-                else:
-                    print("T샷 L_center 오류")
+                # else:
+                #     print("T샷 L_center 오류")
 
-                self.robo._motion.hit_the_ball("RIGHT")
-                time.sleep(3)
+                # # self.robo._motion.hit_the_ball("RIGHT")
+                # time.sleep(0.1)
 
             elif self.L_left == 1:
                 self.robo._motion.walk("FORWARD", 1)
@@ -748,20 +817,22 @@ class Controller:
                 dist = dist_Process.display_distance(angle)
                 time.sleep(0.1)
 
-                # 이 부분 수정 필요
-                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
-                    self.robo._motion.hit_the_ball("RIGHT")
-                    time.sleep(3)
+                # # 이 부분 수정 필요
+                # if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                #     print("퍼팅 하겠습니다.")
+                #     self.robo._motion.hit_the_ball("LEFT")
+                #     time.sleep(3)
 
-                elif dist < (self.canPutting - 1):
-                    self.robo._motion.walk("FORWARD", 1)
+                # elif dist < (self.canPutting - 1):
+                #     self.robo._motion.walk("FORWARD", 1)
 
-                elif dist < (self.canPutting + 1):
-                    self.robo._motion.walk("BACKWARD", 1)
+                # elif dist < (self.canPutting + 1):
+                #     self.robo._motion.walk("BACKWARD", 1)
 
-                else:
-                    print("T샷 L_left 오류")
+                # else:
+                #     print("T샷 L_left 오류")
+                
+                # time.sleep(0.1)
 
             elif self.C_center == 1:
                 print("이 부분 추가해야함")
@@ -776,25 +847,28 @@ class Controller:
                 self.ball_feature_ball()
                 time.sleep(1)
 
-                dist_Process = DistMeasurer()
-                angle = 0
-                dist = dist_Process.display_distance(angle)
-                time.sleep(1)
+                # dist_Process = DistMeasurer()
+                # angle = 0
+                # dist = dist_Process.display_distance(angle)
+                # time.sleep(1)
 
-                # 이 부분 수정 필요
-                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
-                    self.robo._motion.hit_the_ball("RIGHT")
-                    time.sleep(3)
+                # # 이 부분 수정 필요
+                # if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                #     print("퍼팅 하겠습니다.")
+                #     self.robo._motion.hit_the_ball("LEFT")
+                #     time.sleep(3)
 
-                elif dist < (self.canPutting - 1):
-                    self.robo._motion.walk("FORWARD", 1)
+                # elif dist < (self.canPutting - 1):
+                #     self.robo._motion.walk("FORWARD", 1)
 
-                elif dist < (self.canPutting + 1):
-                    self.robo._motion.walk("BACKWARD", 1)
+                # elif dist < (self.canPutting + 1):
+                #     self.robo._motion.walk("BACKWARD", 1)
 
-                else:
-                    print("T샷 C_center 오류")
+                # else:
+                #     print("T샷 C_center 오류")
+
+                # self.robo._motion.hit_the_ball("LEFT")
+                # time.sleep(0.1)
 
             elif self.C_right == 1:
                 self.robo._motion.walk_side("RIGHT")
@@ -809,24 +883,26 @@ class Controller:
                 self.ball_feature_ball()
                 time.sleep(1)
 
-                dist_Process = DistMeasurer()
-                angle = 0
-                dist = dist_Process.display_distance(angle)
-                time.sleep(1)
+                # dist_Process = DistMeasurer()
+                # angle = 0
+                # dist = dist_Process.display_distance(angle)
+                # time.sleep(1)
 
-                # 이 부분 수정 필요
-                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
-                    print("퍼팅하는거 모션에 넣어줘야 함.")
+                # # 이 부분 수정 필요
+                # if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                #     print("퍼팅 하겠습니다.")
+                #     print("퍼팅하는거 모션에 넣어줘야 함.")
 
-                elif dist < (self.canPutting - 1):
-                    self.robo._motion.walk("FORWARD", 1)
+                # elif dist < (self.canPutting - 1):
+                #     self.robo._motion.walk("FORWARD", 1)
 
-                elif dist < (self.canPutting + 1):
-                    self.robo._motion.walk("BACKWARD", 1)
+                # elif dist < (self.canPutting + 1):
+                #     self.robo._motion.walk("BACKWARD", 1)
 
-                else:
-                    print("T샷 C_right 오류")
+                # else:
+                #     print("T샷 C_right 오류")
+                
+                # self.robo._motion.hit_the_ball("LEFT")
 
             elif self.C_left == 1:
                 self.robo._motion.walk_side("LEFT")
@@ -841,48 +917,111 @@ class Controller:
                 self.ball_feature_ball()
                 time.sleep(1)
 
-                dist_Process = DistMeasurer()
-                angle = 0
-                dist = dist_Process.display_distance(angle)
-                time.sleep(0.1)
+                # dist_Process = DistMeasurer()
+                # angle = 0
+                # dist = dist_Process.display_distance(angle)
+                # time.sleep(0.1)
 
-                # 이 부분 수정 필요
-                if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
-                    print("퍼팅 하겠습니다.")
-                    print("퍼팅하는거 모션에 넣어줘야 함.")
+                # # 이 부분 수정 필요
+                # if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
+                #     print("퍼팅 하겠습니다.")
+                #     print("퍼팅하는거 모션에 넣어줘야 함.")
 
-                elif dist < (self.canPutting - 1):
-                    self.robo._motion.walk("FORWARD", 1)
+                #     self.robo._motion.hit_the_ball("LEFT")
+                #     time.sleep(0.1)
 
-                elif dist < (self.canPutting + 1):
-                    self.robo._motion.walk("BACKWARD", 1)
+                # elif dist < (self.canPutting - 1):
+                #     self.robo._motion.walk("FORWARD", 1)
 
-                else:
-                    print("T샷 C_left 오류")
+                # elif dist < (self.canPutting + 1):
+                #     self.robo._motion.walk("BACKWARD", 1)
+
+                # else:
+                #     print("T샷 C_left 오류")
+
+                # self.robo._motion.hit_the_ball("LEFT")
+                # time.sleep(0.1)
 
             else:
                 print("원하는 값이 안 옴")
                 time.sleep(1)
 
-            self.act = act.SEARCH_BALL
-#############################################################################
-        elif act == act.SEARCH_BALL:
-            print("Act:", act)  # Debug
-            time.sleep(0.1)
-            angle = abs(self.robo._motion.y_head_angle - 11.6)
-            dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
-            print(dist_ball)
+            # +======================== 공 y축 기준센터 맞추는 부분(우진이가 추가) ================================+
+            ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
+            ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
+            correctAngle = 0
+            canPutting_error = 2
 
-            # self.ball_feature_ball()
+            
+            while correctAngle != 1:
+                # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
+                ball_y_angle = ballycenter.process()
+                time.sleep(0.2)
+                if ball_y_angle[0] == "C":
+                    print("ball_y_angle: ", ball_y_angle[0])
+                    print("중앙에 왔습니다.")
+                    correctAngle = 1
+                    break
+
+                elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
+                    dist_Process = DistMeasurer()
+
+                    # 아래로 1도씩 움직이기
+                    recent_will_angle = 3
+                    while True:
+                        before_ball_y_angle = copy.copy(ball_y_angle[0])
+                        ball_y_angle = ballycenter.process()
+                        time.sleep(0.2)
+                        print("ball_y: ", ball_y_angle[0])
+
+                        if before_ball_y_angle != ball_y_angle[0]:
+                            recent_will_angle = 1
+
+                        if ball_y_angle[0] == "U":
+                            self.robo._motion.set_head_small("UP", recent_will_angle)
+                            time.sleep(0.1)
+
+                        elif ball_y_angle[0] == "D":
+                            self.robo._motion.set_head_small("DOWN", recent_will_angle)
+                            time.sleep(0.1)
+                        
+                        elif ball_y_angle[0] == "C":
+                            correctAngle = 1
+                            print("중앙에 왔습니다.")
+                        
+                            # 공 센터 맞추면 해당 각도 저장
+                            ball_angle = self.robo._motion.x_head_angle
+                            print("공 찾아서 각도 저장함")
+                            print("======================")
+
+                            dist = dist_Process.display_distance(ball_angle)
+                            time.sleep(0.1)
+
+                            if dist > (self.canPutting - canPutting_error) and dist < (self.canPutting + canPutting_error):
+                                print("퍼팅 하겠습니다.")
+                                break
+
+                            elif dist < (self.canPutting - canPutting_error):
+                                self.robo._motion.walk("BACKWARD", 1)
+
+                            elif dist > (self.canPutting + canPutting_error):
+                                self.robo._motion.walk("FORWARD", 1)
+
+                            else:
+                                print("T샷 C_left 오류")
+
+                self.robo._motion.hit_the_ball("LEFT")
+                time.sleep(0.1)
+            # +================================== 여기까지 추가 ================================================+
+                
+            self.robo._motion.turn("RIGHT", 90)   # 티샷 끝나고 깃발 찾기 위해 턴
+
             self.act = act.SEARCH_FLAG
 #############################################################################
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
-
-            self.act = act.SEARCH_PUTTING_LOCATION
-#############################################################################
-        elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
-            print("Act:", act)  # Debug
+            
+            self.check_flag()   # 깃발 찾기
             # print("TEST")
             # self.find_best_actions(60, 'R')
             # print("===================")
@@ -901,12 +1040,28 @@ class Controller:
             print(distflag)
             print("flag angle: ", end="")
             print(angle)
-            # # 깃발 거리를 측정하고 프로그램 종료
+            # 깃발 거리를 측정하고 프로그램 종료
             # exit()
+
+            self.act = act.SEARCH_BALL
+#############################################################################
+        elif act == act.SEARCH_BALL:
+                    print("Act:", act)  # Debug
+                    time.sleep(0.1)
+                    angle = abs(self.robo._motion.y_head_angle - 11.6)
+                    dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
+                    print(dist_ball)
+                    
+                    self.check_ball_distance()  # 공 거리 anlge 구하기
+
+                    # self.ball_feature_ball()
+                    self.act = act.SEARCH_PUTTING_LOCATION
+#############################################################################
+        elif act == act.SEARCH_PUTTING_LOCATION:  # 치는 위치 확인
+            print("Act:", act)  # Debug
             time.sleep(0.2)
             flag_angle = self.robo._motion.x_head_angle
 
-            self.check_ball_distance()  # 공 거리 anlge 구하기
             angle = abs(self.robo._motion.y_head_angle - 11.6)  # angle 값 수정
             distball = DistMeasurer().display_distance(angle) # 공 거리값
             print("ball distance: ", end="") 
@@ -923,13 +1078,15 @@ class Controller:
 
             print("Real angle: ", end="")  # 값 확인
             print(real_angle)
+            print("distflag: ",distflag)
 
             solver = HitPointer(distflag, distball, real_angle, 7)
-            hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back = solver.solve()
+            hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
             print("가야하는 거리: ", hit_dist)
             print("돌아야하는 각도", hit_angle)
             print("공앞에서 돌아야하는 각도", hit_will_anlge)
             print("공이 깃발 뒤에 있는지 없는지 (T/F): ", ball_is_flag_back)
+            print("공과 깃발 사이의 거리(cm): ", flag_ball_dis)
 
             hit_angle = int(hit_angle)
             self.find_best_actions(hit_angle, shot_way)
@@ -955,13 +1112,32 @@ class Controller:
             print("퍼팅 위치까지 왔습니다.")
             print("퍼팅해주세요")    
 
+            if flag_ball_dis <= 60:
+                self.robo._motion.hit_the_ball("LEFT",short=True) # 짧게 치기
+            else:
+                self.robo._motion.hit_the_ball("LEFT") # 길게 치기
+            time.sleep(6)
+
             self.act = act.CHECK
 #############################################################################
         elif act == act.CHECK:  # 홀인했는지 확인
             print("Act:", act)  # Debug
 
+            self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
+            self.robo._motion.turn("LEFT", 45)
+            time.sleep(0.1)
+
+            self.robo._motion.set_head("LEFTRIGHT_CENTER")
+            time.sleep(0.2)
+            self.robo._motion.set_head("DOWN",45)
+            time.sleep(0.1)
+
+            self.check_flag_distance() # 깃발 거리 angle 구하기
+            time.sleep(0.2)
+
             goal_detector = GoalDetect()
-            is_goal = goal_detector.process()
+            is_goal = goal_detector.process() # 골이 들어갔는지 판단
             print("홀인 유무 (T/F): ", is_goal)
 
             if is_goal == True:
