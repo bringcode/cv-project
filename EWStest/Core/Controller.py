@@ -758,7 +758,7 @@ class Controller:
                 dist_Process = DistMeasurer()
                 angle = 0
                 dist = dist_Process.display_distance(angle)
-                print dist
+                print(dist)
 
                 # 이 부분 수정 필요
                 if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
