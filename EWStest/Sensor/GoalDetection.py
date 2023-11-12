@@ -158,17 +158,17 @@ class GoalDetect:
                     if f_min_x <= b_min_x and b_max_x <= f_max_x and f_min_y <= b_min_y and b_max_y <= f_max_y:
                         print("Goal!")
                         is_goal = True
-                        # return is_goal
+                        return is_goal
                         
-            # return is_goal
+            return is_goal
                 
         #     imshow 실행시 주석 빼기
-            cv2.imshow('Object Dist Measure ', img)
+        #     cv2.imshow('Object Dist Measure ', img)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+        #     if cv2.waitKey(1) & 0xFF == ord('q'):
+        #         break
 
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
         
 if __name__ == "__main__":
     goal_detector = GoalDetect()
