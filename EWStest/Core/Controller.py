@@ -1011,6 +1011,7 @@ class Controller:
 
             print("Real angle: ", end="")  # 값 확인
             print(real_angle)
+            print("distflag: ",distflag)
 
             solver = HitPointer(distflag, distball, real_angle, 7)
             hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
