@@ -992,9 +992,11 @@ class Controller:
                             # 공 센터 맞추면 해당 각도 저장
                             ball_angle = self.robo._motion.x_head_angle
                             print("공 찾아서 각도 저장함")
-                            print("======================")
 
                             dist = dist_Process.display_distance(ball_angle)
+                            print("dist:",dist)
+                            print("ball_angle:",ball_angle)
+                            print("======================")
                             time.sleep(0.1)
 
                             if dist > (self.canPutting - canPutting_error) and dist < (self.canPutting + canPutting_error):
