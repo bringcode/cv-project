@@ -124,10 +124,6 @@ class HitPointer:
         #judge_triangle : 타격지점이 삼각형 안 : True,  타격지점 삼각형 밖: False  (목표지점 이동후 왼쪽으로 돌지 오른쪽으로 돌지 판단에 필요)
 
 # 예제 사용:
-a = 5
-b = 7
-l = 45
-h = 3
 
 if __name__ == "__main__":
     solver = HitPointer(a, b, l, h)
