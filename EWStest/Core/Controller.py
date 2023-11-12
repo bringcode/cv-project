@@ -990,7 +990,7 @@ class Controller:
                             print("중앙에 왔습니다.")
                         
                             # 공 센터 맞추면 해당 각도 저장
-                            ball_angle = self.robo._motion.x_head_angle
+                            ball_angle = self.robo._motion.y_head_angle
                             print("공 찾아서 각도 저장함")
 
                             dist = dist_Process.display_distance(ball_angle)
