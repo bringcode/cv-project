@@ -745,12 +745,14 @@ class Controller:
             print("ACT: ", act)  # Debug
             time.sleep(0.5)
             
-            self.check_ball_first()  # 티샷에서 공 찾는 함수
+            # 티샷에서 공 찾는 함수(공과 로봇의 위치를 찾아서 L_right를 포함한 6개에 변수 중 하나를 1로 변경)
+            self.check_ball_first()
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
                 self.robo._motion.walk("FORWARD", 10, 1.0)
                 time.sleep(0.1)
 
+                # 화면에 보이는 공을 화면상의 중심에 맞추기 위해, 로봇의 몸체를 좌우로 이동
                 self.ball_feature_ball()
                 time.sleep(0.1)
 
@@ -780,6 +782,7 @@ class Controller:
                 self.robo._motion.walk("FORWARD", 5, 1.0)
                 time.sleep(0.1)
 
+                # 화면에 보이는 공을 화면상의 중심에 맞추기 위해, 로봇의 몸체를 좌우로 이동
                 self.ball_feature_ball()
                 time.sleep(0.1)
 
@@ -809,13 +812,14 @@ class Controller:
                 self.robo._motion.walk("FORWARD", 1)
                 time.sleep(0.1)
 
+                # 화면에 보이는 공을 화면상의 중심에 맞추기 위해, 로봇의 몸체를 좌우로 이동
                 self.ball_feature_ball()
                 time.sleep(0.1)
 
-                dist_Process = DistMeasurer()
-                angle = 0
-                dist = dist_Process.display_distance(angle)
-                time.sleep(0.1)
+                # dist_Process = DistMeasurer()
+                # angle = 0
+                # dist = dist_Process.display_distance(angle)
+                # time.sleep(0.1)
 
                 # # 이 부분 수정 필요
                 # if dist > (self.canPutting - 1) and dist < (self.canPutting + 1):
@@ -946,13 +950,13 @@ class Controller:
                 print("원하는 값이 안 옴")
                 time.sleep(1)
 
-            # +======================== 공 y축 기준센터 맞추는 부분(우진이가 추가) ================================+
+            # +======================== 공을 화면의 y축 기준으로 중심에 맞추는 부분(우진이가 추가) ================================+
             ballycenter = BallyCenterMeasurer(img_width=640, img_height=480)
             ball_y_angle = ["N"]  # 공을 못 찾았을 때 반환하는 값
             correctAngle = 0
             canPutting_error = 2
+            dist_Process = DistMeasurer()
 
-            
             while correctAngle != 1:
                 # 이미 x축 기준으로 센터이므로, y축 기준으로 어디에 있는지 판별
                 ball_y_angle = ballycenter.process()
@@ -964,8 +968,7 @@ class Controller:
                     break
 
                 elif ball_y_angle[0] == "D" or ball_y_angle[0] == "U":
-                    dist_Process = DistMeasurer()
-
+                    
                     # 아래로 1도씩 움직이기
                     recent_will_angle = 3
                     while True:
@@ -974,7 +977,7 @@ class Controller:
                         time.sleep(0.2)
                         print("ball_y: ", ball_y_angle[0])
 
-                        if before_ball_y_angle != ball_y_angle[0]:
+                        if before_ball_y_angle != ball_y_angle[0]:  # 이전에 고개를 돌렸던 값과 현재 고개를 돌릴 값이 일치하면 3도말고 1도씩만 돌리게 만듬
                             recent_will_angle = 1
 
                         if ball_y_angle[0] == "U":
