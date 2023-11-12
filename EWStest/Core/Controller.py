@@ -736,7 +736,7 @@ class Controller:
             exit()
         
         ########################################################## # test
-
+        # 모든것의 시작
         if act == act.START:
             print("ACT: ", act)  # Debug
             self.act = act.SEARCH_FIRST
@@ -745,7 +745,7 @@ class Controller:
             print("ACT: ", act)  # Debug
             time.sleep(0.5)
             
-            # 티샷에서 공 찾는 함수(공과 로봇의 위치를 찾아서 L_right를 포함한 6개에 변수 중 하나를 1로 변경)
+            # 티샷에서 공과 로봇의 위치를 찾는 함수(공과 로봇의 위치를 찾아서 L_right를 포함한 6개에 변수 중 하나를 1로 변경)
             self.check_ball_first()
         
             if self.L_right == 1:  # 퍼팅 판단 return 받은걸로 모션
@@ -1020,7 +1020,7 @@ class Controller:
                 time.sleep(0.1)
             # +================================== 여기까지 추가 ================================================+
                 
-            self.robo._motion.turn("RIGHT", 90)   # 티샷 끝나고 깃발 찾기 위해 턴
+            self.robo._motion.turn("LEFT", 90)   # 티샷 끝나고 깃발 찾기 위해 턴
 
             self.act = act.SEARCH_FLAG
 #############################################################################
@@ -1051,7 +1051,7 @@ class Controller:
 
             self.act = act.SEARCH_BALL
 #############################################################################
-# 공중심거리
+
         elif act == act.SEARCH_BALL:
                     print("Act:", act)  # Debug
                     time.sleep(0.1)
@@ -1059,7 +1059,8 @@ class Controller:
                     dist_ball = DistMeasurer(angle)  # 볼 거리 구한 값 저장
                     print(dist_ball)
                     
-                    self.check_ball_distance()  # 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
+                    # 공이 로봇 화면에서 공이 중심에 있을 수 있도록 로봇의 고개를 돌려 x, y를 맞춤
+                    self.check_ball_distance()
 
                     # self.ball_feature_ball()
                     self.act = act.SEARCH_PUTTING_LOCATION
