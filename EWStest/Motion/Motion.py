@@ -172,7 +172,7 @@ class Motion:
     def turn(self, dir, angle, loop=1, sleep=0.5, arm=False):
         """
         dir: {LEFT, RIGHT} - 회전 방향
-        angle: 회전 각도 {3, 5, 10, 20, 45, 60}
+        angle: 회전 각도
         loop: 반복 횟수
         sleep: 각 동작 간 간격 (초)
         arm: 팔을 들고 회전 여부
@@ -212,7 +212,6 @@ class Motion:
     def hit_the_ball(self, dir, short=False):
         """
         dir: {LEFT, RIGHT} - 치는 방향
-        short: 약하게 치는 방식 없으면 그냥 세게 침
         """
 
         dir_list = {"LEFT": 171, "RIGHT": 170}
@@ -233,7 +232,7 @@ class Motion:
     def set_head_small(self, dir, angle=0):
         """
         dir: {UP, DOWN, LEFT, RIGHT} - 머리 방향
-        angle: 돌리고 싶은 머리 각도
+        angle: 머리 각도
         """
 
         """ parameter :
@@ -245,35 +244,32 @@ class Motion:
         RIGHT:{1,3}
         }
         """
-        angle_KEY1 = 1 # 각도 1도 변경하고 싶을 때 이 부분 숫자를 변경
-        angle_KEY2 = 3 # 각도 3도 변경하고 싶을 때 이 부분 숫자를 변경
-
         if dir == "UP":
             self.y_head_angle += angle
-            print(angle,"_up_angle: ", angle)
+            print("2_up_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
         elif dir == "DOWN":
             self.y_head_angle -= angle
-            print(angle,"_down_angle: ", angle)
+            print("2_down_angle: ", angle)
             print("y_head_angle: ", self.y_head_angle)
             print("===========================")
         elif dir == "LEFT":
             self.x_head_angle -= angle
-            print(angle,"_left_angle: ", angle)
+            print("2_left_angle: ", angle)
             print("x_head_angle: ", self.x_head_angle)
             print("===========================")
         elif dir == "RIGHT":
             self.x_head_angle += angle
-            print(angle,"_right_angle: ", angle)
+            print("2_right_angle: ", angle)
             print("x_head_angle: ", self.x_head_angle)
             print("===========================")
 
         dir_list = {
-            "UP": {angle_KEY1: 175, angle_KEY2: 183},
-            "DOWN": {angle_KEY1: 174, angle_KEY2: 182},
-            "LEFT": {angle_KEY1: 176, angle_KEY2: 184},
-            "RIGHT": {angle_KEY1: 177, angle_KEY2: 185},
+            "UP": {1: 175, 3:183},
+            "DOWN": {1: 174, 3:182},
+            "LEFT": {1: 176, 3:184},
+            "RIGHT": {1: 177, 3:185},
         }
 
         self.TX_data_py3(dir_list[dir][angle])
