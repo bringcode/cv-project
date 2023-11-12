@@ -2171,7 +2171,7 @@ class Controller:
                             robot_ball_angle = ball_angle - 11.6
 
                             # print("dist:",dist)
-                            print("tobot_ball_angle", robot_ball_angle)
+                            print("robot_ball_angle", robot_ball_angle)
                             print("======================")
                             time.sleep(0.1)
 
@@ -2180,9 +2180,11 @@ class Controller:
                                 break
 
                             elif robot_ball_angle < (putting_angle - putting_angle_error):
+                                print("뒤로 가겠습니다.")
                                 self.robo._motion.walk("BACKWARD", 1)
 
                             elif robot_ball_angle > (putting_angle + putting_angle_error):
+                                print("앞으로 가겠습니다.")
                                 self.robo._motion.walk("FORWARD", 1)
 
                             else:
