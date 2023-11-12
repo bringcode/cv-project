@@ -1091,6 +1091,7 @@ class Controller:
             print("distflag: ",distflag)
 
             solver = HitPointer(distflag, distball, real_angle, 7)
+            exit()
             hit_dist, hit_angle, hit_will_anlge, ball_is_flag_back, flag_ball_dis = solver.solve()
             print("가야하는 거리: ", hit_dist)
             print("돌아야하는 각도", hit_angle)
