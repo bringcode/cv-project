@@ -66,7 +66,6 @@ class Controller:
         time.sleep(1)  # 함수를 실행할 때 오류가 안 나도록 하는 time.sleep
 
         # 로봇이 왼쪽에 있을 때 확인하기
-        Tput_center_isFind_Big = BallCenterMeasurer(img_width=640, img_height=480).process()
         for i in range(3):  # 티샷이 3개이므로 3번 반복
             self.robo._motion.set_head("DOWN", dir_list[dir])  # 고개 내리면서 확인
             dir -= 1
@@ -653,7 +652,7 @@ class Controller:
     # 깃발이 있는지 찾는 코드
     @classmethod
     def check_flag(self):
-        down_y = [80, 90, 100, 110] # 깃발 찾기 위한 Y축
+        down_y = [20, 50, 80] # 깃발 찾기 위한 Y축
         right_left = [30, 45, 54, 60, 90] # 일단 모션에 있는 값 넣었는데, 확인하고 바꿔야 함..
         
         # 깃발이 없을 때
@@ -944,8 +943,6 @@ class Controller:
             else:
                 print("원하는 값이 안 옴")
                 time.sleep(1)
-                
-            self.robo._motion.turn("RIGHT", 90)   # 티샷 끝나고 깃발 찾기 위해 턴
 
             self.act = act.SEARCH_FLAG
 #############################################################################
