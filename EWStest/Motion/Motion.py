@@ -45,10 +45,10 @@ class Motion:
         self.serial_port.write(serial.to_bytes([one_byte]))  # python3
         time.sleep(0.1)
 
-    def TX_data_py3(self, one_byte):
-        self.lock = True
-        self.serial_port.write(serial.to_bytes([one_byte]))
-        time.sleep(0.1)
+    # def TX_data_py3(self, one_byte):
+    #     self.lock = True
+    #     self.serial_port.write(serial.to_bytes([one_byte]))
+    #     time.sleep(0.1)
 
     def RX_data(self):
         # 시리얼 포트로부터 데이터 수신
