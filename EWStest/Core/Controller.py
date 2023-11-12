@@ -422,7 +422,7 @@ class Controller:
                 
                     # 공 센터 맞추면 로봇과 공의 거리 구하는 코드 실행
                     dist_Process = DistMeasurer()
-                    self.dist = dist_Process.display_distance(ball_angle)  # dist: 공과 로봇의 거리
+                    self.dist = dist_Process.display_distance(ball_angle)  # dist: 공과 로봇의 거리 ?? self.dist에 대한 정의가 없는데 어떻게 씀?
                     time.sleep(0.1)
                 
                     # flag_ball_angle_fin: 공이랑 깃발 사이의 각도
@@ -993,7 +993,8 @@ class Controller:
                             ball_angle = self.robo._motion.y_head_angle
                             print("공 찾아서 각도 저장함")
 
-                            dist = dist_Process.display_distance(ball_angle - 11.6)
+                            dist = dist_Process.display_distance(abs(ball_angle - 11.6))
+
                             print("dist:",dist)
                             print("ball_angle:",ball_angle - 11.6)
                             print("======================")
@@ -1047,6 +1048,7 @@ class Controller:
 
             self.act = act.SEARCH_BALL
 #############################################################################
+# 공중심거리
         elif act == act.SEARCH_BALL:
                     print("Act:", act)  # Debug
                     time.sleep(0.1)
