@@ -215,7 +215,7 @@ class Motion:
         short: 약하게 치는 방식 없으면 그냥 세게 침
         """
 
-        dir_list = {"LEFT": 171, "RIGHT": 170}
+        dir_list = {"LEFT": 2, "RIGHT": 5}
         
 
         if short:
