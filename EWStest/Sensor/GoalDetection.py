@@ -77,8 +77,8 @@ class GoalDetect:
         kernel = np.ones((3,3),'uint8')
 
         # imshow 실행시 주석 빼기
-        # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
-        # cv2.resizeWindow('Object Dist Measure ', 700,600)
+        cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('Object Dist Measure ', 700,600)
 
         #loop to capture video frames
         while True:
@@ -164,12 +164,12 @@ class GoalDetect:
             return is_goal
                 
         #     imshow 실행시 주석 빼기
-        #     cv2.imshow('Object Dist Measure ', img)
+            cv2.imshow('Object Dist Measure ', img)
 
-        #     if cv2.waitKey(1) & 0xFF == ord('q'):
-        #         break
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-        # cv2.destroyAllWindows()
+        cv2.destroyAllWindows()
         
 if __name__ == "__main__":
     goal_detector = GoalDetect()
