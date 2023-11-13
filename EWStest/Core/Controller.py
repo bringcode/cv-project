@@ -716,6 +716,18 @@ class Controller:
             self.check_flag_distance()
     
     ###################################################################################################
+    # 홀인했는지 판단하고, 홀인하면 세레머니하는 코드
+    @classmethod
+    def holein_ceremony(self):
+        goal = GoalDetect(img_width=640, img_height=480)
+
+        holein = goal.process()
+        if holein == True:
+            self.robo._motion.ceremony("goal")
+        else:
+            print("여기 오면 문제 있거나 홀인 안 한 거임")
+    
+    ###################################################################################################
     @classmethod
     def go_robo(self):
         act = self.act

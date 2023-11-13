@@ -275,6 +275,12 @@ class Motion:
         self.TX_data_py3(dir_list[dir][angle])
         # time.sleep(0.3)
 
+  
+    # 세레머니하기 (8)
+    def ceremony(self, goal):
+        ceremony = {"goal": 8}
+        self.TX_data_py3(ceremony[goal])
+
     ############################################################
 
 
