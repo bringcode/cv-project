@@ -159,7 +159,7 @@ class GoalDetect:
                     if f_min_x <= b_min_x and b_max_x <= f_max_x and f_min_y <= b_min_y and b_max_y <= f_max_y:
                         print("Goal!")
                         is_goal = True
-                        cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (0, 255, 0), 2, cv2.LINE_AA)
+                        cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
                         # return is_goal
                         
             # return is_goal
