@@ -159,9 +159,9 @@ class GoalDetect:
                         print("Goal!")
                         is_goal = True
                         cv2.putText(img, 'Goal!', (self.img_width_middle - 50, self.img_height_middle), self.font, 1, (0, 255, 0), 2, cv2.LINE_AA)
-                        return is_goal
+                        # return is_goal
                         
-            return is_goal
+            # return is_goal
                 
         #     imshow 실행시 주석 빼기
             cv2.imshow('Object Dist Measure ', img)
