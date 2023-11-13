@@ -716,18 +716,6 @@ class Controller:
             self.check_flag_distance()
     
     ###################################################################################################
-    # 홀인했는지 판단하고, 홀인하면 세레머니하는 코드
-    @classmethod
-    def holein_ceremony(self):
-        goal = GoalDetect(img_width=640, img_height=480)
-
-        holein = goal.process()
-        if holein == True:
-            self.robo._motion.ceremony("goal")
-        else:
-            print("여기 오면 문제 있거나 홀인 안 한 거임")
-    
-    ###################################################################################################
     @classmethod
     def go_robo(self):
         act = self.act
@@ -1162,7 +1150,7 @@ class Controller:
             self.check_flag_distance() # 깃발 거리 angle 구하기
             time.sleep(0.2)
 
-            goal_detector = GoalDetect()
+            goal_detector = GoalDetect(img_width=640, img_height=480)
             is_goal = goal_detector.process() # 골이 들어갔는지 판단
             print("홀인 유무 (T/F): ", is_goal)
 
@@ -1173,9 +1161,10 @@ class Controller:
 #############################################################################
         elif act == act.EXIT:
             print("Act:", act)  # Debug
-            #self.robo._motion.turn("LEFT", 60)
-            print("이 부분에 세레머니 추가")
+
+            self.robo._motion.ceremony("goal")   # 세레머니
             time.sleep(1)
+            
             exit()
 #############################################################################
         else:
