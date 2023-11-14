@@ -169,7 +169,7 @@ class Motion:
         # time.sleep(0.3)
 
     # 돌기 (141~160) + (178~181)
-    def turn(self, dir, angle, loop=1, sleep=0.5, arm=False):
+    def turn(self, dir, angle, loop=1, sleep=0.5):
         """
         dir: {LEFT, RIGHT} - 회전 방향
         angle: 회전 각도
@@ -185,16 +185,6 @@ class Motion:
             "LEFT": {3:181, 5:179, 10: 141, 20: 142, 45: 143, 60: 144},
             "RIGHT": {3:180, 5:178, 10: 145, 20: 146, 45: 147, 60: 148},
         }
-
-        if arm:
-            if dir == "LEFT":
-                dir_list[dir][angle] += 7
-            elif dir == "RIGHT":
-                dir_list[dir][angle] += 6
-
-        for _ in range(loop):
-            self.TX_data_py3(dir_list[dir][angle])
-            # time.sleep(sleep)
 
     # 옆으로 이동 (161~169)
     def walk_side(self, dir):
