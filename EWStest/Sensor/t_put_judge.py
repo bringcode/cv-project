@@ -132,7 +132,7 @@ class BallCenterMeasurer:
 
             image = cv2.putText(
                 img,
-                "flag Middle : {}, robot_angle".format(ball_y_isMiddle, angle),
+                "flag Middle : {}".format(ball_y_isMiddle),
                 org,
                 font,
                 1,
@@ -143,9 +143,6 @@ class BallCenterMeasurer:
 
             cv2.imshow("Object Dist Measure ", img)
 
-            if cv2.waitKey(1) & 0xFF == ord("n"):
-                angle = self.robo._motion.set_head("DOWN", 2)
-                continue
 
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
