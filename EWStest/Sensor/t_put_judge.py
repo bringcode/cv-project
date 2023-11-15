@@ -117,10 +117,10 @@ class BallCenterMeasurer:
 
                     max_x, min_x, max_y, min_y = self.getMaxMin(ball_box)
                     ball_y_isMiddle = self.judgeMiddle(max_y, min_y)
-            #         return (
-            #             ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
-            #         )
-            # return False
+                    return (
+                        ball_y_isMiddle  # imshow 하려함 => 위에 있는 주석을 활성화하고, return은 주석처리
+                    )
+            return False
 
             # imshow
             font = cv2.FONT_HERSHEY_SIMPLEX
@@ -140,13 +140,13 @@ class BallCenterMeasurer:
                 cv2.LINE_AA,
             )
 
-            cv2.imshow("Object Dist Measure ", img)
+        #     cv2.imshow("Object Dist Measure ", img)
 
 
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                break
+        #     if cv2.waitKey(1) & 0xFF == ord("q"):
+        #         break
 
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
 
 
 
