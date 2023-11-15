@@ -100,20 +100,23 @@ class BallxCenterMeasurer:
             # upper = np.array([180, 255, 255])
             # mask = cv2.inRange(hsv_img, lower, upper)
 
-            # robot version
-            lower = np.array([137, 0, 0])
-            upper = np.array([255, 255, 255])
-            lower1 = np.array([0, 66, 87])
-            upper1 = np.array([14, 255, 255])
-            lower2 = np.array([168, 0, 0])
-            upper2 = np.array([255, 255, 255])
+            # # robot version
+            # lower = np.array([137, 0, 0])
+            # upper = np.array([255, 255, 255])
+            # lower1 = np.array([0, 66, 87])
+            # upper1 = np.array([14, 255, 255])
+            # lower2 = np.array([168, 0, 0])
+            # upper2 = np.array([255, 255, 255])
+            
+            lower = np.array([0, 110, 136])
+            upper = np.array([170, 136, 255])
             
             mask1 = cv2.inRange(hsv_img, lower, upper)
-            mask2 = cv2.inRange(hsv_img, lower1, upper1)
-            mask3 = cv2.inRange(hsv_img, lower2, upper2)
-            
+            # mask2 = cv2.inRange(hsv_img, lower1, upper1)
+            # mask3 = cv2.inRange(hsv_img, lower2, upper2)
 
-            mask = mask1+mask2
+
+            mask = mask1
             
 
             # lower_flag = np.array([10, 150, 100])
