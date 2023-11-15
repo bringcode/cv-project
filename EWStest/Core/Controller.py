@@ -906,6 +906,9 @@ class Controller:
 #############################################################################
         elif act == act.SEARCH_FLAG:
             print("Act:", act)  # Debug
+
+            self.robo._motion.set_head("DOWN", 90)
+            time.sleep(0.2)
             
             self.check_flag()   # 깃발 찾기
             # print("TEST")
