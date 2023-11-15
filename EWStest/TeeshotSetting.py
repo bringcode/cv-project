@@ -69,6 +69,7 @@ class BallCenterMeasurer:
 
     def process(self):
         cap = cv2.VideoCapture(0, cv2.CAP_V4L)  # 인자로 있었는데 몰루? -> cv2.CAP_V4L
+        angle = 100
         # cv2.namedWindow('Object Dist Measure ', cv2.WINDOW_NORMAL)
         # cv2.resizeWindow('Object Dist Measure ', 700, 600)
 
@@ -126,7 +127,6 @@ class BallCenterMeasurer:
 
 
             # imshow
-            angle = 100
             font = cv2.FONT_HERSHEY_SIMPLEX
             org = (0, 20)
             fontScale = 0.6
