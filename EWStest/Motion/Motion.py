@@ -204,7 +204,7 @@ class Motion:
         dir: {LEFT, RIGHT} - 치는 방향
         """
 
-        dir_list = {"LEFT": 171, "RIGHT": 170}
+        dir_list = {"LEFT": 2, "RIGHT": 5}
         
 
         if short:
