@@ -12,7 +12,7 @@ def main():
 
 if __name__ == "__main__":
     Motion = Motion()
-    Motion.TX_data_py3(2)
+    Motion.TX_data_py3(171)
     #time.sleep(2)
     #print("head right")
     #Motion.TX_data_py3(177)  # 1도우향
