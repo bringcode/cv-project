@@ -8,7 +8,6 @@ import cv2
 class BallCenterMeasurer:
     def __init__(self, img_width=640, img_height=480, width=4, focal=450):
         self.dist = 0
-        self.robo = Robo()
         self.focal = focal
         self.pixels = 30
         self.width = width
