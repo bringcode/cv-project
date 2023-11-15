@@ -1019,9 +1019,8 @@ class Controller:
 
                             else:
                                 print("T샷 C_left 오류")
-
-                self.robo._motion.hit_the_ball("LEFT")
                 time.sleep(0.1)
+                self.robo._motion.hit_the_ball("LEFT")
             # +================================== 여기까지 추가 ================================================+
                 
             self.robo._motion.turn("LEFT", 45)   # 티샷 끝나고 깃발 찾기 위해 턴
