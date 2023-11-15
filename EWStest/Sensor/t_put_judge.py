@@ -3,11 +3,13 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import cv2
+from Core.Robo import Robo
 
 
 class BallCenterMeasurer:
     def __init__(self, img_width=640, img_height=480, width=4, focal=450):
         self.dist = 0
+        self.robo = Robo()
         self.focal = focal
         self.pixels = 30
         self.width = width
@@ -131,7 +133,7 @@ class BallCenterMeasurer:
 
             image = cv2.putText(
                 img,
-                "flag Middle : {}".format(ball_y_isMiddle),
+                "flag Middle : {}, robot_angle".format(ball_y_isMiddle, angle),
                 org,
                 font,
                 1,
@@ -141,6 +143,11 @@ class BallCenterMeasurer:
             )
 
             cv2.imshow("Object Dist Measure ", img)
+
+            if cv2.waitKey(1) & 0xFF == ord("n"):
+                angle = self.robo._motion.set_head("DOWN", 2)
+                continue
+
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
 
