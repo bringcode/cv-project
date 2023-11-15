@@ -731,7 +731,7 @@ class Controller:
 
         ########################################################## # test
         if act == act.TEST:
-            self.robo._motion.turn("LEFT", 45, 3, 0.8)   # 티샷 끝나고 깃발 찾기 위해 턴
+            self.robo._motion.turn("LEFT", 45, 4, 0.8)   # 티샷 끝나고 깃발 찾기 위해 턴
             print("왼쪽으로 90도 회전")
             exit()
         
