@@ -147,8 +147,8 @@ class BallCenterMeasurer:
             cv2.imshow("Object Dist Measure ", img)
 
             if cv2.waitKey(1) & 0xFF == ord("n"):
-                self.robo._motion.set_head_small("DOWN", 1)
-                angle -= 1
+                self.robo._motion.set_head_small("DOWN", 3)
+                angle -= 3
                 continue
 
             if cv2.waitKey(1) & 0xFF == ord("q"):
