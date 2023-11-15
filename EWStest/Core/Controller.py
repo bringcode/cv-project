@@ -30,7 +30,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     # act: Act = Act.START  # 순서도 시작
-    act: Act = Act.SEARCH_FLAG
+    act: Act = Act.START
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
@@ -1024,7 +1024,10 @@ class Controller:
                 time.sleep(0.1)
             # +================================== 여기까지 추가 ================================================+
                 
-            self.robo._motion.turn("LEFT", 90)   # 티샷 끝나고 깃발 찾기 위해 턴
+            self.robo._motion.turn("LEFT", 45)   # 티샷 끝나고 깃발 찾기 위해 턴
+            time.sleep(0.5)
+            self.robo._motion.turn("LEFT",45)
+            time.sleep(0.5)
 
             self.act = act.SEARCH_FLAG
 #############################################################################
