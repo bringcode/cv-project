@@ -124,7 +124,9 @@ class BallCenterMeasurer:
             #         )
             # return False
 
+
             # imshow
+            angle = 100
             font = cv2.FONT_HERSHEY_SIMPLEX
             org = (0, 20)
             fontScale = 0.6
@@ -133,7 +135,7 @@ class BallCenterMeasurer:
 
             image = cv2.putText(
                 img,
-                "flag Middle : {}, robot_angle".format(ball_y_isMiddle, angle),
+                "flag Middle : {}, robot_angle: {}".format(ball_y_isMiddle, angle),
                 org,
                 font,
                 1,
@@ -145,7 +147,8 @@ class BallCenterMeasurer:
             cv2.imshow("Object Dist Measure ", img)
 
             if cv2.waitKey(1) & 0xFF == ord("n"):
-                angle = self.robo._motion.set_head("DOWN", 2)
+                self.robo._motion.set_head("DOWN", 2)
+                angle -= 2
                 continue
 
             if cv2.waitKey(1) & 0xFF == ord("q"):
