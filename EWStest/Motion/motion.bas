@@ -1,4 +1,4 @@
- '******** 2족 보행로봇 초기 영점 프로그램 ********
+'******** 2족 보행로봇 초기 영점 프로그램 ********
 
 '-*- coding: utf-8 -*-'
 
@@ -269,7 +269,7 @@ Arm_motor_mode3:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  90,
-    MOVE G6C,100,  35,  90, 190, 106 ' 106 = 정면 보는 값 
+    MOVE G6C,100,  35,  90, 190, 106 ' 106 = 정면 보는 값
     WAIT
     mode = 0
     RETURN
@@ -291,10 +291,10 @@ Arm_motor_mode3:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  90,
-    MOVE G6C,100,  35,  90, 190, 106 ' 106 = 정면 보는 값 
+    MOVE G6C,100,  35,  90, 190, 106 ' 106 = 정면 보는 값
     WAIT
     mode = 0
-    RETURN    
+    RETURN
     '******************************************	
 기본자세:
 
@@ -314,7 +314,7 @@ Arm_motor_mode3:
     MOVE G6C,100,  30,  80, 190
     WAIT
     mode = 0
-    
+
     RETURN
     '******************************************	
 차렷자세:
@@ -340,7 +340,7 @@ Arm_motor_mode3:
     '***********************************************
     '***********************************************
     '**** 자이로감도 설정 ****
-    
+
 자이로INIT:
 
     GYRODIR G6A, 0, 0, 1, 0,0
@@ -414,9 +414,9 @@ GOSUB_RX_EXIT2:
 
 
 
-' #############################################
+    ' #############################################
 
- 
+
 공으로다가가기:
     GOSUB All_motor_mode3
     보행COUNT = 0
@@ -473,7 +473,7 @@ GOSUB_RX_EXIT2:
 
     ERX 4800,A, 공으로다가가기_4
     IF A <> A_old THEN
-    
+
 공으로다가가기_2_stop:
         MOVE G6D,93,  90, 125, 95, 104
         MOVE G6A,107,  76, 145,  91,  102
@@ -538,11 +538,11 @@ GOSUB_RX_EXIT2:
     '*********************************
 
     GOTO 공으로다가가기_1
-	
 
 
-' ##################################
-' ##################################
+
+    ' ##################################
+    ' ##################################
 
 
 
@@ -1054,8 +1054,8 @@ GOSUB_RX_EXIT2:
         넘어진확인 = 0
         GOTO RX_EXIT
     ENDIF
-    ' 보행COUNT = 보행COUNT + 1
-    ' IF 보행COUNT > 보행횟수 THEN  GOTO 후진종종걸음_골프_3_stop
+    보행COUNT = 보행COUNT + 1
+    IF 보행COUNT > 보행횟수 THEN  GOTO 후진종종걸음_골프_3_stop
 
     ERX 4800,A, 후진종종걸음_골프_4
     IF A <> A_old THEN
@@ -1095,8 +1095,8 @@ GOSUB_RX_EXIT2:
         GOTO RX_EXIT
     ENDIF
 
-    ' 보행COUNT = 보행COUNT + 1
-    'IF 보행COUNT > 보행횟수 THEN  GOTO 후진종종걸음_골프_6_stop
+    보행COUNT = 보행COUNT + 1
+    IF 보행COUNT > 보행횟수 THEN  GOTO 후진종종걸음_골프_6_stop
 
     ERX 4800,A, 후진종종걸음_골프_1
     IF A <> A_old THEN  'GOTO 후진종종걸음_멈춤
@@ -1150,7 +1150,7 @@ GOSUB_RX_EXIT2:
     GOSUB 기본자세2
 
     GOTO RX_EXIT
-    
+
     '************************************************
 
 왼쪽옆으로20_골프: '****
@@ -1761,6 +1761,16 @@ GOSUB_RX_EXIT2:
     RETURN
 
     '******************************************
+
+세레머니:
+    MOVE G6A,100, 56, 182, 76, 100, 100
+    MOVE G6D,100, 56, 182, 76, 100, 100
+    MOVE G6B,100,  100,  80,
+    MOVE G6C,100,  100,  80, 190
+    WAIT
+    mode = 2
+    RETURN
+
     '******************************************
     '******************************************
     '**************************************************
@@ -1783,11 +1793,11 @@ GOSUB_RX_EXIT2:
     GOTO RX_EXIT
 
 머리왼쪽55도:
-	SPEED 머리이동속도
-	SERVO 11, 45
-	angle_x = 45
-	GOTO RX_EXIT
-	
+    SPEED 머리이동속도
+    SERVO 11, 45
+    angle_x = 45
+    GOTO RX_EXIT
+
 머리왼쪽60도:
     SPEED 머리이동속도
     SERVO 11,40
@@ -1836,6 +1846,14 @@ GOSUB_RX_EXIT2:
     angle_x = 100
     GOTO RX_EXIT
 
+머리상하좌우정면:
+    SPEED 머리이동속도
+    SERVO 11, 100
+    SERVO 16, 100
+    angle_x = 100
+    angle_y = 100
+    GOTO RX_EXIT
+
 머리상하정면:
     SPEED 머리이동속도
     SERVO 11,100
@@ -1855,7 +1873,7 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 105
     SERVO 11, 100
-    
+
     angle_x = 100
     angle_y = 105
 
@@ -1865,7 +1883,7 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 100
     SERVO 11, 100
-    
+
     angle_x = 100
     angle_y = 100
 
@@ -1875,7 +1893,7 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 97
     SERVO 11, 100
-    
+
     angle_x = 100
     angle_y = 97
 
@@ -1884,26 +1902,26 @@ GOSUB_RX_EXIT2:
 전방하향95도:
     SPEED 머리이동속도
     SERVO 16, 95
-	SERVO 11, 100
-	
-	angle_x = 100
-	angle_y = 95
+    SERVO 11, 100
+
+    angle_x = 100
+    angle_y = 95
     GOTO RX_EXIT
     '******************************************
 전방하향90도:
     SPEED 머리이동속도
-    SERVO 16, 92
+    SERVO 16, 90
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 92
+    angle_x = 100
+    angle_y = 90
     GOTO RX_EXIT
     '******************************************
 전방하향85도:
     SPEED 머리이동속도
     SERVO 16, 85
     SERVO 11, 100
-    
+
     angle_x = 100
     angle_y = 85
 
@@ -1913,7 +1931,7 @@ GOSUB_RX_EXIT2:
     SPEED 머리이동속도
     SERVO 16, 80
     SERVO 11, 100
-    
+
     angle_x = 100
     angle_y = 80
 
@@ -1921,123 +1939,123 @@ GOSUB_RX_EXIT2:
     '******************************************
 전방하향75도:
     SPEED 머리이동속도
-    SERVO 16, 76
+    SERVO 16, 75
     SERVO 11, 100
-    
+
     angle_x = 100
-    angle_y = 76
+    angle_y = 75
 
     GOTO RX_EXIT
     '******************************************
 전방하향70도:
     SPEED 머리이동속도
-    SERVO 16, 73
+    SERVO 16, 70
     SERVO 11, 100
-    
+
     angle_x = 100
-    angle_y = 73
+    angle_y = 70
 
     GOTO RX_EXIT
     '******************************************
 전방하향65도:
     SPEED 머리이동속도
-    SERVO 16, 69
+    SERVO 16, 65
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 69
+    angle_x = 100
+    angle_y = 65
     GOTO RX_EXIT
     '******************************************
 전방하향60도:
     SPEED 머리이동속도
-    SERVO 16, 65
+    SERVO 16, 60
     SERVO 11, 100
-    
+
     angle_x = 100
-	angle_y = 65
+    angle_y = 60
     GOTO RX_EXIT
     '******************************************
 전방하향55도:
     SPEED 머리이동속도
-    SERVO 16, 59
+    SERVO 16, 55
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 59
+    angle_x = 100
+    angle_y = 55
     GOTO RX_EXIT
     '******************************************
 전방하향50도:
     SPEED 머리이동속도
-    SERVO 16, 54
+    SERVO 16, 50
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 54
+    angle_x = 100
+    angle_y = 50
     GOTO RX_EXIT
     '******************************************
 
 전방하향45도:
     SPEED 머리이동속도
-    SERVO 16, 50
+    SERVO 16, 45
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 50
+    angle_x = 100
+    angle_y = 45
     GOTO RX_EXIT
     '******************************************
 전방하향40도:
     SPEED 머리이동속도
-    SERVO 16, 45
+    SERVO 16, 40
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 45
+    angle_x = 100
+    angle_y = 40
     GOTO RX_EXIT
     '******************************************
 전방하향35도:
     SPEED 머리이동속도
-    SERVO 16, 40
+    SERVO 16, 35
     SERVO 11, 100
-    
+
     angle_x = 100
-	angle_y = 40
+    angle_y = 35
     GOTO RX_EXIT
     '******************************************
 전방하향30도:
     SPEED 머리이동속도
-    SERVO 16, 36
+    SERVO 16, 30
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 36
+    angle_x = 100
+    angle_y = 30
     GOTO RX_EXIT
     '******************************************
 전방하향25도:
     SPEED 머리이동속도
-    SERVO 16, 30
+    SERVO 16, 25
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 30
+    angle_x = 100
+    angle_y = 25
     GOTO RX_EXIT
     '******************************************
 전방하향20도:
     SPEED 머리이동속도
-    SERVO 16, 26
+    SERVO 16, 20
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 26
+    angle_x = 100
+    angle_y = 20
     GOTO RX_EXIT
     '******************************************
 전방하향18도:
 
     SPEED 머리이동속도
-    SERVO 16, 22
-	SERVO 11, 100
+    SERVO 16, 18
+    SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 22
+    angle_x = 100
+    angle_y = 18
     GOTO RX_EXIT
     '******************************************
 전방하향10도:
@@ -2046,71 +2064,134 @@ GOSUB_RX_EXIT2:
     SERVO 16, 10
     SERVO 11, 100
 
-	angle_x = 100
-	angle_y = 10
+    angle_x = 100
+    angle_y = 10
     GOTO RX_EXIT
     '******************************************
 전방하향:
-	SPEED 머리이동속도
-	angle_y = angle_y - 2
-	IF angle_y < 10 THEN
-		MUSIC "C"
-		angle_y = 10
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-	ELSE
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-		
-	ENDIF
-	GOTO RX_EXIT
-	'******************************************
+    SPEED 머리이동속도
+    angle_y = angle_y - 1
+    IF angle_y < 10 THEN
+        MUSIC "C"
+        angle_y = 10
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+    '******************************************
 전방상향:
-	SPEED 머리이동속도
-	angle_y = angle_y + 2
-	IF angle_y > 110 THEN
-		MUSIC "C"
-		angle_y = 110
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-		
-	ELSE
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-		
-	ENDIF
-	GOTO RX_EXIT
-	'******************************************
+    SPEED 머리이동속도
+    angle_y = angle_y + 1
+    IF angle_y > 110 THEN
+        MUSIC "C"
+        angle_y = 110
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+    '******************************************
 우향:
-	SPEED 머리이동속도
-	angle_x = angle_x + 2
-	IF angle_x > 190 THEN
-		MUSIC "C"	
-		angle_x = 190
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-	ELSE
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-		
-	ENDIF
-	GOTO RX_EXIT
-	'******************************************	
+    SPEED 머리이동속도
+    angle_x = angle_x + 1
+    IF angle_x > 190 THEN
+        MUSIC "C"	
+        angle_x = 190
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+    '******************************************	
 좌향:
-	SPEED 머리이동속도
-	angle_x = angle_x - 2
-	IF angle_x < 10 THEN
-		MUSIC "C"
-		angle_x = 10
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-	
-	ELSE
-		SERVO 16, angle_y
-		SERVO 11, angle_x
-	
-	ENDIF
-	GOTO RX_EXIT
+    SPEED 머리이동속도
+    angle_x = angle_x - 1
+    IF angle_x < 10 THEN
+        MUSIC "C"
+        angle_x = 10
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+    '******************************************
+전방하향3도:
+    SPEED 머리이동속도
+    angle_y = angle_y - 3
+    IF angle_y < 10 THEN
+        MUSIC "C"
+        angle_y = 10
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+    '******************************************
+전방상향3도:
+    SPEED 머리이동속도
+    angle_y = angle_y + 3
+    IF angle_y > 110 THEN
+        MUSIC "C"
+        angle_y = 110
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+    '******************************************
+우향3도:
+    SPEED 머리이동속도
+    angle_x = angle_x + 3
+    IF angle_x > 190 THEN
+        MUSIC "C"	
+        angle_x = 190
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+    '******************************************	
+좌향3도:
+    SPEED 머리이동속도
+    angle_x = angle_x - 3
+    IF angle_x < 10 THEN
+        MUSIC "C"
+        angle_x = 10
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ELSE
+        SERVO 16, angle_y
+        SERVO 11, angle_x
+
+    ENDIF
+    GOTO RX_EXIT
+
 
 
 
@@ -2295,7 +2376,7 @@ Number_Play: '  BUTTON_NO = 숫자대입
     RETURN
 
     '************************************************
-골프_왼쪽으로_샷1:
+골프_왼쪽으로_샷10:
 
     CONST 골프채높이 = 135
 
@@ -2337,6 +2418,50 @@ Number_Play: '  BUTTON_NO = 숫자대입
     RETURN
     '******************************************
 
+    '************************************************
+골프_왼쪽으로_샷5:
+
+    SPEED 8
+    MOVE G6A,97,  76, 145,  93, 100, 100
+    MOVE G6D,97,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  90,
+    MOVE G6C,150,  100,  10, 10
+    WAIT
+
+    MOVE G6C,135,  20,  90, 10
+    WAIT
+
+    DELAY 400
+
+
+    MOVE G6C,135,  40,  90, 10
+    WAIT
+
+    '**** 골프 _왼쪽으로_샷 스피드 *******
+    'HIGHSPEED SETON
+    SPEED 4
+    MOVE G6C,135,  10,  70, 10
+    WAIT
+    DELAY 1000
+    ' HIGHSPEED SETOFF
+
+    '************
+
+    SPEED 8
+    MOVE G6C,135,  100,  10, 10
+    WAIT
+
+    MOVE G6C,135,  50,  60, 190
+    WAIT
+
+    GOSUB 기본자세
+
+    RETURN
+    '******************************************
+
+
+
+
 골프_왼쪽으로_어드레스1:
     GOSUB All_motor_mode3
 
@@ -2355,7 +2480,7 @@ Number_Play: '  BUTTON_NO = 숫자대입
     '******************************************
 
     '************************************************
-골프_오른쪽으로_샷1:
+골프_오른쪽으로_샷10:
 
     SPEED 8
     MOVE G6A,97,  76, 145,  93, 100, 100
@@ -2387,6 +2512,56 @@ Number_Play: '  BUTTON_NO = 숫자대입
     '**** 골프 _오른쪽으로_샷 스피드 *******
     'HIGHSPEED SETON
     SPEED 3
+
+    MOVE G6C,140,  30,  100, 10
+    WAIT
+    DELAY 1000
+    ' HIGHSPEED SETOFF
+
+    '************
+
+    SPEED 8
+    MOVE G6C,135,  50,  60, 190
+    WAIT
+
+    GOSUB 기본자세
+
+    RETURN
+    '******************************************
+
+    '************************************************
+골프_오른쪽으로_샷5:
+
+    SPEED 8
+    MOVE G6A,97,  76, 145,  93, 100, 100
+    MOVE G6D,97,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  90,
+    MOVE G6C,100,  130,  10, 10
+    WAIT
+
+    MOVE G6C,145,  130,  10, 10
+    WAIT
+
+    MOVE G6C,145,  60,  10, 10
+    WAIT
+
+    MOVE G6C,135,  40,  30, 10
+    WAIT
+
+
+    MOVE G6C,140,  10,  80, 10
+    WAIT
+
+    DELAY 400
+
+    MOVE G6B,100,  35,  90,
+    MOVE G6C,140,  10,  70, 10
+    WAIT
+
+
+    '**** 골프 _오른쪽으로_샷 스피드 *******
+    'HIGHSPEED SETON
+    SPEED 2
 
     MOVE G6C,140,  30,  100, 10
     WAIT
@@ -2443,16 +2618,16 @@ MAIN_2:
 
     '**** 입력된 A값이 0 이면 MAIN 라벨로 가고
     '**** 1이면 KEY1 라벨, 2이면 key2로... 가는문
-    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27,KEY28,KEY29,KEY30,KEY31,KEY32,KEY33,KEY34,KEY35,KEY36,KEY37,KEY38,KEY39,KEY40,KEY41,KEY42,KEY43,KEY44,KEY45,KEY46,KEY47,KEY48,KEY49,KEY50,KEY51,KEY52,KEY53,KEY54,KEY55,KEY56,KEY57,KEY58,KEY59,KEY60,KEY61,KEY62,KEY63,KEY64,KEY65,KEY66,KEY67,KEY68,KEY69,KEY70,KEY71,KEY72,KEY73,KEY74,KEY75,KEY76,KEY77,KEY78,KEY79,KEY80,KEY81,KEY82,KEY83,KEY84,KEY85,KEY86,KEY87,KEY88,KEY89,KEY90,KEY91,KEY92,KEY93,KEY94,KEY95,KEY96,KEY97,KEY98,KEY99,KEY100,KEY101,KEY102,KEY103,KEY104,KEY105,KEY106,KEY107,KEY108,KEY109,KEY110,KEY111,KEY112,KEY113,KEY114,KEY115,KEY116,KEY117,KEY118,KEY119,KEY120,KEY121,KEY122,KEY123,KEY124,KEY125,KEY126,KEY127,KEY128,KEY129,KEY130,KEY131,KEY132,KEY133,KEY134,KEY135,KEY136,KEY137,KEY138,KEY139,KEY140,KEY141,KEY142,KEY143,KEY144,KEY145,KEY146,KEY147,KEY148,KEY149,KEY150,KEY151,KEY152,KEY153,KEY154,KEY155,KEY156,KEY157,KEY158,KEY159,KEY160,KEY161,KEY162,KEY163,KEY164,KEY165,KEY166,KEY167,KEY168,KEY169,KEY170,KEY171,KEY172,KEY173,KEY174,KEY175,KEY176,KEY177
+    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27,KEY28,KEY29,KEY30,KEY31,KEY32,KEY33,KEY34,KEY35,KEY36,KEY37,KEY38,KEY39,KEY40,KEY41,KEY42,KEY43,KEY44,KEY45,KEY46,KEY47,KEY48,KEY49,KEY50,KEY51,KEY52,KEY53,KEY54,KEY55,KEY56,KEY57,KEY58,KEY59,KEY60,KEY61,KEY62,KEY63,KEY64,KEY65,KEY66,KEY67,KEY68,KEY69,KEY70,KEY71,KEY72,KEY73,KEY74,KEY75,KEY76,KEY77,KEY78,KEY79,KEY80,KEY81,KEY82,KEY83,KEY84,KEY85,KEY86,KEY87,KEY88,KEY89,KEY90,KEY91,KEY92,KEY93,KEY94,KEY95,KEY96,KEY97,KEY98,KEY99,KEY100,KEY101,KEY102,KEY103,KEY104,KEY105,KEY106,KEY107,KEY108,KEY109,KEY110,KEY111,KEY112,KEY113,KEY114,KEY115,KEY116,KEY117,KEY118,KEY119,KEY120,KEY121,KEY122,KEY123,KEY124,KEY125,KEY126,KEY127,KEY128,KEY129,KEY130,KEY131,KEY132,KEY133,KEY134,KEY135,KEY136,KEY137,KEY138,KEY139,KEY140,KEY141,KEY142,KEY143,KEY144,KEY145,KEY146,KEY147,KEY148,KEY149,KEY150,KEY151,KEY152,KEY153,KEY154,KEY155,KEY156,KEY157,KEY158,KEY159,KEY160,KEY161,KEY162,KEY163,KEY164,KEY165,KEY166,KEY167,KEY168,KEY169,KEY170,KEY171,KEY172,KEY173,KEY174,KEY175,KEY176,KEY177,KEY178,KEY179,KEY180,KEY181,KEY182,KEY183,KEY184,KEY185,KEY186,KEY187,KEY188
 
-  '  IF A > 100 AND A < 110 THEN
-'        BUTTON_NO = A - 100
-'        GOSUB Number_Play
-'        GOSUB SOUND_PLAY_CHK
-'        GOSUB GOSUB_RX_EXIT
-'
-'
-'    ELSE
+    '  IF A > 100 AND A < 110 THEN
+    '        BUTTON_NO = A - 100
+    '        GOSUB Number_Play
+    '        GOSUB SOUND_PLAY_CHK
+    '        GOSUB GOSUB_RX_EXIT
+    '
+    '
+    '    ELSE
     IF A = 250 THEN
         GOSUB All_motor_mode3
         SPEED 4
@@ -2484,7 +2659,7 @@ KEY2:
     ETX  4800,2
 
 
-    GOSUB 골프_왼쪽으로_샷1
+    GOSUB 골프_왼쪽으로_샷10
 
 
     GOTO RX_EXIT
@@ -2506,7 +2681,7 @@ KEY4:
 KEY5:
     ETX  4800,5
 
-    GOSUB 골프_오른쪽으로_샷1
+    GOSUB 골프_오른쪽으로_샷10
 
 
 
@@ -2529,6 +2704,8 @@ KEY7:
 KEY8:
     ETX  4800,8
 
+    GOTO 세레머니
+
 
     GOTO RX_EXIT
     '***************
@@ -2539,19 +2716,19 @@ KEY9:
 
     GOTO RX_EXIT
     '***************
-'KEY10: '0
-    'ETX  4800,10 
-    '보행횟수=1 
+    'KEY10: '0
+    'ETX  4800,10
+    '보행횟수=1
     'GOTO 전진종종걸음_골프
-    'GOTO RX_EXIT 
+    'GOTO RX_EXIT
     '***************
 KEY10:
-	ETX  4800,10
-	보행횟수= 1
-	GOTO 공으로다가가기
-	GOTO RX_EXIT
-	'***************'***************'***************    
-    
+    ETX  4800,10
+    보행횟수= 1
+    GOTO 공으로다가가기
+    GOTO RX_EXIT
+    '***************'***************'***************
+
 KEY11: ' ▲
     ETX  4800,11
     GOTO 연속전진_골프
@@ -2642,9 +2819,8 @@ KEY16_1:
     '***************
 KEY17: ' C
     ETX  4800,17
-    GOTO 머리왼쪽90도
-
-
+    보행횟수=1 
+    GOTO 후진종종걸음_골프
     GOTO RX_EXIT
     '***************
 KEY18: ' E
@@ -2738,7 +2914,7 @@ KEY28: ' ◁
 KEY29: ' □
     ETX  4800,29
 
-    GOTO 전원초기자세
+    GOTO 머리상하좌우정면
 
     GOTO RX_EXIT
     '***************
@@ -2761,373 +2937,373 @@ KEY32: ' F
     '***************
 
 KEY33:
-	ETX  4800, 33
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX  4800, 33
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY34:
-	ETX  4800, 34
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX  4800, 34
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY35:
-	ETX  4800, 35
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX  4800, 35
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY36:
-	ETX  4800, 36
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX  4800, 36
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY37:
-	ETX  4800, 37
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX  4800, 37
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY38:
-	ETX  4800, 38
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX  4800, 38
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY39:
-	ETX 4800, 39
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 39
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY40:
-	ETX 4800, 40
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 40
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY41:
-	ETX 4800, 41
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 41
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY42:
-	ETX 4800, 42
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 42
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY43:
-	ETX 4800, 43
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 43
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY44:
-	ETX 4800, 44
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 44
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY45:
-	ETX 4800, 45
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 45
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY46:
-	ETX 4800, 46
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 46
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY47:
-	ETX 4800, 47
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 47
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY48:
-	ETX 4800, 48
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 48
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY49:
-	ETX 4800, 49
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 49
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY50:
-	ETX 4800, 50
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 50
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY51:
-	ETX 4800, 51
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 51
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY52:
-	ETX 4800, 52
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 52
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY53:
-	ETX 4800, 53
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 53
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY54:
-	ETX 4800, 54
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 54
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY55:
-	ETX 4800, 55
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 55
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY56:
-	ETX 4800, 56
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 56
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY57:
-	ETX 4800, 57
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 57
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY58:
-	ETX 4800, 58
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 58
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY59:
-	ETX 4800, 59
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 59
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY60:
-	ETX 4800, 60
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 60
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY61:
-	ETX 4800, 61
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 61
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY62:
-	ETX 4800, 62
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 62
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 
 KEY63:
-	ETX 4800, 63
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 63
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY64:
-	ETX 4800, 64
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 64
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY65:
-	ETX 4800, 65
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 65
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY66:
-	ETX 4800, 66
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 66
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY67:
-	ETX 4800, 67
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 67
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY68:
-	ETX 4800, 68
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 68
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY69:
-	ETX 4800, 69
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 69
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY70:
-	ETX 4800, 70
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 70
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY71:
-	ETX 4800, 71
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 71
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY72:
-	ETX 4800, 72
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 72
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY73:
-	ETX 4800, 73
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 73
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY74:
-	ETX 4800, 74
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 74
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY75:
-	ETX 4800, 75
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 75
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY76:
-	ETX 4800, 76
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 76
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY77:
-	ETX 4800, 77
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT	
+    ETX 4800, 77
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT	
 
 KEY78:
-	ETX 4800, 78
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 78
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY79:
-	ETX 4800, 79
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 79
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY80:
-	ETX 4800, 80
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 80
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY81:
-	ETX 4800, 81
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 81
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY82:
-	ETX 4800, 82
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 82
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY83:
-	ETX 4800, 83
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 83
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY84:
-	ETX 4800, 84
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 84
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY85:
-	ETX 4800, 85
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 85
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY86:
-	ETX 4800, 86
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 86
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY87:
-	ETX 4800, 87
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 87
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY88:
-	ETX 4800, 88
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 88
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY89:
-	ETX 4800, 89
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 89
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY90:
-	ETX 4800, 90
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 90
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY91:
-	ETX 4800, 91
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 91
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY92:
-	ETX 4800, 92
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 92
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY93:
-	ETX 4800, 93
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 93
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY94:
-	ETX 4800, 94
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 94
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY95:
-	ETX 4800, 95
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 95
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY96:
-	ETX 4800, 96
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 96
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY97:
-	ETX 4800, 97
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 97
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY98:
-	ETX 4800, 98
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800, 98
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY99:
-	ETX 4800, 99
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
-	
-'KEY33 ~ KEY99 까지 처음 시작할 때 어떤 자세로 할지 똑같이 넣어주기
-	
-	'************************************** 여기부터 모션 코드 시작 *******************************
-	
+    ETX 4800, 99
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
+
+    'KEY33 ~ KEY99 까지 처음 시작할 때 어떤 자세로 할지 똑같이 넣어주기
+
+    '************************************** 여기부터 모션 코드 시작 *******************************
+
 KEY100:
-	ETX 4800, 100
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
-	
-	'******** walk - FORWARD ********
+    ETX 4800, 100
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
+
+    '******** walk - FORWARD ********
 KEY101:
-	ETX 4800, 101
-	보행횟수 = 1
-	GOTO 공으로다가가기'횟수_전진종종걸음으로 바꾸면 좋을듯
-	GOTO RX_EXIT
+    ETX 4800, 101
+    보행횟수 = 1
+    GOTO 공으로다가가기'횟수_전진종종걸음으로 바꾸면 좋을듯
+    GOTO RX_EXIT
 KEY102:
-	ETX 4800, 102
-	보행횟수 = 1
-	'GOTO           
-	GOTO RX_EXIT
+    ETX 4800, 102
+    보행횟수 = 1
+    'GOTO
+    GOTO RX_EXIT
 KEY103:
-	ETX 4800,103
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
-	'******************
+    ETX 4800,103
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
+    '******************
 KEY104:
-	ETX 4800,104
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,104
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY105:
-	ETX 4800,105
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,105
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY106:
-	ETX 4800,106
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,106
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY107:
-	ETX 4800,107
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,107
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY108:
-	ETX 4800,108
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,108
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY109:
-	ETX 4800,109
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,109
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY110:
-	ETX 4800,110
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
-	'******** walk - BACKWARD ********
+    ETX 4800,110
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
+    '******** walk - BACKWARD ********
 KEY111:
-	ETX 4800, 101
-	보행횟수 = 1
-	GOTO 공으로다가가기'횟수_전진종종걸음으로 바꾸면 좋을듯
-	GOTO RX_EXIT
+    ETX 4800, 111
+    보행횟수 = 1 
+    GOTO 후진종종걸음_골프'후진으로 바꿈.
+    GOTO RX_EXIT
 KEY112:
-	ETX 4800, 102
-	보행횟수 = 1          
-	GOTO RX_EXIT
+    ETX 4800, 112
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY113:
-	ETX 4800,103
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
-	'******************
+    ETX 4800,113
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
+    '******************
 KEY114:
-	ETX 4800,114
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,114
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY115:
-	ETX 4800,115
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,115
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY116:
-	ETX 4800,116
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,116
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY117:
-	ETX 4800,117
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,117
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY118:
-	ETX 4800,118
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,118
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY119:
-	ETX 4800,119
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
+    ETX 4800,119
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
 KEY120:
-	ETX 4800,120
-	GOTO 고개중앙기본자세
-	GOTO RX_EXIT
-	'****************** set_head ******************
+    ETX 4800,120
+    GOTO 고개중앙기본자세
+    GOTO RX_EXIT
+    '****************** set_head ******************
 KEY121:
     ETX  4800,121
     GOTO 전방하향20도
@@ -3168,7 +3344,7 @@ KEY130:
     ETX  4800,130
     GOTO 전방하향110도
     GOTO RX_EXIT
-	'******************
+    '******************
 KEY131:
     ETX 4800, 131
     GOTO 머리왼쪽90도
@@ -3331,36 +3507,84 @@ KEY169:
     '*************** Putting  ***************
 KEY170:
     ETX 4800, 170
-    GOSUB 골프_오른쪽으로_샷1
+    GOTO 골프_오른쪽으로_샷10
     GOTO RX_EXIT
 KEY171:
-	ETX 4800, 171
-	GOSUB 골프_왼쪽으로_샷1
+    ETX 4800, 171
+    GOTO 골프_왼쪽으로_샷10
     GOTO RX_EXIT
     '*************** head_set more ***************
 KEY172:
-	ETX 4800, 172
-	GOTO 머리오른쪽55도
-	GOTO RX_EXIT
-	
+    ETX 4800, 172
+    GOTO 머리오른쪽55도
+    GOTO RX_EXIT
+
 KEY173:
-	ETX 4800, 173
-	GOTO 머리왼쪽55도
-	GOTO RX_EXIT
-	'*************** head_set more ***************
+    ETX 4800, 173
+    GOTO 머리왼쪽55도
+    GOTO RX_EXIT
+    '*************** head_set more 2 ***************
 KEY174:
-	ETX 4800, 174
-	GOTO 전방하향
-	GOTO RX_EXIT
+    ETX 4800, 174
+    GOTO 전방하향
+    GOTO RX_EXIT
 KEY175:
-	ETX 4800, 175
-	GOTO 전방상향
-	GOTO RX_EXIT
+    ETX 4800, 175
+    GOTO 전방상향
+    GOTO RX_EXIT
 KEY176:
-	ETX 4800, 176
-	GOTO 좌향
-	GOTO RX_EXIT
+    ETX 4800, 176
+    GOTO 좌향
+    GOTO RX_EXIT
 KEY177:
-	ETX 4800, 177
+    ETX 4800, 177
     GOTO 우향
+    GOTO RX_EXIT
+    '*************** turn more 1 ***************
+KEY178:
+    ETX 4800, 178
+    GOTO 오른쪽턴5_골프
+    GOTO RX_EXIT
+KEY179:
+    ETX 4800, 179
+    GOTO 왼쪽턴5_골프
+    GOTO RX_EXIT
+KEY180:
+    ETX 4800, 180
+    GOTO 오른쪽턴3
+    GOTO RX_EXIT
+KEY181:
+    ETX 4800, 181
+    GOTO 왼쪽턴3
+    GOTO RX_EXIT
+    '*************** head_set more 3 ***************
+KEY182:
+    ETX 4800, 182
+    GOTO 전방하향3도
+    GOTO RX_EXIT
+KEY183:
+    ETX 4800, 183
+    GOTO 전방상향3도
+    GOTO RX_EXIT
+KEY184:
+    ETX 4800, 184
+    GOTO 좌향3도
+    GOTO RX_EXIT
+KEY185:
+    ETX 4800, 185
+    GOTO 우향3도
+    GOTO RX_EXIT
+    '*************** Putting more ***************
+KEY186:
+    ETX 4800, 186
+    GOTO 골프_오른쪽으로_샷5
+    GOTO RX_EXIT
+KEY187:
+    ETX 4800, 187
+    GOTO 골프_왼쪽으로_샷5
+    GOTO RX_EXIT
+    '*************** set_head more ***************
+KEY188:
+    ETX 4800, 188
+    GOTO 전방하향50도
     GOTO RX_EXIT
