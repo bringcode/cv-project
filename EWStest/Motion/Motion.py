@@ -185,9 +185,9 @@ class Motion:
             "LEFT": {3:181, 5:179, 10: 141, 20: 142, 45: 143, 60: 144},
             "RIGHT": {3:180, 5:178, 10: 145, 20: 146, 45: 147, 60: 148},
         }
-
-        self.TX_data_py3(dir_list[dir][angle])
-        time.sleep(sleep) # 이 타임 슬립 지우면 절대 안 돼
+        for _ in range(loop):
+            self.TX_data_py3(dir_list[dir][angle])
+            time.sleep(sleep) # 이 타임 슬립 지우면 절대 안 돼
 
     # 옆으로 이동 (161~169)
     def walk_side(self, dir):
