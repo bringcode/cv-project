@@ -163,7 +163,8 @@ class GoalDetect:
                     img = self.get_dist(rect,img, 'flag', isMiddle)
                     
                     print(b_max_x, " ", b_min_x)
-                    if f_min_x <= b_min_x and b_max_x <= f_max_x and f_min_y <= b_min_y and b_max_y <= f_max_y:
+                    goal_range = 50
+                    if f_min_x - goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
                         print("Goal!")
                         is_goal = True
                         cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
