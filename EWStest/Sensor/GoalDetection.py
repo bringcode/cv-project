@@ -118,11 +118,11 @@ class GoalDetect:
             if len(cont) > 0:
                 ball_cnt = cont[0]
                 #check for contour area
-                if (cv2.contourArea(ball_cnt)>50 and cv2.contourArea(ball_cnt)<306000):
+                if (cv2.contourArea(ball_cnt)>70 and cv2.contourArea(ball_cnt)<306000):
                     
-                    print()
-                    print()
-                    print("################  ",cv2.contourArea(ball_cnt), "  ################")
+                    # print()
+                    # print()
+                    # print("################  ",cv2.contourArea(ball_cnt), "  ################")
                     
                     #Draw a rectange on the contour
                     rect = cv2.minAreaRect(ball_cnt)
