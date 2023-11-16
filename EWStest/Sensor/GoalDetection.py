@@ -167,7 +167,7 @@ class GoalDetect:
                         print("b_min_y : ", b_min_y)
                         print("b_max_y : ", b_max_y)
                         print("아래에 있어요.")
-                        if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y + goal_range <= b_min_y and b_max_y <= f_max_y:
+                        if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y:
                             print("Goal!")
                             is_goal = True
                             cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
@@ -175,7 +175,7 @@ class GoalDetect:
                     # 공이 (홀컵기준)위에 있을 때
                     else:
                         print("위에 있어요.")
-                        if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y + goal_range <= b_min_y and b_max_y <= f_max_y + goal_range:
+                        if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y - goal_range <= b_min_y and b_max_y <= f_max_y - goal_range:
                             print("Goal!")
                             is_goal = True
                             cv2.putText(img, 'Goal!', (self.img_width_middle - 200, self.img_height_middle - 200), self.font, 1, (255, 0, 0), 2, cv2.LINE_AA)
