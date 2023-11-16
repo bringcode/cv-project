@@ -161,7 +161,7 @@ class GoalDetect:
                     print(b_max_x, " ", b_min_x)
                     goal_range = 15
                     # 공이 (홀컵기준)밑에 있을 때
-                    if (f_min_y + f_max_y)/2 > (b_min_y + b_max_y)/2:
+                    if (f_min_y + f_max_y)/2 < (b_min_y + b_max_y)/2:
                         print("f_min_y : ", f_min_y)
                         print("f_max_y : ", f_max_y)
                         print("b_min_y : ", b_min_y)
