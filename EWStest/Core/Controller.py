@@ -30,7 +30,7 @@ class Act(Enum):
 class Controller:
     robo: Robo = Robo()
     # act: Act = Act.START  # 순서도 시작
-    act: Act = Act.START
+    act: Act = Act.SEARCH_FLAG
     # test START로 바꿔야함.
 
     count_putting: int = 0  # 퍼팅 횟수
