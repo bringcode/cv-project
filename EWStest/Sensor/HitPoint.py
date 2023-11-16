@@ -45,10 +45,10 @@ class HitPointer:
     def calculate_out_angle(self, x, m):
         y =  90 - np.degrees(m)
         y_rad = np.radians(y)
-        cos_z = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
-        z_rad = np.arccos(cos_z)
+        cos_p = (self.b**2 + x**2 - self.h**2) / (2*self.b*x)
+        p_rad = np.arccos(cos_p)
 
-        return y_rad+z_rad
+        return y_rad+p_rad
   
       
     # 타격지점이 삼각형 안에 있을 때
@@ -94,7 +94,7 @@ class HitPointer:
             else:
                 c = int(self.a  - self.b)
                 x=self.calculatezero_x()
-                y=self.calculatezero_z()
+                z=self.calculatezero_z()
                 angle_triangle = int(np.degrees(self.calculate_zero_angle()))
                 judge_triangle = False
         
@@ -108,7 +108,7 @@ class HitPointer:
             else:
                 c = int(self.a  - self.b)
                 x=self.calculatezero_x()
-                y=self.calculatezero_z()
+                z=self.calculatezero_z()
                 angle_triangle = int(np.degrees(self.calculate_zero_angle()))
                 judge_triangle = True                  
           
