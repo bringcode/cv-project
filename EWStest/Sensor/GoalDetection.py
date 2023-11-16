@@ -91,9 +91,12 @@ class GoalDetect:
 
             # window version
             # ball hsv
+            lower1 = np.array([0, 100, 50])
+            upper1 = np.array([10, 200, 200])
             lower = np.array([137, 0, 0])
-            upper = np.array([255, 255, 255])
+            upper = np.array([200, 255, 255])
             mask = cv2.inRange(hsv_img, lower, upper)
+            mask += cv2.inRange(hsv_img, lower1, upper1)
 
             lower_flag = np.array([0, 16, 144])
             # upper_flag = np.array([43, 184, 255])
