@@ -123,10 +123,6 @@ class GoalDetect:
                 #check for contour area
                 if (cv2.contourArea(ball_cnt)>70 and cv2.contourArea(ball_cnt)<306000):
                     
-                    # print()
-                    # print()
-                    # print("################  ",cv2.contourArea(ball_cnt), "  ################")
-                    
                     #Draw a rectange on the contour
                     rect = cv2.minAreaRect(ball_cnt)
                     box = cv2.boxPoints(rect)
@@ -166,6 +162,11 @@ class GoalDetect:
                     goal_range = 15
                     # 공이 (홀컵기준)밑에 있을 때
                     if (f_min_y + f_max_y)/2 > (b_min_y + b_max_y)/2:
+                        print("f_min_y : ", f_min_y)
+                        print("f_max_y : ", f_max_y)
+                        print("b_min_y : ", b_min_y)
+                        print("b_max_y : ", b_max_y)
+                        print("아래에 있어요.")
                         if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y + goal_range <= b_min_y and b_max_y <= f_max_y:
                             print("Goal!")
                             is_goal = True
@@ -173,7 +174,7 @@ class GoalDetect:
                             # return is_goal
                     # 공이 (홀컵기준)위에 있을 때
                     else:
-                        # 공이 위에 있을 때
+                        print("위에 있어요.")
                         if f_min_x + goal_range <= b_min_x and b_max_x <= f_max_x - goal_range and f_min_y + goal_range <= b_min_y and b_max_y <= f_max_y + goal_range:
                             print("Goal!")
                             is_goal = True
