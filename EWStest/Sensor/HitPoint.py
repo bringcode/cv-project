@@ -74,7 +74,12 @@ class HitPointer:
       
     def calculate_zero_angle(self):
         c = np.sqrt(self.h**2 + (self.a-self.b)**2)
+        #여기서 NaN값 발생하는듯. cos값이 -1부터 1까지 인데 범위를 벗어난 값이 나오는 듯함.
         cos_z = (self.b**2 + c**2 - self.h**2) / (2*self.b*c)
+        print("b : ", self.b)    #테스트
+        print("c : ", c)    #테스트
+        print("h : ", self.h)    #테스트
+        print("cos_z : ", cos_z)    #테스트
         rad_z = np.arccos(cos_z)
         
         return  np.radians(90) + rad_z
