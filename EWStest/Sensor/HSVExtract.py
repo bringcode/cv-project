@@ -3,8 +3,8 @@ import numpy as np
 
 class ColorTracker:
     def __init__(self):
-        # 카메라를 캡처하기 위한 객체 생성. 0은 기본 카메라를 의미.
-        self.cap = cv2.VideoCapture(0)
+        # 카메라를 캡처하기 위한 객체 생성. 0은 기본 카메라
+        self.cap = cv2.VideoCapture(0, cv2.CAP_V4L)
 
         # 윈도우 생성
         cv2.namedWindow("Tracking")
