@@ -3,17 +3,12 @@ import numpy as np
 
 class ColorTracker:
     def __init__(self):
-        # 카메라를 캡처하기 위한 객체 생성. 0은 기본 카메라
         self.cap = cv2.VideoCapture(0, cv2.CAP_V4L)
-
-        # 윈도우 생성
         cv2.namedWindow("Tracking")
-
-        # 트래킹 바를 생성하는 함수 호출
         self.create_trackbars()
 
     def create_trackbars(self):
-        # 각각의 HSV 색상 범위를 조정하기 위한 트래킹 바 생성
+        # 트래킹 바 생성
         # 'LH', 'LS', 'LV'는 하한(Hue, Saturation, Value)
         # 'UH', 'US', 'UV'는 상한
         cv2.createTrackbar("LH", "Tracking", 0, 255, self.nothing)
@@ -24,11 +19,44 @@ class ColorTracker:
         cv2.createTrackbar("UV", "Tracking", 255, 255, self.nothing)
 
     def nothing(self, x):
-        # 트래킹 바 콜백 함수. 실제 동작은 없지만, 트래킹 바 생성에 필요함.
+        # 트래킹 바 콜백 함수 (동작 없음)
         pass
 
+    def mouse_callback(self, event, x, y, flags, param):
+        # 마우스 이벤트 콜백 함수. 마우스 위치에 따라 HSV 값을 화면에 출력
+        if event == cv2.EVENT_MOUSEMOVE:
+            self.hsv_value = self.hsv[y, x]
+            self.mouse_x, self.mouse_y = x, y
+
+    def track(self):
+        self.hsv_value = (0, 0, 0)
+        self.mouse_x, self.mouse_y = 0, 0
+
+        while True:
+            _, frame = self.cap.read()
+            self.hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            l_b, u_b = self.get_trackbar_values()
+            mask = cv2.inRange(self.hsv, l_b, u_b)
+            res = cv2.bitwise_and(frame, frame, mask=mask)
+
+            # 마우스 위치 아래에 HSV 값을 표시
+            text = f"HSV: {self.hsv_value}"
+            cv2.putText(res, text, (self.mouse_x, self.mouse_y + 20), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+
+            cv2.imshow("Mask", mask)
+            cv2.imshow("Result", res)
+            # 'Result' 윈도우에 마우스 콜백 설정
+            cv2.setMouseCallback("Result", self.mouse_callback)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+        self.cap.release()
+        cv2.destroyAllWindows()
+
     def get_trackbar_values(self):
-        # 하한 및 상한 값을 반환
+        # 트래킹 바의 현재 값들을 반환
         lh = cv2.getTrackbarPos("LH", "Tracking")
         ls = cv2.getTrackbarPos("LS", "Tracking")
         lv = cv2.getTrackbarPos("LV", "Tracking")
@@ -36,34 +64,6 @@ class ColorTracker:
         us = cv2.getTrackbarPos("US", "Tracking")
         uv = cv2.getTrackbarPos("UV", "Tracking")
         return np.array([lh, ls, lv]), np.array([uh, us, uv])
-
-    def track(self):
-        while True:
-            _, frame = self.cap.read()
-
-            # BGR에서 HSV 색상 공간으로 변환
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
-            # 트래킹 바로부터 색상 범위를 얻어옴.
-            l_b, u_b = self.get_trackbar_values()
-
-            # 지정된 색상 범위에 있는 픽셀만을 강조하는 마스크 생성.
-            mask = cv2.inRange(hsv, l_b, u_b)
-
-            # 마스크를 적용하여 결과 이미지 생성.
-            res = cv2.bitwise_and(frame, frame, mask=mask)
-
-            cv2.imshow("Mask", mask)    # 마스크 표시
-            cv2.imshow("Result", res)   # 최종 결과 표시
-
-            # 'q' 키를 누르면 종료
-            key = cv2.waitKey(1)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                cv2.destroyAllWindows()
-                break
-
-        self.cap.release()
-        cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     tracker = ColorTracker()
